@@ -1,0 +1,21 @@
+﻿<Window 
+	x:Class="KsWare.Presentation.Themes.Aero2Fix.TestApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:testApp="clr-namespace:KsWare.Presentation.Themes.Aero2Fix.TestApp"
+    Title="MainWindow" Height="350" Width="525">
+	<ScrollViewer>
+		<StackPanel Orientation="Horizontal">
+			<testApp:AllControls></testApp:AllControls>
+			<testApp:AllControls>
+				<testApp:AllControls.Resources>
+					<ResourceDictionary>
+						<ResourceDictionary.MergedDictionaries>
+							<ResourceDictionary Source="/KsWare.Presentation.Themes.Aero2Fix;component\Resources\Aero2Fix\+Aero2FixOverride.xaml"/>
+						</ResourceDictionary.MergedDictionaries>
+					</ResourceDictionary>
+				</testApp:AllControls.Resources>
+			</testApp:AllControls>
+		</StackPanel>		
+	</ScrollViewer>
+</Window>
