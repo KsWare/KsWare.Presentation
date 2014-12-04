@@ -1,0 +1,95 @@
+﻿Testabdeckung
+Vergleich zu anderen MVVM Frameworks
+
+
+Vergleich MVVM Frameworks
+http://www.norberteder.com/ubersicht-mvvm-frameworks/
+http://stackoverflow.com/questions/5069783/which-mvvm-framework-is-the-best-framework-for-wpf-apps
+https://catelproject.atlassian.net/wiki/display/CTL/MVVM+framework+comparison+sheet
+
+
+MVVM Light Toolkit,
+http://www.mvvmlight.net/
+Caliburn.Micro, 
+http://caliburnmicro.com/
+PRISM
+http://prism.codeplex.com/
+Catel
+http://catel.codeplex.com
+Cinch (V2)
+http://cinch.codeplex.com
+Simple MVVM toolkit
+http://simplemvvmtoolkit.codeplex.com/
+WAF (WPF Application Framework)
+http://waf.codeplex.com/
+
+Platform support 
+                 WPF  Silverlight 4  Silverlight 5  Windows Phone 7  Windows Phone 8  WinRT   Available via NuGet				
+Catel            x    x              x              x                ?                ?       x
+Caliburn.Micro   x    x              x              x                ?                ?       x
+Cinch (V2)       x    x              x              x                ?                ?       x
+MVVM light       x    x              x              x                ?                ?       x
+Simple MVVM      x    x              x              x                ?                ?       x
+WAF              x    x              x              -                ?                ?       -
+
+* UI features
+MVVM specific window						
+MVVM specific user control						
+Dynamic view model injection						
+Lazy loading of view models						
+View to VM communication via attributes						
+Events when views are actually loaded
+* ViewModelBase functionality
+INotifyPropertyChanged						
+IDataErrorInfo						
+IDataWarningInfo						
+Support for canceling data						
+Support for confirming data						
+Automatic property definitions						
+Automatic model communications (mappings)
+* Generate features
+Communication with other VM via messenger						
+Communication with other VM via attributes						
+RelayCommand / DelegateCommand						
+EventToCommand trigger						
+IoC container support						
+Unity support						
+MEF support						
+Background task manager						
+ViewModelManager with live VM instances						
+Project and item templates						
+Design time example data support						
+Memento pattern
+* View model services
+IMessage(Box)Service						
+INavigationService						
+IOpenFileService						
+IPleaseWaitService						
+IProcessService						
+ISaveFileService						
+IUIVisualizerservice						
+Unit test versions of services
+
+KsWare Presentation Framework
+-----------------------------
+Beschreibung is eine Kopie von (https://mvvmframework.codeplex.com/) !=> Abändern/anpassen
+Project Description
+MVVM Framework is a set of base implementation of MVVM principles and components helping to quick and efficient develop WPF business applications.
+
+The MVVM Framework makes it easier to develop WPF applications using the Model-View-ViewModel design pattern. It covers three different layers.
+Features
+
+    Different view models
+    Amazing implementation of INotifyPropertyChanged
+    Basic view layer
+    Binding converters
+    And other useful classes, approaches and MVVM features
+
+View
+The MVVMFramework.View library contains a base implementation of Window. This realization contains basic communication with view model, such as closing Window by view model request.
+Also this library contains value converters you can use to data-binding operations.
+
+Platform support  
+	
+
+					
