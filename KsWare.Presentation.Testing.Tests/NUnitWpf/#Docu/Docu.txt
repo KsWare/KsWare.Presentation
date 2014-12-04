@@ -1,0 +1,1 @@
+﻿Für Libraries welche eine initialisierte Application voraussetzen (WPF, MVVM, speziel ViewFramework, ViewModel) muss die Testklasse von ApplicationTestFixture abgeleitet werden. Diese Klasse initialisiert for jedem Test die Application wenn erforderlich.
