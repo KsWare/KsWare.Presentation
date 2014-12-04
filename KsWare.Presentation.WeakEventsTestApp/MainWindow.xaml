@@ -1,0 +1,14 @@
+﻿<Window 
+	x:Class="KsWare.Presentation.WeakEventsTestApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:weakEventsTestApp="clr-namespace:KsWare.Presentation.WeakEventsTestApp"
+    Title="MainWindow" Height="350" Width="525"
+	DataContext="{x:Static weakEventsTestApp:MainWindowVM.Instance}"
+>
+	<x:Code><![CDATA[ public MainWindow() { InitializeComponent(); } ]]></x:Code>
+    <StackPanel >
+		<Button Command="{Binding CreateAction}" Content="Create Object"/>
+		<Button Command="{Binding DeleteAction}" Content="Delete Object"/>
+    </StackPanel>
+</Window>
