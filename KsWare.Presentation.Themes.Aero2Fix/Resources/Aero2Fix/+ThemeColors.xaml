@@ -1,0 +1,78 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	mc:Ignorable="d" 
+>
+
+	<!-- SystemColors.XXX  ==>  Aero2Fix.ThemeColors.XXX -->
+
+	<Color           x:Key="Aero2Fix.ThemeColors.ActiveBorderColor"                   >#FFB4B4B4</Color> <!-- Rahmen des aktiven Fensters.                             -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ActiveCaptionColor"                  >#FF99B4D1</Color> <!-- Hintergrund der Titelleiste des aktiven Fensters         -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ActiveCaptionTextColor"              >#FF000000</Color> <!-- Text auf der Titelleiste des aktiven Fensters            -->
+	<Color           x:Key="Aero2Fix.ThemeColors.AppWorkspaceColor"                   >#FFABABAB</Color> <!-- Anwendungsarbeitsbereich                                 -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ControlColor"                        >#FFF0F0F0</Color> <!-- Vorderseite eines dreidimensionalen Anzeigeelements      -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ControlDarkColor"                    >#FFA0A0A0</Color> <!-- Schatten eines dreidimensionalen Anzeigeelements         -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ControlDarkDarkColor"                >#FF696969</Color> <!-- dunkler Schatten eines dreidimensionalen Anzeigeelements -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ControlLightColor"                   >#FFE3E3E3</Color> <!-- heller Bereich eines dreidimensionalen Anzeigeelements   -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ControlLightLightColor"              >#FFFFFFFF</Color> <!-- Hervorhebung eines dreidimensionalen Anzeigeelements     -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ControlTextColor"                    >#FF000000</Color> <!-- Text in einem dreidimensionalen Anzeigeelements -->
+	<Color           x:Key="Aero2Fix.ThemeColors.DesktopColor"                        >#FF1F2345</Color> <!-- Desktop -->
+	<Color           x:Key="Aero2Fix.ThemeColors.GradientActiveCaptionColor"          >#FFB9D1EA</Color> <!-- rechten Seite im Farbverlauf der Titelleiste eines aktiven Fensters -->
+	<Color           x:Key="Aero2Fix.ThemeColors.GradientInactiveCaptionColor"        >#FFD7E4F2</Color> <!-- rechten Seite im Farbverlauf der Titelleiste eines inaktiven Fensters -->
+	<Color           x:Key="Aero2Fix.ThemeColors.GrayTextColor"                       >#FF6D6D6D</Color> <!-- deaktivierter Text -->
+	<Color           x:Key="Aero2Fix.ThemeColors.HighlightColor"                      >#FF3399FF</Color> <!-- Hintergrund für ausgewählte Elemente -->
+	<Color           x:Key="Aero2Fix.ThemeColors.HighlightTextColor"                  >#FFFFFFFF</Color> <!-- Text ausgewählter Elemente -->
+	<Color           x:Key="Aero2Fix.ThemeColors.HotTrackColor"                       >#FF0066CC</Color> <!-- vorselektierten Element -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InactiveBorderColor"                 >#FFF4F7FC</Color> <!-- Rahmens eines inaktiven Fensters -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InactiveCaptionColor"                >#FFBFCDDB</Color> <!-- Hintergrund der Titelleiste eines inaktiven Fensters -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InactiveCaptionTextColor"            >#FF000000</Color> <!-- Text in der Titelleiste eines inaktiven Fensters -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InactiveSelectionHighlightColor"     >#FFF0F0F0</Color> <!-- Hintergrund eines inaktiven ausgewählten Elements -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InactiveSelectionHighlightTextColor" >#FF000000</Color> <!-- Texts eines inaktiven ausgewählten Elements -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InfoColor"                           >#FFFFFFE1</Color> <!-- Hintergrund des ToolTip-Steuerelements -->
+	<Color           x:Key="Aero2Fix.ThemeColors.InfoTextColor"                       >#FF000000</Color> <!-- Text in einem ToolTip-Steuerelement -->
+	<Color           x:Key="Aero2Fix.ThemeColors.MenuBarColor"                        >#FFF0F0F0</Color> <!-- Hintergrund einer Menüleiste -->
+	<Color           x:Key="Aero2Fix.ThemeColors.MenuColor"                           >#FFF0F0F0</Color> <!-- Hintergrund eines Menüs -->
+	<Color           x:Key="Aero2Fix.ThemeColors.MenuHighlightColor"                  >#FF3399FF</Color> <!-- markiertes Menüelement -->
+	<Color           x:Key="Aero2Fix.ThemeColors.MenuTextColor"                       >#FF000000</Color> <!-- Text eines Menüs -->
+	<Color           x:Key="Aero2Fix.ThemeColors.ScrollBarColor"                      >#FFC8C8C8</Color> <!-- Hintergrund einer Schiebeleiste -->
+	<Color           x:Key="Aero2Fix.ThemeColors.WindowColor"                         >#FFFFFFFF</Color> <!-- Hintergrund des Clientbereichs eines Fensters -->
+	<Color           x:Key="Aero2Fix.ThemeColors.WindowFrameColor"                    >#FF646464</Color> <!-- Fensterrahmens -->
+	<Color           x:Key="Aero2Fix.ThemeColors.WindowTextColor"                     >#FF000000</Color> <!-- Text im Clientbereich eines Fensters -->
+	
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ActiveBorderBrush"                   Color="#FFB4B4B4"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ActiveCaptionBrush"                  Color="#FF99B4D1"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ActiveCaptionTextBrush"              Color="#FF000000"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.AppWorkspaceBrush"                   Color="#FFABABAB"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ControlBrush"                        Color="#FFF0F0F0"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ControlDarkBrush"                    Color="#FFA0A0A0"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ControlDarkDarkBrush"                Color="#FF696969"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ControlLightBrush"                   Color="#FFE3E3E3"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ControlLightLightBrush"              Color="#FFFFFFFF"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ControlTextBrush"                    Color="#FF000000"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.DesktopBrush"                        Color="#FF1F2345"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.GradientActiveCaptionBrush"          Color="#FFB9D1EA"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.GradientInactiveCaptionBrush"        Color="#FFD7E4F2"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.GrayTextBrush"                       Color="#FF6D6D6D"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.HighlightBrush"                      Color="#FF3399FF"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.HighlightTextBrush"                  Color="#FFFFFFFF"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.HotTrackBrush"                       Color="#FF0066CC"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InactiveBorderBrush"                 Color="#FFF4F7FC"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InactiveCaptionBrush"                Color="#FFBFCDDB"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InactiveCaptionTextBrush"            Color="#FF000000"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InactiveSelectionHighlightBrush"     Color="#FFF0F0F0"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InactiveSelectionHighlightTextBrush" Color="#FF000000"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InfoBrush"                           Color="#FFFFFFE1"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.InfoTextBrush"                       Color="#FF000000"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.MenuBarBrush"                        Color="#FFF0F0F0"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.MenuBrush"                           Color="#FFF0F0F0"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.MenuHighlightBrush"                  Color="#FF3399FF"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.MenuTextBrush"                       Color="#FF000000"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.ScrollBarBrush"                      Color="#FFC8C8C8"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.WindowBrush"                         Color="#FFFFFFFF"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.WindowFrameBrush"                    Color="#FF646464"/>
+	<SolidColorBrush x:Key="Aero2Fix.ThemeColors.WindowTextBrush"                     Color="#FF000000"/>
+	
+	
+</ResourceDictionary>

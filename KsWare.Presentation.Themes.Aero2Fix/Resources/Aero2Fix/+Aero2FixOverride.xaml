@@ -1,0 +1,36 @@
+﻿<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	
+	>
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/KsWare.Presentation.Themes.Aero2Fix;component\Resources\Aero2Fix\+Aero2Fix.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="Button"       BasedOn="{StaticResource Aero2Fix.ButtonStyle}"/>
+	<Style TargetType="RepeatButton" BasedOn="{StaticResource Aero2Fix.RepeatButtonStyle}"/>
+	<Style TargetType="CheckBox"     BasedOn="{StaticResource Aero2Fix.CheckBoxStyle}"/>
+	<Style TargetType="ComboBoxItem" BasedOn="{StaticResource Aero2Fix.ComboBoxItemStyle}" />
+	<Style TargetType="ComboBox"     BasedOn="{StaticResource Aero2Fix.ComboBoxStyle}" />
+	<Style TargetType="DatePicker"   BasedOn="{StaticResource Aero2Fix.DatePickerStyle}" />
+	<Style TargetType="DataGrid"     BasedOn="{StaticResource Aero2Fix.DataGridStyle}" />
+	<Style TargetType="Expander"     BasedOn="{StaticResource Aero2Fix.ExpanderStyle}" />
+	<Style TargetType="GridSplitter" BasedOn="{StaticResource Aero2Fix.GridSplitterStyle}" />
+	<Style TargetType="GroupBox"     BasedOn="{StaticResource Aero2Fix.GroupBoxStyle}" />
+	<Style TargetType="ListBoxItem"  BasedOn="{StaticResource Aero2Fix.ListBoxItemStyle}" />
+	<Style TargetType="ListBox"      BasedOn="{StaticResource Aero2Fix.ListBoxStyle}" />
+	<Style TargetType="ListView"     BasedOn="{StaticResource Aero2Fix.ListViewStyle}" />
+	<Style TargetType="MenuItem"     BasedOn="{StaticResource Aero2Fix.MenuItemStyle}" />
+	<Style TargetType="Menu"         BasedOn="{StaticResource Aero2Fix.MenuStyle}" />
+	<Style TargetType="PasswordBox"  BasedOn="{StaticResource Aero2Fix.PasswordBoxStyle}" />
+	<Style TargetType="ProgressBar"  BasedOn="{StaticResource Aero2Fix.ProgressBarStyle}" />
+	<Style TargetType="RadioButton"  BasedOn="{StaticResource Aero2Fix.RadioButtonStyle}" />
+	<Style TargetType="ScrollBar"    BasedOn="{StaticResource Aero2Fix.ScrollBarStyle}" />
+	<Style TargetType="Separator"    BasedOn="{StaticResource Aero2Fix.SeparatorStyle}" />
+	<Style TargetType="Slider"       BasedOn="{StaticResource Aero2Fix.SliderStyle}" />
+	<Style TargetType="TabControl"   BasedOn="{StaticResource Aero2Fix.TabControlStyle}" />
+	<Style TargetType="TabItem"      BasedOn="{StaticResource Aero2Fix.TabItemStyle}" />
+	<Style TargetType="TextBox"      BasedOn="{StaticResource Aero2Fix.TextBoxStyle}" />
+	<Style TargetType="TreeViewItem" BasedOn="{StaticResource Aero2Fix.TreeViewItemStyle}" />
+	<Style TargetType="TreeView"     BasedOn="{StaticResource Aero2Fix.TreeViewStyle}" />
+</ResourceDictionary>
