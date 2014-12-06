@@ -1,2 +1,0 @@
-﻿Adapted from AttachedCommandBehavior V2
-http://marlongrech.wordpress.com/2008/12/13/attachedcommandbehavior-v2-aka-acb/

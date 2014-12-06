@@ -1,2 +1,0 @@
-﻿CanExecuteEventArgs namespace moved
-ExecuteEventArgs namespace moved
