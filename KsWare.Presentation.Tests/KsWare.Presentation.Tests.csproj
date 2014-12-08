@@ -139,6 +139,10 @@
       <Project>{48bd0342-2458-44f5-a3bb-1405a56efaf4}</Project>
       <Name>KsWare.Presentation.Testing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation\KsWare.Presentation.csproj">
+      <Project>{193c2dd2-c3e6-4188-8691-f9de9bd38894}</Project>
+      <Name>KsWare.Presentation</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
