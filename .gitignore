@@ -190,3 +190,12 @@ ModelManifest.xml
 
 # manually added
 @REPOSITORY=KsWare.VisualStudio.com.KsWare.Presentation
+/KsWare.Presentation.Tests/KsWare.Presentation.Test.csproj.DotSettings
+/KsWare.Presentation.Tests/KsWare.Presentation.Tests.csproj.DotSettings
+/KsWare.Presentation.Tests/KsWare.Presentation.Tests.csproj.GhostDoc.xml
+/KsWare.Presentation.Tests/KsWare.Presentation.Tests.sln.GhostDoc.xml
+/KsWare.Presentation.Themes/KsWare.Presentation.Themes.csproj.GhostDoc.xml
+/KsWare.Presentation.Themes/KsWare.Presentation.Themes.sln.GhostDoc.xml
+/KsWare.JsonFx.Tests/desktop.ini
+/KsWare.Presentation/desktop.ini
+/KsWare.JsonFx/desktop.ini
