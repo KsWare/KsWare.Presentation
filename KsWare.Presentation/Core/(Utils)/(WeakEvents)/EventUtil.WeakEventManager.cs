@@ -91,7 +91,7 @@ namespace KsWare.Presentation {
 			/// <param name="source"></param>
 			/// <param name="eventName"></param>
 			/// <returns></returns>
-			public static IWeakEventHandle RegisterAsDisposable(Delegate handler, object source, string eventName) {
+			public static IWeakEventHandle RegisterWeak(Delegate handler, object source, string eventName) {
 				CollectIfRequired();
 
 				RegisteredWeakEvent handle;

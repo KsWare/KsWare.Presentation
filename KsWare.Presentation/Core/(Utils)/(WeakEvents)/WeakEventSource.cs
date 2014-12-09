@@ -67,12 +67,12 @@ namespace KsWare.Presentation {
 			/// <remarks>You have to store the return value until you want to receive events.</remarks>
 			public IWeakEventHandle RegisterWeak(TEvent handler) {
 				var h = (Delegate) (object) handler;
-				return EventUtil.WeakEventManager.RegisterAsDisposable(h,m_WeakSource.Target,m_EventName);
+				return EventUtil.WeakEventManager.RegisterWeak(h,m_WeakSource.Target,m_EventName);
 			}
 
 			public IWeakEventHandle RegisterAsDisposable<TEventArgs>(EventHandler<TEventArgs> handler) where TEventArgs:EventArgs {
 				var h = (Delegate) (object) handler;
-				return EventUtil.WeakEventManager.RegisterAsDisposable(h,m_WeakSource.Target,m_EventName);
+				return EventUtil.WeakEventManager.RegisterWeak(h,m_WeakSource.Target,m_EventName);
 			}
 
 			public void Release(object destination, string uniqueId) {
