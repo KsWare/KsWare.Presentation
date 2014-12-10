@@ -94,9 +94,13 @@ namespace KsWare.Presentation {
 			public static IWeakEventHandle RegisterWeak(Delegate handler, object source, string eventName) {
 				CollectIfRequired();
 
+				// to avoid unnecessary type checking and casting at runtime in the whole process of raising events
+				// we do this only one time to create specialized classes which contains the well known delegate types in compiletime
 				RegisteredWeakEvent handle;
 				if(handler is EventHandler<TreeChangedEventArgs>)
 					handle = new RegisteredWeakEvent1TreeChangedEvent(null, (EventHandler<TreeChangedEventArgs>)handler, null, source, eventName);
+				else if(handler is EventHandler<ValueChangedEventArgs>)
+					handle = new RegisteredWeakEvent1ValueChangedEvent(null, (EventHandler<ValueChangedEventArgs>)handler, null, source, eventName);
 				else 
 					handle = new RegisteredWeakEvent(null, handler, null, source, eventName);
 				lock(s_WeakEvents) s_WeakEvents.Add(new Container(handle,false));

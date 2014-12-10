@@ -1,4 +1,10 @@
-﻿using System;
+﻿
+#if(STATISTICS)
+	#define IncludeRegisteredWeakEventStatistics
+#endif
+//#define IncludeRegisteredWeakEventStatistics
+
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Threading;
@@ -13,44 +19,43 @@ namespace KsWare.Presentation {
 
 		partial class WeakEventManager {
 
-			private class RegisteredWeakEvent:IWeakEventHandle,IDisposable {
-				//With simple words: this class is an wrapper for a Delegate
-
-//				internal static long StatisticsːNumberOfCreatedInstances;//StatisticsːMethodInvocationːConstructorːCount
-//				internal static long StatisticsːNumberOfInstances;
-//				internal static long StatisticsːMethodInvocationːDestructorːCount;
-//				internal static long StatisticsːRaiseːInvocationCount;
+			private class RegisteredWeakEvent:IWeakEventHandle {
+				
+				#if(IncludeRegisteredWeakEventStatistics)
+				internal static long StatisticsːNumberOfCreatedInstances;//StatisticsːMethodInvocationːConstructorːCount
+				internal static long StatisticsːNumberOfInstances;
+				internal static long StatisticsːMethodInvocationːDestructorːCount;
+				internal static long StatisticsːRaiseːInvocationCount;
+				#endif
 
 				private WeakReference m_WeakDestination;
 				private Delegate m_Handler;
 				private string m_DestinationUid;
 				private WeakReference m_WeakSource;
 				private string m_EventName;
-//				private Delegate m_HandlerKeepGC;
 				private int m_IsDisposed;
 				private string m_DebugString;
-				private WeakReference m_DelegateTarget;
-				private MethodInfo m_DelegateMethod;
 				private HandlerType m_HandlerType;
-				private Type m_HandlerTypeGenericArgumentType;
 
 //				public RegisteredWeakEvent(Expression<Action<object, EventArgs>> expression) {} 
 //				public RegisteredWeakEvent(EventHandler expression) {} 
 
 				public RegisteredWeakEvent(object destination, Delegate handler, string destinationUid, object source, string eventName)
 					: this(false, destination, handler, destinationUid, source, eventName) {
-					
 				}
 
 				public RegisteredWeakEvent(bool overidden, object destination, Delegate handler, string destinationUid, object source, string eventName) {
-//					Interlocked.Increment(ref StatisticsːNumberOfCreatedInstances);
-//					Interlocked.Increment(ref StatisticsːNumberOfInstances);
+					
+					#if(IncludeRegisteredWeakEventStatistics)
+					Interlocked.Increment(ref StatisticsːNumberOfCreatedInstances);
+					Interlocked.Increment(ref StatisticsːNumberOfInstances);
+					#endif
 
 					if (!overidden) {
 						if(handler==null) throw new ArgumentNullException("handler");
 					}
 					
-#if(false)
+#if(false) // reflection stuff
 					if(handler.Target==null) throw new NotImplementedException("handler.Target is null");
 					// handler.Target is null for lambdas, at present we do not support this
 
@@ -88,8 +93,8 @@ namespace KsWare.Presentation {
 					if(m_Handler is System.EventHandler<ValueSettingsChangedEventArgs   >) return HandlerType.SystemEventHandler1ValueSettingsChangedEventArgs;
 					if(m_Handler is System.EventHandler<UserFeedbackEventArgs           >) return HandlerType.SystemEventHandler1UserFeedbackEventArgs;
 					if(m_Handler is System.EventHandler<BusinessPropertyChangedEventArgs>) return HandlerType.SystemEventHandler1BusinessPropertyChangedEventArgs;
-					if(m_Handler is System.EventHandler<TreeChangedEventArgs            >) return HandlerType.SystemEventHandler1TreeChangedEventArgs;
-					if(m_Handler is System.EventHandler<ValueChangedEventArgs           >) return HandlerType.SystemEventHandler1ValueChangedEventArgs;
+//	class			if(m_Handler is System.EventHandler<TreeChangedEventArgs            >) return HandlerType.SystemEventHandler1TreeChangedEventArgs;
+//	class			if(m_Handler is System.EventHandler<ValueChangedEventArgs           >) return HandlerType.SystemEventHandler1ValueChangedEventArgs;
 					if(m_Handler is System.EventHandler<PropertyChangedEventArgs        >) return HandlerType.SystemEventHandler1PropertyChangedEventArgs;
 				
 					var t = m_Handler.GetType();
@@ -99,25 +104,34 @@ namespace KsWare.Presentation {
 						if (!p[0].IsGenericType) {
 							// sample: EventHandler<OtherEventArgs>
 							
-						} else if (p[0].GetGenericTypeDefinition() == typeof (ValueChangedEventArgs<>)) { //TODO speedup
-							// sample: EventHandler<ValueChangedEventArgs<Int32>>
-							var pP0 = t.GetGenericArguments();
-							m_HandlerTypeGenericArgumentType = pP0[0];
-							return HandlerType.SystemEventHandler1ValueChangedEventArgs1;
-						}
+						} 
+// TODO SystemEventHandler1ValueChangedEventArgs1
+//						else if (p[0].GetGenericTypeDefinition() == typeof (ValueChangedEventArgs<>)) { //TODO speedup
+//							// sample: EventHandler<ValueChangedEventArgs<Int32>>
+//							var pP0 = t.GetGenericArguments();
+//							m_HandlerTypeGenericArgumentType = pP0[0];
+//							return HandlerType.SystemEventHandler1ValueChangedEventArgs1;
+//						}
 					}
 
 					return HandlerType.Unknown;
 				}
 
+				#if(IncludeRegisteredWeakEventStatistics)
 				~RegisteredWeakEvent() {
-//					Interlocked.Increment(ref StatisticsːMethodInvocationːDestructorːCount);
-//					Interlocked.Decrement(ref StatisticsːNumberOfInstances);
+					Interlocked.Increment(ref StatisticsːMethodInvocationːDestructorːCount);
+					Interlocked.Decrement(ref StatisticsːNumberOfInstances);
 				}
+				#endif
 
-				void IDisposable.Dispose() {Dispose(true);GC.SuppressFinalize(this);}
+				void IDisposable.Dispose() { Release(); }
 
-				public void Release() {Dispose(true);GC.SuppressFinalize(this);}
+				public void Release() {
+					Dispose(true);
+					#if(!IncludeRegisteredWeakEventStatistics) //only for statistics we requiere the finalizer
+					GC.SuppressFinalize(this);
+					#endif
+				}
 
 				private void Dispose(bool explicitDispose) {
 					if (explicitDispose) {
@@ -178,7 +192,7 @@ namespace KsWare.Presentation {
 				/// <param name="args">The arguments.</param>
 				public virtual void Raise(object[] args) {
 
-#if(false)
+#if(false) // reflection stuff
 					if (m_DelegateMethod != null) {
 						var target=m_DelegateTarget.Target;
 						if(target==null) {Release(); return;}
@@ -220,12 +234,12 @@ namespace KsWare.Presentation {
 						case HandlerType.SystemEventHandler1BusinessPropertyChangedEventArgs: 
 							((System.EventHandler<BusinessPropertyChangedEventArgs>) handler)(args[0], (BusinessPropertyChangedEventArgs) args[1]); 
 							break;
-//						case HandlerType.SystemEventHandler1TreeChangedEventArgs: 
+// class available:		case HandlerType.SystemEventHandler1TreeChangedEventArgs: 
 //							((System.EventHandler<TreeChangedEventArgs>) handler)(args[0], (TreeChangedEventArgs) args[1]); 
 //							break;
-						case HandlerType.SystemEventHandler1ValueChangedEventArgs: 
-							((System.EventHandler<ValueChangedEventArgs>) handler)(args[0], (ValueChangedEventArgs) args[1]); 
-							break;
+//	class available:	case HandlerType.SystemEventHandler1ValueChangedEventArgs: 
+//							((System.EventHandler<ValueChangedEventArgs>) handler)(args[0], (ValueChangedEventArgs) args[1]); 
+//							break;
 						default:
 							handler.Method.Invoke(handler.Target, args);
 							break;
@@ -234,6 +248,8 @@ namespace KsWare.Presentation {
 				}
 
 			}
+
+			#region specialized RegisteredWeakEvent classes
 			
 			private class RegisteredWeakEvent1TreeChangedEvent : RegisteredWeakEvent {
 
@@ -252,6 +268,25 @@ namespace KsWare.Presentation {
 
 			}
 
+			private class RegisteredWeakEvent1ValueChangedEvent : RegisteredWeakEvent {
+
+				private System.EventHandler<ValueChangedEventArgs> m_Handler;
+
+				public RegisteredWeakEvent1ValueChangedEvent(object destination, System.EventHandler<ValueChangedEventArgs> handler, string destinationUid, object source, string eventName)
+					: base(true, destination, null, destinationUid, source, eventName) {
+					m_Handler = handler;
+				}
+
+				public Delegate Handler { get { return m_Handler; } }
+
+				public override void Raise(object[] args) {
+					m_Handler(args[0], (ValueChangedEventArgs) args[1]); 
+				}
+
+			}
+
+			#endregion
+
 			public enum HandlerType {
 				None,
 				Unknown=None,
@@ -263,8 +298,8 @@ namespace KsWare.Presentation {
 				SystemEventHandler1ValueSettingsChangedEventArgs,
 				SystemEventHandler1UserFeedbackEventArgs,
 				SystemEventHandler1BusinessPropertyChangedEventArgs,
-				SystemEventHandler1TreeChangedEventArgs,
-				SystemEventHandler1ValueChangedEventArgs,
+//				SystemEventHandler1TreeChangedEventArgs,				// implemented as class
+//				SystemEventHandler1ValueChangedEventArgs,				// implemented as class
 				SystemEventHandler1ValueChangedEventArgs1
 			}
 		}

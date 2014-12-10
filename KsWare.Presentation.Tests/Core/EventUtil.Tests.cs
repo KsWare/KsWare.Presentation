@@ -122,6 +122,104 @@ namespace KsWare.Presentation.Tests.Core {
 			return duration;
 		}
 
+		[TestMethod]
+		public void Raise() {
+			var c=new EventUtilRaiseTestClass();
+			c.RaiseEventHandlerEvent();	
+			c.RaiseEventHandler1EventArgsEvent();
+			c.RaiseEventHandler1ValueChangedEventArgsEvent();
+			c.RaiseCustomEventHandler();
+		}
+
+		[TestMethod]
+		public void Raise_PerformanceTest() {
+			var c=new EventUtilRaiseTestClass();
+			for (int i = 0; i < 1000000; i++) {
+				c.RaiseEventHandlerEventDirect();
+				c.RaiseEventHandlerEvent();
+				c.RaiseEventHandler1EventArgsEvent();
+				c.RaiseEventHandler1ValueChangedEventArgsEvent();
+				c.RaiseCustomEventHandler();
+			}
+		}
+
+		[TestMethod]
+		public void RaiseEventHandlerEventDirect() {
+			var c=new EventUtilRaiseTestClass();
+			for (int i = 0; i < 1000000; i++)c.RaiseEventHandlerEventDirect();	
+		}
+
+		[TestMethod]
+		public void RaiseEventHandlerEvent() {
+			var c=new EventUtilRaiseTestClass();
+			for (int i = 0; i < 1000000; i++) c.RaiseEventHandlerEvent();	
+		}
+
+		[TestMethod]
+		public void RaiseEventHandler1EventArgsEvent() {
+			var c=new EventUtilRaiseTestClass();
+			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1EventArgsEvent();
+		}
+
+		[TestMethod]
+		public void RaiseEventHandler1ValueChangedEventArgsEvent() {
+			var c=new EventUtilRaiseTestClass();
+			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1ValueChangedEventArgsEvent();
+		}
+
+		[TestMethod]
+		public void RaiseCustomEventHandler() {
+			var c=new EventUtilRaiseTestClass();
+			for (int i = 0; i < 1000000; i++) c.RaiseCustomEventHandler();
+		}
+
+		private class EventUtilRaiseTestClass {
+			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(1,2);
+			public int EventCount;
+
+			public EventUtilRaiseTestClass() {
+				EventHandlerEvent+=OnEventHandlerEvent;
+				EventHandler1EventArgsEvent+=OnEventHandler1EventArgsEvent;
+				EventHandler1ValueChangedEventArgsEvent+=OnEventHandler1ValueChangedEventArgsEvent;
+				CustomEventHandlerEvent+=OnCustomEventHandlerEvent;
+			}
+
+			private void OnCustomEventHandlerEvent(object sender, EventArgs args) { EventCount++; }
+
+			private void OnEventHandler1ValueChangedEventArgsEvent(object sender, ValueChangedEventArgs valueChangedEventArgs) { EventCount++; }
+			private void OnEventHandler1EventArgsEvent(object sender, EventArgs eventArgs) { EventCount++; }
+			private void OnEventHandlerEvent(object sender, EventArgs eventArgs) { EventCount++; }
+
+			public event EventHandler EventHandlerEvent;
+			public event EventHandler<EventArgs> EventHandler1EventArgsEvent;
+			public event EventHandler<ValueChangedEventArgs> EventHandler1ValueChangedEventArgsEvent;
+			public event CustomEventHandler CustomEventHandlerEvent;
+
+			public void RaiseEventHandlerEventDirect() {
+				EventHandlerEvent(this, EventArgs.Empty);
+			}
+
+			public void RaiseEventHandlerEvent() {
+				EventUtil.Raise(EventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+
+			public void RaiseEventHandler1EventArgsEvent() {
+				EventUtil.Raise(EventHandler1EventArgsEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+			public void RaiseEventHandler1ValueChangedEventArgsEvent() {
+				EventUtil.Raise(EventHandler1ValueChangedEventArgsEvent,this,DefaultValueChangedEventArgs,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+
+			public void RaiseCustomEventHandler() {
+				EventUtil.Raise(CustomEventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+
+			public delegate void CustomEventHandler(object sender, EventArgs args);
+
+			public delegate void UnsupportedEventHandler(object sender, EventArgs args, string unsupportedParameter);
+
+		}
+
 	}
 	// ReSharper restore InconsistentNaming
 }
