@@ -17,6 +17,12 @@ namespace KsWare.Presentation.Tests.Core {
 	[TestClass]//[TestSubject(typeof(EventUtil))]
 	public class EventUtilTests {
 
+		// PerformanceTest results (1mio calls)
+		// delegate direct					  7ms
+		// Raise with optimized delegate	 70ms
+		// Raise with unknwon delegate		400ms
+		// RaiseDynamic						700ms
+
 		/// <summary> Setup this instance.
 		/// </summary>
 		[TestInitialize]
@@ -45,8 +51,7 @@ namespace KsWare.Presentation.Tests.Core {
 		private void DoNothingEventHandlerDispatcherEventArgs(object sender, DispatcherEventArgs e) {  }
 
 
-		[TestMethod]
-		public void Invoke1() {
+		public void MeasureSomeInvokationMethods() {
 			var max = 10000000;
 			var sender=new object();
 			var eargs = EventArgs.Empty;
@@ -105,15 +110,6 @@ namespace KsWare.Presentation.Tests.Core {
 
 		}
 
-		[TestMethod,Ignore,Obsolete("Only for debug.")]
-		public void DelegateCasting() {
-			TestEvent2+=DoNothingEventHandlerDispatcherEventArgs;
-			var d = TestEvent2.GetInvocationList()[0];
-//			var e = (EventHandler<DispatcherEventArgs>) d;
-			var e = (EventHandler) d;
-			e(null, null);
-		}
-
 		private double Meassure(string description, Action action) {
 			Stopwatch sw = Stopwatch.StartNew();
 			action();
@@ -144,33 +140,34 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		[TestMethod]
-		public void RaiseːEventHandlerEventDirectˑTest() {
+		public void RaiseːEventHandlerEventDirectˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++)c.RaiseEventHandlerEventDirect();	
 		}
 
 		[TestMethod]
-		public void RaiseːEventHandlerEventˑTest() {
+		public void RaiseːEventHandlerEventˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandlerEvent();	
 		}
 
 		[TestMethod]
-		public void RaiseːEventHandler1EventArgsEventˑTest() {
+		public void RaiseːEventHandler1EventArgsEventˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1EventArgsEvent();
 		}
 
 		[TestMethod]
-		public void RaiseːEventHandler1ValueChangedEventArgsEventˑTest() {
+		public void RaiseːEventHandler1ValueChangedEventArgsEventˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1ValueChangedEventArgsEvent();
 		}
 
 		[TestMethod]
-		public void RaiseːCustomEventHandlerˑTest() {
+		public void RaiseːCustomEventHandlerˑPerformanceTest() {
+			// test for a not optimized delegate
 			var c=new EventUtilˑRaiseˑTestClass();
-			c.RaiseCustomEventHandler();
+			for (int i = 0; i < 1000000; i++) c.RaiseCustomEventHandler();
 		}
 
 		[TestMethod]
@@ -196,9 +193,9 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		[TestMethod]
-		public void RaiseDynamicˑCustomEventHandlerˑTest() {
+		public void RaiseDynamicˑCustomEventHandlerˑPerformanceTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
-			c.RaiseːCustomEventHandlerEvent();				
+			for (int i = 0; i < 1000000; i++) c.RaiseːCustomEventHandlerEvent();				
 		}
 
 		[TestMethod]
@@ -228,6 +225,9 @@ namespace KsWare.Presentation.Tests.Core {
 				EventHandler1ValueChangedEventArgsEvent+=OnEventHandler1ValueChangedEventArgsEvent;
 				CustomEventHandlerEvent+=OnCustomEventHandlerEvent;
 				TargetInvocationExceptionEvent+=OnTargetInvocationExceptionEvent;
+
+				//force ApplicationDispatcher is initialized (for perfoamce test, we do not need measure initialization time)
+				var dummy = ApplicationDispatcher.IsInvokeRequired;
 			}
 
 			private void OnTargetInvocationExceptionEvent(object sender, EventArgs eventArgs) { throw new Exception("TestCase"); }
@@ -276,6 +276,8 @@ namespace KsWare.Presentation.Tests.Core {
 				CustomEventHandlerEvent+=OnCustomEventHandlerEvent;
 				DoubleNestedEventHandlerEvent+=OnDoubleNestedEventHandlerEvent;
 				ExceptionEvent+=OnExceptionEvent;
+				//force ApplicationDispatcher is initialized (for perfoamce test, we do not need measure initialization time)
+				var dummy = ApplicationDispatcher.IsInvokeRequired;
 			}
 
 			private void OnExceptionEvent(object sender, EventArgs eventArgs) { throw new Exception("TestCase"); }
