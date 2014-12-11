@@ -48,7 +48,8 @@ namespace KsWare.Presentation {
 #endif
 			#endregion
 
-			var exceptions=new List<TargetInvocationException>();
+//			var exceptions=new List<Exception>();
+			var exceptions=(List<Exception>)null;//don't collect, do throw directly
 			var invocationList = @delegate.GetInvocationList();
 
 			#region Trace (conditional)
@@ -95,7 +96,7 @@ namespace KsWare.Presentation {
 				else Invoke(d, sender, e, exceptions);
 			}
 
-			if(exceptions.Count>0) {
+			if(exceptions!=null && exceptions.Count>0) {
 				var ex = new MultiTargetInvocationException(exceptions);
 				#region DESIGNER
 				if (ObjectVM.IsInDesignMode) {
@@ -114,7 +115,7 @@ namespace KsWare.Presentation {
 			}
 		}
 
-		private static void InvokeAppDispatcher(Delegate d, object sender, EventArgs e, List<TargetInvocationException> exceptions) {
+		private static void InvokeAppDispatcher(Delegate d, object sender, EventArgs e, List<Exception> exceptions) {
 			ApplicationDispatcher.Invoke(() => Invoke(d,sender,e,exceptions));
 		}
 
@@ -123,14 +124,16 @@ namespace KsWare.Presentation {
 		/// <param name="d">The event handler delegate</param>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-		/// <param name="exceptions">The collection to save exceptions.</param>
-		private static void Invoke(Delegate d, object sender, EventArgs e, List<TargetInvocationException> exceptions) {
+		/// <param name="exceptions">The list to collect exceptions or <c>null</c> to throw exceptions</param>
+		private static void Invoke(Delegate d, object sender, EventArgs e, List<Exception> exceptions) {
+
 			try {
 				// A) very slow
 //				d.DynamicInvoke(sender, e);
 
 				// B) this works because we split the multicast delegate, but is allways slow
 //				d.Method.Invoke(d.Target, new [] {sender, e});
+
 
 				// C) try to cast to the original delegate is faster as A) and)
 				// here we should implement the mostly called delegates in descent order
@@ -157,16 +160,13 @@ namespace KsWare.Presentation {
 					return;
 				}
 
-
-				// Resharper: Expression is allways null
-				var d2 = d as System.EventHandler; 
+				var d2 = d as System.EventHandler;
 				if (d2 != null) {
 					d2(sender, e);
 					//Console.WriteLine("EventHandler");
 					return;
 				}
 
-				// Resharper: Expression is allways null
 				var d8 = d as System.EventHandler<ValueChangedEventArgs<KsWare.Presentation.Core.Providers.IDataProvider>>;
 				if (d8 != null) {
 					d8(sender, (ValueChangedEventArgs<KsWare.Presentation.Core.Providers.IDataProvider>) e);
@@ -174,7 +174,6 @@ namespace KsWare.Presentation {
 					return;
 				}
 
-				// Resharper: Expression is allways null
 //				var d9 = d as System.EventHandler<NotifyCollectionChangedEventArgs>;
 				var d9 = d as NotifyCollectionChangedEventHandler;
 				if (d9 != null) {
@@ -183,61 +182,29 @@ namespace KsWare.Presentation {
 					return;
 				}
 
-				//Console.WriteLine(e.ToString());
-
-				d.Method.Invoke(d.Target, new[] {sender, e}); //fallback
-
-			}
-			catch (TargetInvocationException ex) {
-				exceptions.Add(ex);
-//				Trace.WriteLine("=>Start:" + invocationCount + "######################################################################################################################################");
-//				Trace.WriteLine("=>" + ex.InnerException);
-//				Trace.WriteLine("=>Stop :" + invocationCount + "######################################################################################################################################");
-
-//				var innerEx = ex.InnerException;
-//					Log.AddInternal(1,"ERROR","Invoke event method failed!",innerEx,uniqueId,
-//					new LP("EventHandler",d.Method.DeclaringType.FullName+" "+d.Method.ToString())
-//				);
-				var typeFullName = d.Method.DeclaringType != null ? d.Method.DeclaringType.FullName : "{unknown type}";
-				var methodName = d.Method.ToString();
-				Debug.WriteLine("ERROR: Unhandled exception in " + methodName + " in " + typeFullName + 
-					"\n\t"+"ErrorID:"+"{7BD9F322-749C-4BB5-AE4C-67E38BD5CB3D}" +
-					"\r\n" +
-					ex.StackTrace[0]
-				);
 			}
 			catch (Exception ex) {
-				/* Should not occur */
-				Debugger.Break();
-				throw new NotImplementedException("{F12A1016-F2AB-4939-8BB9-4B833AD4F5C2}");
+				OnException(ex);
+				if (exceptions == null) throw;
+				exceptions.Add(ex);
+				return;
 			}
-		}
 
-
-//NOT USED
-//		/// <summary> Helps to safely raise an event.
-//		/// </summary>
-//		/// <param name="delegate">The event delegate (<see cref="Action"/>, <see cref="ThreadStart"/>) </param>
-//		/// <param name="uniqueId">A unique ID</param>
-//		[SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
-//		public static void Raise(Delegate @delegate, string uniqueId) {
-//			if(@delegate==null) {
-//				return;
-//			} else {
-//				Exception rethrow=null;
-//				foreach (var d in @delegate.GetInvocationList()) {
-//					try {d.DynamicInvoke();}
-//					catch (TargetInvocationException ex) {
-//						var innerEx = ex.InnerException;
-//						if(rethrow==null) rethrow = innerEx;
-//						Log.AddInternal(1,"ERROR","Invoke event method failed!",innerEx,uniqueId,
-//							new LP("EventHandler",d.Method.DeclaringType.FullName+" "+d.Method.ToString())
-//						);
-//						if(RethrowExceptions) throw;
-//					}
-//				}
+			//fallback for unknown delegate types
+			try {
+				d.Method.Invoke(d.Target, new[] {sender, e}); 
+			}
+			catch (TargetInvocationException ex) {
+				OnException(ex);
+				if (exceptions == null) throw;
+				exceptions.Add(ex);
+			}
+//			catch (Exception ex) {
+//				/* Should not occur */
+//				Debugger.Break();
+//				throw new NotImplementedException("{F12A1016-F2AB-4939-8BB9-4B833AD4F5C2}");
 //			}
-//		}
+		}
 
 		#region dynamic
 
@@ -263,7 +230,8 @@ namespace KsWare.Presentation {
 #endif
 			#endregion
 
-			var exceptions=new List<TargetInvocationException>();
+//			var exceptions=new List<Exception>();
+			var exceptions=(List<Exception>)null; //don't collect, do throw directly
 			var invocationList = @delegate.GetInvocationList();
 
 			#region Trace (conditional)
@@ -310,7 +278,7 @@ namespace KsWare.Presentation {
 				else InvokeDynamic(d, sender, eventArgs, exceptions);
 			}
 
-			if(exceptions.Count>0) {
+			if(exceptions!=null && exceptions.Count>0) {
 				var ex = new MultiTargetInvocationException(exceptions);
 				#region DESIGNER
 				if (ObjectVM.IsInDesignMode) {
@@ -330,7 +298,7 @@ namespace KsWare.Presentation {
 		}
 	
 
-		private static void InvokeAppDispatcherDynamic(dynamic d, object sender, dynamic e, List<TargetInvocationException> exceptions) {
+		private static void InvokeAppDispatcherDynamic(dynamic d, object sender, dynamic e, List<Exception> exceptions) {
 			ApplicationDispatcher.Invoke(() => InvokeDynamic(d,sender,e,exceptions));
 		}
 
@@ -339,31 +307,15 @@ namespace KsWare.Presentation {
 		/// <param name="eventHandler">The event handler delegate</param>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-		/// <param name="exceptions">The collection to save exceptions.</param>
-		private static void InvokeDynamic(dynamic eventHandler, object sender, dynamic e, List<TargetInvocationException> exceptions) {
+		/// <param name="exceptions">The list to collect exceptions or <c>null</c> to throw exceptions</param>
+		private static void InvokeDynamic(dynamic eventHandler, object sender, dynamic e, List<Exception> exceptions) {
 			try { eventHandler(sender, e); }
-			catch (TargetInvocationException ex) {
-				exceptions.Add(ex);
-//				Trace.WriteLine("=>Start:" + invocationCount + "######################################################################################################################################");
-//				Trace.WriteLine("=>" + ex.InnerException);
-//				Trace.WriteLine("=>Stop :" + invocationCount + "######################################################################################################################################");
-
-//				var innerEx = ex.InnerException;
-//					Log.AddInternal(1,"ERROR","Invoke event method failed!",innerEx,uniqueId,
-//					new LP("EventHandler",d.Method.DeclaringType.FullName+" "+d.Method.ToString())
-//				);
-				var typeFullName = eventHandler.Method.DeclaringType != null ? eventHandler.Method.DeclaringType.FullName : "{unknown type}";
-				var methodName = eventHandler.Method.ToString();
-				Debug.WriteLine("ERROR: Unhandled exception in " + methodName + " in " + typeFullName +
-				                "\n\t" + "ErrorID:" + "{5B342D7F-4482-427C-8510-805B0EF7D157}" +
-				                "\r\n" +
-				                ex.StackTrace[0]
-					);
-			}
 			catch (RuntimeBinderException ex) {
 				// "Cannot invoke a non-delegate type"
 				var d = eventHandler as Delegate;
-				if (d != null) { /* DLR Bug! */
+				if (d != null) { 
+					// BUG in DLR! occurs on nested delegates
+					// eg. FullName: MyNameSpace.MyClass+MyNestedClass+MyDelegate
 					// fallback to default invoke
 					Invoke(d, sender, e, exceptions);
 					return;
@@ -371,8 +323,9 @@ namespace KsWare.Presentation {
 				throw;
 			}
 			catch (Exception ex) {
-				Debugger.Break();
-				throw;
+				OnException(ex);
+				if (exceptions == null) throw;
+				exceptions.Add(ex);
 			}
 		}
 
@@ -405,6 +358,28 @@ namespace KsWare.Presentation {
 						Debugger.Break();
 				}
 			}
+		}
+
+
+			private static void OnException(Exception exception) {
+#if(false)
+//				Trace.WriteLine("=>Start:" + invocationCount + "######################################################################################################################################");
+//				Trace.WriteLine("=>" + ex.InnerException);
+//				Trace.WriteLine("=>Stop :" + invocationCount + "######################################################################################################################################");
+
+//				var innerEx = ex.InnerException;
+//					Log.AddInternal(1,"ERROR","Invoke event method failed!",innerEx,uniqueId,
+//					new LP("EventHandler",d.Method.DeclaringType.FullName+" "+d.Method.ToString())
+//				);
+
+				var typeFullName = eventHandler.Method.DeclaringType != null ? eventHandler.Method.DeclaringType.FullName : "{unknown type}";
+				var methodName = eventHandler.Method.ToString();
+				Debug.WriteLine("ERROR: Unhandled exception in " + methodName + " in " + typeFullName +
+				                "\n\t" + "ErrorID:" + "{5B342D7F-4482-427C-8510-805B0EF7D157}" +
+				                "\r\n" +
+				                ex.StackTrace[0]
+					);
+#endif
 		}
 
 		// TODO Register/Release maybe obsolete, internaly used only 3 times

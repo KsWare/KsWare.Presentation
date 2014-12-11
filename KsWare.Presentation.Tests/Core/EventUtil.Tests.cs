@@ -123,8 +123,8 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		[TestMethod]
-		public void Raise() {
-			var c=new EventUtilRaiseTestClass();
+		public void RaiseˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
 			c.RaiseEventHandlerEvent();	
 			c.RaiseEventHandler1EventArgsEvent();
 			c.RaiseEventHandler1ValueChangedEventArgsEvent();
@@ -132,8 +132,8 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		[TestMethod]
-		public void Raise_PerformanceTest() {
-			var c=new EventUtilRaiseTestClass();
+		public void RaiseˑPerformanceTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) {
 				c.RaiseEventHandlerEventDirect();
 				c.RaiseEventHandlerEvent();
@@ -144,68 +144,94 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		[TestMethod]
-		public void RaiseEventHandlerEventDirect() {
-			var c=new EventUtilRaiseTestClass();
+		public void RaiseːEventHandlerEventDirectˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++)c.RaiseEventHandlerEventDirect();	
 		}
 
 		[TestMethod]
-		public void RaiseEventHandlerEvent() {
-			var c=new EventUtilRaiseTestClass();
+		public void RaiseːEventHandlerEventˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandlerEvent();	
 		}
 
 		[TestMethod]
-		public void RaiseEventHandler1EventArgsEvent() {
-			var c=new EventUtilRaiseTestClass();
+		public void RaiseːEventHandler1EventArgsEventˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1EventArgsEvent();
 		}
 
 		[TestMethod]
-		public void RaiseEventHandler1ValueChangedEventArgsEvent() {
-			var c=new EventUtilRaiseTestClass();
+		public void RaiseːEventHandler1ValueChangedEventArgsEventˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1ValueChangedEventArgsEvent();
 		}
 
 		[TestMethod]
-		public void RaiseCustomEventHandler() {
-			var c=new EventUtilRaiseTestClass();
-			for (int i = 0; i < 1000000; i++) c.RaiseCustomEventHandler();
+		public void RaiseːCustomEventHandlerˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
+			c.RaiseCustomEventHandler();
 		}
 
 		[TestMethod]
-		public void RaiseDynamic() {
-			var c=new EventUtilRaiseDynamicTestClass();
-				c.RaiseEventHandlerEvent();	
-				c.RaiseEventHandler1EventArgsEvent();
-				c.RaiseEventHandler1ValueChangedEventArgsEvent();
-				c.RaiseCustomEventHandler();				
+		public void RaiseˑTargetInvocationExceptionˑTest() {
+			var c=new EventUtilˑRaiseˑTestClass();
+			Assert.Throws<TargetInvocationException>(() => c.RaiseːTargetInvocationExceptionEvent());
+		}
+
+
+		[TestMethod]
+		public void RaiseDynamicːDoubleNestedEventHandlerˑTest() {
+			var c=new EventUtilˑRaiseDynamicˑTestClass();
+			c.RaiseːDoubleNestedEventHandlerEvent();
 		}
 
 		[TestMethod]
-		public void RaiseDynamicPerformanceTest() {
-			var c=new EventUtilRaiseDynamicTestClass();
+		public void RaiseDynamicˑTest() {
+			var c=new EventUtilˑRaiseDynamicˑTestClass();
+			c.RaiseːEventHandlerEvent();	
+			c.RaiseːEventHandler1EventArgsEvent();
+			c.RaiseːEventHandler1ValueChangedEventArgsEvent();
+			c.RaiseːCustomEventHandlerEvent();				
+		}
+
+		[TestMethod]
+		public void RaiseDynamicˑCustomEventHandlerˑTest() {
+			var c=new EventUtilˑRaiseDynamicˑTestClass();
+			c.RaiseːCustomEventHandlerEvent();				
+		}
+
+		[TestMethod]
+		public void RaiseDynamicˑPerformanceTest() {
+			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			for (int i = 0; i < 100000; i++) {
-				c.RaiseEventHandlerEvent();	
-				c.RaiseEventHandler1EventArgsEvent();
-				c.RaiseEventHandler1ValueChangedEventArgsEvent();
+				c.RaiseːEventHandlerEvent();	
+				c.RaiseːEventHandler1EventArgsEvent();
+				c.RaiseːEventHandler1ValueChangedEventArgsEvent();
 //				c.RaiseCustomEventHandler();					
 			}
 		}
 
-		private class EventUtilRaiseTestClass {
+		[TestMethod]
+		public void RaiseDynamicˑTargetInvocationExceptionˑTest() {
+			var c=new EventUtilˑRaiseDynamicˑTestClass();
+			Assert.Throws<Exception>(() => c.RaiseːExceptionEvent(),"TestCase");
+		}
+
+		private class EventUtilˑRaiseˑTestClass {
 			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(1,2);
 			public int EventCount;
 
-			public EventUtilRaiseTestClass() {
+			public EventUtilˑRaiseˑTestClass() {
 				EventHandlerEvent+=OnEventHandlerEvent;
 				EventHandler1EventArgsEvent+=OnEventHandler1EventArgsEvent;
 				EventHandler1ValueChangedEventArgsEvent+=OnEventHandler1ValueChangedEventArgsEvent;
 				CustomEventHandlerEvent+=OnCustomEventHandlerEvent;
+				TargetInvocationExceptionEvent+=OnTargetInvocationExceptionEvent;
 			}
 
+			private void OnTargetInvocationExceptionEvent(object sender, EventArgs eventArgs) { throw new Exception("TestCase"); }
 			private void OnCustomEventHandlerEvent(object sender, EventArgs args) { EventCount++; }
-
 			private void OnEventHandler1ValueChangedEventArgsEvent(object sender, ValueChangedEventArgs valueChangedEventArgs) { EventCount++; }
 			private void OnEventHandler1EventArgsEvent(object sender, EventArgs eventArgs) { EventCount++; }
 			private void OnEventHandlerEvent(object sender, EventArgs eventArgs) { EventCount++; }
@@ -214,6 +240,7 @@ namespace KsWare.Presentation.Tests.Core {
 			public event EventHandler<EventArgs> EventHandler1EventArgsEvent;
 			public event EventHandler<ValueChangedEventArgs> EventHandler1ValueChangedEventArgsEvent;
 			public event CustomEventHandler CustomEventHandlerEvent;
+			public event CustomEventHandler TargetInvocationExceptionEvent;
 
 			public void RaiseEventHandlerEventDirect() {
 				EventHandlerEvent(this, EventArgs.Empty);
@@ -233,26 +260,27 @@ namespace KsWare.Presentation.Tests.Core {
 			public void RaiseCustomEventHandler() {
 				EventUtil.Raise(CustomEventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
-
-			public delegate void CustomEventHandler(object sender, EventArgs args);
-
-			public delegate void UnsupportedEventHandler(object sender, EventArgs args, string unsupportedParameter);
-
+			public void RaiseːTargetInvocationExceptionEvent() {
+				EventUtil.Raise(TargetInvocationExceptionEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
 		}
 		
-		private class EventUtilRaiseDynamicTestClass {
+		private class EventUtilˑRaiseDynamicˑTestClass {
 			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(1,2);
 			public int EventCount;
 
-			public EventUtilRaiseDynamicTestClass() {
+			public EventUtilˑRaiseDynamicˑTestClass() {
 				EventHandlerEvent+=OnEventHandlerEvent;
 				EventHandler1EventArgsEvent+=OnEventHandler1EventArgsEvent;
 				EventHandler1ValueChangedEventArgsEvent+=OnEventHandler1ValueChangedEventArgsEvent;
 				CustomEventHandlerEvent+=OnCustomEventHandlerEvent;
+				DoubleNestedEventHandlerEvent+=OnDoubleNestedEventHandlerEvent;
+				ExceptionEvent+=OnExceptionEvent;
 			}
 
+			private void OnExceptionEvent(object sender, EventArgs eventArgs) { throw new Exception("TestCase"); }
+			private void OnDoubleNestedEventHandlerEvent(object sender, EventArgs args) { EventCount++; }
 			private void OnCustomEventHandlerEvent(object sender, EventArgs args) { EventCount++; }
-
 			private void OnEventHandler1ValueChangedEventArgsEvent(object sender, ValueChangedEventArgs valueChangedEventArgs) { EventCount++; }
 			private void OnEventHandler1EventArgsEvent(object sender, EventArgs eventArgs) { EventCount++; }
 			private void OnEventHandlerEvent(object sender, EventArgs eventArgs) { EventCount++; }
@@ -261,31 +289,44 @@ namespace KsWare.Presentation.Tests.Core {
 			public event EventHandler<EventArgs> EventHandler1EventArgsEvent;
 			public event EventHandler<ValueChangedEventArgs> EventHandler1ValueChangedEventArgsEvent;
 			public event CustomEventHandler CustomEventHandlerEvent;
+			public event DoubleNestedEventHandler DoubleNestedEventHandlerEvent;
+			public event EventHandler ExceptionEvent;
 
-			public void RaiseEventHandlerEventDirect() {
+			public void RaiseːEventHandlerEventｰDirect() {
 				EventHandlerEvent(this, EventArgs.Empty);
 			}
 
-			public void RaiseEventHandlerEvent() {
+			public void RaiseːEventHandlerEvent() {
 				EventUtil.RaiseDynamic(EventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
 
-			public void RaiseEventHandler1EventArgsEvent() {
+			public void RaiseːEventHandler1EventArgsEvent() {
 				EventUtil.RaiseDynamic(EventHandler1EventArgsEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
-			public void RaiseEventHandler1ValueChangedEventArgsEvent() {
+			public void RaiseːEventHandler1ValueChangedEventArgsEvent() {
 				EventUtil.RaiseDynamic(EventHandler1ValueChangedEventArgsEvent,this,DefaultValueChangedEventArgs,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
 
-			public void RaiseCustomEventHandler() {
+			public void RaiseːCustomEventHandlerEvent() {
 				EventUtil.RaiseDynamic(CustomEventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
+			public void RaiseːDoubleNestedEventHandlerEvent() {
+				EventUtil.RaiseDynamic(DoubleNestedEventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
 
-			public delegate void CustomEventHandler(object sender, EventArgs args);
+			public void RaiseːExceptionEvent() {
+				EventUtil.RaiseDynamic(ExceptionEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
 
-			public delegate void UnsupportedEventHandler(object sender, EventArgs args, string unsupportedParameter);
-
+			//this is a event handler which is double nested (=> namespace.class+class+delegate)
+			public delegate void DoubleNestedEventHandler(object sender, EventArgs args);
 		}
+
+		//this is a event handler which is not known in Presentation framework
+		public delegate void CustomEventHandler(object sender, EventArgs args);
+
+		//this is a event handler which has unsupported method signature
+		public delegate void UnsupportedEventHandler(object sender, EventArgs args, string unsupportedParameter);
 
 	}
 	// ReSharper restore InconsistentNaming

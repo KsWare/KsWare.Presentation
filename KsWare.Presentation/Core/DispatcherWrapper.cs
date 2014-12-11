@@ -358,7 +358,8 @@ namespace KsWare.Presentation {
 		
 		/// <summary> Gets a value indicating whether the caller must call an invoke method when making method calls to the UI because the caller is on a different thread than the one the UI was created on.
 		/// </summary>
-		public bool IsInvokeRequired {get { return m_WrappedDispatcher.Thread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId; }}
+//		public bool IsInvokeRequired {get { return m_WrappedDispatcher.Thread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId; }}
+		public bool IsInvokeRequired {get { return m_WrappedDispatcher.Thread != Thread.CurrentThread; }}
 
 		/// <summary> Executes a delegate on the application dispatcher.
 		/// </summary>

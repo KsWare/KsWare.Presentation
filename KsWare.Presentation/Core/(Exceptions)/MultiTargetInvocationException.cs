@@ -9,24 +9,23 @@ using System.Text;
 using JetBrains.Annotations;
 using KsWare.Presentation.Core;
 
-namespace KsWare.Presentation 
-{
+namespace KsWare.Presentation {
+
 	/// <summary>
 	/// 
 	/// </summary>
 	[SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors")]
 	[Serializable]
-	public sealed class MultiTargetInvocationException : Exception
-	{
+	public sealed class MultiTargetInvocationException : Exception {
+
 		private static readonly TargetInvocationException SampleTargetInvocationException=new TargetInvocationException(new Exception("dummy")); 
 		
-		private readonly List<TargetInvocationException> _exceptions=new List<TargetInvocationException>();
+		private readonly List<Exception> m_Exceptions=new List<Exception>();
 
 		/// <summary> Initializes a new instance of the <see cref="MultiTargetInvocationException"/> class.
 		/// </summary>
-		public MultiTargetInvocationException(IEnumerable<TargetInvocationException> exceptions) : base(SampleTargetInvocationException.Message)
-		{
-			_exceptions.AddRange(exceptions);
+		public MultiTargetInvocationException(IEnumerable<Exception> exceptions) : base(SampleTargetInvocationException.Message) {
+			m_Exceptions.AddRange(exceptions);
 		}
 
 		/// <summary>
@@ -34,12 +33,11 @@ namespace KsWare.Presentation
 		/// </summary>
 		/// <param name="message">The message.</param>
 		/// <param name="exceptions">The exceptions.</param>
-		public MultiTargetInvocationException(string message,[NotNull] IEnumerable<TargetInvocationException> exceptions): base(message) 
-		{
+		public MultiTargetInvocationException(string message,[NotNull] IEnumerable<TargetInvocationException> exceptions): base(message) {
 			if (exceptions == null) 
 				throw new ArgumentNullException("exceptions");
 			
-			_exceptions.AddRange(exceptions);
+			m_Exceptions.AddRange(exceptions);
 		}
 
 //		/// <summary> Initializes a new instance of the <see cref="MultiTargetInvocationException"/> class.
@@ -74,11 +72,9 @@ namespace KsWare.Presentation
 		/// <summary> Gets the exceptions.
 		/// </summary>
 		/// <value>The exceptions.</value>
-		public ReadOnlyCollection<TargetInvocationException> Exceptions 
-		{
-			get
-			{
-				return _exceptions.AsReadOnly();
+		public ReadOnlyCollection<Exception> Exceptions {
+			get {
+				return m_Exceptions.AsReadOnly();
 			}
 		}
 
