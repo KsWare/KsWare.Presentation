@@ -260,7 +260,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			    foreach (var disposable in m_DisposableObjects) { disposable.Dispose(); }
 			    m_Children.Clear();
 			    m_DisposableObjects.Clear();
-			    EventUtil.RaiseDisposedEvent(this, Disposed);
+			    EventUtil.RaiseDisposedEvent(Disposed, this);
 			}
 		}
 

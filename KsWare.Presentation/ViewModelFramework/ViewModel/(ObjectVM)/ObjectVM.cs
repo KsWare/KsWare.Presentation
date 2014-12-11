@@ -124,7 +124,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if (explicitDisposing) {
 				if(Interlocked.Exchange(ref m_IsDisposed, 1)>0) return;
 				Interlocked.Increment(ref StatisticsːMethodInvocationːDisposeːExplicitːCount);
-				EventUtil.RaiseDisposedEvent(this, Disposed);
+				EventUtil.RaiseDisposedEvent(Disposed, this);
 				EventUtil.WeakEventManager.ReleaseSource(this);
 			}
 		}

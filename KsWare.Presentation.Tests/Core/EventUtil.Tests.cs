@@ -14,18 +14,18 @@ namespace KsWare.Presentation.Tests.Core {
 
 	/// <summary> Test the <see cref="EventUtil"/>-class
 	/// </summary>
-	[TestClass]
+	[TestClass]//[TestSubject(typeof(EventUtil))]
 	public class EventUtilTests {
 
 		/// <summary> Setup this instance.
 		/// </summary>
 		[TestInitialize]
-		public void Setup() { }
+		public void Initialize() { }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
 		[TestCleanup]
-		public void Teardown() { }
+		public void Cleanup() { }
 
 		/// <summary> Common
 		/// </summary>
@@ -139,7 +139,7 @@ namespace KsWare.Presentation.Tests.Core {
 				c.RaiseEventHandlerEvent();
 				c.RaiseEventHandler1EventArgsEvent();
 				c.RaiseEventHandler1ValueChangedEventArgsEvent();
-				c.RaiseCustomEventHandler();
+//				c.RaiseCustomEventHandler();
 			}
 		}
 
@@ -171,6 +171,26 @@ namespace KsWare.Presentation.Tests.Core {
 		public void RaiseCustomEventHandler() {
 			var c=new EventUtilRaiseTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseCustomEventHandler();
+		}
+
+		[TestMethod]
+		public void RaiseDynamic() {
+			var c=new EventUtilRaiseDynamicTestClass();
+				c.RaiseEventHandlerEvent();	
+				c.RaiseEventHandler1EventArgsEvent();
+				c.RaiseEventHandler1ValueChangedEventArgsEvent();
+				c.RaiseCustomEventHandler();				
+		}
+
+		[TestMethod]
+		public void RaiseDynamicPerformanceTest() {
+			var c=new EventUtilRaiseDynamicTestClass();
+			for (int i = 0; i < 100000; i++) {
+				c.RaiseEventHandlerEvent();	
+				c.RaiseEventHandler1EventArgsEvent();
+				c.RaiseEventHandler1ValueChangedEventArgsEvent();
+//				c.RaiseCustomEventHandler();					
+			}
 		}
 
 		private class EventUtilRaiseTestClass {
@@ -212,6 +232,53 @@ namespace KsWare.Presentation.Tests.Core {
 
 			public void RaiseCustomEventHandler() {
 				EventUtil.Raise(CustomEventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+
+			public delegate void CustomEventHandler(object sender, EventArgs args);
+
+			public delegate void UnsupportedEventHandler(object sender, EventArgs args, string unsupportedParameter);
+
+		}
+		
+		private class EventUtilRaiseDynamicTestClass {
+			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(1,2);
+			public int EventCount;
+
+			public EventUtilRaiseDynamicTestClass() {
+				EventHandlerEvent+=OnEventHandlerEvent;
+				EventHandler1EventArgsEvent+=OnEventHandler1EventArgsEvent;
+				EventHandler1ValueChangedEventArgsEvent+=OnEventHandler1ValueChangedEventArgsEvent;
+				CustomEventHandlerEvent+=OnCustomEventHandlerEvent;
+			}
+
+			private void OnCustomEventHandlerEvent(object sender, EventArgs args) { EventCount++; }
+
+			private void OnEventHandler1ValueChangedEventArgsEvent(object sender, ValueChangedEventArgs valueChangedEventArgs) { EventCount++; }
+			private void OnEventHandler1EventArgsEvent(object sender, EventArgs eventArgs) { EventCount++; }
+			private void OnEventHandlerEvent(object sender, EventArgs eventArgs) { EventCount++; }
+
+			public event EventHandler EventHandlerEvent;
+			public event EventHandler<EventArgs> EventHandler1EventArgsEvent;
+			public event EventHandler<ValueChangedEventArgs> EventHandler1ValueChangedEventArgsEvent;
+			public event CustomEventHandler CustomEventHandlerEvent;
+
+			public void RaiseEventHandlerEventDirect() {
+				EventHandlerEvent(this, EventArgs.Empty);
+			}
+
+			public void RaiseEventHandlerEvent() {
+				EventUtil.RaiseDynamic(EventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+
+			public void RaiseEventHandler1EventArgsEvent() {
+				EventUtil.RaiseDynamic(EventHandler1EventArgsEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+			public void RaiseEventHandler1ValueChangedEventArgsEvent() {
+				EventUtil.RaiseDynamic(EventHandler1ValueChangedEventArgsEvent,this,DefaultValueChangedEventArgs,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
+			}
+
+			public void RaiseCustomEventHandler() {
+				EventUtil.RaiseDynamic(CustomEventHandlerEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
 
 			public delegate void CustomEventHandler(object sender, EventArgs args);

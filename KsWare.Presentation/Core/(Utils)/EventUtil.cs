@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Core;
 using KsWare.Presentation.ViewModelFramework;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace KsWare.Presentation {
 
@@ -88,10 +89,10 @@ namespace KsWare.Presentation {
 					if      (d.Target.GetType().FullName == "System.Windows.Input.CanExecuteChangedEventManager+HandlerSink") InvokeAppDispatcher(d, sender, e, exceptions);
 					else if (d.Target.GetType().FullName == "System.Windows.Data.ListCollectionView"                        ) InvokeAppDispatcher(d, sender, e, exceptions);
 			/*??*/	else if (d.Target.GetType().Assembly.GetName().Name=="PresentationCore"                                 ) InvokeAppDispatcher(d, sender, e, exceptions);
-					else InvokeDynamic(d, sender, e, exceptions);					
+					else Invoke(d, sender, e, exceptions);					
 				}
 				//<==
-				else InvokeDynamic(d, sender, e, exceptions);
+				else Invoke(d, sender, e, exceptions);
 			}
 
 			if(exceptions.Count>0) {
@@ -114,19 +115,27 @@ namespace KsWare.Presentation {
 		}
 
 		private static void InvokeAppDispatcher(Delegate d, object sender, EventArgs e, List<TargetInvocationException> exceptions) {
-			ApplicationDispatcher.Invoke(() => InvokeDynamic(d,sender,e,exceptions));
+			ApplicationDispatcher.Invoke(() => Invoke(d,sender,e,exceptions));
 		}
 
-		private static void InvokeDynamic(Delegate d, object sender, EventArgs e, List<TargetInvocationException> exceptions) {
+		/// <summary> Invokes the event handler
+		/// </summary>
+		/// <param name="d">The event handler delegate</param>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <param name="exceptions">The collection to save exceptions.</param>
+		private static void Invoke(Delegate d, object sender, EventArgs e, List<TargetInvocationException> exceptions) {
 			try {
-				// A) 
+				// A) very slow
 //				d.DynamicInvoke(sender, e);
 
-				// B) 
+				// B) this works because we split the multicast delegate, but is allways slow
 //				d.Method.Invoke(d.Target, new [] {sender, e});
 
-				// C)
-				
+				// C) try to cast to the original delegate is faster as A) and)
+				// here we should implement the mostly called delegates in descent order
+				// up to 200 cast are allways faster as B)
+
 				var d4 = d as System.EventHandler<KsWare.Presentation.Core.Providers.DataChangedEventArgs>;
 				if (d4 != null) {
 					d4(sender, (KsWare.Presentation.Core.Providers.DataChangedEventArgs) e);
@@ -204,6 +213,7 @@ namespace KsWare.Presentation {
 			}
 		}
 
+
 //NOT USED
 //		/// <summary> Helps to safely raise an event.
 //		/// </summary>
@@ -229,26 +239,166 @@ namespace KsWare.Presentation {
 //			}
 //		}
 
+		#region dynamic
+
+		/// <summary> Helps to safely raise an event.
+		/// </summary>
+		/// <param name="delegate">The event delegate (<see cref="EventHandler"/>, <see cref="EventHandler{T}"/></param>
+		/// <param name="sender">The sender</param>
+		/// <param name="eventArgs">The event arguments</param>
+		/// <param name="uniqueId">A unique ID</param>
+		/// <exception cref="MultiTargetInvocationException"></exception>
+		public static void RaiseDynamic(dynamic @delegate, object sender, dynamic eventArgs, string uniqueId) { 
+			if(@delegate==null){return; }
+
+			#region simple invoke (conditional)
+#if(false) // simple invoke the delegate w/o any other stuff (DynamicInvoke is slow!)
+			try{
+				@delegate(sender,eventArgs);
+			} catch (Exception ex) {
+				if(ObjectVM.IsInDesignMode) return; // ignore designtime error
+				throw; // possible breakpoint for debug
+			}
+			return;
+#endif
+			#endregion
+
+			var exceptions=new List<TargetInvocationException>();
+			var invocationList = @delegate.GetInvocationList();
+
+			#region Trace (conditional)
+#if(false)			
+			Debug.WriteLine("=>Raise event: " + "("+invocationList.Length+" target"+(invocationList.Length!=1?"s":"")+")");
+			foreach (var d in invocationList) {
+				var targetType=d.Target.GetType().FullName;
+				var method=d.Method.ToString();
+				Debug.WriteLine("=>\t"+"Target: "+targetType+ " " + method);
+			}
+			Debug.WriteLine("=>\t"+"Raising method: "+sender.GetType().FullName+"."+new StackFrame(1).GetMethod());
+			
+			// MemberPath (ObjectVM/ObjectBM)
+			var memberPathProperty=sender.GetType().GetProperty("MemberPath");
+			if(memberPathProperty!=null){
+				var memberPath=memberPathProperty.GetValue(sender,null);
+				Debug.WriteLine("=>\t"+"MemberPath: "+memberPath);
+			}
+#endif
+			#endregion
+
+			var isInvokeRequired = ApplicationDispatcher.IsInvokeRequired;
+			foreach (dynamic d in invocationList) {
+				#region DEBUG (conditional)
+#if(false)
+				Debug.WriteLine(string.Format("=>Raise event: #{0} {1} {2}",
+					++InvocationCount, 
+					DebugUtil.FormatTypeName(@delegate),
+					"Target: "+ DebugUtil.FormatTypeName(d.Target)+"."+d.Method.Name
+				));
+#endif
+				#endregion
+				// EXPERIMENTAL ==> 
+				// workaround for TargetInvocationException --> InvalidOperationException: 
+				//   "The calling thread cannot access this object because a different thread owns it."
+				// e.g. System.Windows.Input.CanExecuteChangedEventManager+HandlerSink, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+				if (isInvokeRequired) {
+					if      (d.Target.GetType().FullName == "System.Windows.Input.CanExecuteChangedEventManager+HandlerSink") InvokeAppDispatcherDynamic(d, sender, eventArgs, exceptions);
+					else if (d.Target.GetType().FullName == "System.Windows.Data.ListCollectionView"                        ) InvokeAppDispatcherDynamic(d, sender, eventArgs, exceptions);
+			/*??*/	else if (d.Target.GetType().Assembly.GetName().Name=="PresentationCore"                                 ) InvokeAppDispatcherDynamic(d, sender, eventArgs, exceptions);
+					else InvokeDynamic(d, sender, eventArgs, exceptions);					
+				}
+				//<==
+				else InvokeDynamic(d, sender, eventArgs, exceptions);
+			}
+
+			if(exceptions.Count>0) {
+				var ex = new MultiTargetInvocationException(exceptions);
+				#region DESIGNER
+				if (ObjectVM.IsInDesignMode) {
+
+//					Trace.Write("=>Begin:" + exceptionCount + "######################################################################################################################################"+"\n");
+					Trace.Write("=>An unhandled exception has occured. Trying to continue." + "\n" + ex.ToString()+"\n");
+					foreach (var exception in exceptions) {
+						Trace.Write("--------------------------------------------------------------------------------------------------------------------------------------"+"\n"
+							+exception.ToString()+"\n");
+					}
+//					Trace.Write("=>End :" + exceptionCount + "######################################################################################################################################"+"\n");
+					return;
+				}
+				#endregion
+				throw ex;
+			}
+		}
+	
+
+		private static void InvokeAppDispatcherDynamic(dynamic d, object sender, dynamic e, List<TargetInvocationException> exceptions) {
+			ApplicationDispatcher.Invoke(() => InvokeDynamic(d,sender,e,exceptions));
+		}
+
+		/// <summary> Invokes the event handler
+		/// </summary>
+		/// <param name="eventHandler">The event handler delegate</param>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <param name="exceptions">The collection to save exceptions.</param>
+		private static void InvokeDynamic(dynamic eventHandler, object sender, dynamic e, List<TargetInvocationException> exceptions) {
+			try { eventHandler(sender, e); }
+			catch (TargetInvocationException ex) {
+				exceptions.Add(ex);
+//				Trace.WriteLine("=>Start:" + invocationCount + "######################################################################################################################################");
+//				Trace.WriteLine("=>" + ex.InnerException);
+//				Trace.WriteLine("=>Stop :" + invocationCount + "######################################################################################################################################");
+
+//				var innerEx = ex.InnerException;
+//					Log.AddInternal(1,"ERROR","Invoke event method failed!",innerEx,uniqueId,
+//					new LP("EventHandler",d.Method.DeclaringType.FullName+" "+d.Method.ToString())
+//				);
+				var typeFullName = eventHandler.Method.DeclaringType != null ? eventHandler.Method.DeclaringType.FullName : "{unknown type}";
+				var methodName = eventHandler.Method.ToString();
+				Debug.WriteLine("ERROR: Unhandled exception in " + methodName + " in " + typeFullName +
+				                "\n\t" + "ErrorID:" + "{5B342D7F-4482-427C-8510-805B0EF7D157}" +
+				                "\r\n" +
+				                ex.StackTrace[0]
+					);
+			}
+			catch (RuntimeBinderException ex) {
+				// "Cannot invoke a non-delegate type"
+				var d = eventHandler as Delegate;
+				if (d != null) { /* DLR Bug! */
+					// fallback to default invoke
+					Invoke(d, sender, e, exceptions);
+					return;
+				}
+				throw;
+			}
+			catch (Exception ex) {
+				Debugger.Break();
+				throw;
+			}
+		}
+
+		#endregion
+
 		/// <summary> Raises the Disposed-event.
 		/// </summary>
-		/// <param name="sender">The sender.</param>
 		/// <param name="disposedEvent">The disposed event.</param>
+		/// <param name="sender">The sender.</param>
 		/// <remarks>Internally used by <see cref="ObjectVM.Dispose">ObjectVM.Dispose</see> and <see cref="ObjectBM.Dispose">ObjectBM.Dispose</see></remarks>
 		[SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
 		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-		public static void RaiseDisposedEvent(object sender, EventHandler disposedEvent) {
+		public static void RaiseDisposedEvent(EventHandler disposedEvent, object sender) {
 			if (disposedEvent == null) return;
 			var args = EventArgs.Empty;
-			Delegate[] invocationList = disposedEvent.GetInvocationList();
-			foreach (Delegate @delegate in invocationList) {
-				try{@delegate.DynamicInvoke(sender, args);}
+			var invocationList = disposedEvent.GetInvocationList();
+			
+			foreach (Delegate d in invocationList) {
+				try {disposedEvent(sender, args);}
 				catch (Exception ex) {
 					//REVIEW: use log
 					Debug.WriteLine("=>WARNING: Invoking Disposed event handler failed! " +
 					"\n\t"+"Exception:     " + ex.GetType().FullName +
 					"\n\t"+"Message:       " + ex.Message+
-					"\n\t"+"Target Type:   " + @delegate.Target.GetType().FullName+
-					"\n\t"+"Target Method: " + @delegate.Method.ToString()
+					"\n\t"+"Target Type:   " + d.Target.GetType().FullName+
+					"\n\t"+"Target Method: " + d.Method.ToString()
 					,sender.GetType().Name);
 					//### Break
 					if (Debugger.IsAttached)
