@@ -4,13 +4,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	partial class ObjectVM /*:  */ {
 
-		protected Lazy<WeakEventPropertyStore> LazyWeakEventProperties;
+		protected Lazy<EventSourceStore> LazyWeakEventStore;
 
 		private void InitPartWeakEvents() {
-			LazyWeakEventProperties = new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+			LazyWeakEventStore = new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		protected WeakEventPropertyStore WeakEventProperties { get { return LazyWeakEventProperties.Value; }}
+		protected EventSourceStore EventSources { get { return LazyWeakEventStore.Value; }}
 	}
 
 }

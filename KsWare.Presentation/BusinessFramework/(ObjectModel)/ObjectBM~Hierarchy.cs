@@ -50,14 +50,14 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		protected virtual void OnParentChanged(object previousParent, object newParent) {
 			EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{351F875B-5BC8-491F-B783-EA2B0D204F74}");
-			EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 		}
 
 		/// <summary> Occurs when the <see cref="Parent"/> property has been changed.
 		/// </summary>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Gets or sets the parent.
 		/// </summary>

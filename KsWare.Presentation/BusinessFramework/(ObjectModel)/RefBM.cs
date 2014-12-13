@@ -21,7 +21,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Event source for the event which occurs when the <see cref="Target"/> property changes.
 		/// </summary>
-		IWeakEventSource TargetChangedEvent { get; }
+		IEventSource TargetChangedEvent { get; }
 		//IWeakEventSource<EventHandler<ValueChangedEventArgs>> TargetChangedEvent { get; }
 
 	}
@@ -42,7 +42,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Event source for the event which occurs when the <see cref="Target"/> property changes.
 		/// </summary>
-		IWeakEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent { get; }
+		IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent { get; }
 
 	}
 
@@ -82,7 +82,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 				var e=new ValueChangedEventArgs<TRef>(old,m_Target);
 				EventUtil.Raise(TargetChanged,this,e,"{0524E629-61C7-4517-BB1F-3B46BE3FD5C8}");
-				EventUtil.WeakEventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>>(LazyWeakEventProperties,"TargetChangedEvent",e);
+				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent",e);
 				OnBusinessPropertyChanged(new BusinessPropertyChangedEventArgs("Target"));
 			}
 		}
@@ -103,11 +103,11 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Event source for the event which occurs when the <see cref="Target"/> property changes.
 		/// </summary>
-		public IWeakEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
-			get { return WeakEventProperties.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
+		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
+			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
 		}
 //		IWeakEventSource<EventHandler<ValueChangedEventArgs>> IRefBM.TargetChangedEvent { get { return (IWeakEventSource<EventHandler<ValueChangedEventArgs>>)TargetChangedEvent; } }
-		IWeakEventSource IRefBM.TargetChangedEvent { get { return TargetChangedEvent; } }
+		IEventSource IRefBM.TargetChangedEvent { get { return TargetChangedEvent; } }
 
 	}
 }

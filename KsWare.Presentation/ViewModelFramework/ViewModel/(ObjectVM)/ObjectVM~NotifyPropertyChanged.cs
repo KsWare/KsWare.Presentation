@@ -31,8 +31,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public event EventHandler<ViewModelPropertyChangedEventArgs> PropertyChanged;
 
-		public IWeakEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent {
-			get { return WeakEventProperties.Get<EventHandler<ViewModelPropertyChangedEventArgs>>("PropertyChangedEvent"); }
+		public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent {
+			get { return EventSources.Get<EventHandler<ViewModelPropertyChangedEventArgs>>("PropertyChangedEvent"); }
 		}
 
 		/// <summary> Called when a property has been changed.
@@ -72,7 +72,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			//INotifyPropertyChanged.PropertyChanged
 			//INFO: use propertyName if available because "Item[]"
 			EventUtil.Raise(m_INotifyPropertyChangedPropertyChanged, this, new PropertyChangedEventArgs(propertyName ?? viewModelProperty.Name), "{2E8D6B35-3ED2-4E56-A5FA-398AA02FBACB}");
-			EventUtil.WeakEventManager.Raise<EventHandler<ViewModelPropertyChangedEventArgs>>(LazyWeakEventProperties,"PropertyChangedEvent", new ViewModelPropertyChangedEventArgs(viewModelProperty));
+			EventManager.Raise<EventHandler<ViewModelPropertyChangedEventArgs>,ViewModelPropertyChangedEventArgs>(LazyWeakEventStore,"PropertyChangedEvent", new ViewModelPropertyChangedEventArgs(viewModelProperty));
 
 			//PropertyChangedEventHandlers
 			foreach (var item in m_PropertyChangedEventHandlers) {

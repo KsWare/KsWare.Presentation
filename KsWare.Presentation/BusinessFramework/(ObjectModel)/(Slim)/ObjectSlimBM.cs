@@ -23,7 +23,7 @@ namespace KsWare.Presentation.BusinessFramework {
 // D	void Dispose();
 		IObjectBM Parent { get; set; }
 		event EventHandler ParentChanged;
-		IWeakEventSource<EventHandler> ParentChangedEvent { get; }
+		IEventSource<EventHandler> ParentChangedEvent { get; }
 
 	}
 
@@ -38,7 +38,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		private readonly Lazy<BackingFieldsStore> m_LazyFields;
 		private IObjectBM m_Parent;
-		private WeakEventPropertyStore m_WeakEventPropertyStore;
+		private EventSourceStore m_EventSourceStore;
 
 		public ObjectSlimBM() {
 			m_LazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
@@ -77,16 +77,16 @@ namespace KsWare.Presentation.BusinessFramework {
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{D8F0EBFB-94B8-4431-A272-4F76D854A600}");
 
 				// raises the event (w/o side effects which would create the store or the event source)
-				if(m_WeakEventPropertyStore!=null &&  m_WeakEventPropertyStore.Has("ParentChangedEvent"))
-					EventUtil.WeakEventManager.Raise(ParentChangedEvent,EventArgs.Empty);
+				if(m_EventSourceStore!=null && m_EventSourceStore.Has("ParentChangedEvent"))
+					EventManager.Raise<EventHandler,EventArgs>(ParentChangedEvent,EventArgs.Empty);
 			}
 		}
 
-		private WeakEventPropertyStore WeakEventProperties {
+		private EventSourceStore EventSources {
 			get {
-				if (m_WeakEventPropertyStore == null) 
-					m_WeakEventPropertyStore = new WeakEventPropertyStore(this);
-				return m_WeakEventPropertyStore;
+				if (m_EventSourceStore == null) 
+					m_EventSourceStore = new EventSourceStore(this);
+				return m_EventSourceStore;
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent {get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); }}
+		public IEventSource<EventHandler> ParentChangedEvent {get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }}
 
 		[Obsolete("Not available in slim objects. Always returning empty collection.")]
 		public ICollection<IObjectBM> Children { get{return s_EmptyChildrenCollection;} }
@@ -112,7 +112,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		public event EventHandler<UserFeedbackEventArgs> UserFeedbackRequested;
 
 		[Obsolete("Not available in slim objects",true)]
-		public IWeakEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get { throw new NotImplementedException();} }
+		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get { throw new NotImplementedException();} }
 			
 		[Obsolete("Not available in slim objects",true)]
 		public event EventHandler<BusinessPropertyChangedEventArgs> BusinessPropertyChanged;

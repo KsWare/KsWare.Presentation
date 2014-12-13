@@ -29,16 +29,16 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// <remarks></remarks>
 	public class ValueSourceProvider:IValueSourceProvider {
 
-		protected Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		protected Lazy<EventSourceStore> m_LazyWeakEventProperties;
 		private IEnumerable m_SourceList;
 		private object m_Parent;
 
 		/// <summary> Initializes a new instance of the <see cref="ValueSourceProvider"/> class.
 		/// </summary>
 		public ValueSourceProvider() {
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public WeakEventPropertyStore WeakEventProperties{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets or sets the source list.
 		/// </summary>
@@ -81,7 +81,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{F02EA960-5BBA-412D-A777-766413010026}");
 				m_Parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{92587EBC-9EF5-4000-A6CE-72E4AF8AF010}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); }}
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }}
 
 		/// <summary> Occurs when a property value changes.
 		/// </summary>
@@ -98,14 +98,14 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Gets the event source for the event which occurs when a property value changes.
 		/// </summary>
 		/// <value>The property changed event.</value>
-		public IWeakEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return WeakEventProperties.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
 
 		[NotifyPropertyChangedInvocator]
 //		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{B410DCA0-779B-4F54-9718-B3651E8E79C7}");
-			EventUtil.WeakEventManager.Raise<PropertyChangedEventHandler>(m_LazyWeakEventProperties,"PropertyChangedEvent", EventArgs.Empty);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
 		}
 
 		public void Dispose() {Dispose(true); }
@@ -120,7 +120,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class BusinessValueSourceProvider:IValueSourceProvider,IWeakEventListener {
 
-		protected Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		protected Lazy<EventSourceStore> m_LazyWeakEventProperties;
 		private IValueBM m_BusinessValue;
 		private readonly ObservableNotifyableCollection<object> m_Values=new ObservableNotifyableCollection<object>();
 		private object m_Parent;
@@ -129,11 +129,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Initializes a new instance of the <see cref="BusinessValueSourceProvider"/> class.
 		/// </summary>
 		public BusinessValueSourceProvider() {
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
-			ParentChangedEvent = EventUtil.WeakEventManager.RegisterSource<EventHandler>(this, "ParentChanged");
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		public WeakEventPropertyStore WeakEventProperties{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets or sets the business layer value.
 		/// </summary>
@@ -261,7 +260,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{8A92663A-CC1A-4914-9AB8-E08602EB330D}");
 				m_Parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{87C3EE1D-5BA3-4F93-95EA-1EC5D45D5C2C}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -270,7 +269,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get; private set; }
+		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
+		/// </summary>
+		/// <value>The event source.</value>
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		//
 		/// <summary> [WORKAROUND] Notifies the source list changed. This will raise PropertyChanged events.
@@ -284,14 +286,14 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		public IWeakEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return WeakEventProperties.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
 
 		[NotifyPropertyChangedInvocator]
 //		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{AA1E098D-2138-4537-9E35-85122D4CD7A3}");
-			EventUtil.WeakEventManager.Raise<PropertyChangedEventHandler>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
 		}
 
 		public void Dispose() {Dispose(true); }

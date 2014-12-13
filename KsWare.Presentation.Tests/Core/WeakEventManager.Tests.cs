@@ -16,7 +16,7 @@ namespace KsWare.Presentation.Tests.Core {
 
 		[TestInitialize]
 		public void Initialize() {
-			EventUtil.WeakEventManager.Reset();
+			EventManager.Reset();
 		}
 
 		private static void ShowAssemblyPublicKey() {
@@ -29,11 +29,11 @@ namespace KsWare.Presentation.Tests.Core {
 
 		[TestMethod]
 		public void Reset() {
-			var testSubject = new PrivateType(typeof (EventUtil.WeakEventManager));
-			// done in Initialize():> EventUtil.WeakEventManager.Reset();
-			Assert.That(EventUtil.WeakEventManager.Count,Is.EqualTo(0));
+			var testSubject = new PrivateType(typeof (EventManager));
+			// done in Initialize():> WeakEventManager.Reset();
+			Assert.That(EventManager.Count,Is.EqualTo(0));
 			Assert.That((DateTime)testSubject.GetStaticField("s_LastCollect"),Is.EqualTo(DateTime.MinValue));
-			Assert.That(EventUtil.WeakEventManager.StatisticsːRaiseːInvocationCount,Is.EqualTo(0));
+			Assert.That(EventManager.StatisticsːRaiseːInvocationCount,Is.EqualTo(0));
 		}
 
 
@@ -43,14 +43,14 @@ namespace KsWare.Presentation.Tests.Core {
 			var listener = new MyEventListener();
 
 			listener.Listen(provider);
-			Assert.That(EventUtil.WeakEventManager.Count, Is.EqualTo(1),"WeakEventManager.Count");
+			Assert.That(EventManager.Count, Is.EqualTo(1),"WeakEventManager.Count");
 
 			provider.Raise();
 			Assert.That(listener.Count,Is.EqualTo(1),"listener.Count");
 
 			listener = null;
-			EventUtil.WeakEventManager.Collect(true);
-			Assert.That(EventUtil.WeakEventManager.Count, Is.EqualTo(0),"WeakEventManager.Count");
+			EventManager.Collect(true);
+			Assert.That(EventManager.Count, Is.EqualTo(0),"WeakEventManager.Count");
 		}
 
 		[TestMethod,Ignore /* does not work in unit test runner */]
@@ -59,7 +59,7 @@ namespace KsWare.Presentation.Tests.Core {
 			var listener = new MyEventListener();
 
 			listener.Listen(provider);
-			Assert.That(EventUtil.WeakEventManager.Count, Is.EqualTo(1),"WeakEventManager.Count");
+			Assert.That(EventManager.Count, Is.EqualTo(1),"WeakEventManager.Count");
 
 			provider.Raise();
 			Assert.That(listener.Count,Is.EqualTo(1),"listener.Count");
@@ -71,12 +71,12 @@ namespace KsWare.Presentation.Tests.Core {
 			GC.Collect();GC.WaitForPendingFinalizers();GC.Collect();
 
 			var stopwatch = new Stopwatch();stopwatch.Start();
-			while (EventUtil.WeakEventManager.Count>0) {
+			while (EventManager.Count>0) {
 				provider.Raise();
 				Thread.Sleep(10);
 			}
 			Trace.WriteLine("Collected after "+stopwatch.Elapsed);
-			//Assert.That(EventUtil.WeakEventManager.Count, Is.EqualTo(0),"WeakEventManager.Count");
+			//Assert.That(WeakEventManager.Count, Is.EqualTo(0),"WeakEventManager.Count");
 		}
 
 		[TestMethod,Ignore /* does not work in unit test runner */]
@@ -85,23 +85,23 @@ namespace KsWare.Presentation.Tests.Core {
 			var r = new System.Random();
 			var stopwatch = new Stopwatch(); stopwatch.Start();
 			const int max = 2000;
-			var c = EventUtil.WeakEventManager.Count;
+			var c = EventManager.Count;
 			for (int i = 1; i <= max; i++) {
 				var listener = new MyEventListener();
 				listener.Listen(provider);
 				provider.Raise();
 				Thread.Sleep(r.Next(8,12+1));
-				if (EventUtil.WeakEventManager.Count+c < i) {
+				if (EventManager.Count+c < i) {
 					//OK any listener has been collected
-					Trace.WriteLine("GC collected at interation "+i+" "+ stopwatch.Elapsed + " "+EventUtil.WeakEventManager.Count +" alive");
-					c=i - EventUtil.WeakEventManager.Count;
+					Trace.WriteLine("GC collected at interation "+i+" "+ stopwatch.Elapsed + " "+EventManager.Count +" alive");
+					c=i - EventManager.Count;
 				}
 			}
-			Trace.WriteLine(EventUtil.WeakEventManager.Count*100/max+"% alive after "+ stopwatch.Elapsed);
+			Trace.WriteLine(EventManager.Count*100/max+"% alive after "+ stopwatch.Elapsed);
 			var next=stopwatch.Elapsed.Add(TimeSpan.FromSeconds(1));
-			while (EventUtil.WeakEventManager.Count>0) {
-				if(stopwatch.Elapsed<next){Thread.Sleep(10); EventUtil.WeakEventManager.Collect(); continue;}
-				Trace.WriteLine(EventUtil.WeakEventManager.Count*100/max+"% alive after "+ stopwatch.Elapsed);
+			while (EventManager.Count>0) {
+				if(stopwatch.Elapsed<next){Thread.Sleep(10); EventManager.Collect(); continue;}
+				Trace.WriteLine(EventManager.Count*100/max+"% alive after "+ stopwatch.Elapsed);
 				next=stopwatch.Elapsed.Add(TimeSpan.FromSeconds(1));
 			}
 			
@@ -123,6 +123,14 @@ namespace KsWare.Presentation.Tests.Core {
 			var listener = new MyEventListener1EventHandler<MyEventArgs>();
 			listener.Listen(provider);
 			provider.Raise();
+			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
+		}
+		[TestMethod]
+		public void EventHandlerNewEventArgsˑPerformanceTest() {
+			var provider = new MyEventProvider1EventHandler<MyEventArgs> ();
+			var listener = new MyEventListener1EventHandler<MyEventArgs>();
+			listener.Listen(provider);
+			provider.Raise4PerformanceTest();
 			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
 		}
 
@@ -178,24 +186,24 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public class MyEventProvider {
 
-			private WeakEventPropertyStore WeakEventProperties;
+			private EventSourceStore EventSources;
 
 			public MyEventProvider() {
-				WeakEventProperties =new WeakEventPropertyStore(this);
+				EventSources =new EventSourceStore(this);
 			}
 
 //			public IWeakEventSource<EventHandler> MyEvent { get { return WeakEventProperties.Get(() => MyEvent); } }
-			public IWeakEventSource<EventHandler> MyEvent { get { return WeakEventProperties.Get<EventHandler>("MyEvent"); } }
+			public IEventSource<EventHandler> MyEvent { get { return EventSources.Get<EventHandler>("MyEvent"); } }
 
 			public void Raise() {
-				EventUtil.WeakEventManager.Raise(MyEvent,EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(MyEvent,EventArgs.Empty);
 			}
 
 		}
 
 		public class MyEventListener {
 
-			private IWeakEventHandle m_MyWeakEventHolder;
+			private IEventHandle m_MyEventHolder;
 			public int Count;
 
 			public MyEventListener() {
@@ -203,7 +211,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 
 			public void Listen(MyEventProvider provider) {
-				m_MyWeakEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+				m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, EventArgs eventArgs) { Count++; }
@@ -214,23 +222,25 @@ namespace KsWare.Presentation.Tests.Core {
 
 			public TEventArgs DefaultEventArgs;
 
-			private WeakEventPropertyStore WeakEventProperties;
+			private EventSourceStore EventSources;
 
 			public MyEventProvider1EventHandler() {
-				WeakEventProperties =new WeakEventPropertyStore(this);
+				EventSources =new EventSourceStore(this);
 			}
 
-			public IWeakEventSource<EventHandler<TEventArgs>> MyEvent { get { return WeakEventProperties.Get<EventHandler<TEventArgs>>("MyEvent"); } }
+			public IEventSource<EventHandler<TEventArgs>> MyEvent { get { return EventSources.Get<EventHandler<TEventArgs>>("MyEvent"); } }
 
 			public void Raise() {
-				EventUtil.WeakEventManager.Raise(MyEvent,DefaultEventArgs);
+				EventManager.Raise(MyEvent,DefaultEventArgs);
 			}
-
+			public void Raise4PerformanceTest() {
+				for (int i = 1000000; i>=0; i--) EventManager.Raise(MyEvent,DefaultEventArgs);
+			}
 		}
 
 		public class MyEventListener1EventHandler<TEventArgs> where TEventArgs:EventArgs {
 
-			private IWeakEventHandle m_MyWeakEventHolder;
+			private IEventHandle m_MyEventHolder;
 			public int Count;
 
 			public MyEventListener1EventHandler() {
@@ -238,7 +248,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 
 			public void Listen(MyEventProvider1EventHandler<TEventArgs> provider) {
-				m_MyWeakEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+				m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, TEventArgs eventArgs) { Count++; }
@@ -248,23 +258,23 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public class MyEventProvider2 {
 
-			private WeakEventPropertyStore WeakEventProperties;
+			private EventSourceStore EventSources;
 
 			public MyEventProvider2() {
-				WeakEventProperties =new WeakEventPropertyStore(this);
+				EventSources =new EventSourceStore(this);
 			}
 
-			public IWeakEventSource<MyDelegate> MyEvent { get { return WeakEventProperties.Get<MyDelegate>("MyEvent"); } }
+			public IEventSource<MyDelegate> MyEvent { get { return EventSources.Get<MyDelegate>("MyEvent"); } }
 
 			public void Raise() {
-				EventUtil.WeakEventManager.Raise(MyEvent,EventArgs.Empty);
+				EventManager.Raise(MyEvent,EventArgs.Empty);
 			}
 
 		}
 
 		public class MyEventListener2 {
 
-			private IWeakEventHandle m_MyWeakEventHolder;
+			private IEventHandle m_MyEventHolder;
 			public int Count;
 
 			public MyEventListener2() {
@@ -272,7 +282,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 
 			public void Listen(MyEventProvider2 provider) {
-				m_MyWeakEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+				m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, EventArgs eventArgs) { Count++; }

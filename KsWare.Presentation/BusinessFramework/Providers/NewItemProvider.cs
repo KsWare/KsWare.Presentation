@@ -34,15 +34,15 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 	public class DefaultNewItemProvider:INewItemProvider {
 
 		private object m_Parent;
-		protected Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		protected Lazy<EventSourceStore> m_LazyWeakEventProperties;
 
 		/// <summary> Initializes a new instance of the <see cref="DefaultNewItemProvider" /> class.
 		/// </summary>
 		public DefaultNewItemProvider() {
 			TypeMap=new Dictionary<Type, Type>();
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public WeakEventPropertyStore WeakEventProperties{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -61,7 +61,7 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{4C8DAA82-1C56-4AEA-93E3-06613761333A}");
 				m_Parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{753002EE-5FFA-4D1B-BB67-5333CA80D826}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -70,7 +70,7 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Creates a new item.
 		/// </summary>
@@ -110,13 +110,13 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		public IDictionary<Type, Type> TypeMap { get; set; }
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		public IWeakEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return WeakEventProperties.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{B410DCA0-779B-4F54-9718-B3651E8E79C7}");
-			EventUtil.WeakEventManager.Raise<PropertyChangedEventHandler>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
 		}
 
 		public void Dispose() {Dispose(true); }
@@ -134,17 +134,16 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 
 		private CreateNewItemCallbackHandler m_CreateNewItemCallback;
 		private object m_Parent;
-		private Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		private Lazy<EventSourceStore> m_LazyWeakEventProperties;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomNewItemProvider"/> class.
 		/// </summary>
 		/// <param name="createNewItemCallback">The create new item callback.</param>
 		public CustomNewItemProvider(CreateNewItemCallbackHandler createNewItemCallback) {
 			m_CreateNewItemCallback = createNewItemCallback;
-			ParentChangedEvent = EventUtil.WeakEventManager.RegisterSource<EventHandler>(this, "ParentChanged");
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public WeakEventPropertyStore WeakEventProperties{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -163,7 +162,7 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{209D0BC2-5C85-4F28-B484-F10207C78CDD}");
 				m_Parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{3E5C02E0-633C-48E9-8226-7DCAF8A14B28}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -172,7 +171,7 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get; private set; }
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Gets or sets the create new item callback.
 		/// </summary>
@@ -197,13 +196,13 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		public IWeakEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return WeakEventProperties.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{B410DCA0-779B-4F54-9718-B3651E8E79C7}");
-			EventUtil.WeakEventManager.Raise<PropertyChangedEventHandler>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
 		}
 
 		public void Dispose() {Dispose(true); }

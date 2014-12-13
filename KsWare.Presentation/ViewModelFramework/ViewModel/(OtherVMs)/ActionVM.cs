@@ -83,7 +83,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		private void AtActionProviderCanExecuteChanged(object sender, EventArgs eventArgs) { 
 			OnPropertyChanged("CanExecute");
 			EventUtil.Raise(CanExecuteChanged,this,EventArgs.Empty,"{E372D3E9-878A-4F7D-8B17-57F4300E7442}");
-			EventUtil.WeakEventManager.Raise<EventHandler>(LazyWeakEventProperties,"CanExecuteChangedEvent",EventArgs.Empty);
+			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"CanExecuteChangedEvent",EventArgs.Empty);
 		}
 
 		public ContextMenuVM ContextMenu { get; private set; }
@@ -113,7 +113,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the event source for the event which occurs when <see cref="CanExecute"/> has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
-		public IWeakEventSource<EventHandler> CanExecuteChangedEvent { get { return WeakEventProperties.Get<EventHandler>("CanExecuteChangedEvent"); }}
+		public IEventSource<EventHandler> CanExecuteChangedEvent { get { return EventSources.Get<EventHandler>("CanExecuteChangedEvent"); }}
 
 		public IObservable<bool> CanExecuteObservable {get {return Metadata.ActionProvider.CanExecuteObservable;}}
 

@@ -8,34 +8,34 @@ namespace KsWare.Presentation.WeakEventManagerExamples {
 
 	public class MyEventProvider {
 		
-		private Lazy<WeakEventPropertyStore> LazyWeakEventProperties; // store for lazy event sources (also the store is lazy)
+		private Lazy<EventSourceStore> LazyWeakEventProperties; // store for lazy event sources (also the store is lazy)
 
 		public MyEventProvider() {
-			LazyWeakEventProperties = new Lazy<WeakEventPropertyStore>(()=>new WeakEventPropertyStore(this));
+			LazyWeakEventProperties = new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 		}
 		
-		public IWeakEventSource<EventHandler<EventArgs>> MyEvent { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent"); } }
-		public IWeakEventSource<EventHandler<EventArgs>> MyEvent2 { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent2"); } }
+		public IEventSource<EventHandler<EventArgs>> MyEvent { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent"); } }
+		public IEventSource<EventHandler<EventArgs>> MyEvent2 { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent2"); } }
 		
 		private void OnMyEvent() {
 			// if no one has registered an event handler the event source will not be creted.
-			EventUtil.WeakEventManager.Raise<EventHandler<EventArgs>>(LazyWeakEventProperties, "MyEvent", EventArgs.Empty);
+			EventManager.Raise<EventHandler<EventArgs>,EventArgs>(LazyWeakEventProperties, "MyEvent", EventArgs.Empty);
 		}
 		
 	}
 		
 	public class MyEventListener {
-		private IWeakEventHandle m_MyWeakEventHolder;
+		private IEventHandle m_MyEventHolder;
 		
 		public MyEventListener(MyEventProvider provider) {
-			m_MyWeakEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+			m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 		}
 		
 		private void AtMyEvent(object sender, EventArgs eventArgs) { /*...*/ }
 	}
 
 	public class MyEventListener2 {
-		private List<IWeakEventHandle> m_MyWeakEventHolder=new List<IWeakEventHandle>();
+		private List<IEventHandle> m_MyWeakEventHolder=new List<IEventHandle>();
 		
 		public MyEventListener2(MyEventProvider provider,MyEventProvider provider2) {
 			m_MyWeakEventHolder.Add(provider.MyEvent.RegisterWeak(AtMyEvent));

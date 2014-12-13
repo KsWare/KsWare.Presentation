@@ -27,7 +27,7 @@ namespace KsWare.Presentation
 		/// <remarks></remarks>
 		event EventHandler ParentChanged;
 
-		IWeakEventSource<EventHandler> ParentChangedEvent { get; }
+		IEventSource<EventHandler> ParentChangedEvent { get; }
 	}
 
 	/// <summary> Generic interface for parent support
@@ -45,6 +45,6 @@ namespace KsWare.Presentation
 		/// <remarks></remarks>
 		event EventHandler ParentChanged;
 
-		IWeakEventSource<EventHandler> ParentChangedEvent { get; }
+		IEventSource<EventHandler> ParentChangedEvent { get; }
 	}
 }

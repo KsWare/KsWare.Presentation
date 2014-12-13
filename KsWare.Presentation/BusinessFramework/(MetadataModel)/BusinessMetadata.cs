@@ -11,13 +11,13 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	public class BusinessMetadata:IMetadata,IParentSupport, IParentSupport<IObjectBM> {
 
-		private Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		private Lazy<EventSourceStore> m_LazyWeakEventProperties;
 		private IObjectBM m_BusinessObject;
 		private IDataProvider m_DataProvider;
 		private EventHandler m_ParentChanged;
 
 		public BusinessMetadata() {
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(()=>new WeakEventPropertyStore(this));
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 		}
 
 		/// <summary> Gets the ObjectBM which owns this metadata
@@ -42,7 +42,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			set {
 				BusinessObject=(IObjectBM) value;
 				EventUtil.Raise(m_ParentChanged,this,EventArgs.Empty,"{F0954034-EBCA-412E-BE2A-38758FCA1FE9}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 		
@@ -52,7 +52,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		
 		event EventHandler IParentSupport.ParentChanged {add { m_ParentChanged += value; }remove { m_ParentChanged -= value; }}
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		event EventHandler IParentSupport<IObjectBM>.ParentChanged {add { m_ParentChanged += value; }remove { m_ParentChanged -= value; }}
 
@@ -75,9 +75,9 @@ namespace KsWare.Presentation.BusinessFramework {
 			}
 		}
 
-		protected Lazy<WeakEventPropertyStore> LazyWeakEventProperties { get { return m_LazyWeakEventProperties; } }
+		protected Lazy<EventSourceStore> LazyWeakEventProperties { get { return m_LazyWeakEventProperties; } }
 
-		protected WeakEventPropertyStore WeakEventProperties { get { return m_LazyWeakEventProperties.Value; } }
+		protected EventSourceStore EventSources { get { return m_LazyWeakEventProperties.Value; } }
 
 		/// <summary> Demands a write operation. 
 		/// If a write operation is not allowed a <see cref="InvalidOperationException"/> is throwed.

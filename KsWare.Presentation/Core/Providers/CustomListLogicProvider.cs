@@ -40,13 +40,15 @@ namespace KsWare.Presentation.Core.Providers {
 
 		private IMetadata m_Parent;
 		EventHandler m_ParentChanged;
-		private Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		private Lazy<EventSourceStore> m_LazyWeakEventProperties;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="NoListLogicProvider"/> class.
+		/// </summary>
 		public NoListLogicProvider() {
-			ParentChangedEvent = EventUtil.WeakEventManager.RegisterSource<EventHandler>(this, "ParentChanged");
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public WeakEventPropertyStore WeakEventProperties{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets the metadata which holds this provider.
 		/// </summary>
@@ -62,7 +64,7 @@ namespace KsWare.Presentation.Core.Providers {
 			set {
 				m_Parent = (IMetadata) value;
 				EventUtil.Raise(m_ParentChanged,this,EventArgs.Empty,"{202C8927-F9CF-49A3-A07B-6B37837B724B}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -71,7 +73,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <remarks></remarks>
 		event EventHandler IParentSupport.ParentChanged {add { m_ParentChanged += value; }remove { m_ParentChanged -= value; }}
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get; private set; }
+		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
+		/// </summary>
+		/// <value>The event source.</value>
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -86,13 +91,13 @@ namespace KsWare.Presentation.Core.Providers {
 		void IListLogicProvider.CollectionChanged(NotifyCollectionChangedEventArgs e) { throw new NotSupportedException("{E04009F8-C47B-45C3-BA84-F79DF786BC38}"); }
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		public IWeakEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return WeakEventProperties.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{A0E5F06F-2946-48D7-8C19-A85477A7F9E7}");
-			EventUtil.WeakEventManager.Raise<PropertyChangedEventHandler>(m_LazyWeakEventProperties,"PropertyChangedEvent",args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent",args);
 		}
 
 		public void Dispose() {Dispose(true); }
@@ -108,7 +113,7 @@ namespace KsWare.Presentation.Core.Providers {
 		private NotifyCollectionChangedEventHandler m_CollectionChangingCallback;
 		private NotifyCollectionChangedEventHandler m_CollectionChangedCallback;
 		private IMetadata m_Parent;
-		private Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		private Lazy<EventSourceStore> m_LazyWeakEventProperties;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomListLogicProvider"/> class.
 		/// </summary>
@@ -117,10 +122,9 @@ namespace KsWare.Presentation.Core.Providers {
 		public CustomListLogicProvider(NotifyCollectionChangedEventHandler collectionChangingCallback, NotifyCollectionChangedEventHandler collectionChangedCallback) {
 			m_CollectionChangingCallback = collectionChangingCallback;
 			m_CollectionChangedCallback = collectionChangedCallback;
-			ParentChangedEvent = EventUtil.WeakEventManager.RegisterSource<EventHandler>(this, "ParentChanged");
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public WeakEventPropertyStore WeakEventProperties{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -135,7 +139,7 @@ namespace KsWare.Presentation.Core.Providers {
 			set {
 				SetParentPattern.Execute(ref m_Parent, (IMetadata)value, "Parent");				
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{7C5F9D39-4698-49C6-B40C-CB6EE6E9B287}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -144,7 +148,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get; private set; }
+		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
+		/// </summary>
+		/// <value>The event source.</value>
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Gets the metadata which holds this provider.
 		/// </summary>
@@ -198,8 +205,8 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the event source for the event which occurs when a property value changes..
 		/// </summary>
 		/// <value>The event source</value>
-		public IWeakEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
-			get { return WeakEventProperties.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
+			get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
 		}
 
 		/// <summary> Raises the <see cref="PropertyChanged"/> event and <see cref="PropertyChangedEvent"/>;
@@ -209,11 +216,17 @@ namespace KsWare.Presentation.Core.Providers {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{CC50B20C-5242-4795-844C-9DF843A9B701}");
-			EventUtil.WeakEventManager.Raise<PropertyChangedEventHandler>(m_LazyWeakEventProperties,"PropertyChangedEvent", EventArgs.Empty);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
 		}
 
+		/// <summary> Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
 		public void Dispose() {Dispose(true); }
 
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources.
+		/// </summary>
+		/// <param name="explicitDispose"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
 		protected virtual void Dispose(bool explicitDispose) {
 			//TODO implement Dispose
 		}

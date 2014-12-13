@@ -32,7 +32,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The user feedback requested event.</value>
 		/// <remarks>Not available in <see cref="ObjectSlimBM"> slim objects.</see> </remarks>
-		IWeakEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get; }
+		IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get; }
 
 		/// <summary> Occurs when a business property has been changed.
 		/// </summary>
@@ -75,14 +75,14 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		private BusinessMetadata m_Metadata;
 		private readonly List<IDisposable> m_DisposableObjects = new List<IDisposable>();
-		private readonly Lazy<WeakEventPropertyStore> m_LazyWeakEventPropertyStore;
+		private readonly Lazy<EventSourceStore> m_LazyWeakEventPropertyStore;
 		private int m_IsDisposed;
 
 		public ObjectBM() {
 			Interlocked.Increment(ref StatisticsːNumberOfCreatedInstances);
 			Interlocked.Increment(ref StatisticsːNumberOfInstances);
 
-			m_LazyWeakEventPropertyStore=new Lazy<WeakEventPropertyStore>(()=>new WeakEventPropertyStore(this));
+			m_LazyWeakEventPropertyStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 			InitPartHierarchy();
 			InitPartFields();
 			InitPartReflection();
@@ -95,8 +95,8 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		public bool IsSlim { get { return false;} }
 
-		protected Lazy<WeakEventPropertyStore> LazyWeakEventProperties { get { return m_LazyWeakEventPropertyStore; } }
-		protected WeakEventPropertyStore WeakEventProperties { get { return m_LazyWeakEventPropertyStore.Value; } }
+		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return m_LazyWeakEventPropertyStore; } }
+		protected EventSourceStore EventSources { get { return m_LazyWeakEventPropertyStore.Value; } }
 
 		/// <summary> Creates the default metadata for the current type of business object .
 		/// </summary>
@@ -145,7 +145,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			if (m_Metadata.DataProvider == null) Debug.WriteLine("=>ObjectBM: WARNING: No data provider specified");
 
 			//OPTIONAL:	EventUtil.Raise(MetadataChanged,this, EventArgs.Empty,"{24FEDB67-B002-4844-A31A-80E8028D7E7F}");
-			//OPTIONAL:	EventUtil.WeakEventManager.Raise(MetadataChangedEvent, EventArgs.Empty);
+			//OPTIONAL:	WeakEventManager.Raise(MetadataChangedEvent, EventArgs.Empty);
 
 			//TODO revise. use: m_Metadata.HasDataProvider / m_Metadata.DataProvider changed
 			if (m_Metadata.DataProvider != null) m_Metadata.DataProvider.DataChanged += (sender, e) => OnDataChanged(e);
@@ -190,8 +190,8 @@ namespace KsWare.Presentation.BusinessFramework {
 				if(args.Handled) return;
 			}
 
-			if (LazyWeakEventProperties.IsValueCreated) {
-				EventUtil.WeakEventManager.Raise<EventHandler<BusyUserFeedbackEventArgs>>(LazyWeakEventProperties,"UserFeedbackRequestedEvent",args);
+			if (LazyWeakEventStore.IsValueCreated) {
+				EventManager.Raise<EventHandler<UserFeedbackEventArgs>,UserFeedbackEventArgs>(LazyWeakEventStore,"UserFeedbackRequestedEvent",args);
 				if(args.AsyncHandled) return;
 				if(args.Handled) return;
 			}
@@ -212,7 +212,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="e">The <see cref="KsWare.Presentation.BusinessFramework.BusinessPropertyChangedEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnBusinessPropertyChanged(BusinessPropertyChangedEventArgs e) {
 			EventUtil.Raise(BusinessPropertyChanged, this, e, "{3364EB50-71E9-4EBF-BBB0-14F5AFB84AA4}");
-			EventUtil.WeakEventManager.Raise(PropertyChangedEvent, e);
+			EventManager.Raise<EventHandler<BusinessPropertyChangedEventArgs>,BusinessPropertyChangedEventArgs>(LazyWeakEventStore,"PropertyChangedEvent", e);
 		}
 
 		/// <summary> Occurs when user feedback is requested.
@@ -223,16 +223,16 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the event source for the event which occurs when an user feedback is requested.
 		/// </summary>
 		/// <value>The user feedback requested event source.</value>
-		public IWeakEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
-			get { return WeakEventProperties.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
+		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
+			get { return EventSources.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
 		}
 
 		/// <summary> Occurs when a business property has been changed.
 		/// </summary>
 		public event EventHandler<BusinessPropertyChangedEventArgs> BusinessPropertyChanged;
 
-		public IWeakEventSource<EventHandler<BusinessPropertyChangedEventArgs>> PropertyChangedEvent {
-			get { return WeakEventProperties.Get<EventHandler<BusinessPropertyChangedEventArgs>>("PropertyChangedEvent"); }
+		public IEventSource<EventHandler<BusinessPropertyChangedEventArgs>> PropertyChangedEvent {
+			get { return EventSources.Get<EventHandler<BusinessPropertyChangedEventArgs>>("PropertyChangedEvent"); }
 		}
 
 		#region IModel,IDisposable
@@ -260,6 +260,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			    foreach (var disposable in m_DisposableObjects) { disposable.Dispose(); }
 			    m_Children.Clear();
 			    m_DisposableObjects.Clear();
+				if (LazyWeakEventStore.IsValueCreated) LazyWeakEventStore.Value.Dispose();
 			    EventUtil.RaiseDisposedEvent(Disposed, this);
 			}
 		}

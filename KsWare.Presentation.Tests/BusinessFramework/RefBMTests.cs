@@ -14,10 +14,10 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 
 			var ibm = (IRefBM) bm;
 //			IWeakEventSource<EventHandler<ValueChangedEventArgs>> targetChangedEvent = ibm.TargetChangedEvent;
-			IWeakEventSource targetChangedEvent = ibm.TargetChangedEvent;
+			IEventSource targetChangedEvent = ibm.TargetChangedEvent;
 
 			Assert.AreNotEqual(null,targetChangedEvent);
-			var e1= (IWeakEventSource<EventHandler<ValueChangedEventArgs<Int32BM>>>) targetChangedEvent;
+			var e1= (IEventSource<EventHandler<ValueChangedEventArgs<Int32BM>>>) targetChangedEvent;
 		}
 	}
 

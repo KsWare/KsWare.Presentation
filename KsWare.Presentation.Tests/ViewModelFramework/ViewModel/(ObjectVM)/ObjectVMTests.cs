@@ -167,7 +167,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			private void Dispose(bool explicitDisposing) {
 				if (explicitDisposing) {
-					EventUtil.WeakEventManager.ReleaseSource(this);
+					
 				}
 			}
 
@@ -175,8 +175,8 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			
 			event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{m_NotifyPropertyChangedPropertyChanged+=value;}remove {m_NotifyPropertyChangedPropertyChanged-=value;}}
-			public IWeakEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent { get; private set; }
-			public IWeakEventSource<ValueChangedEventArgs<ViewModelMetadata>> MetadataChangedEvent { get; private set; }
+			public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent { get; private set; }
+			public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent { get; private set; }
 			public bool IsEnabled { get; private set; }
 			public event EventHandler<UserFeedbackEventArgs> UserFeedbackRequested;
 			public event RoutedPropertyChangedEventHandler<bool> IsEnabledChanged;
@@ -206,7 +206,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			public event EventHandler ParentChanged;
 
-			public IWeakEventSource<EventHandler> ParentChangedEvent { get; private set; }
+			public IEventSource<EventHandler> ParentChangedEvent { get; private set; }
 			ICollection<IObjectVM> IHierarchical<IObjectVM>.Children { get { return Children; } }
 
 			public string MemberName{get;set;}
@@ -232,7 +232,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			#region Implementation of ISelectable
 			public bool IsSelected { get; set; }
 			[Obsolete("Not implemented",true)] public event EventHandler IsSelectedChanged;
-			[Obsolete("Not implemented",true)] public IWeakEventSource<EventHandler> IsSelectedChangedEvent { get; private set; }
+			[Obsolete("Not implemented",true)] public IEventSource<EventHandler> IsSelectedChangedEvent { get; private set; }
 			#endregion
 		}
 

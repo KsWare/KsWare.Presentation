@@ -44,7 +44,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if(args.AsyncHandled) return;
 			if(args.Handled) {if(args.AsyncCallback!=null) args.AsyncCallback(args); return;} //TODO revise calling of AsyncCallback
 
-			EventUtil.WeakEventManager.Raise<EventHandler<UserFeedbackEventArgs>>(LazyWeakEventProperties, "UserFeedbackRequestedEvent", args);
+			EventManager.Raise<EventHandler<UserFeedbackEventArgs>,UserFeedbackEventArgs>(LazyWeakEventStore, "UserFeedbackRequestedEvent", args);
 			if(args.AsyncHandled) return;
 			if(args.Handled) {if(args.AsyncCallback==null) return;args.AsyncCallback(args);return;} //TODO revise calling of AsyncCallback
 
@@ -72,8 +72,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public event EventHandler<UserFeedbackEventArgs> UserFeedbackRequested;
 
-		public IWeakEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
-			get { return WeakEventProperties.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
+		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
+			get { return EventSources.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
 		}
 
 	}

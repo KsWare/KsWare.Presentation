@@ -36,7 +36,7 @@ namespace KsWare.Presentation.WeakEventsTestApp {
 //				m_TestViewModel.Dispose();
 				m_TestViewModel = null; 
 				GC.Collect(); 
-				EventUtil.WeakEventManager.Collect();
+				EventManager.Collect();
 				if(m_WeakTestViewModel.IsAlive) Debug.WriteLine("m_WeakTestViewModel.IsAlive");
 			};
 		}

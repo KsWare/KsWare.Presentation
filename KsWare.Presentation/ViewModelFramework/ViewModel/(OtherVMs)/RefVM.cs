@@ -22,7 +22,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when <see cref="Target"/> changed.
 		/// </summary>
-		IWeakEventSource TargetChangedEvent { get; }
+		IEventSource TargetChangedEvent { get; }
 	}
 
 	public interface IRefVM<TRef>:IObjectVM where TRef : class, IObjectVM {
@@ -38,7 +38,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when <see cref="Target"/> changed.
 		/// </summary>
-		IWeakEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent { get; }
+		IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent { get; }
 	}
 
 	//TODO use MetadataAttribute/Itemtemplate to initialize new instances of TRef
@@ -99,7 +99,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(Equals(m_Target,value)) return;
 				var e=new ValueChangingEventArgs<TRef>(m_Target,value);
 				EventUtil.Raise(TargetChanging,this,e,"{ABE618BB-DAC8-4557-9BA9-0BFA5116D5E8}" );
-				//EventUtil.WeakEventManager.Raise(LazyWeakEventProperties,()=>TargetChangingEvent, e);
+				//WeakEventManager.Raise(LazyWeakEventProperties,()=>TargetChangingEvent, e);
 				var prevTarget=m_Target;
 				var prevHasTarget = HasTarget;
 				m_Target = value;
@@ -119,7 +119,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 				var ea=new ValueChangedEventArgs<TRef>(prevTarget,m_Target);
 				EventUtil.Raise(TargetChanged,this,ea,"{0ABD9487-DD5C-45A1-B997-A4E5C3188320}" );
-				EventUtil.WeakEventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>>(LazyWeakEventProperties,"TargetChangedEvent", ea);
+				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent", ea);
 				OnPropertyChanged("Target");
 				if(prevHasTarget!=HasTarget) OnPropertyChanged("HasTarget");
 			}
@@ -161,11 +161,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when <see cref="Target"/> changed.
 		/// </summary>
-		public IWeakEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
-			get { return WeakEventProperties.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
+		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
+			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
 		}
 		
-		IWeakEventSource IRefVM.TargetChangedEvent { get { return TargetChangedEvent; } }
+		IEventSource IRefVM.TargetChangedEvent { get { return TargetChangedEvent; } }
 
 		[Obsolete("Use TargetChangedEvent")]
 		public EventHandler EːTargetChanged {set { TargetChanged+=value; }}

@@ -17,7 +17,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		event EventHandler ParentChanged;
 
-		IWeakEventSource<EventHandler>  ParentChangedEvent { get;}
+		IEventSource<EventHandler>  ParentChangedEvent { get;}
 
 		/// <summary> Gets the children.
 		/// </summary>

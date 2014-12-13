@@ -9,8 +9,8 @@ namespace KsWare.Presentation.InternalStatistics {
 			RegisterChildren(_=>this);
 			Caption = "WeakEventManager";
 
-			Items.Add(new StatisticEntryVM("Number of registered handlers",()=>EventUtil.WeakEventManager.Count));
-			Items.Add(new StatisticEntryVM("Number of Raise invocation"   ,()=>EventUtil.WeakEventManager.StatisticsːRaiseːInvocationCount));
+			Items.Add(new StatisticEntryVM("Number of registered handlers",()=>EventManager.Count));
+			Items.Add(new StatisticEntryVM("Number of Raise invocation"   ,()=>EventManager.StatisticsːRaiseːInvocationCount));
 		}
 
 	}

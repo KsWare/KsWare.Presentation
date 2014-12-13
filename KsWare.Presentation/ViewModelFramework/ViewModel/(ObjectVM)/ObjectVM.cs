@@ -34,7 +34,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		new event EventHandler<ViewModelPropertyChangedEventArgs> PropertyChanged;
 
-		IWeakEventSource<EventHandler<ViewModelPropertyChangedEventArgs>>  PropertyChangedEvent { get;}
+		IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>>  PropertyChangedEvent { get;}
 
 	}
 
@@ -125,7 +125,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(Interlocked.Exchange(ref m_IsDisposed, 1)>0) return;
 				Interlocked.Increment(ref StatisticsːMethodInvocationːDisposeːExplicitːCount);
 				EventUtil.RaiseDisposedEvent(Disposed, this);
-				EventUtil.WeakEventManager.ReleaseSource(this);
+				if (LazyWeakEventStore.IsValueCreated) {
+					LazyWeakEventStore.Value.Dispose();
+				}
 			}
 		}
 

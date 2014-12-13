@@ -13,14 +13,14 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 		[TestCleanup   ] public override void TestCleanup() {base.TestCleanup();}
 
 		[TestMethod]
-		public void A() {
+		public void RegisterAndRelease() {
 			var count = 0;
 			var vm = new Int32VM();
 			vm.ValueChangedEvent.Register(this,"{D9FCCC5F-79B6-4DC2-B4EC-EC734EA2EC11}",delegate(object sender, ValueChangedEventArgs args) { count++; });
 			vm.Value = 1;
 			Assert.AreEqual(1,count);
 
-			EventUtil.WeakEventManager.Release(this,"{D9FCCC5F-79B6-4DC2-B4EC-EC734EA2EC11}");
+			vm.ValueChangedEvent.Release(this,"{D9FCCC5F-79B6-4DC2-B4EC-EC734EA2EC11}");
 			count = 0;
 			vm.Value = 2;
 			Assert.AreEqual(0,count);
@@ -32,15 +32,15 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			var count = 0;
 			var vm = new Int32VM();
 
-			var c = EventUtil.WeakEventManager.Count;
+			var c = EventManager.Count;
 			var i = TestObject.LivingInstances;
 
 			for (int j = 0; j < 1000; j++) {
 				if (j%50==0) {
 					GC.Collect();GC.GetTotalMemory(true);
-					EventUtil.WeakEventManager.Collect();
+					EventManager.Collect();
 				}
-				var c0 = EventUtil.WeakEventManager.Count;
+				var c0 = EventManager.Count;
 				var i0 = TestObject.LivingInstances;
 				Assert.AreEqual(c0,i0);
 				var destination = new TestObject();

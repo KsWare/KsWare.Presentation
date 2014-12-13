@@ -23,15 +23,15 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public abstract class ViewModelProvider:IViewModelProvider {
 
-		private Lazy<WeakEventPropertyStore> m_LazyWeakEventProperties;
+		private Lazy<EventSourceStore> m_LazyWeakEventStore;
 		private IViewModelMetadata m_Parent;
 
 		protected ViewModelProvider() {
-			m_LazyWeakEventProperties=new Lazy<WeakEventPropertyStore>(()=>new WeakEventPropertyStore(this));
+			m_LazyWeakEventStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 		}
 
-		protected Lazy<WeakEventPropertyStore> LazyWeakEventProperties { get { return m_LazyWeakEventProperties; } }
-		protected WeakEventPropertyStore WeakEventProperties { get { return m_LazyWeakEventProperties.Value; } }
+		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return m_LazyWeakEventStore; } }
+		protected EventSourceStore EventStore { get { return m_LazyWeakEventStore.Value; } }
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -63,7 +63,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent { get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); }}
+		public IEventSource<EventHandler> ParentChangedEvent { get { return EventStore.Get<EventHandler>("ParentChangedEvent"); }}
 
 		/// <summary> Gets parent metadata (<see cref="IViewModelMetadata"/>) of this instance.
 		/// </summary>
@@ -83,7 +83,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		protected virtual void OnParentChanged() {
 			EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{8AC4DF0E-2DCE-491E-A2CB-DA7AEA029A4A}");
-			EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+			EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 			OnPropertyChanged("Parent");
 		}
 

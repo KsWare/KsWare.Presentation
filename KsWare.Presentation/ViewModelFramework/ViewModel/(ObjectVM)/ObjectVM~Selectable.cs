@@ -27,7 +27,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				OnPropertyChanged("IsSelected");
 				if (SuppressAnyEvents==0) {
 					EventUtil.Raise(IsSelectedChanged,this,EventArgs.Empty,"{800B0C9A-92AA-4FC6-9C25-135AE3197665}");
-					EventUtil.WeakEventManager.Raise(IsSelectedChangedEvent, EventArgs.Empty);
+					EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore, "IsSelectedChangedEvent", EventArgs.Empty);
 				}
 			}
 		}
@@ -37,7 +37,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		public event EventHandler IsSelectedChanged;
 
-		public IWeakEventSource<EventHandler> IsSelectedChangedEvent { get { return WeakEventProperties.Get<EventHandler>("IsSelectedChangedEvent"); } }
+		public IEventSource<EventHandler> IsSelectedChangedEvent { get { return EventSources.Get<EventHandler>("IsSelectedChangedEvent"); } }
 
 //		IObservable<bool> IsSelectedObservable { get; }
 	}
@@ -54,7 +54,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		event EventHandler IsSelectedChanged;
 
-		IWeakEventSource<EventHandler> IsSelectedChangedEvent { get; }
+		IEventSource<EventHandler> IsSelectedChangedEvent { get; }
 
 //		IObservable<bool> IsSelectedObservable { get; }
 	}

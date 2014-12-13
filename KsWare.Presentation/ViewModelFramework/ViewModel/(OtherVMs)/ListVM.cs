@@ -262,7 +262,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected override void Dispose(bool explicitDisposing) {
 			base.Dispose(explicitDisposing);
 			if(explicitDisposing) {
-				EventUtil.WeakEventManager.ReleaseSource(this);
 				m_ObjectKey = this.GetObjectKey(); // gets a unique key which ist used after Dispose to identify this instance
 				m_IsDisposed = true;
 				this.DebugObjectTraceˑDispose(explicitDisposing);
@@ -842,7 +841,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			var raiseEvent = new Action(() => {
 					using (BlockReentrancy()) {
 						EventUtil.Raise(m_CollectionChanged, this, e, "{FDAFEEF3-5008-40B1-83A6-BBA5D45E9AD5}");
-						EventUtil.WeakEventManager.Raise(CollectionChangedEvent, e);
+						EventManager.Raise<NotifyCollectionChangedEventHandler,NotifyCollectionChangedEventArgs>(LazyWeakEventStore, "CollectionChangedEvent", e);
 					}
 				});
 
@@ -856,7 +855,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 //					}
 //				}
 //				using (BlockReentrancy()) {
-//					EventUtil.WeakEventManager.Raise(CollectionChangedEvent,e);
+//					WeakEventManager.Raise(CollectionChangedEvent,e);
 //				}				
 //			}
 		}
@@ -886,8 +885,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		public IWeakEventSource<NotifyCollectionChangedEventHandler> CollectionChangedEvent {
-			get { return WeakEventProperties.Get<NotifyCollectionChangedEventHandler>("CollectionChangedEvent"); }
+		public IEventSource<NotifyCollectionChangedEventHandler> CollectionChangedEvent {
+			get { return EventSources.Get<NotifyCollectionChangedEventHandler>("CollectionChangedEvent"); }
 		}
 
 		/// <summary> Returns the first element of a sequence, or a default value if the sequence contains no elements.

@@ -73,11 +73,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void OnActionProviderChanged() {
 			//OnPropertyChanged("ActionProvider");
 			EventUtil.Raise(ActionProviderChanged,this,EventArgs.Empty,"{B8F22E4D-0288-40A9-A28E-1D2D4DACA7A1}");
-			EventUtil.WeakEventManager.Raise(ActionProviderChangedEvent,EventArgs.Empty);
+			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore, "ActionProviderChangedEvent",EventArgs.Empty);
 		}
 
 		public event EventHandler ActionProviderChanged;
-		public IWeakEventSource<EventHandler> ActionProviderChangedEvent { get { return WeakEventProperties.Get<EventHandler>("ActionProviderChangedEvent"); }}
+		public IEventSource<EventHandler> ActionProviderChangedEvent { get { return EventStore.Get<EventHandler>("ActionProviderChangedEvent"); }}
 
 		#region Overrides of ViewModelMetadata
 

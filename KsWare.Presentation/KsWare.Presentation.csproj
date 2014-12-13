@@ -129,9 +129,11 @@
     <Compile Include="Core\%28Common Interfaces%29\IModel.cs" />
     <Compile Include="Core\%28Common Interfaces%29\IParentSupport.cs" />
     <Compile Include="Core\%28Common Interfaces%29\IProvider.cs" />
-    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\WeakEventSource.cs" />
-    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\RegisteredWeakEvent.cs" />
-    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\Class1.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\IEventHandle.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\IEventSource.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\EventContainer.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\EventSource.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\EventHandle.cs" />
     <Compile Include="Core\DataVirtualization\AsyncDataRef.cs" />
     <None Include="Core\DataVirtualization\DataVirtualization.cd" />
     <None Include="Core\DataVirtualization\MSOriginal\CollectionView.cs" />
@@ -177,7 +179,7 @@
     <Compile Include="Core\%28UserFeedbackEventArgs%29\SaveFileFeedbackEventArgs.cs" />
     <Compile Include="Core\%28Utils%29\DebugUtil.cs" />
     <Compile Include="Core\%28Utils%29\EventUtil.cs" />
-    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\EventUtil.WeakEventManager.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\EventManager.cs" />
     <Compile Include="Core\%28Utils%29\GeometryUtil.cs" />
     <Compile Include="Core\%28Utils%29\MemberAccessUtil.cs" />
     <Compile Include="Core\%28Utils%29\PathUtil.cs" />
@@ -340,7 +342,7 @@
     <Compile Include="ViewModelFramework\%28MetadataModel%29\ActionMetadata.cs" />
     <Compile Include="ViewModelFramework\Providers\BindingProvider.cs" />
     <Compile Include="ViewModelFramework\%28MetadataModel%29\ViewModelMetadata.cs" />
-    <Compile Include="Core\WeakEventPropertyStore.cs" />
+    <Compile Include="Core\%28Utils%29\%28WeakEvents%29\EventSourceStore.cs" />
     <Compile Include="ViewModelFramework\CodeGenerator.cs" />
     <Compile Include="ViewModelFramework\DependencyValueWrapper.cs" />
     <Compile Include="ViewModelFramework\ErrorEventArgs.cs" />

@@ -125,7 +125,7 @@ namespace KsWare.Presentation {
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		/// <param name="exceptions">The list to collect exceptions or <c>null</c> to throw exceptions</param>
-		private static void Invoke(Delegate d, object sender, EventArgs e, List<Exception> exceptions) {
+		internal static void Invoke(Delegate d, object sender, EventArgs e, List<Exception> exceptions) {
 
 			try {
 				// A) very slow

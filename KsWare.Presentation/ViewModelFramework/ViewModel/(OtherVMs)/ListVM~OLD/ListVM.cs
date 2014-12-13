@@ -259,7 +259,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected override void Dispose(bool explicitDisposing) {
 			base.Dispose(explicitDisposing);
 			if(explicitDisposing) {
-				EventUtil.WeakEventManager.ReleaseSource(this);
+				WeakEventManager.ReleaseSource(this);
 				m_ObjectKey = this.GetObjectKey(); // gets a unique key which ist used after Dispose to identify this instance
 				m_IsDisposed = true;
 				this.DebugObjectTraceˑDispose(explicitDisposing);
@@ -833,7 +833,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			var raiseEvent = new Action(() => {
 					using (BlockReentrancy()) {
 						EventUtil.Raise(m_CollectionChanged, this, e, "{FDAFEEF3-5008-40B1-83A6-BBA5D45E9AD5}");
-						EventUtil.WeakEventManager.Raise(CollectionChangedEvent, e);
+						WeakEventManager.Raise(CollectionChangedEvent, e);
 					}
 				});
 
@@ -847,7 +847,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 //					}
 //				}
 //				using (BlockReentrancy()) {
-//					EventUtil.WeakEventManager.Raise(CollectionChangedEvent,e);
+//					WeakEventManager.Raise(CollectionChangedEvent,e);
 //				}				
 //			}
 		}

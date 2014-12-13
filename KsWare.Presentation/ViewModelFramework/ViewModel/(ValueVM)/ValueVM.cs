@@ -53,7 +53,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the event source for the event which occurs when <see cref="Value"/> changed.
 		/// </summary>
 		/// <value>The value changed event source.</value>
-		IWeakEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent { get; }
+		IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent { get; }
 
 		/// <summary> Gets the display value provider.
 		/// </summary>
@@ -103,7 +103,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Obsolete("Use ValueChangedEvent")]
 		event EventHandler<ValueChangedEventArgs> ValueChanged;
 
-		IWeakEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent { get; }
+		IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent { get; }
 
 		/// <summary> Gets the display value provider.
 		/// </summary>
@@ -153,8 +153,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Obsolete("Use ValueChangedEvent")]
 		public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
-		public IWeakEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
-			get { return WeakEventProperties.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
+		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
+			get { return EventSources.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
 		}
 
 		protected override ViewModelMetadata CreateDefaultMetadata() {
@@ -436,7 +436,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			var args=new ValueChangedEventArgs(m_PreviousRaisedValue,newValue);
 			EventUtil.Raise(ValueChanged,this,args,"{B86ED179-8BE0-4702-A352-5E77A884195C}");
-			EventUtil.WeakEventManager.Raise(ValueChangedEvent, args);
+			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,"ValueChangedEvent", args);
 			m_PreviousRaisedValue = newValue;
 		}
 

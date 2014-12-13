@@ -161,7 +161,7 @@ namespace KsWare.Presentation {
 			var eventHandlerInfos = fieldInfo.EventHandlers;
 			var ea=new ValueChangedEventArgs(oldValue,newValue);
 			foreach (var eventHandlerInfo in eventHandlerInfos) { eventHandlerInfo.PropertyChangedEventHandler(m_Owner, ea); }
-			EventUtil.WeakEventManager.Raise<EventHandler<ValueChangedEventArgs>>(fieldInfo.LazyWeakEventProperties,"ValueChangedEvent",ea);
+			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(fieldInfo.LazyWeakEventProperties,"ValueChangedEvent",ea);
 		}
 		
 //		[Obsolete("Use indexer",true)]
@@ -225,10 +225,10 @@ namespace KsWare.Presentation {
 //			public bool CanWrite { get; set; }
 			public object Value { get; set; }
 			internal List<EventHandlerInfo> EventHandlers=new List<EventHandlerInfo>();
-			internal Lazy<WeakEventPropertyStore> LazyWeakEventProperties;
+			internal Lazy<EventSourceStore> LazyWeakEventProperties;
 
 			public BackingFieldInfo() {
-				LazyWeakEventProperties = new Lazy<WeakEventPropertyStore>(() => new WeakEventPropertyStore(this));
+				LazyWeakEventProperties = new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 			}
 
 			public event EventHandler<ValueChangedEventArgs> ValueChanged {
@@ -236,7 +236,7 @@ namespace KsWare.Presentation {
 				remove {lock (EventHandlers) {var item = EventHandlers.First(x=>x.PropertyChangedEventHandler==value);item.Dispose();}}
 			}
 
-			public IWeakEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
+			public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
 				get { return LazyWeakEventProperties.Value.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
 			}
 

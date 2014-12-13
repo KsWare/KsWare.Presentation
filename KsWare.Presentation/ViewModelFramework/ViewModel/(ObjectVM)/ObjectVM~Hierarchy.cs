@@ -65,8 +65,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		public event EventHandler ParentChanged;
 
-		public IWeakEventSource<EventHandler> ParentChangedEvent {
-			get { return WeakEventProperties.Get<EventHandler>("ParentChangedEvent"); }
+		public IEventSource<EventHandler> ParentChangedEvent {
+			get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }
 		}
 
 		/// <summary> Raises the <see cref="ParentChanged"/> event.
@@ -76,7 +76,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void OnParentChanged(object oldParent, object newParent) {
 			if (SuppressAnyEvents == 0) {
 				EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{F53C5FB8-A3F6-4EA1-B51A-1B5481C22E1E}");
-				EventUtil.WeakEventManager.Raise(ParentChangedEvent, EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 

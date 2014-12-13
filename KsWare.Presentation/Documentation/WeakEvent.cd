@@ -12,25 +12,25 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="KsWare.Presentation.EventUtil.WeakEventManager">
+      <Class Name="KsWare.Presentation.WeakEventManager">
         <Compartments>
           <Compartment Name="Nested Types" Collapsed="false" />
         </Compartments>
         <NestedTypes>
-          <Class Name="KsWare.Presentation.EventUtil.WeakEventManager.RegisteredWeakEvent">
+          <Class Name="KsWare.Presentation.WeakEventManager.RegisteredWeakEvent">
             <TypeIdentifier>
-              <NewMemberFileName>Core\(Utils)\EventUtil.WeakEventManager.cs</NewMemberFileName>
+              <NewMemberFileName>Core\(Utils)\WeakEventManager.cs</NewMemberFileName>
             </TypeIdentifier>
             <Lollipop Position="0.2" />
           </Class>
-          <Class Name="KsWare.Presentation.EventUtil.WeakEventManager.Container">
+          <Class Name="KsWare.Presentation.WeakEventManager.Container">
             <TypeIdentifier>
-              <NewMemberFileName>Core\(Utils)\EventUtil.WeakEventManager.cs</NewMemberFileName>
+              <NewMemberFileName>Core\(Utils)\WeakEventManager.cs</NewMemberFileName>
             </TypeIdentifier>
           </Class>
         </NestedTypes>
         <TypeIdentifier>
-          <NewMemberFileName>Core\(Utils)\EventUtil.WeakEventManager.cs</NewMemberFileName>
+          <NewMemberFileName>Core\(Utils)\WeakEventManager.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
       <Class Name="KsWare.Presentation.EventUtil.EventObject" Collapsed="true">
@@ -40,13 +40,13 @@
       </Class>
       <Class Name="KsWare.Presentation.EventUtil.WeakEventSource">
         <TypeIdentifier>
-          <NewMemberFileName>Core\(Utils)\EventUtil.WeakEventManager.cs</NewMemberFileName>
+          <NewMemberFileName>Core\(Utils)\WeakEventManager.cs</NewMemberFileName>
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
       <Class Name="KsWare.Presentation.EventUtil.WeakEventSource&lt;TEvent&gt;">
         <TypeIdentifier>
-          <NewMemberFileName>Core\(Utils)\EventUtil.WeakEventManager.cs</NewMemberFileName>
+          <NewMemberFileName>Core\(Utils)\WeakEventManager.cs</NewMemberFileName>
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
@@ -60,21 +60,21 @@
     <Position X="6.25" Y="1.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
-      <FileName>Core\(Utils)\EventUtil.WeakEventManager.cs</FileName>
+      <FileName>Core\(Utils)\WeakEventManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="KsWare.Presentation.IWeakEventSource" Collapsed="true">
     <Position X="3.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Core\(Utils)\EventUtil.WeakEventManager.cs</FileName>
+      <FileName>Core\(Utils)\WeakEventManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="KsWare.Presentation.IWeakEventSource&lt;TEvent&gt;" Collapsed="true">
     <Position X="3.75" Y="1.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAAEABAAAAAAABAAAAAAAAABACAAA=</HashCode>
-      <FileName>Core\(Utils)\EventUtil.WeakEventManager.cs</FileName>
+      <FileName>Core\(Utils)\WeakEventManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

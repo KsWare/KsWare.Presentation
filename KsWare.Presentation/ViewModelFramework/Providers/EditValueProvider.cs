@@ -156,7 +156,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 				var ea = new ValueChangedEventArgs(prevValue, newValue);
 				EventUtil.Raise(SourceUpdated,this,ea,"{F5D63124-F178-4467-AAEF-B43D9A072A07}");
-				EventUtil.WeakEventManager.Raise<EventHandler<ValueChangedEventArgs>>(LazyWeakEventProperties,"SourceUpdatedEvent",ea);
+				EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,"SourceUpdatedEvent",ea);
 
 				#region WORKARROUND
 				if (!Equals(ViewModel.Value,newValue)) throw new InvalidOperationException("Update source failed!"+"\n\t"+"ErrorID:{05434B88-D178-4007-9785-0C69F3892B0A}");
@@ -170,8 +170,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			((IErrorProviderController) ViewModel.Metadata.ErrorProvider).ResetError();
 		}
 
-		public EventHandler<ValueChangedEventArgs> SourceUpdated;
-		public IWeakEventSource<EventHandler<ValueChangedEventArgs>> SourceUpdatedEvent;
+		public event EventHandler<ValueChangedEventArgs> SourceUpdated;
+		public IEventSource<EventHandler<ValueChangedEventArgs>> SourceUpdatedEvent { get { return EventStore.Get<EventHandler<ValueChangedEventArgs>>("SourceUpdatedEvent"); } }
 
 
 		/// <summary> Determines whether the specified value is an integer value.

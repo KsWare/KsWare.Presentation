@@ -50,7 +50,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		event EventHandler<ValueChangedEventArgs<ViewModelMetadata>> MetadataChanged;
 
-		IWeakEventSource<ValueChangedEventArgs<ViewModelMetadata>>  MetadataChangedEvent { get;}
+		IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>>  MetadataChangedEvent { get;}
 	}
 
 	public partial class ObjectVM /*Part: Metadata*/ {
@@ -119,8 +119,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when Metadata-Property has been changed.
 		/// </summary>
-		public IWeakEventSource<ValueChangedEventArgs<ViewModelMetadata>> MetadataChangedEvent {
-			get { return WeakEventProperties.Get<ValueChangedEventArgs<ViewModelMetadata>>("MetadataChangedEvent"); }
+		public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent {
+			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>>("MetadataChangedEvent"); }
 		}
 
 		/// <summary> Raises the MetadataChanged-event.<br/>
@@ -138,7 +138,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			//if (SuppressAnyEvents == 0) ...
 			EventUtil.Raise(MetadataChanged, this, e, "{C9E46906-5D20-4D65-8A28-6849E145D786}");
-			EventUtil.WeakEventManager.Raise(MetadataChangedEvent, e);
+			EventManager.Raise<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>,ValueChangedEventArgs<ViewModelMetadata>>(LazyWeakEventStore, "MetadataChangedEvent", e);
 		}
 
 
