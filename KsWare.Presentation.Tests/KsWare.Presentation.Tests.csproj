@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="BusinessFramework\ListBMTests.cs" />
     <Compile Include="BusinessFramework\RefBMTests.cs" />
+    <Compile Include="Core\EventManagerˑIntegrationTests.cs" />
     <Compile Include="DispatcherWrapperTests.cs" />
     <Compile Include="Core\UnitTest1.cs" />
     <Compile Include="TestBase.cs" />

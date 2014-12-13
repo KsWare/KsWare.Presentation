@@ -11,7 +11,7 @@ using IgnoreAttribute=Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribu
 
 namespace KsWare.Presentation.Tests.Core {
 
-	[TestClass]
+	[TestClass,Ignore]
 	public class WeakEventManagerTests {
 
 		[TestInitialize]

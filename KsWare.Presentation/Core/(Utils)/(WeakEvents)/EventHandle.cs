@@ -2,7 +2,7 @@
 #if(STATISTICS)
 	#define IncludeRegisteredWeakEventStatistics
 #endif
-//#define IncludeRegisteredWeakEventStatistics
+#define IncludeRegisteredWeakEventStatistics
 
 using System;
 using System.ComponentModel;
@@ -17,7 +17,7 @@ namespace KsWare.Presentation {
 				
 		#if(IncludeRegisteredWeakEventStatistics)
 		internal static long StatisticsːNumberOfCreatedInstances;//StatisticsːMethodInvocationːConstructorːCount
-		internal static long StatisticsːNumberOfInstances;
+		internal static long StatisticsːInstancesˑCurrent;
 		internal static long StatisticsːMethodInvocationːDestructorːCount;
 		internal static long StatisticsːRaiseːInvocationCount;
 		#endif
@@ -44,7 +44,7 @@ namespace KsWare.Presentation {
 			#region Statistics (conditional)
 #if(IncludeRegisteredWeakEventStatistics)
 			Interlocked.Increment(ref StatisticsːNumberOfCreatedInstances);
-			Interlocked.Increment(ref StatisticsːNumberOfInstances);
+			Interlocked.Increment(ref StatisticsːInstancesˑCurrent);
 #endif
 			#endregion
 
@@ -84,9 +84,9 @@ namespace KsWare.Presentation {
 		}
 
 		#if(IncludeRegisteredWeakEventStatistics)
-		~RegisteredWeakEvent() {
+		~EventHandle() {
 			Interlocked.Increment(ref StatisticsːMethodInvocationːDestructorːCount);
-			Interlocked.Decrement(ref StatisticsːNumberOfInstances);
+			Interlocked.Decrement(ref StatisticsːInstancesˑCurrent);
 		}
 		#endif
 
@@ -155,12 +155,14 @@ namespace KsWare.Presentation {
 			get {
 				if(!m_WeakSourceObject.IsAlive) return false;
 				if (m_WeakDestination == null) {
-					return m_Handler != null;
+					return Handler != null; // !use Handle and not m_Handle
 				} else {
 					return m_WeakDestination.IsAlive;
 				}
 			}
 		}
+
+		public virtual Delegate Handler { get { return m_Handler; } }
 
 		/// <summary> Raises the event with the specified arguments.
 		/// </summary>
@@ -194,12 +196,26 @@ namespace KsWare.Presentation {
 
 		private System.EventHandler m_Handler;
 
-		public EventHandler4SystemEventHandler([NotNull] IEventSource eventSource, object destination, System.EventHandler handler, string destinationUid, object source, string eventName)
-			: base(true, eventSource, destination, null, destinationUid, source, eventName) {
+		public EventHandler4SystemEventHandler(
+			[NotNull] IEventSource eventSource, 
+			          object       destination, 
+			          EventHandler handler, 
+			          string       destinationUid, 
+			          object       source, 
+			          string       eventName
+		): base(
+			overidden     : true, 
+			eventSource   : eventSource, 
+			destination   : destination,
+			handler       : handler, 
+			destinationUid: destinationUid, 
+			source        : source,
+			eventName     : eventName
+		) {
 			m_Handler = handler;
 		}
 
-		public Delegate Handler { get { return m_Handler; } }
+		public override Delegate Handler { get { return m_Handler; } }
 
 		public override void Raise(object[] args) {
 			m_Handler(args[0], (EventArgs) args[1]); 
@@ -211,11 +227,11 @@ namespace KsWare.Presentation {
 		private System.EventHandler<TEventArgs> m_Handler;
 
 		public EventHandler4EventHandlerGeneric([NotNull] IEventSource eventSource, object destination, System.EventHandler<TEventArgs> handler, string destinationUid, object source, string eventName)
-			: base(true, eventSource, destination, null, destinationUid, source, eventName) {
+			: base(true, eventSource, destination, handler, destinationUid, source, eventName) {
 			m_Handler = handler;
 		}
 
-		public Delegate Handler { get { return m_Handler; } }
+		public override Delegate Handler { get { return m_Handler; } }
 
 		public override void Raise(object[] args) {
 			m_Handler(args[0], (TEventArgs)args[1]); 
