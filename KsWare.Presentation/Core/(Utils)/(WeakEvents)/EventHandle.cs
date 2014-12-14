@@ -16,9 +16,8 @@ namespace KsWare.Presentation {
 	internal class EventHandle:IEventHandle {
 				
 		#if(IncludeRegisteredWeakEventStatistics)
-		internal static long StatisticsːNumberOfCreatedInstances;//StatisticsːMethodInvocationːConstructorːCount
+		internal static long StatisticsːInstancesˑCreated;
 		internal static long StatisticsːInstancesˑCurrent;
-		internal static long StatisticsːMethodInvocationːDestructorːCount;
 		internal static long StatisticsːRaiseːInvocationCount;
 		#endif
 
@@ -43,7 +42,7 @@ namespace KsWare.Presentation {
 
 			#region Statistics (conditional)
 #if(IncludeRegisteredWeakEventStatistics)
-			Interlocked.Increment(ref StatisticsːNumberOfCreatedInstances);
+			Interlocked.Increment(ref StatisticsːInstancesˑCreated);
 			Interlocked.Increment(ref StatisticsːInstancesˑCurrent);
 #endif
 			#endregion
@@ -85,7 +84,6 @@ namespace KsWare.Presentation {
 
 		#if(IncludeRegisteredWeakEventStatistics)
 		~EventHandle() {
-			Interlocked.Increment(ref StatisticsːMethodInvocationːDestructorːCount);
 			Interlocked.Decrement(ref StatisticsːInstancesˑCurrent);
 		}
 		#endif

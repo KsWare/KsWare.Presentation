@@ -10,10 +10,10 @@ namespace KsWare.Presentation.Tests {
 
 		[STAThread]
 		public static void Main(string[] args) {
-			new WeakEventManagerTests().PerformanceTest1();
-			new WeakEventManagerTests().PerformanceTest1();
-			new WeakEventManagerTests().PerformanceTest2();
-			new WeakEventManagerTests().PerformanceTest2();
+//			new WeakEventManagerTests().PerformanceTest1();
+//			new WeakEventManagerTests().PerformanceTest1();
+//			new WeakEventManagerTests().PerformanceTest2();
+//			new WeakEventManagerTests().PerformanceTest2();
 		}
 	}
 }

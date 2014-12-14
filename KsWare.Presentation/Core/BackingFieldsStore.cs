@@ -92,6 +92,9 @@ namespace KsWare.Presentation {
 		public void Set<T>(string name, T value) { SetInternal(name,value); }
 //		public void Set<T>(T value,[CallerMemberName] string name=null ) { SetInternal(name,value); }
 
+//		Search:		Fields\.Set\((\(\)|_)\s*=>\s*(\w+),
+//		Replace:	Fields.Set("$2",
+
 //		public void Set<T>(Expression<Func<object, T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
 //		public void Set<T>(Expression<Func<T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
 
@@ -143,6 +146,9 @@ namespace KsWare.Presentation {
 		public TRet Get<TRet>(string name, TRet defaultValue) { return GetInternal(name, defaultValue); }
 		//TODO logic to use CallerMemberName
 //		public TRet Get<TRet>(TRet defaultValue, [CallerMemberName] string name=null) { return GetInternal<TRet>(name,defaultValue); }
+
+//		Search:		Fields\.Get\((\(\)|_)\s*=>\s*(\w+)\)
+//		Replace:	Fields.Get<>("$2")
 
 //		public TRet Get<TRet>(Expression<Func<object,TRet>> propertyExpression) {
 //			var name = MemberNameUtil.GetPropertyName(propertyExpression);

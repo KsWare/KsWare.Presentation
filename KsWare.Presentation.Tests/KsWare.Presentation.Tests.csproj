@@ -93,7 +93,7 @@
     <Compile Include="ViewModelFramework\ViewModel\%28UI-VM%29\WindowVM.Tests.cs" />
     <Compile Include="Core\GC.Tests.cs" />
     <Compile Include="Core\BasicTests.cs" />
-    <Compile Include="Core\WeakEventManager.Tests.cs" />
+    <None Include="Core\WeakEventManager.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM+CustomDataProvider+NotifyDataChangedTests.cs" />
     <Compile Include="Core\MappedDataProvider.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\RefVM.Business.Tests.cs" />

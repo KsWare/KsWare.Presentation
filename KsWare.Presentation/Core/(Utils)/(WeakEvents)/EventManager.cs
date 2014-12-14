@@ -36,13 +36,13 @@ namespace KsWare.Presentation {
 
 		internal static long StatisticsːRaiseːInvocationCount;
 
-		/// <summary> Gets the number of registered weak event handlers.
-		/// </summary>
-		/// <value> The number of registered weak event handlers </value>
-		public static int Count {
-			get { return 0; }
-			//get {lock(s_WeakEvents) return s_WeakEvents.Count;}
-		}
+//		/// <summary> Gets the number of registered weak event handlers.
+//		/// </summary>
+//		/// <value> The number of registered weak event handlers </value>
+//		public static int Count {
+//			get { return 0; }
+//			//get {lock(s_WeakEvents) return s_WeakEvents.Count;}
+//		}
 
 //		public static IWeakEventHandle Register(object destination, Delegate handler, string destinationUid, object source, string eventName) {
 		internal static EventContainer Register(

@@ -29,26 +29,26 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		[TestMethod,Ignore /*TODO*/]
 		public void Collect() {
-			var count = 0;
-			var vm = new Int32VM();
-
-			var c = EventManager.Count;
-			var i = TestObject.LivingInstances;
-
-			for (int j = 0; j < 1000; j++) {
-				if (j%50==0) {
-					GC.Collect();GC.GetTotalMemory(true);
-					EventManager.Collect();
-				}
-				var c0 = EventManager.Count;
-				var i0 = TestObject.LivingInstances;
-				Assert.AreEqual(c0,i0);
-				var destination = new TestObject();
-				vm.ValueChangedEvent.Register(destination,"{D9FCCC5F-79B6-4DC2-B4EC-EC734EA2EC11}",delegate { count++; });
-				count = 0;
-				vm.Value++;
-				Assert.AreEqual(TestObject.LivingInstances,count);
-			}
+//			var count = 0;
+//			var vm = new Int32VM();
+//
+//			var c = EventManager.Count;
+//			var i = TestObject.LivingInstances;
+//
+//			for (int j = 0; j < 1000; j++) {
+//				if (j%50==0) {
+//					GC.Collect();GC.GetTotalMemory(true);
+//					EventManager.Collect();
+//				}
+//				var c0 = EventManager.Count;
+//				var i0 = TestObject.LivingInstances;
+//				Assert.AreEqual(c0,i0);
+//				var destination = new TestObject();
+//				vm.ValueChangedEvent.Register(destination,"{D9FCCC5F-79B6-4DC2-B4EC-EC734EA2EC11}",delegate { count++; });
+//				count = 0;
+//				vm.Value++;
+//				Assert.AreEqual(TestObject.LivingInstances,count);
+//			}
 		}
 
 		public class TestObject {

@@ -173,7 +173,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			/// <summary> Gets a value indicating whether this instance has window.
 			/// </summary>
 			/// <value><c>true</c> if this instance has window; otherwise, <c>false</c>.</value>
-			public bool HasWindow { get { return Fields.Get<bool>("Window") != null; } }
+			public bool HasWindow { get { return Fields.Get<Window>("Window") != null; } }
 
 			internal void AssignWindowInternal(Window window) {
 				if(window==null) throw new ArgumentNullException("window");

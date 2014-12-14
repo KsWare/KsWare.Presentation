@@ -10,35 +10,22 @@ namespace KsWare.Presentation {
 		internal static int StatisticsːInstancesˑCreated;
 		internal static int StatisticsːInstancesˑCurrent;
 
-		protected EventSource() {
+		protected readonly WeakReference m_WeakSource;
+		protected readonly string m_EventName;
+		private readonly WeakReference m_WeakStore;
+		protected readonly List<EventContainer> m_EventHandleContainers =new List<EventContainer>();
+
+		protected EventSource(EventSourceStore store, object sourceObject, string eventName) {
 			Interlocked.Increment(ref StatisticsːInstancesˑCreated);
 			Interlocked.Increment(ref StatisticsːInstancesˑCurrent);
+
+			m_WeakStore  = store!=null ? new WeakReference(store) : null;
+			m_WeakSource = new WeakReference(sourceObject);
+			m_EventName = eventName;
 		}
 
 		~EventSource() {
 			Interlocked.Decrement(ref StatisticsːInstancesˑCurrent);
-		}
-	}
-
-	internal class EventSource<TEvent>:EventSource,IEventSource<TEvent>,IEventSourceInternal /*where TEvent:EventHandler<EventArgs>*/ {
-
-		private readonly WeakReference m_WeakSource;
-		private readonly string m_EventName;
-		private readonly List<EventContainer> m_EventHandles =new List<EventContainer>();
-		private readonly WeakReference m_WeakStore;
-
-		public EventSource(object source, string eventName) 
-			:this(null,source,eventName){}
-
-		/// <summary> Initializes a new instance of the <see cref="EventSource{TEvent}"/> class.
-		/// </summary>
-		/// <param name="store">The store which holds all event sources from source object.</param>
-		/// <param name="sourceObject">The source object which provides this event.</param>
-		/// <param name="eventName">The name of the event.</param>
-		public EventSource(EventSourceStore store, object sourceObject, string eventName) {
-			m_WeakStore  = store!=null ? new WeakReference(store) : null;
-			m_WeakSource = new WeakReference(sourceObject);
-			m_EventName = eventName;
 		}
 
 		/// <summary> Gets the name of the event.
@@ -51,6 +38,22 @@ namespace KsWare.Presentation {
 		/// <value>The source.</value>
 		public object Source {get { return m_WeakSource.Target; }}
 
+		internal List<EventContainer> GetContainers() { return m_EventHandleContainers; }
+	}
+
+	internal class EventSource<TEvent>:EventSource,IEventSource<TEvent>,IEventSourceInternal /*where TEvent:EventHandler<EventArgs>*/ {
+
+		public EventSource(object source, string eventName) 
+			:this(null,source,eventName){}
+
+		/// <summary> Initializes a new instance of the <see cref="EventSource{TEvent}"/> class.
+		/// </summary>
+		/// <param name="store">The store which holds all event sources from source object.</param>
+		/// <param name="sourceObject">The source object which provides this event.</param>
+		/// <param name="eventName">The name of the event.</param>
+		public EventSource(EventSourceStore store, object sourceObject, string eventName)
+			:base(store,sourceObject, eventName) {
+		}
 
 		//[NotNull] IWeakEventSource weakEventSource, object destination, Delegate handler, string destinationUid, object source, string eventName
 		public IEventHandle Register(object destination, string uniqueId, TEvent handler) {
@@ -62,7 +65,7 @@ namespace KsWare.Presentation {
 				sourceObject   : m_WeakSource.Target,
 				eventName      : m_EventName
 			);
-			lock (m_EventHandles) m_EventHandles.Add(handle);
+			lock (m_EventHandleContainers) m_EventHandleContainers.Add(handle);
 			return handle.EventHandle;
 		}
 
@@ -73,7 +76,7 @@ namespace KsWare.Presentation {
 				sourceObject   : m_WeakSource.Target,
 				eventName      : m_EventName
 			);
-			lock (m_EventHandles) m_EventHandles.Add(handle);
+			lock (m_EventHandleContainers) m_EventHandleContainers.Add(handle);
 			return handle.EventHandle;
 		}
 
@@ -85,14 +88,14 @@ namespace KsWare.Presentation {
 		public IEventHandle RegisterWeak(TEvent handler) {
 			var h = (Delegate) (object) handler;
 			var handle= EventManager.RegisterWeak(this, h,m_WeakSource.Target,m_EventName);
-			lock (m_EventHandles) m_EventHandles.Add(handle);
+			lock (m_EventHandleContainers) m_EventHandleContainers.Add(handle);
 			return handle.EventHandle;
 		}
 
 		public IEventHandle RegisterWeak<TEventArgs>(EventHandler<TEventArgs> handler) where TEventArgs:EventArgs {
 			var h = (Delegate) (object) handler;
 			var handle= EventManager.RegisterWeak(this,h,m_WeakSource.Target,m_EventName);
-			lock (m_EventHandles) m_EventHandles.Add(handle);
+			lock (m_EventHandleContainers) m_EventHandleContainers.Add(handle);
 			return handle.EventHandle;
 		}
 
@@ -103,35 +106,37 @@ namespace KsWare.Presentation {
 
 		private void ReleaseImpl(object destination, string eventHandlerId) {
 			var release = new List<EventHandle>();
-			lock (m_EventHandles) {
+			lock (m_EventHandleContainers) {
 				var remove = new List<EventContainer>();
-				foreach (var container in m_EventHandles) {
+				foreach (var container in m_EventHandleContainers) {
 					var handle = container.EventHandle;
 					if (handle == null) { remove.Add(container); continue; }
 					if(!handle.IsAlive) { container.Dispose(); remove.Add(container); continue;}
 
 					if (handle.DestinationUid == eventHandlerId && handle.Destination == destination) release.Add(handle);
 				}
-				foreach (var container in remove) m_EventHandles.Remove(container);
+				foreach (var container in remove) m_EventHandleContainers.Remove(container);
 				foreach (var bEvent in release) bEvent.Release(); // --> Released(..)
 			}
 		}
 
 		private void ReleaseAll() {
-			lock (m_EventHandles) {
-				foreach (var container in m_EventHandles) {
+			lock (m_EventHandleContainers) {
+				foreach (var container in m_EventHandleContainers) {
 					var handle = container.EventHandle;
 					if (handle != null) handle.ReleaseBySource(); // does not call Released(..)
 					container.Dispose();
 				}
-				m_EventHandles.Clear();
+				m_EventHandleContainers.Clear();
 			}
 		}
 
 		// internally called by WeakEventHandle
 		void IEventSourceInternal.Released(EventHandle eventHandle) {
-			lock (m_EventHandles) m_EventHandles.RemoveAll(x => ReferenceEquals(x.EventHandle, eventHandle)); 
+			lock (m_EventHandleContainers) m_EventHandleContainers.RemoveAll(x => ReferenceEquals(x.EventHandle, eventHandle)); 
 		}
+
+		List<EventContainer> IEventSourceInternal.GetContainers() { return m_EventHandleContainers; }
 
 
 		/// <summary> Adds an event handler.
@@ -167,20 +172,22 @@ namespace KsWare.Presentation {
 			//TODO revise T and EventArgs
 			Interlocked.Increment(ref EventManager.StatisticsːRaiseːInvocationCount);
 			var raise = new List<EventHandle>();
-			lock (m_EventHandles) {
+			lock (m_EventHandleContainers) {
 				var remove = new List<EventContainer>();
-				var ec = m_EventHandles.Count;
+				var ec = m_EventHandleContainers.Count;
 				for (int i = 0; i < ec; i++) {
-					var container = m_EventHandles[i];
+					var container = m_EventHandleContainers[i];
 					var handle = container.EventHandle;
-					if (handle == null) { remove.Add(container); continue; }
-					if(!handle.IsAlive) { container.Dispose(); remove.Add(container); continue;}
-
-					if(handle.EventName==m_EventName) raise.Add(handle);
+					if (handle == null || !handle.IsAlive) { remove.Add(container); continue; }
+					raise.Add(handle);
 				}
 
 				var rc = remove.Count;
-				for (int i = 0; i < rc; i++) remove[i].Dispose();
+				for (int i = 0; i < rc; i++) {
+					var container = remove[i];
+					container.Dispose();
+					m_EventHandleContainers.Remove(container);
+				}
 
 				var ic = raise.Count;
 				for (int i = 0; i < ic; i++) raise[i].Raise(new object[]{m_WeakSource.Target,args});

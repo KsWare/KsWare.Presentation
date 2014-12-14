@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.ViewModelFramework;
 
@@ -18,6 +19,7 @@ namespace KsWare.Presentation {
 
 	internal interface IEventSourceInternal {
 		void Released(EventHandle registeredEvent);
+		List<EventContainer>GetContainers();
 	}
 
 	/// <summary> Public interface for strong typed weak event source 

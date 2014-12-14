@@ -9,7 +9,10 @@ namespace KsWare.Presentation.InternalStatistics {
 			RegisterChildren(_=>this);
 			Caption = "WeakEventManager";
 
-			Items.Add(new StatisticEntryVM("Number of registered handlers",()=>EventManager.Count));
+			Items.Add(new StatisticEntryVM("Number of created sources"    ,()=>EventSource.StatisticsːInstancesˑCreated));
+			Items.Add(new StatisticEntryVM("Number of registered sources" ,()=>EventSource.StatisticsːInstancesˑCurrent));
+			Items.Add(new StatisticEntryVM("Number of created handlers"   ,()=>EventHandle.StatisticsːInstancesˑCreated));
+			Items.Add(new StatisticEntryVM("Number of registered handlers",()=>EventHandle.StatisticsːInstancesˑCurrent));
 			Items.Add(new StatisticEntryVM("Number of Raise invocation"   ,()=>EventManager.StatisticsːRaiseːInvocationCount));
 		}
 
