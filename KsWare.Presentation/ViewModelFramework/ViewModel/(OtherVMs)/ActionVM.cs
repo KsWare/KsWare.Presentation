@@ -166,7 +166,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Supports MenuEvent.InputGestureText
 		/// </summary>
-		public string InputGestureText {get { return Fields.Get(()=>InputGestureText); }set { Fields.Set(()=>InputGestureText, value); }}
+		public string InputGestureText {get { return Fields.Get<string>("InputGestureText"); }set { Fields.Set("InputGestureText", value); }}
 
 		public EventHandler<CanExecuteEventArgs> MːCanExecuteCallback {set { Metadata.ActionProvider.CanExecuteCallback = value; }}
 

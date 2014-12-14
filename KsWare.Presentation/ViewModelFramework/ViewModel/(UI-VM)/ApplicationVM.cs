@@ -217,14 +217,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>A <see cref="WindowVM"/> that is designated as the main application window.</value>
 		[Hierarchy(HierarchyType.Reference)]
-		public WindowVM MainWindow { get { return Fields.Get(() => MainWindow); } set { Fields.Set(() => MainWindow, value); } }
+		public WindowVM MainWindow { get { return Fields.Get<WindowVM>("MainWindow"); } set { Fields.Set("MainWindow", value); } }
 		
-		public CultureInfo CurrentCulture { get { return Fields.Get(() => CurrentCulture); } set { Fields.Set(() => CurrentCulture, value); } }
+		public CultureInfo CurrentCulture { get { return Fields.Get<CultureInfo>("CurrentCulture"); } set { Fields.Set("CurrentCulture", value); } }
 		
 		/// <summary> Gets or sets a value indicating whether the application is in foreground.
 		/// </summary>
 		/// <value><c>true</c> if the application is in foreground; otherwise, <c>false</c>.</value>
-		public bool IsActive { get { return Fields.Get(() => IsActive); } set { Fields.Set(() => IsActive, value); } }
+		public bool IsActive { get { return Fields.Get<bool>("IsActive"); } set { Fields.Set("IsActive", value); } }
 
 		/// <summary> Gets the <see cref="Dispatcher"/> this object is associated with. 
 		/// </summary>
@@ -318,7 +318,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value><c>true</c> if user feedbacks are forwarded to main window; otherwise, <c>false</c>.</value>
 		/// <seealso cref="WindowVM.HandleApplicationUserFeedbackRequests"/>
-		public bool ForwardUserFeedbackToMainWindow { get { return Fields.Get(_ => ForwardUserFeedbackToMainWindow); } set { Fields.Set(_ => ForwardUserFeedbackToMainWindow, value); } }
+		public bool ForwardUserFeedbackToMainWindow { get { return Fields.Get<bool>("ForwardUserFeedbackToMainWindow"); } set { Fields.Set("ForwardUserFeedbackToMainWindow", value); } }
 
 		/// <summary> Forwards user feedback to main window
 		/// </summary>

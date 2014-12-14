@@ -192,7 +192,6 @@ namespace KsWare.Presentation.Tests.Core {
 				EventSources =new EventSourceStore(this);
 			}
 
-//			public IWeakEventSource<EventHandler> MyEvent { get { return WeakEventProperties.Get(() => MyEvent); } }
 			public IEventSource<EventHandler> MyEvent { get { return EventSources.Get<EventHandler>("MyEvent"); } }
 
 			public void Raise() {

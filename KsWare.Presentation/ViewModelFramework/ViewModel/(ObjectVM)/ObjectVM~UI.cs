@@ -83,12 +83,12 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		/// <param name="owner">The owner.</param>
 		public UIPropertiesRoot(IObjectVM owner):base(owner) {
-			Fields.AddLazy(_=>Button         , new Lazy<object>(()=> new Button(owner)));
-			Fields.AddLazy(_=>TreeViewItem   , new Lazy<object>(()=> new TreeViewItem(owner)));
-			Fields.AddLazy(_=>MenuItem       , new Lazy<object>(()=> new MenuItem(owner)));
-			Fields.AddLazy(_=>Selector       , new Lazy<object>(()=> new Selector(owner)));
-			Fields.AddLazy(_=>Item           , new Lazy<object>(()=> new ItemContainer(owner)));
-			Fields.AddLazy(_=>ComboBox       , new Lazy<object>(()=> new ComboBox(owner)));
+			Fields.AddLazy("Button"         , new Lazy<Button       >(()=> new Button(owner)));
+			Fields.AddLazy("TreeViewItem"   , new Lazy<TreeViewItem >(()=> new TreeViewItem(owner)));
+			Fields.AddLazy("MenuItem"       , new Lazy<MenuItem     >(()=> new MenuItem(owner)));
+			Fields.AddLazy("Selector"       , new Lazy<Selector     >(()=> new Selector(owner)));
+			Fields.AddLazy("Item"           , new Lazy<ItemContainer>(()=> new ItemContainer(owner)));
+			Fields.AddLazy("ComboBox"       , new Lazy<ComboBox     >(()=> new ComboBox(owner)));
 			m_EventConnector = new Lazy<UIEventConnector        >(()=> new UIEventConnector(owner));
 			m_Events         = new Lazy<UIEvents                >(()=> new UIEvents(owner));
 			m_InputGestures  = new Lazy<InputGestureCollection  >(()=> new InputGestureCollection());
@@ -101,7 +101,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// The button properties.
 		/// </value>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public Button Button {get { return Fields.GetLazy(_ => Button); }}
+		public Button Button {get { return Fields.GetLazy<Button>("Button"); }}
 
 		/// <summary> Gets the TreeViewItem properties.
 		/// </summary>
@@ -109,7 +109,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// The TreeViewItem properties.
 		/// </value>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public TreeViewItem TreeViewItem {get { return Fields.GetLazy(_ => TreeViewItem); }}
+		public TreeViewItem TreeViewItem {get { return Fields.GetLazy<TreeViewItem>("TreeViewItem"); }}
 
 		/// <summary> Gets the MenuItem properties.
 		/// </summary>
@@ -117,7 +117,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// The MenuItem properties.
 		/// </value>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public MenuItem MenuItem {get { return Fields.GetLazy(_ => MenuItem); }}
+		public MenuItem MenuItem {get { return Fields.GetLazy<MenuItem>("MenuItem"); }}
 
 		public UIEventConnector EventConnector {get { return m_EventConnector.Value; }}
 
@@ -126,34 +126,34 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// <summary> System.Windows.Controls.Primitives.Selector
 		/// </summary>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public Selector Selector {get { return Fields.GetLazy(_ => Selector); }}
+		public Selector Selector {get { return Fields.GetLazy<Selector>("Selector"); }}
 
 		/// <summary> System.Windows.Controls.Primitives.Selector
 		/// </summary>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public ItemContainer Item {get { return Fields.GetLazy(_ => Item); }}
+		public ItemContainer Item {get { return Fields.GetLazy<ItemContainer>("Item"); }}
 		
 		public InputGestureCollection InputGestures {get { return m_InputGestures.Value; }}
 
 		/// <summary> System.Windows.Controls.ComboBox
 		/// </summary>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public ComboBox ComboBox  {get { return Fields.GetLazy(_ => ComboBox); }}
+		public ComboBox ComboBox  {get { return Fields.GetLazy<ComboBox>("ComboBox"); }}
 
 
 		// ###
 
 		/// <summary> see <see cref="FrameworkElement.ToolTip"/>
 		/// </summary>
-		public object ToolTip { get { return Fields.Get(() => ToolTip); } set { Fields.Set(() => ToolTip, value); } }
+		public object ToolTip { get { return Fields.Get<object>("ToolTip"); } set { Fields.Set("ToolTip", value); } }
 
 		/// <summary> see <see cref="UIElement.Visibility"/>
 		/// </summary>
-		public Visibility Visibility { get { return Fields.Get(() => Visibility); } set { Fields.Set(() => Visibility, value); } }
+		public Visibility Visibility { get { return Fields.Get<Visibility>("Visibility"); } set { Fields.Set("Visibility", value); } }
 		
 		/// <summary> see <see cref="FrameworkElement.Tag"/>
 		/// </summary>
-		public object Tag { get { return Fields.Get(() => Tag); } set { Fields.Set(() => Tag, value); } }
+		public object Tag { get { return Fields.Get<object>("Tag"); } set { Fields.Set("Tag", value); } }
 
 
 	}
@@ -233,15 +233,15 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 
 		/// <summary> see <see cref="System.Windows.Controls.Button.IsDefault"/>
 		/// </summary>
-		public bool IsDefault { get { return Fields.Get(() => IsDefault); } set { Fields.Set(() => IsDefault, value); } }
+		public bool IsDefault { get { return Fields.Get<bool>("IsDefault"); } set { Fields.Set("IsDefault", value); } }
 
 		/// <summary> see <see cref="ToggleButton.IsChecked"/>
 		/// </summary>
-		public bool IsChecked { get { return Fields.Get(() => IsChecked); } set { Fields.Set(() => IsChecked, value); } }
+		public bool IsChecked { get { return Fields.Get<bool>("IsChecked"); } set { Fields.Set("IsChecked", value); } }
 
 		//### Additional Properties ###
 
-		public bool IsHighlighted { get { return Fields.Get(() => IsHighlighted); } set { Fields.Set(() => IsHighlighted, value); } }
+		public bool IsHighlighted { get { return Fields.Get<bool>("IsHighlighted"); } set { Fields.Set("IsHighlighted", value); } }
 	}
 
 	/// <summary> TreeViewItem </summary>
@@ -266,8 +266,8 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// <remarks></remarks>
 
 		public bool IsExpanded {
-			get { return Fields.Get(() => IsExpanded); } 
-			set { Fields.SetAndRaise(() => IsExpanded, value, _=> EventUtil.Raise(IsExpandedChanged,this,EventArgs.Empty,"{355AFA11-F463-429A-AB9F-42F51626DAC8}")); }
+			get { return Fields.Get<bool>("IsExpanded"); } 
+			set { Fields.SetAndRaise("IsExpanded", value, _=> EventUtil.Raise(IsExpandedChanged,this,EventArgs.Empty,"{355AFA11-F463-429A-AB9F-42F51626DAC8}")); }
 		}	
 		
 		/// <summary> Occurs when <see cref="IsExpanded"/> changed.
@@ -279,34 +279,34 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// <value>
 		/// <c>true</c> if this instance has no header; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasNoHeader { get { return Fields.Get(() => HasNoHeader); } set { Fields.Set(() => HasNoHeader, value); } }
+		public bool HasNoHeader { get { return Fields.Get<bool>("HasNoHeader"); } set { Fields.Set("HasNoHeader", value); } }
 
 		/// <summary> Gets or sets a value indicating whether the TreeViewItem has no expander.
 		/// </summary>
 		/// <value>
 		/// <c>true</c> if this instance has no expander; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasNoExpander { get { return Fields.Get(() => HasNoExpander); } set { Fields.Set(() => HasNoExpander, value); } }
+		public bool HasNoExpander { get { return Fields.Get<bool>("HasNoExpander"); } set { Fields.Set("HasNoExpander", value); } }
 
 		/// <summary> Gets or sets a value indicating whether the TreeViewItem is the first node.
 		/// </summary>
 		/// <value>
 		///   <c>true</c> if the TreeViewItem is last node; otherwise, <c>false</c>.
 		/// </value>
-		public bool IsFirst { get { return Fields.Get(() => IsFirst); } set { Fields.Set(() => IsFirst, value); } }
+		public bool IsFirst { get { return Fields.Get<bool>("IsFirst"); } set { Fields.Set("IsFirst", value); } }
 
 		/// <summary> Gets or sets a value indicating whether the TreeViewItem is the last node.
 		/// </summary>
 		/// <value>
 		///   <c>true</c> if the TreeViewItem is last node; otherwise, <c>false</c>.
 		/// </value>
-		public bool IsLast { get { return Fields.Get(() => IsLast); } set { Fields.Set(() => IsLast, value); } }
+		public bool IsLast { get { return Fields.Get<bool>("IsLast"); } set { Fields.Set("IsLast", value); } }
 
-		public IList List { get { return Fields.Get(() => List); } set { Fields.Set(() => List, value); } }
+		public IList List { get { return Fields.Get<IList>("List"); } set { Fields.Set("List", value); } }
 
-		public bool HasItems { get { return Fields.Get(() => HasItems); } set { Fields.Set(() => HasItems, value); } }
+		public bool HasItems { get { return Fields.Get<bool>("HasItems"); } set { Fields.Set("HasItems", value); } }
 
-		public bool IsTopLevel { get { return Fields.Get(() => IsTopLevel); } set { Fields.Set(() => IsTopLevel, value); } }
+		public bool IsTopLevel { get { return Fields.Get<bool>("IsTopLevel"); } set { Fields.Set("IsTopLevel", value); } }
 	}
 
 	/// <summary> MenuItem </summary>
@@ -320,22 +320,22 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// <summary>
 		/// <see cref="System.Windows.Controls.MenuItem.Icon"/>
 		/// </summary>
-		public object Icon { get { return Fields.Get(() => Icon); } set { Fields.Set(() => Icon, value); } }
+		public object Icon { get { return Fields.Get<object>("Icon"); } set { Fields.Set("Icon", value); } }
 
 		/// <summary>
 		/// <see cref="HeaderedItemsControl.Header"/>
 		/// </summary>
-		public object Header { get { return Fields.Get(() => Header); } set { Fields.Set(() => Header, value); } }
+		public object Header { get { return Fields.Get<object>("Header"); } set { Fields.Set("Header", value); } }
 
 		/// <summary>
 		/// <see cref="System.Windows.Controls.MenuItem.IsCheckable"/>
 		/// </summary>
-		public bool IsCheckable { get { return Fields.Get(() => IsCheckable); } set { Fields.Set(() => IsCheckable, value); } }
+		public bool IsCheckable { get { return Fields.Get<bool>("IsCheckable"); } set { Fields.Set("IsCheckable", value); } }
 
 		/// <summary>
 		/// <see cref="System.Windows.Controls.MenuItem.IsChecked"/>
 		/// </summary>
-		public bool IsChecked { get { return Fields.Get(() => IsChecked); } set { Fields.Set(() => IsChecked, value); } }
+		public bool IsChecked { get { return Fields.Get<bool>("IsChecked"); } set { Fields.Set("IsChecked", value); } }
 	}
 
 	/// <summary>
@@ -349,13 +349,13 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		/// <value>The first item in the current selection or null if the selection is empty.</value>
 		/// <seealso cref="System.Windows.Controls.Primitives.Selector.SelectedItem"/>
-		public object SelectedItem { get { return Fields.Get(() => SelectedItem); } set { Fields.Set(() => SelectedItem, value); } }
+		public object SelectedItem { get { return Fields.Get<object>("SelectedItem"); } set { Fields.Set("SelectedItem", value); } }
 
 		/// <summary> Gets or sets the index of the first item in the current selection or returns negative one (-1) if the selection is empty. 
 		/// </summary>
 		/// <value>The index of first item in the current selection. The default value is negative one (-1).</value>
 		/// <seealso cref="System.Windows.Controls.Primitives.Selector.SelectedIndex"/>
-		public int SelectedIndex { get { return Fields.Get(() => SelectedIndex); } set { Fields.Set(() => SelectedIndex, value); } }
+		public int SelectedIndex { get { return Fields.Get<int>("SelectedIndex"); } set { Fields.Set("SelectedIndex", value); } }
 	}
 
 	public sealed class ComboBox:UIPropertiesBase {
@@ -369,13 +369,13 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		/// <value><c>true</c> if the <see cref="System.Windows.Controls.ComboBox"/> can be edited; otherwise <c>false</c>. The default is false.</value>
 		/// <seealso cref="System.Windows.Controls.ComboBox.IsEditable"/>
-		public bool IsEditable { get { return Fields.Get(() => IsEditable); } set { Fields.Set(() => IsEditable, value); } }
+		public bool IsEditable { get { return Fields.Get<bool>("IsEditable"); } set { Fields.Set("IsEditable", value); } }
 
 		/// <summary> Gets or sets a value that indicates whether the drop-down for a combo box is currently open.
 		/// </summary>
 		/// <value>true if the drop-down is open; otherwise, false. The default is false.</value>
 		/// <seealso cref="System.Windows.Controls.ComboBox.IsDropDownOpen"/>
-		public bool IsDropDownOpen { get { return Fields.Get(() => IsDropDownOpen); } set { Fields.Set(() => IsDropDownOpen, value); } }
+		public bool IsDropDownOpen { get { return Fields.Get<bool>("IsDropDownOpen"); } set { Fields.Set("IsDropDownOpen", value); } }
 
 	}
 
@@ -387,14 +387,14 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		/// <value><c>true</c> if this item is selected; otherwise, <c>false</c>.</value>
 		/// <seealso cref="System.Windows.Controls.Primitives.Selector.IsSelectedProperty"/>
-		public bool IsSelected { get { return Fields.Get(() => IsSelected); } set { Fields.Set(() => IsSelected, value); } }
+		public bool IsSelected { get { return Fields.Get<bool>("IsSelected"); } set { Fields.Set("IsSelected", value); } }
 
 
 		/// <summary> Gets a value that indicates whether the keyboard focus is within the value returned by a Selector.
 		/// </summary>
 		/// <value><c>true</c> if the keyboard focus is within the Selector control; otherwise, <c>false</c>.</value>
 		/// <seealso cref="System.Windows.Controls.Primitives.Selector.IsSelectionActiveProperty"/>
-		public int IsSelectionActive { get { return Fields.Get(() => IsSelectionActive); } set { Fields.Set(() => IsSelectionActive, value); } }
+		public int IsSelectionActive { get { return Fields.Get<int>("IsSelectionActive"); } set { Fields.Set("IsSelectionActive", value); } }
 
 	}
 }

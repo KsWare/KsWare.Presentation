@@ -19,13 +19,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <remarks></remarks>
 		[Bindable(true)]
-		public double ProgressPercent { get { return Fields.Get(() => ProgressPercent); } set { Fields.Set(() => ProgressPercent, value); } }
+		public double ProgressPercent { get { return Fields.Get<double>("ProgressPercent"); } set { Fields.Set("ProgressPercent", value); } }
 
 		/// <summary> Gets a value indicating whether the action is done.
 		/// </summary>
 		/// <remarks></remarks>
 		[Bindable(true)]
-		public bool IsDone { get { return Fields.Get(() => IsDone); } set { Fields.Set(() => IsDone, value); } }
+		public bool IsDone { get { return Fields.Get<bool>("IsDone"); } set { Fields.Set("IsDone", value); } }
 
 		/// <summary> Sets the progress.
 		/// </summary>

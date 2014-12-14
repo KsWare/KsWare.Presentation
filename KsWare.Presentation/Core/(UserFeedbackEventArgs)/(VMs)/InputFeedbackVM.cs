@@ -15,8 +15,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			CancelAction.MːDoAction=DoCancelClick;
 		}
 
-		public string Caption { get { return Fields.Get(() => Caption); } set { Fields.Set(() => Caption, value); } }
-		public string Prompt { get { return Fields.Get(() => Prompt); } set { Fields.Set(() => Prompt, value); } }
+		public string Caption { get { return Fields.Get<string>("Caption"); } set { Fields.Set("Caption", value); } }
+		public string Prompt { get { return Fields.Get<string>("Prompt"); } set { Fields.Set("Prompt", value); } }
 
 		public ActionVM OkAction { get; private set; }
 		public ActionVM CancelAction { get; private set; }

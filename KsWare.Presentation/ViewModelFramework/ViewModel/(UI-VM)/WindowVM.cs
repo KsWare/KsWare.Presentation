@@ -73,7 +73,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether the window is the foreground window.
 		/// </summary>
 		/// <value><c>true</c> the window is the foreground window; otherwise, <c>false</c>.</value>
-		public bool IsActivated { get { return Fields.Get(() => IsActivated); } private set { Fields.Set(() => IsActivated, value); } }
+		public bool IsActivated { get { return Fields.Get<bool>("IsActivated"); } private set { Fields.Set("IsActivated", value); } }
 
 		private void AtWindowClosed(object sender, EventArgs e) {
 			
@@ -168,17 +168,17 @@ namespace KsWare.Presentation.ViewModelFramework {
 			/// <summary> Gets the <see cref="Window"/>.
 			/// </summary>
 			/// <value>The <see cref="Window"/>.</value>
-			public Window Window { get { DemandAccess(); return Fields.Get(() => Window); } }
+			public Window Window { get { DemandAccess(); return Fields.Get<Window>("Window"); } }
 
 			/// <summary> Gets a value indicating whether this instance has window.
 			/// </summary>
 			/// <value><c>true</c> if this instance has window; otherwise, <c>false</c>.</value>
-			public bool HasWindow { get { return Fields.Get(() => Window) != null; } }
+			public bool HasWindow { get { return Fields.Get<bool>("Window") != null; } }
 
 			internal void AssignWindowInternal(Window window) {
 				if(window==null) throw new ArgumentNullException("window");
 				DemandAssign();
-				Fields.Set(() => Window, window);
+				Fields.Set("Window", window);
 			}
 
 			public event EventHandler<ValueChangedEventArgs<Window>> WindowChanged;

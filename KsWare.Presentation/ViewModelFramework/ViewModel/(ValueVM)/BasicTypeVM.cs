@@ -101,8 +101,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		public T MinValue{get { return Fields.Get(()=>MinValue); } set{Fields.Set(()=>MinValue,value);}}
-		public T MaxValue{get { return Fields.Get(()=>MaxValue); } set{Fields.Set(()=>MaxValue,value);}}
+		public T MinValue{get { return Fields.Get<T>("MinValue"); } set{Fields.Set("MinValue",value);}}
+		public T MaxValue{get { return Fields.Get<T>("MaxValue"); } set{Fields.Set("MaxValue",value);}}
 	}
 
 	/// <summary> Provides a view-model for <see cref="Byte"/>

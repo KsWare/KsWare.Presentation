@@ -92,17 +92,23 @@ namespace KsWare.Presentation {
 		public void Set<T>(string name, T value) { SetInternal(name,value); }
 //		public void Set<T>(T value,[CallerMemberName] string name=null ) { SetInternal(name,value); }
 
-		public void Set<T>(Expression<Func<object, T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
-		public void Set<T>(Expression<Func<T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
+//		public void Set<T>(Expression<Func<object, T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
+//		public void Set<T>(Expression<Func<T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
 
-		public void SetAndRaise<T>(Expression<Func<object, T>> memberExpression, T value, Action<T> changedCallback) {
-			if (SetInternal(MemberNameUtil.GetPropertyName(memberExpression), value)) 
-				changedCallback.Invoke(value);
+		public void SetAndRaise<T>(string propertyName, T value, Action<T> changedCallback) {
+			if (SetInternal(propertyName, value)) 
+				changedCallback(value);
 		}
-		public void SetAndRaise<T>(Expression<Func<T>> memberExpression, T value, Action<T> changedCallback) {
-			if (SetInternal(MemberNameUtil.GetPropertyName(memberExpression), value)) 
-				changedCallback.Invoke(value);
-		}
+
+//		public void SetAndRaise<T>(Expression<Func<object, T>> memberExpression, T value, Action<T> changedCallback) {
+//			if (SetInternal(MemberNameUtil.GetPropertyName(memberExpression), value)) 
+//				changedCallback(value);
+//		}
+
+//		public void SetAndRaise<T>(Expression<Func<T>> memberExpression, T value, Action<T> changedCallback) {
+//			if (SetInternal(MemberNameUtil.GetPropertyName(memberExpression), value)) 
+//				changedCallback(value);
+//		}
 
 		private bool SetInternal<T>(string name, T value) {
 			const bool bChanged=true;const bool bNotChanged = false;
@@ -119,32 +125,41 @@ namespace KsWare.Presentation {
 		}
 
 
-		//public T Get<T>(string name) { return GetInternal<T>(name); }
-//		public T Get<T>([CallerMemberName] string name=null) { return GetInternal<T>(name); }
+		/// <summary> Gets the value for the property with the specified name.
+		/// </summary>
+		/// <typeparam name="TRet">The type of the value.</typeparam>
+		/// <param name="name">The name of the property.</param>
+		/// <returns>The value</returns>
+		public TRet Get<TRet>(string name) {return GetInternal(name, default(TRet)); }
+		//TODO logic to use CallerMemberName
+//		public TRet Get<TRet>([CallerMemberName] string name=null) { return GetInternal<TRet>(name,default(TRet)); }
 
-		public TRet Get<TRet>(Expression<Func<object,TRet>> propertyExpression) {
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			return GetInternal<TRet>(name);
-		}
-		public TRet Get<TRet>(Expression<Func<TRet>> propertyExpression) {
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			return GetInternal<TRet>(name);
-		}
+		/// <summary> Gets the value for the property with the specified name.
+		/// </summary>
+		/// <typeparam name="TRet">The type of the value.</typeparam>
+		/// <param name="name">The name of the property.</param>
+		/// <param name="defaultValue">The default value </param>
+		/// <returns>The value</returns>
+		public TRet Get<TRet>(string name, TRet defaultValue) { return GetInternal(name, defaultValue); }
+		//TODO logic to use CallerMemberName
+//		public TRet Get<TRet>(TRet defaultValue, [CallerMemberName] string name=null) { return GetInternal<TRet>(name,defaultValue); }
 
-		public T Get<T>(string name, T defaultValue) {
+//		public TRet Get<TRet>(Expression<Func<object,TRet>> propertyExpression) {
+//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
+//			return GetInternal<TRet>(name);
+//		}
+
+//		public TRet Get<TRet>(Expression<Func<TRet>> propertyExpression) {
+//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
+//			return GetInternal<TRet>(name);
+//		}
+
+		private TRet GetInternal<TRet>(string name, TRet defaultValue) {
 			if (!m_Fields.ContainsKey(name)) {
 				if (m_ReadOnlyCollection) throw new KeyNotFoundException();
-				return default(T);
+				return defaultValue;
 			}
-			return (T)m_Fields[name].Value;
-		}
-
-		private T GetInternal<T>(string name) {
-			if (!m_Fields.ContainsKey(name)) {
-				if (m_ReadOnlyCollection) throw new KeyNotFoundException();
-				return default(T);
-			}
-			return (T)m_Fields[name].Value;			
+			return (TRet)m_Fields[name].Value;			
 		}
 
 //		public bool Exists(string name) { return m_Fields.ContainsKey(name); }
@@ -271,24 +286,34 @@ namespace KsWare.Presentation {
 	// Lazy support
 	partial class BackingFieldsStore {
 
-		public void AddLazy<T>(Expression<Func<object, T>> propertyExpression, Lazy<object> lazy) {
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			AddCore(name,lazy);
-		}
-		public void AddLazy<T>(Expression<Func<T>> propertyExpression, Lazy<object> lazy) {
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			AddCore(name,lazy);
+
+		public void AddLazy<TValue>(string propertyName, Lazy<TValue> lazy) {
+			AddCore(propertyName,lazy);
 		}
 
-		public TRet GetLazy<TRet>(Expression<Func<object,TRet>> propertyExpression) {
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			return (TRet)GetInternal<Lazy<object>>(name).Value;
+//		public void AddLazy<T>(Expression<Func<object, T>> propertyExpression, Lazy<object> lazy) {
+//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
+//			AddCore(name,lazy);
+//		}
+//
+//		public void AddLazy<T>(Expression<Func<T>> propertyExpression, Lazy<object> lazy) {
+//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
+//			AddCore(name,lazy);
+//		}
+
+		public TValue GetLazy<TValue>(string propertyName) {
+			return (TValue)GetInternal<Lazy<TValue>>(propertyName,default(Lazy<TValue>)).Value;
 		}
 
-		public TRet GetLazy<TRet>(Expression<Func<TRet>> propertyExpression) {
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			return (TRet)GetInternal<Lazy<object>>(name).Value;
-		}
+//		public TValue GetLazy<TValue>(Expression<Func<object,TValue>> propertyExpression) {
+//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
+//			return (TValue)GetInternal<Lazy<object>>(name,default(TValue)).Value;
+//		}
+//
+//		public TValue GetLazy<TValue>(Expression<Func<TValue>> propertyExpression) {
+//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
+//			return (TValue)GetInternal<Lazy<object>>(name).Value;
+//		}
 
 		/// <summary> Gets the specified property. When lazy initialization occurs, the specified initialization function is used.
 		/// </summary>

@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <remarks></remarks>
 	public class DynamicVM:ValueVM<object>,IValueVM {
 
-		public Type ValueType { get { return Fields.Get(_ => ValueType); } set { Fields.Set(_ => ValueType, value); } }
+		public Type ValueType { get { return Fields.Get<Type>("ValueType"); } set { Fields.Set("ValueType", value); } }
 
 		protected override void OnBusinessObjectChanged(ValueChangedEventArgs<IObjectBM> e) {
 			base.OnBusinessObjectChanged(e);

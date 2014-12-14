@@ -35,7 +35,7 @@ namespace KsWare.Presentation {
 	public class EventSourceStore {
 
 		private readonly WeakReference m_WeakSourceObject;
-		private readonly Dictionary<string,IEventSource> m_EventProperties=new Dictionary<string, IEventSource>();
+		private readonly Dictionary<string,IEventSource> m_EventSources=new Dictionary<string, IEventSource>();
 
 		/// <summary> Initializes a new instance of the <see cref="EventSourceStore"/> for the specifiecified source object.
 		/// </summary>
@@ -46,7 +46,7 @@ namespace KsWare.Presentation {
 
 		/// <summary> Gets the number of initialized weak event sources
 		/// </summary>
-		public int Count { get { return m_EventProperties.Count; } }
+		public int Count { get { return m_EventSources.Count; } }
 
 //		/// <summary> Gets a weak event source (IWeakEventSource)
 //		/// </summary>
@@ -72,10 +72,10 @@ namespace KsWare.Presentation {
 		/// <returns>The weak event source</returns>
 		public IEventSource<TEventHandler> Get<TEventHandler>(string eventName) {
 			IEventSource eventSource;
-			if (!m_EventProperties.TryGetValue(eventName, out eventSource)) {
+			if (!m_EventSources.TryGetValue(eventName, out eventSource)) {
 				var sourceObject = m_WeakSourceObject.Target;
 				eventSource=EventManager.RegisterSource4Store<TEventHandler>(this, sourceObject, eventName);
-				m_EventProperties.Add(eventName,eventSource);
+				m_EventSources.Add(eventName,eventSource);
 			}
 			return (IEventSource<TEventHandler>) eventSource;
 		}
@@ -109,13 +109,13 @@ namespace KsWare.Presentation {
 		/// <param name="property">The event property name.</param>
 		/// <returns><c>true</c> if the store contains the property; otherwise, <c>false</c>.</returns>
 		public bool Has(string property) {
-			var b = m_EventProperties.ContainsKey(property);
+			var b = m_EventSources.ContainsKey(property);
 			return b;
 		}
 
 		public IEventSource<TEventHandler> TryGet<TEventHandler>(string eventName) {
 			IEventSource eventSource;
-			if (!m_EventProperties.TryGetValue(eventName, out eventSource)) return null;
+			if (!m_EventSources.TryGetValue(eventName, out eventSource)) return null;
 			return (IEventSource<TEventHandler>) eventSource;
 		}
 
@@ -159,8 +159,8 @@ namespace KsWare.Presentation {
 
 		private void Dispose(bool explicitDispose) {
 			if (explicitDispose) {
-				foreach (var p in m_EventProperties) p.Value.Dispose();
-				m_EventProperties.Clear();
+				foreach (var p in m_EventSources) p.Value.Dispose();
+				m_EventSources.Clear();
 //				m_EventProperties = null;
 //				m_WeakSourceObject=null;
 							

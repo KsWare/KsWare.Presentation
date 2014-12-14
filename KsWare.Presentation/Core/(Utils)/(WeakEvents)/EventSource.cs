@@ -55,7 +55,7 @@ namespace KsWare.Presentation {
 		//[NotNull] IWeakEventSource weakEventSource, object destination, Delegate handler, string destinationUid, object source, string eventName
 		public IEventHandle Register(object destination, string uniqueId, TEvent handler) {
 			var handle=EventManager.Register(
-				eventSource: this, 
+				eventSource    : this, 
 				destination    : destination,
 				handler        : (Delegate) (object) handler,
 				destinationUid : uniqueId,
@@ -68,10 +68,10 @@ namespace KsWare.Presentation {
 
 		public IEventHandle Register(TEvent handler) {
 			var handle= EventManager.Register(
-				this, 
-				(Delegate) (object) handler,
-				m_WeakSource.Target,
-				m_EventName
+				eventSource    : this, 
+				handler        : (Delegate) (object) handler,
+				sourceObject   : m_WeakSource.Target,
+				eventName      : m_EventName
 			);
 			lock (m_EventHandles) m_EventHandles.Add(handle);
 			return handle.EventHandle;
