@@ -49,7 +49,7 @@ namespace KsWare.Presentation.Tests.Core {
 			var eventContainers = ((EventSource) provider.MyEvent).GetContainers();
 			var r = new System.Random();
 			var stopwatch = new Stopwatch(); stopwatch.Start();
-			const int max = 2000;
+			const int max = 5000;
 			var c = eventContainers.Count;
 			for (int i = 1; i <= max; i++) {
 				var listener = new MyEventListener();
@@ -58,14 +58,20 @@ namespace KsWare.Presentation.Tests.Core {
 				Thread.Sleep(r.Next(8,12+1));
 				if (eventContainers.Count+c < i) {
 					//OK any listener has been collected
-					Trace.WriteLine("GC collected at interation "+i+" "+ stopwatch.Elapsed + " "+eventContainers.Count +" alive");
+					Trace.WriteLine("GC collected at iteration "+i+" "+ stopwatch.Elapsed + " "+eventContainers.Count +" alive");
 					c=i - eventContainers.Count;
 				}
+				listener.Dispose();
+				listener = null;
 			}
 			Trace.WriteLine(eventContainers.Count*100/max+"% alive after "+ stopwatch.Elapsed);
 			var next=stopwatch.Elapsed.Add(TimeSpan.FromSeconds(1));
 			while (eventContainers.Count>0) {
-				if(stopwatch.Elapsed<next){Thread.Sleep(10); provider.RaiseˑMyEvent(); continue;}
+				if (stopwatch.Elapsed < next) {
+					Thread.Sleep(100); 
+					//ForceGarbageCollection();
+					provider.RaiseˑMyEvent(); continue;
+				}
 				Trace.WriteLine(eventContainers.Count*100/max+"% alive after "+ stopwatch.Elapsed);
 				next=stopwatch.Elapsed.Add(TimeSpan.FromSeconds(1));
 			}
@@ -121,13 +127,23 @@ namespace KsWare.Presentation.Tests.Core {
 				public int EventCount;
 
 			public void RegisterˑMyEvent(MyEventProvider listener) {
-				m_MyEventHandle=listener.MyEvent.RegisterWeak(AtMyEvent);
+				m_MyEventHandle=listener.MyEvent.RegisterWeak(this,"AtMyEvent",AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, EventArgs eventArgs) { EventCount++; }
 
 			public void ReleaseˑMyEvent() {
 				m_MyEventHandle.Release();
+			}
+
+			public void Dispose() {
+				if(m_MyEventHandle!=null) m_MyEventHandle.Dispose();
+				m_MyEventHandle = null;
+				if (m_EventHandles != null) {
+					foreach (var eventHandle in m_EventHandles) eventHandle.Dispose();
+					m_EventHandles.Clear();
+				}
+				m_EventHandles = null;
 			}
 
 		}

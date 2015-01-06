@@ -32,7 +32,7 @@ namespace KsWare.Presentation {
 
 		/// <summary> Registers an event handler.
 		/// </summary>
-		/// <param name="destination">The destination.</param>
+		/// <param name="destination">The destination object.</param>
 		/// <param name="uniqueId">The unique id.</param>
 		/// <param name="handler">The handler.</param>
 		/// <remarks>The <paramref name="uniqueId"/> is used to release the event handler.</remarks>
@@ -51,6 +51,14 @@ namespace KsWare.Presentation {
 		/// <param name="handler">The handler.</param>
 		/// <returns>The weak event handle.</returns>
 		IEventHandle RegisterWeak(TEventHandler handler);
+
+		/// <summary> Registers a weak event handler.
+		/// </summary>
+		/// <param name="destination">The destination object</param>
+		/// <param name="uniqueId">The unique id.</param>
+		/// <param name="handler">The handler.</param>
+		/// <returns>The weak event handle.</returns>
+		IEventHandle RegisterWeak(object destination, string uniqueId, TEventHandler handler);
 
 		/// <summary> Releases an event handler with the specified id.
 		/// </summary>

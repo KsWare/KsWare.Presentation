@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
@@ -100,7 +101,26 @@ namespace KsWare.Presentation {
 				destinationUid : null, 
 				sourceObject   : sourceObject, 
 				eventName      : eventName,
-				weak            : true
+				weak           : true
+			);
+		}
+
+		internal static EventContainer RegisterWeak(
+			[NotNull] IEventSource     eventSource, 
+			          object           destination, 
+			          Delegate         handler, 
+			          string           destinationUid, 
+			          object           sourceObject, 
+			          string           eventName
+			) {
+			return RegisterImpl(
+				eventSource: eventSource,
+				destination    : destination, 
+				handler        : handler, 
+				destinationUid : destinationUid, 
+				sourceObject   : sourceObject, 
+				eventName      : eventName,
+				weak           : true
 			);
 		}
 
@@ -128,34 +148,40 @@ namespace KsWare.Presentation {
 
 		internal static EventContainer CreateContainer(
 			[NotNull] IEventSource eventSource, 
-			          object           destination, 
-			          Delegate         handler, 
-			          string           destinationUid, 
-			          object           sourceObject, 
-			          string           eventName,
-			          bool             keepAlive
+			          object       destination, 
+			          Delegate     handler, 
+			          string       destinationUid, 
+			          object       sourceObject, 
+			          string       eventName,
+			          bool         keepAlive
 		) {
 			// to avoid unnecessary type checking and casting at runtime in the whole process of raising events
 			// we do this only one time to create specialized classes which contains the well known delegate types at compile time
+			// to speedup MakeGenericType we check first for some frequently used event handler types
 			EventHandle handle;
+//			switch (handler.GetType().FullName) {}
 			if(handler is EventHandler)
-				handle = new EventHandler4SystemEventHandler(eventSource, destination, (EventHandler)handler, destinationUid, sourceObject, eventName);
+				handle = new EventHandle4SystemEventHandler(eventSource, destination, (EventHandler)handler, destinationUid, sourceObject, eventName);
 			else if(handler is EventHandler<TreeChangedEventArgs>)
-				handle = new EventHandler4EventHandlerGeneric<TreeChangedEventArgs>(eventSource, destination, (EventHandler<TreeChangedEventArgs>)handler, destinationUid, sourceObject, eventName);
+				handle = new EventHandle4EventHandlerGeneric<TreeChangedEventArgs>(eventSource, destination, (EventHandler<TreeChangedEventArgs>)handler, destinationUid, sourceObject, eventName);
 			else if (handler is EventHandler<ValueChangedEventArgs>) 
-				handle = new EventHandler4EventHandlerGeneric<ValueChangedEventArgs>(eventSource, destination, (EventHandler<ValueChangedEventArgs>) handler, destinationUid, sourceObject, eventName);
+				handle = new EventHandle4EventHandlerGeneric<ValueChangedEventArgs>(eventSource, destination, (EventHandler<ValueChangedEventArgs>) handler, destinationUid, sourceObject, eventName);
+			else if(handler is PropertyChangedEventHandler)
+				handle = new EventHandle4PropertyChangedEventHandler(eventSource, destination, (PropertyChangedEventHandler)handler, destinationUid, sourceObject, eventName);
+			else if(handler is NotifyCollectionChangedEventHandler)
+				handle = new EventHandle4NotifyCollectionChangedEventHandler(eventSource, destination, (NotifyCollectionChangedEventHandler)handler, destinationUid, sourceObject, eventName);
 			else {
 				var handlerType = handler.GetType();
 				if (handlerType.IsGenericType && handlerType.GetGenericTypeDefinition() == typeof (EventHandler<>)) {
 					//create a handler specific RegisteredWeakEvent1EventHandler1<...> object
 					var gas  = handlerType.GetGenericArguments();
-					var rwet = typeof (EventHandler4EventHandlerGeneric<>).MakeGenericType(gas[0]);
+					var rwet = typeof (EventHandle4EventHandlerGeneric<>).MakeGenericType(gas[0]);
 					var args = new object[] {eventSource, destination, handler, destinationUid, sourceObject, eventName};
 					var bf   = BindingFlags.Instance | BindingFlags.Public;
 					handle = (EventHandle) Activator.CreateInstance(rwet, bf, null, args, null);
 				} else {
 					//fallback to default handling
-					handle = new EventHandle(eventSource, destination, handler, null, sourceObject, eventName);
+					handle = new EventHandle4Universal(eventSource, destination, handler, destinationUid, sourceObject, eventName);
 				}
 			}
 			var container = new EventContainer(handle, keepAlive);

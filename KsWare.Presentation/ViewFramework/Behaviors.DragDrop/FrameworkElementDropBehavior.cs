@@ -9,9 +9,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 	public class FrameworkElementDropBehavior : Behavior<FrameworkElement> {
 
-		private Type _dataType; //the type of the data that can be dropped into this control
-		private FrameworkElementAdorner _adorner;
-		private Type _adornerType;
+		private Type m_DataType; //the type of the data that can be dropped into this control
+		private FrameworkElementAdorner m_Adorner;
+		private Type m_AdornerType;
 
 		public FrameworkElementDropBehavior() {
 			AdornerType = typeof (FrameworkElementAdorner);
@@ -20,10 +20,10 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		public Thickness DropRegion { get; set; }
 
 		public Type AdornerType {
-			get { return _adornerType; }
+			get { return m_AdornerType; }
 			set {
 				if(!typeof(FrameworkElementAdorner).IsAssignableFrom(value)) throw new InvalidOperationException("Invalid type of adorner. Type of FrameworkElementAdorner expected.");
-				_adornerType = value;
+				m_AdornerType = value;
 			}
 		}
 
@@ -38,21 +38,21 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		private void AtDrop(object sender, DragEventArgs e) {
-			if (_dataType != null) {
+			if (m_DataType != null) {
 				//if the data type can be dropped 
-				if (e.Data.GetDataPresent(_dataType)) {
+				if (e.Data.GetDataPresent(m_DataType)) {
 					var pos=UIHelper.GetDropPosition(AssociatedObject, e.GetPosition(AssociatedObject), DropRegion);
 
 					//drop the data
 					var target = AssociatedObject.DataContext as IDropable;
-					target.Drop(e.Data.GetData(_dataType),-1,pos);
+					target.Drop(e.Data.GetData(m_DataType),-1,pos);
 
 					//remove the data from the source
-					var source = e.Data.GetData(_dataType) as IDragable;
-					source.Remove(e.Data.GetData(_dataType));
+					var source = e.Data.GetData(m_DataType) as IDragable;
+					source.Remove(e.Data.GetData(m_DataType));
 				}
 			}
-			if (_adorner != null)_adorner.Remove();
+			if (m_Adorner != null)m_Adorner.Remove();
 
 			e.Handled = true;
 		}
@@ -60,37 +60,37 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		private void AtDragEnter(object sender, DragEventArgs e) {
 			//if the DataContext implements IDropable, record the data type that can be dropped
-			if (_dataType == null) {
+			if (m_DataType == null) {
 				if (AssociatedObject.DataContext != null) {
 					var dropObject = AssociatedObject.DataContext as IDropable;
 					if (dropObject != null) {
-						_dataType = dropObject.DataType;
+						m_DataType = dropObject.DataType;
 					}
 				}
 			}
 
-			if (_adorner == null) _adorner = (FrameworkElementAdorner)Activator.CreateInstance(AdornerType,sender);
+			if (m_Adorner == null) m_Adorner = (FrameworkElementAdorner)Activator.CreateInstance(AdornerType,sender);
 			e.Handled = true;
 		}
 
 		private void AtDragOver(object sender, DragEventArgs e) {
-			if (_dataType != null) {
+			if (m_DataType != null) {
 				//if item can be dropped
-				if (e.Data.GetDataPresent(_dataType)) {
+				if (e.Data.GetDataPresent(m_DataType)) {
 					var pos=UIHelper.GetDropPosition(AssociatedObject, e.GetPosition(AssociatedObject), DropRegion);
 
 					var target = AssociatedObject.DataContext as IDropable;
-					var canDrop=target.CanDrop(e.Data.GetData(_dataType),-1,pos);
+					var canDrop=target.CanDrop(e.Data.GetData(m_DataType),-1,pos);
 
 					//give mouse effect
 					if(!canDrop) e.Effects=DragDropEffects.None;
 					else e.Effects=DragDropEffects.Move;
 
 					//draw the dots
-					if (_adorner != null) {
-						_adorner.DropEffect = canDrop ? DragDropEffects.Move : DragDropEffects.None;
-						_adorner.Position = pos;
-						_adorner.Update();
+					if (m_Adorner != null) {
+						m_Adorner.DropEffect = canDrop ? DragDropEffects.Move : DragDropEffects.None;
+						m_Adorner.Position = pos;
+						m_Adorner.Update();
 					}
 				}
 			}
@@ -98,7 +98,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		private void AtDragLeave(object sender, DragEventArgs e) {
-			if (_adorner != null) _adorner.Remove();
+			if (m_Adorner != null) m_Adorner.Remove();
 			e.Handled = true;
 		}
 
@@ -109,7 +109,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			e.Effects = DragDropEffects.None; //default to None
 
 			//if the data type can be dropped 
-			if (e.Data.GetDataPresent(_dataType)) {
+			if (e.Data.GetDataPresent(m_DataType)) {
 				e.Effects = DragDropEffects.Move;
 			}
 		}

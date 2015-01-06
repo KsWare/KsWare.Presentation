@@ -92,6 +92,13 @@ namespace KsWare.Presentation {
 			return handle.EventHandle;
 		}
 
+		public IEventHandle RegisterWeak(object destination, string uniqueId, TEvent handler) {
+			var h = (Delegate) (object) handler;
+			var handle= EventManager.RegisterWeak(this,destination, h,uniqueId, m_WeakSource.Target,m_EventName);
+			lock (m_EventHandleContainers) m_EventHandleContainers.Add(handle);
+			return handle.EventHandle;
+		}
+
 		public IEventHandle RegisterWeak<TEventArgs>(EventHandler<TEventArgs> handler) where TEventArgs:EventArgs {
 			var h = (Delegate) (object) handler;
 			var handle= EventManager.RegisterWeak(this,h,m_WeakSource.Target,m_EventName);

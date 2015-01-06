@@ -14,6 +14,7 @@ namespace KsWare.Presentation.Tests {
 //			new WeakEventManagerTests().PerformanceTest1();
 //			new WeakEventManagerTests().PerformanceTest2();
 //			new WeakEventManagerTests().PerformanceTest2();
+			new EventManagerˑIntegrationTests().MassiveListenerGCTest();
 		}
 	}
 }
