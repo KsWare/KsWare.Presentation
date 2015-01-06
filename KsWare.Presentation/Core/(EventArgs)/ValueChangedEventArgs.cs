@@ -34,7 +34,7 @@ namespace KsWare.Presentation {
 
 		public ValueChangedEventArgs(DependencyPropertyChangedEventArgs e):base() {
 			PreviousValue = e.OldValue;
-			PreviousValue= e.NewValue;
+			NewValue      = e.NewValue;
 		}
 
 		/// <summary> Gets the previous value or <see cref="DependencyProperty.UnsetValue"/> if previous value is unknown
