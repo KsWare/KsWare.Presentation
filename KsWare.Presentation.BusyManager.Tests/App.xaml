@@ -1,0 +1,15 @@
+﻿<vf:ViewModelApplication
+	x:TypeArguments="vm:AppVM" 
+	x:Class="KsWare.Presentation.BusyManagerTestApp.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:vf="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation"
+	xmlns:vm="clr-namespace:KsWare.Presentation.BusyManagerTestApp"
+	mc:Ignorable="d" 
+>
+	<Application.Resources>
+         
+	</Application.Resources>
+</vf:ViewModelApplication>

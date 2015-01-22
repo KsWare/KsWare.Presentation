@@ -26,6 +26,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	///     } finally { BusyManager.Instance.EndAsync(this);}    
 	/// }
 	/// </code>
+	/// <para> XAML
 	/// <code>
 	/// &lt;UserControl ...
 	///    xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors;assembly=KsWare.Presentation"
@@ -34,41 +35,79 @@ namespace KsWare.Presentation.ViewModelFramework {
 	///    &lt;/Grid>
 	/// &lt;/UserControl>
 	/// </code>
+	/// NOTE: BusyAdornerBehavior doesn't work at Window. Use the root element instead.
+	/// </para> 
+	/// <para>
+	/// Optional override the default stlye:
+	/// <code>
+	/// &lt;ResourceDictionary
+	///     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	///     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	///     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	///     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	///     xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors"
+	///     xmlns:viewFramework="clr-namespace:KsWare.Presentation.ViewFramework"
+	///     mc:Ignorable="d" 
+	/// >
+	///	    &lt;Style TargetType="{x:Type behaviors:BusyAdornerVisual}">
+	///	        ...
+	///	    &lt;/Style>
+	/// &lt;/ResourceDictionary>
+	/// </code>
+	/// default style: /KsWare.Presentation;component/Themes/Styles/BusyAdornerVisual.xaml
+	/// </para> 
 	/// </example>	
 	public class BusyManager:Singleton<BusyManager> {
 
-		private BusyToken m_Busy;
+//		private BusyToken m_Busy;
+		Dictionary<IObjectVM,BusyToken> m_Tokens=new Dictionary<IObjectVM, BusyToken>();
 
-		/// <summary>
-		/// [EXPERIMENTAL] Creates a busy context
+		/// <summary> Creates a busy context
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <returns>BusyToken</returns>
 		/// <example><code>using (BusyManager.Instance.Context(this)) { ... } </code></example>
 		public BusyToken Context(IObjectVM sender) {
-			if (m_Busy == null) {
-				m_Busy = new BusyToken(sender);
-				m_Busy.Finished += (s, e) => m_Busy = null;
-			} else { m_Busy.ContinuedAsync(); }
-			return m_Busy;
+			BusyToken token;
+			m_Tokens.TryGetValue(sender, out token);
+			if (token == null) {
+				token = new BusyToken(sender);
+				m_Tokens.Add(sender,token);
+				token.Finished += (s, e) => m_Tokens.Remove(((BusyToken)s).Sender);
+				token.Start();
+			} else { token.ContinuedAsync(); }
+			return token;
 		}
 
-		public void ContinueAsync(ObjectVM sender) {
-			m_Busy.ContinueAsync();
+		public void ContinueAsync(IObjectVM sender) {
+			BusyToken token;
+			m_Tokens.TryGetValue(sender, out token);
+			token.ContinueAsync();
 		}
 
-		/// <summary> [EXPERIMENTAL]
+		public void EndAsync(IObjectVM sender) {
+			BusyToken token;
+			m_Tokens.TryGetValue(sender, out token);
+			if(token!=null) token.Done();
+		}
+
+		/// <summary> Represent a busy token
 		/// </summary>
-		public class BusyToken : IDisposable {
+		public sealed class BusyToken : IDisposable {
 
 			private volatile bool m_IsDisposed;
 			private IObjectVM m_Sender;
 			private volatile bool m_SuppressDispose;
 
-			public BusyToken(IObjectVM sender) {
+			internal BusyToken(IObjectVM sender) {
 				m_Sender = sender;
+			}
+
+			internal void Start() {
 				m_Sender.RequestUserFeedback(new BusyUserFeedbackEventArgs(true));
 			}
+
+			internal IObjectVM Sender { get { return m_Sender; } }
 
 			void IDisposable.Dispose() {
 				if (m_SuppressDispose) { m_SuppressDispose = false; return;}
@@ -81,6 +120,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			public void ContinueAsync() {
 				m_SuppressDispose = true;
 			}
+
 			public void ContinuedAsync() {
 				m_SuppressDispose = false;
 			}
@@ -93,8 +133,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 			public event EventHandler Finished;
 		}
 
-		public void EndAsync(ObjectVM sender) {
-			m_Busy.Done();
-		}
+
 	}
 }

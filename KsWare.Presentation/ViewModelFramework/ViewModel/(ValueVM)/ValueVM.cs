@@ -371,7 +371,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 							((IErrorProviderController)ErrorProvider).SetError(ex.Message);//TODO localize message
 						this.Log(Flow.Output("ERROR: Could not set value! Forbidden."));
 						//### Break
-						if(Debugger.IsAttached) Debugger.Break();
+						if (Debugger.IsAttached) {
+							Debug.WriteLine(ex.GetType().Name);
+							Debug.WriteLine(ex.ToString());
+							Debugger.Break();
+						}
 						// throw;
 					}
 					#endregion

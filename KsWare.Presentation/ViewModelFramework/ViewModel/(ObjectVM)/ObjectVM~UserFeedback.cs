@@ -46,7 +46,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			EventManager.Raise<EventHandler<UserFeedbackEventArgs>,UserFeedbackEventArgs>(LazyWeakEventStore, "UserFeedbackRequestedEvent", args);
 			if(args.AsyncHandled) return;
-			if(args.Handled) {if(args.AsyncCallback==null) return;args.AsyncCallback(args);return;} //TODO revise calling of AsyncCallback
+			if (args.Handled) {if(args.AsyncCallback!=null) args.AsyncCallback(args);return;} //TODO revise calling of AsyncCallback
 
 			if(Parent is ObjectVM) ((ObjectVM)Parent).RequestUserFeedbackCore(args);
 			else if(Parent!=null) Parent.RequestUserFeedback(args);
