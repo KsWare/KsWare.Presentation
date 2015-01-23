@@ -27,15 +27,59 @@
 			<GradientStop Color="#40FF0000" Offset="0.5" />
 			<GradientStop Color="#40FF0000" Offset="1" />
 		</LinearGradientBrush>
+		<Style x:Key="BusyAdornerVisualStyle" TargetType="{x:Type behaviors:BusyAdornerVisual}">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type behaviors:BusyAdornerVisual}">
+						<ControlTemplate.Triggers>
+							<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="0" To="1" Duration="0:0:1"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</ControlTemplate.Triggers>
+						<Grid 
+						Background="{TemplateBinding Background}"	
+					>
+							<Image Source="Resources/indicator4.png" RenderTransformOrigin="0.5, 0.5" Height="58" Width="58">
+								<UIElement.RenderTransform>
+									<RotateTransform/>
+								</UIElement.RenderTransform>
+								<FrameworkElement.Triggers>
+									<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+										<BeginStoryboard>
+											<Storyboard>
+												<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" From="0" To="360" Duration="0:0:3" RepeatBehavior="Forever"/>
+											</Storyboard>
+										</BeginStoryboard>
+									</EventTrigger>
+								</FrameworkElement.Triggers>
+							</Image>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</Window.Resources>
 	<StackPanel 
 		behaviors:BusyAdornerBehavior.BindToBusyUserRequest="True" 
 		behaviors:BusyAdornerBehavior.Background="{DynamicResource Busy2Background}"
 	>
+		<FrameworkElement.Resources>
+			<ResourceDictionary>
+				<ResourceDictionary.MergedDictionaries>
+					<ResourceDictionary Source="Resources/BusyAdornerVisual.xaml"/>
+				</ResourceDictionary.MergedDictionaries>
+			</ResourceDictionary>
+		</FrameworkElement.Resources>
 		<Border BorderThickness="1" BorderBrush="Black" Margin="4">
 			<DockPanel x:Name="Action1Panel"
 				behaviors:BusyAdornerBehavior.DataContext="{Binding Button1Action}"
+				behaviors:BusyAdornerBehavior.Style="{DynamicResource BusyAdornerVisualStyle}"
 				behaviors:BusyAdornerBehavior.Background="{DynamicResource BusyBackground}"
+					   
 				Height="50" LastChildFill="False"
 			>
 				<TextBlock Text="Busy Panel" VerticalAlignment="Center" Margin="4"/>
@@ -44,11 +88,13 @@
 		</Border>
 		
 		<Border BorderThickness="1" BorderBrush="Black" Margin="4">
+			
 			<DockPanel x:Name="Action2Panel"
 				behaviors:BusyAdornerBehavior.DataContext="{Binding Button2Action}"
 				behaviors:BusyAdornerBehavior.Background="{DynamicResource BusyBackground}"
 				Height="50" LastChildFill="False"
 			>
+
 				<TextBlock Text="Busy Panel" VerticalAlignment="Center" Margin="4"/>
 				<Button Content="Action 2" Command="{Binding Button2Action}" VerticalAlignment="Center" Margin="8" Padding="6 2"/>
 			</DockPanel>

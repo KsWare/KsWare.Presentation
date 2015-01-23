@@ -56,22 +56,27 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		public static ObjectVM GetDataContext(FrameworkElement element) { return (ObjectVM) element.GetValue(DataContextProperty); }
 		#endregion /DataContext Property
 
-		#region Background Property
+		#region Control.Background Property
+
 		public static readonly DependencyProperty BackgroundProperty = DependencyProperty.RegisterAttached(
-			"Background", typeof (Brush), typeof (BusyAdornerBehavior), new PropertyMetadata(default(Brush),(d,e) => AtBackgroundChanged((FrameworkElement)d,e)));
+			"Background", typeof (Brush), typeof (BusyAdornerBehavior), new PropertyMetadata(default(Brush)));
 
 		public static void SetBackground(FrameworkElement element, Brush value) { element.SetValue(BackgroundProperty, value); }
 
 		public static Brush GetBackground(FrameworkElement element) { return (Brush) element.GetValue(BackgroundProperty); }
+	
+		#endregion Control.Background Property
 
-		private static void AtBackgroundChanged(FrameworkElement d, DependencyPropertyChangedEventArgs e) {
-			var data = GetInternalData(d);
-			if (data == null) { data=new BusyAdornerBehaviorData(d); SetInternalData(d,data);}
-			var newValue = (Brush)e.NewValue;
-			data.Background = newValue;
-		}
-		
-		#endregion Background Property
+		#region Control.Style Property
+
+		public static readonly DependencyProperty StyleProperty = DependencyProperty.RegisterAttached(
+			"Style", typeof (Style), typeof (BusyAdornerBehavior), new PropertyMetadata(default(Style)));
+
+		public static void SetStyle(FrameworkElement element, Style value) { element.SetValue(StyleProperty, value); }
+
+		public static Style GetStyle(FrameworkElement element) { return (Style) element.GetValue(StyleProperty); }
+	
+		#endregion /Control.Style Property
 
 		private static void AtBindToBusyUserRequestChanged(FrameworkElement d, DependencyPropertyChangedEventArgs e) {
 			var data = GetInternalData(d);
@@ -93,10 +98,11 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			var newValue = (bool)e.NewValue;
 
 			if (newValue) {
-				var a = new BusyAdorner(d) {
-					Background = data.Background
+				var visual = new BusyAdornerVisual {
+					Style      = GetStyle(d),
+					Background = GetBackground(d),
 				};
-				data.Adorner = a;
+				data.Adorner = new BusyAdorner(d,visual);
 			} else {
 				data.Adorner = null;
 			}
@@ -186,8 +192,6 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			}
 		}
 
-		public Brush Background { get; set; }
-
 		private void A() {
 			var vm=m_DependencyObject.DataContext as ObjectVM;
 			if (vm != null && m_BindToBusyUserRequest) {
@@ -227,43 +231,61 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 	public class BusyAdorner : Adorner {
 
-		private Control m_Child;
+		private Control m_VisualChild;
 
+		/// <summary> Initializes a new instance of the <see cref="T:System.Windows.Documents.Adorner" /> class.
+		/// </summary>
+		/// <param name="adornedElement">The element to bind the adorner to.</param>
 		public BusyAdorner(UIElement adornedElement) : base(adornedElement) {
 			//Loaded += AtLoaded;
-			Child=new BusyAdornerVisual();
+			VisualChild=new BusyAdornerVisual();
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BusyAdorner"/> class.
+		/// </summary>
+		/// <param name="adornedElement">The adorned element.</param>
+		/// <param name="visualChild">The visual child.</param>
+		public BusyAdorner(FrameworkElement adornedElement, BusyAdornerVisual visualChild) : base(adornedElement) {
+			VisualChild = visualChild;
+		}
+
+		/// <summary> Gets the number of visual child elements within this element. Overrides <see cref="M:System.Windows.Media.Visual.VisualChildrenCount" />
+		/// </summary>
+		/// <value>The visual children count.</value>
 		protected override int VisualChildrenCount{get{return 1;}}
 
-		protected override Visual GetVisualChild(int index){if (index != 0) throw new ArgumentOutOfRangeException();return m_Child;}
+		/// <summary> Returns a child at the specified index from a collection of child elements. Overrides <see cref="M:System.Windows.Media.Visual.GetVisualChild(System.Int32)" />
+		/// </summary>
+		/// <param name="index">The zero-based index of the requested child element in the collection.</param>
+		/// <returns>The requested child element. This should not return null; if the provided index is out of range, an exception is thrown.</returns>
+		/// <exception cref="System.ArgumentOutOfRangeException"></exception>
+		protected override Visual GetVisualChild(int index){if (index != 0) throw new ArgumentOutOfRangeException();return m_VisualChild;}
 
-		public Control Child {
-			get { return m_Child; }
+		/// <summary> Gets or sets the visual child.
+		/// </summary>
+		/// <value>The visual child.</value>
+		public Control VisualChild {
+			get { return m_VisualChild; }
 			set {
-				if (m_Child != null) { RemoveVisualChild(m_Child); }
-				m_Child = value;
-				if (m_Child != null) { AddVisualChild(m_Child); }
+				if (m_VisualChild != null) { RemoveVisualChild(m_VisualChild); }
+				m_VisualChild = value;
+				if (m_VisualChild != null) { AddVisualChild(m_VisualChild); }
 			}
 		}
 
-		public Brush Background {
-			get { return m_Child == null ? null : m_Child.Background; } 
-			set { if (m_Child != null) m_Child.Background = value; }
-		}
-
 		protected override Size MeasureOverride(Size constraint) {
-			if (m_Child == null) return base.MeasureOverride(constraint);
-			m_Child.Measure(constraint);
+			if (m_VisualChild == null) return base.MeasureOverride(constraint);
+			m_VisualChild.Measure(constraint);
 //			return m_Child.DesiredSize;
 			return AdornedElement.RenderSize;
 //			return constraint;
 		}
 
 		protected override Size ArrangeOverride(Size finalSize) {
-			if (m_Child == null) return base.ArrangeOverride(finalSize);
-			m_Child.Arrange(new Rect(new Point(0, 0), finalSize));
-			return new Size(m_Child.ActualWidth, m_Child.ActualHeight);
+			if (m_VisualChild == null) return base.ArrangeOverride(finalSize);
+			m_VisualChild.Arrange(new Rect(new Point(0, 0), finalSize));
+			return new Size(m_VisualChild.ActualWidth, m_VisualChild.ActualHeight);
 		}
 
 		private void AtLoaded(object sender, RoutedEventArgs e) {
