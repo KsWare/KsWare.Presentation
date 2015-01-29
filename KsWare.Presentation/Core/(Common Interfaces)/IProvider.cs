@@ -14,6 +14,16 @@ namespace KsWare.Presentation.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>. </value>
 		bool IsSupported{get;}
+
+		/// <summary> Gets or sets a value indicating whether this instance is auto created.
+		/// </summary>
+		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
+		bool IsAutoCreated { get; set; }
+
+		/// <summary> Gets or sets a value indicating whether this instance is in use.
+		/// </summary>
+		/// <value> <c>true</c> if this instance is in use; otherwise, <c>false</c>. </value>
+		bool IsInUse { get; set; }
 	}
 
 	/// <summary> Interface for metadata providers

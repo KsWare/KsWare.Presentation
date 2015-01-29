@@ -30,7 +30,6 @@ namespace KsWare.Presentation.Core.Providers {
 
 		/// <summary> Occurs when <see cref="Data"/>-property has been changed.
 		/// </summary>
-		[Obsolete("Use DataChangedEvent")]
 		event EventHandler<DataChangedEventArgs> DataChanged;
 
 		IEventSource<EventHandler<DataChangedEventArgs>>  DataChangedEvent { get; }
@@ -128,7 +127,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public bool IsAutoCreated {
 			get { return m_IsAutoCreated==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
+				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{E7279D65-F0FA-42BE-812F-45BA404524C8}");
 				m_IsAutoCreated = value;
 			}
 		}

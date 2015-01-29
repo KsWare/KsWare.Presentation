@@ -21,6 +21,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <seealso cref="ActionActiveProgressVM"/>
 	/// <remarks>
 	/// <para>Naming convention for the property: <c>NameAction</c> (e.g. the action prints everything <c>PrintAction</c>)</para>
+	/// <para>Supports <see cref="ViewModelMetadataAttribute"/> for properties.</para>
 	/// </remarks>
 	public class ActionVM:ObjectVM,ICommand { //REVISE: rename to CommandVM?
 	
@@ -28,6 +29,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		private bool m_IsActive;
 		private RoutedCommand m_RoutedCommand;
+		private bool m_EnableBusinessModelFeatures;
 
 		/// <summary> Initializes a new instance of the <see cref="ActionVM"/> class.
 		/// </summary>
@@ -47,7 +49,30 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <returns></returns>
 		/// <remarks></remarks>
 		protected override ViewModelMetadata CreateDefaultMetadata() {
-			return new ActionMetadata{Reflection=this.Reflection};
+			ViewModelMetadata metadata = null;
+
+			// use ViewModelMetadataAttribute.MetadataType
+			if (Reflection != null) {
+				if (Reflection.PropertyInfo != null) {
+					var propertyInfo = Reflection.PropertyInfo;
+					var attr = propertyInfo.GetCustomAttributes(typeof(ViewModelMetadataAttribute),true).Cast<ViewModelMetadataAttribute>().FirstOrDefault();
+					if (attr != null) {
+						if (attr.MetadataType != null) {
+							metadata = (ViewModelMetadata)Activator.CreateInstance(attr.MetadataType);
+						}				        
+					}
+				}
+			}
+
+			// fallback to default ActionMetadata
+			if (metadata == null) {
+				metadata = new ActionMetadata();
+			}
+
+			metadata.Reflection = this.Reflection;
+			metadata.EnableBusinessModelFeatures = m_EnableBusinessModelFeatures;
+
+			return metadata;
 		}
 
 		/// <summary> Raises the <see cref="ObjectVM.MetadataChanged"/>-event.<br/>
@@ -168,17 +193,24 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public string InputGestureText {get { return Fields.Get<string>("InputGestureText"); }set { Fields.Set("InputGestureText", value); }}
 
+
+		/// <summary> Sets the <see cref="ActionProvider.CanExecuteCallback"/>.
+		/// </summary>
+		/// <value>The can execute callback.</value>
+		/// <remarks>
+		/// <para>ALIAS for <c>Metadata.ActionProvider.CanExecuteCallback</c></para>
+		/// </remarks>
 		public EventHandler<CanExecuteEventArgs> MːCanExecuteCallback {set { Metadata.ActionProvider.CanExecuteCallback = value; }}
 
 		protected override void OnDataChanged(DataChangedEventArgs e) {
 			base.OnDataChanged(e);
 
 			if (e.NewData is ActionBM) {
-				BusinessActionProvider p;
+				BusinessActionProvider businessActionProvider;
 				if (!Metadata.HasActionProvider) {
-					Metadata.ActionProvider=p=new BusinessActionProvider();
+					Metadata.ActionProvider=businessActionProvider=new BusinessActionProvider();
 				} else if (Metadata.ActionProvider is BusinessActionProvider) {
-					p=(BusinessActionProvider) Metadata.ActionProvider;
+					businessActionProvider=(BusinessActionProvider) Metadata.ActionProvider;
 				} else {
 					throw new InvalidOperationException("The current ActionProvider does not support business action! "+
 						"\n\t"+"Parent Type: " + DebugUtil.FormatTypeFullName(Parent) + "."+MemberName +
@@ -188,7 +220,33 @@ namespace KsWare.Presentation.ViewModelFramework {
 						"\n\t"+"Solution 2: "+ "use attribute for the property => [ActionMetadata(ActionProvider = typeof(BusinessActionProvider))]"+
 						"\n\t"+"ErrorID: {E0899036-CFFC-4791-A75A-4BF7F7BDA64A}");
 				}
-				p.BusinessObject = e.NewData;
+				businessActionProvider.BusinessObject = e.NewData;
+			}
+		}
+
+		/// <summary>  [EXPERIMENTAL] Gets or set the underlying business object
+		/// </summary>
+		/// <value>The underlying business object or <c>null</c>.</value>
+		public override IObjectBM MːBusinessObject {
+			get {
+				if (!HasMetadata) return null;
+				if (!Metadata.HasDataProvider) return null;
+				var provider=Metadata.ActionProvider as BusinessActionProvider;
+				return (IObjectBM) (provider==null ? null : provider.BusinessObject);
+			}
+			set {
+				BusinessActionProvider provider;
+				if      (!HasMetadata             ) m_EnableBusinessModelFeatures = true;
+				else if (!Metadata.HasDataProvider) Metadata.EnableBusinessModelFeatures = true;
+				
+				if (Metadata.DataProvider is BusinessActionProvider) provider = (BusinessActionProvider) Metadata.DataProvider;
+				else if (!Metadata.DataProvider.IsAutoCreated) throw new InvalidOperationException("ActionProvider is no BusinessActionProvider");
+				else Metadata.ChangeActionProvider(provider= new BusinessActionProvider());
+				provider.BusinessObject = value;
+
+				//TODO verify this
+				var p2 = Metadata.ValueSourceProvider as BusinessValueSourceProvider;
+				if (p2 != null) p2.BusinessValue = (IValueBM) value;
 			}
 		}
 

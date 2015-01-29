@@ -49,14 +49,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		[Bindable(BindableSupport.No)]
 		public object MːBusinessObjectːData {
-			get {
-				return ((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data;
-			}set {  ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
+			get { return ((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data;}
+			set { ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
 		}
 
-		/// <summary>  [EXPERIMENTAL] Gets or set the underlying business object (if any)
+		/// <summary> Gets or set the underlying business object (if any)
 		/// </summary>
-		/// <remarks> ALIAS for <c>(IBusinessObjectVM)this.Metadata.DataProvider.Data</c> 
+		/// <remarks> ALIAS for <c>(IObjectBM)this.Metadata.DataProvider.Data</c> 
 		/// <para>This property does not raise <see cref="INotifyPropertyChanged.PropertyChanged"/>.</para>
 		/// </remarks>
 		[Bindable(BindableSupport.No)]

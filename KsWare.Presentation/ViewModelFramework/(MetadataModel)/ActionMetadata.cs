@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
@@ -45,21 +46,24 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Bindable(true)]
 		public IActionProvider ActionProvider {
 			get {
+				// lazy initialization
 				if(m_ActionProvider==null) {
 					m_ActionProvider = CreateDefaultActionProvider();
 					m_ActionProvider.Parent = this;
-					OnActionProviderChanged();
+					OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(null,m_ActionProvider));
 					OnPropertyChanged("HasActionProvider");
 				}
 				return m_ActionProvider;
 			}
 			set {
-				if(value==null) throw new InvalidOperationException("ActionProvider cannot be null!");
+				var oldHasActionProvider = HasActionProvider;
+				var oldActionProvider = m_ActionProvider;
+				if(value==null) throw new InvalidOperationException("ActionProvider must not be null!");
 				if(m_ActionProvider!=null) DemandPropertySet();
 				m_ActionProvider = value;
 				m_ActionProvider.Parent = this;
-				OnActionProviderChanged();
-				OnPropertyChanged("HasActionProvider");
+				OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldActionProvider,m_ActionProvider));
+				if(HasActionProvider!=oldHasActionProvider) OnPropertyChanged("HasActionProvider");
 			}
 		}
 
@@ -70,14 +74,29 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </value>
 		public bool HasActionProvider { get { return m_ActionProvider != null; } }
 
-		protected virtual void OnActionProviderChanged() {
+		protected virtual void OnActionProviderChanged(ValueChangedEventArgs<IActionProvider> e) {
 			//OnPropertyChanged("ActionProvider");
-			EventUtil.Raise(ActionProviderChanged,this,EventArgs.Empty,"{B8F22E4D-0288-40A9-A28E-1D2D4DACA7A1}");
-			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore, "ActionProviderChangedEvent",EventArgs.Empty);
+			EventUtil.Raise(ActionProviderChanged,this,e,"{B8F22E4D-0288-40A9-A28E-1D2D4DACA7A1}");
+			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore, "ActionProviderChangedEvent",e);
 		}
 
-		public event EventHandler ActionProviderChanged;
-		public IEventSource<EventHandler> ActionProviderChangedEvent { get { return EventStore.Get<EventHandler>("ActionProviderChangedEvent"); }}
+		public event ValueChangedEventHandler<IActionProvider> ActionProviderChanged;
+		public IEventSource<ValueChangedEventHandler<IActionProvider>> ActionProviderChangedEvent { get { return EventStore.Get<ValueChangedEventHandler<IActionProvider>>("ActionProviderChangedEvent"); }}
+
+		public void ChangeActionProvider(IActionProvider actionProvider) {
+			DemandNotNull(actionProvider);
+			if(Equals(m_ActionProvider,actionProvider)) return;
+
+			var oldProvider = m_ActionProvider;
+//			if(oldProvider!=null && oldProvider.Data!=null) throw new InvalidOperationException("DataProvider is in use! ErrorID: {3F43DE4B-737C-4D62-B764-A5B23957D813}");
+
+			m_ActionProvider = actionProvider;
+			m_ActionProvider.Parent = this;
+			OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldProvider,actionProvider));
+			OnPropertyChanged("HasDataProvider");
+
+			if(oldProvider!=null) oldProvider.Dispose();
+		}
 
 		#region Overrides of ViewModelMetadata
 

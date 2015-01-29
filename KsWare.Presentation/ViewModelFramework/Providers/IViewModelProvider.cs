@@ -25,6 +25,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		private Lazy<EventSourceStore> m_LazyWeakEventStore;
 		private IViewModelMetadata m_Parent;
+		private bool? m_IsAutoCreated;
 
 		protected ViewModelProvider() {
 			m_LazyWeakEventStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
@@ -38,6 +39,16 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
 		public abstract bool IsSupported{get;}
+
+		public bool IsAutoCreated {
+			get { return m_IsAutoCreated==true; }
+			set {
+				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
+				m_IsAutoCreated = value;
+			}
+		}
+
+		public bool IsInUse { get; set; }
 
 		/// <summary> Gets or sets the parent metadata (<see cref="IViewModelMetadata"/>) of this instance.
 		/// </summary>

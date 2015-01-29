@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Documentation;
 using KsWare.Presentation.Providers;
@@ -41,9 +42,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets or sets the business object.
 		/// </summary>
 		/// <value>The business object.</value>
+		[Bindable(true,BindingDirection.TwoWay)]
 		public TBusinessObject BusinessObject { get { return (TBusinessObject)Metadata.DataProvider.Data; } set { Metadata.DataProvider.Data = value; } }
 		IObjectBM IBusinessObjectVM.BusinessObject { get { return BusinessObject; } set { BusinessObject = (TBusinessObject) value; } }
 
+		/// <summary> Creates the default metadata (<see cref="BusinessObjectMetadata{TBusinessObject}"/>).
+		/// </summary>
+		/// <returns><see cref="BusinessObjectMetadata{TBusinessObject}"/></returns>
 		protected override ViewModelMetadata CreateDefaultMetadata() {
 			var metadata = new BusinessObjectMetadata<TBusinessObject>();
 			return metadata;
@@ -63,13 +68,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 			//slim objects does not support UserFeedbackRequestedEvent, so we have to check this
 			if (p != null && !p.IsSlim) p.UserFeedbackRequestedEvent.Release(this, "RequestUserFeedback");
 			if (o != null && !o.IsSlim) o.UserFeedbackRequestedEvent.Register(this,"RequestUserFeedback", (s, e) => RequestUserFeedback(e));
+
+			OnPropertyChanged("BusinessObject");
 		}
 
 		/// <summary> [override deprecated] Called when <see cref="docːObjectVM.underlyingˑdata"/> changed.
 		/// </summary>
 		/// <param name="e">The <see cref="DataChangedEventArgs"/> instance containing the event data.</param>
-		/// <remarks>Under normal circumstances you don't need to override this in derived classes. Instead use <see cref="OnBusinessObjectChanged"/>.</remarks>
-		[Obsolete("Use OnBusinessObjectChanged")]
+		/// <remarks>Under normal circumstances you don't need to override this method. Override <see cref="OnBusinessObjectChanged"/> instead.</remarks>
+		[Obsolete("Override OnBusinessObjectChanged")]
 		protected override void OnDataChanged(DataChangedEventArgs e) {
 			base.OnDataChanged(e);
 			var ndata = (TBusinessObject)e.NewData;

@@ -214,6 +214,7 @@
     <Compile Include="Core\%28Attributes%29\ResharperAnotations.cs" />
     <Compile Include="Core\%28Attributes%29\ResourceAttribute.cs" />
     <Compile Include="Core\OBSOLETE\RuntimeMethodData.cs" />
+    <Compile Include="Core\Providers\Provider.cs" />
     <Compile Include="Core\SimpleMonitor.cs" />
     <Compile Include="Core\SimpleProperty.cs" />
     <Compile Include="Core\Singleton.cs" />
@@ -266,6 +267,10 @@
     <Compile Include="ViewFramework\ForceException.cs" />
     <Compile Include="ViewFramework\ThemeSelector.cs" />
     <Compile Include="ViewFramework\XmlDoc.cs" />
+    <Compile Include="ViewModelFramework\Providers\%28ActionProvider%29\BusinessActionProvider.cs" />
+    <Compile Include="ViewModelFramework\Providers\%28ActionProvider%29\CommandActionProvider.cs" />
+    <Compile Include="ViewModelFramework\Providers\%28ActionProvider%29\LinkedActionProvider.cs" />
+    <Compile Include="ViewModelFramework\Providers\%28ActionProvider%29\LocalActionProvider.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM~Classes.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM~Debug.cs" />
@@ -350,7 +355,7 @@
     <Compile Include="ViewModelFramework\ISelectorVM.cs" />
     <Compile Include="ViewModelFramework\ObservableNotifyableCollection.cs" />
     <Compile Include="ViewModelFramework\PropertyCache.cs" />
-    <Compile Include="ViewModelFramework\Providers\ActionProvider.cs" />
+    <Compile Include="ViewModelFramework\Providers\%28ActionProvider%29\ActionProvider.cs" />
     <Compile Include="ViewModelFramework\Providers\BusinessValueErrorProvider.cs" />
     <Compile Include="ViewModelFramework\Providers\DataProvider.cs" />
     <Compile Include="ViewModelFramework\Providers\DisplayValueProvider.cs" />
