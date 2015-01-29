@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using KsWare.Presentation.BusinessFramework.Providers;
@@ -242,10 +243,11 @@ namespace KsWare.Presentation.BusinessFramework {
 			};
 		}
 
-		/// <summary> Raises the <see cref="ValueChanged"/>- and  TreeChanged-event.
+		/// <summary> Raises the <see cref="ValueChanged"/>, <see cref="INotifyPropertyChanged.PropertyChanged"/> and  <see cref="ObjectBM.TreeChanged"/>-event.
 		/// </summary>							
 		protected virtual void OnValueChanged(ValueChangedEventArgs e) {
-			if (ValueChanged != null) ValueChanged(this, e);
+			EventUtil.Raise(ValueChanged,this,e,"{22C6594D-CEF4-4502-8A35-8B30A2E37BBB}");
+			OnPropertyChanged("Value");
 			OnTreeChanged();
 			//REVISE ??? Metadata.DataProvider.NotifyDataChanged();
 		}
