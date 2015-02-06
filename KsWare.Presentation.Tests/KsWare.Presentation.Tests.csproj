@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessFramework\ListBMTests.cs" />
+    <Compile Include="BusinessFramework\ObjectBMːHierarchyTests.cs" />
     <Compile Include="BusinessFramework\RefBMTests.cs" />
     <Compile Include="Core\EventManagerˑIntegrationTests.cs" />
     <Compile Include="DispatcherWrapperTests.cs" />

@@ -83,6 +83,31 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <returns>The registered child business object</returns>
 		protected TChild RegisterChild<TChild>(TChild child) where TChild : class, IObjectBM { return RegisterChildInternal(child); }
 
+		/// <summary> Registers a child <see cref="IObjectBM"/> with <see cref="CustomDataProvider"/> in the business object tree
+		/// </summary>
+		/// <typeparam name="TChild">Type of child business object</typeparam>
+		/// <typeparam name="TData">Type of data</typeparam>
+		/// <param name="memberName">The name of the child. </param>
+		/// <param name="getter">The getter to read from data</param>
+		/// <param name="setter">The setter to write to data</param>
+		/// <returns>The registered child business object</returns>
+		/// <remarks>This method is used to initialize a syncronization between business property value with a data property value</remarks>
+		/// <example>
+		/// Usage:
+		/// <code>IsActive=RegisterChild&lt;BoolBM,bool>("IsActive",()=>Data.IsActive,b=>Data.IsActive=b);</code>
+		/// </example>
+		// NOTE: This method is optional.
+		protected TChild RegisterChild<TChild,TData>(string memberName, Func<TData> getter, Action<TData> setter) where TChild : class, IObjectBM,new() {
+			if(!typeof(IValueBM).IsAssignableFrom(typeof(TChild))) throw new ArgumentOutOfRangeException("TChild must implement IValueBM!"){Data = { {"UID","{05C60FED-B7A8-4185-93AB-3379883408AA}"}}};
+			var child=new TChild {
+				MemberName = memberName,
+				Metadata = new BusinessValueMetadata {
+					DataProvider = new CustomDataProvider<TData>(getter, setter),
+					Settings     = new ValueSettings<TData>()
+				}
+			};
+			return RegisterChildInternal(child);
+		}
 
 		private TChild RegisterChildInternal<TChild>(TChild child) where TChild : class, IObjectBM {
 			if (child == null) throw new ArgumentNullException("child");

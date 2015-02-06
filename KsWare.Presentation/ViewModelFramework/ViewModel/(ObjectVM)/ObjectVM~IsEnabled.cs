@@ -8,11 +8,9 @@ using System.Windows;
 using System.Windows.Controls;
 using JetBrains.Annotations;
 
-namespace KsWare.Presentation.ViewModelFramework
-{
+namespace KsWare.Presentation.ViewModelFramework {
 
-	public partial interface IObjectVM
-	{
+	public partial interface IObjectVM {
 
 		/// <summary> Gets a value indicating whether this instance is enabled.
 		/// </summary>
@@ -26,8 +24,7 @@ namespace KsWare.Presentation.ViewModelFramework
 
 	}
 
-	public partial class ObjectVM
-	{
+	public partial class ObjectVM {
 
 		/// <summary> Gets a value indicating whether this instance is enabled.
 		/// </summary>
@@ -52,20 +49,24 @@ namespace KsWare.Presentation.ViewModelFramework
 		/// Multiple objections with same token does not increase the objection counter.
 		/// </remarks>
 		public bool SetEnabled(object token, bool value) {
-			bool oldIsEnabled = m_EnableObjections.Count==0;
-			if (value==false) {
-				if(!m_EnableObjections.Contains(token)) // ADDED [xgksc 2013-01-24] to prevent multiple objection with same token
-					m_EnableObjections.Add(token);
-			} else {
-				m_EnableObjections.Remove(token);
+			lock (m_EnableObjections) {
+				bool oldIsEnabled = m_EnableObjections.Count==0;
+				if (value==false) {
+					if(!m_EnableObjections.Contains(token)) // ADDED [xgksc 2013-01-24] to prevent multiple objection with same token
+						m_EnableObjections.Add(token);
+				} else {
+					//FIX: System.ArgumentOutOfRangeException in List<>.Remove(o) (ObjectVM.SetEnabled)
+					var idx = m_EnableObjections.IndexOf(token);
+					if(idx>=0) m_EnableObjections.RemoveAt(idx);
+				}
+				bool newIsEnabled = m_EnableObjections.Count==0;
+				if(oldIsEnabled!=newIsEnabled) {
+					IsEnabled = newIsEnabled;
+					OnPropertyChanged("IsEnabled");
+					EventUtil.Raise(IsEnabledChanged,this,new RoutedPropertyChangedEventArgs<bool>(oldIsEnabled, newIsEnabled),"{54239EDA-24CB-4B82-9023-D9E403E0194F}");
+				}
+				return newIsEnabled;
 			}
-			bool newIsEnabled = m_EnableObjections.Count==0;
-			if(oldIsEnabled!=newIsEnabled) {
-				IsEnabled = newIsEnabled;
-				OnPropertyChanged("IsEnabled");
-				EventUtil.Raise(IsEnabledChanged,this,new RoutedPropertyChangedEventArgs<bool>(oldIsEnabled, newIsEnabled),"{54239EDA-24CB-4B82-9023-D9E403E0194F}");
-			}
-			return newIsEnabled;
 		}
 	}
 
