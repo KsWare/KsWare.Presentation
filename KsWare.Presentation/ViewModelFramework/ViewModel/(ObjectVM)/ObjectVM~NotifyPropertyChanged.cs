@@ -61,7 +61,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			//INFO: propertyName may be "Item[]" e.g. for indexer in a list
 
-			if(propertyName!=null) {
+			if(!string.IsNullOrEmpty(propertyName)) {
 				var property = PropertyCache.GetProperty(propertyName, this.GetType(), autoRegister:true);
 				viewModelProperty = property;
 			}
