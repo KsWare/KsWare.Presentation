@@ -47,6 +47,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 		private static void Register(object frameworkElement,object group) {
 			var elmt = (FrameworkElement) frameworkElement;
+			if (elmt == null  /*possible in designer*/ ) return /*ignore*/;
 			if(FrameworkElements.ContainsKey(elmt)) {
 				var oldGroup = FrameworkElements[elmt];
 				FrameworkElements[elmt] = group;
