@@ -110,7 +110,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		}
 
 		private TChild RegisterChildInternal<TChild>(TChild child) where TChild : class, IObjectBM {
-			if (child == null) throw new ArgumentNullException("child");
+			if (child == null) throw new ArgumentNullException(nameof(child));
 			var childHierarchical = (IHierarchical<IObjectBM>) child;
 			if (childHierarchical.Parent != null) throw new InvalidOperationException("Child is already in a hierarchy!");
 			if (string.IsNullOrWhiteSpace(childHierarchical.MemberName)) throw new InvalidOperationException("MemberName not specified");
@@ -169,7 +169,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Registers all children of this business model. 
 		/// Use <see cref="HierarchyAttribute"/> for specific properties to control the behavior.
 		/// </summary>
-		/// <param name="this">Always use: <c>_=>this</c></param>
+		/// <param name="this">Always use: <c>()=>this</c></param>
 		/// <remarks>
 		/// Only members declared at the level of the supplied type's hierarchy should be considered. Inherited members are not considered.
 		/// <p>Use <see cref="HierarchyAttribute"/> to control the behavior for each property.</p>
@@ -178,9 +178,9 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <example><code>
 		/// public Constructor() {
 		///    // ... custom registrations here ...
-		///	   // SendAction = RegisterChild(_=>SendAction, new ActionBM{/*...*/});
+		///	   // SendAction = RegisterChild(()=>SendAction, new ActionBM{/*...*/});
 		/// 
-		///    RegisterChildren(_=>this);
+		///    RegisterChildren(()=>this);
 		/// }
 		/// </code></example>
 		/// <seealso cref="HierarchyAttribute"/>
@@ -188,7 +188,7 @@ namespace KsWare.Presentation.BusinessFramework {
 //		/// <seealso cref="ActionMetadataAttribute"/>
 //		/// <seealso cref="ValueMetadataAttribute"/>
 //		/// <seealso cref="ListMetadataAttribute"/>
-		protected void RegisterChildren(Func<object, IObjectBM> @this) {
+		protected void RegisterChildren(Func<IObjectBM> @this) {
 			var o = this;
 			var t = @this.Method.DeclaringType; if (t == null) throw new InvalidOperationException("ErrorID: {6B8E8EDB-5A2E-4AB6-A572-AB54C369555A}");
 

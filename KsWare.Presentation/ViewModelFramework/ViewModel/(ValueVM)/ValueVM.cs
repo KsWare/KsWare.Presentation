@@ -130,10 +130,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <remarks></remarks>
 	public partial class ValueVM<T>:ObjectVM,IValueVM<T>,IValueVM {
 		
-		private T m_CachedValue;
-		private T m_PreviousRaisedValue=default(T);
-		private bool m_EnableBusinessModelFeatures;
-		private WeakReference m_WeakLastBusinessObject;
+		private T _cachedValue;
+		private T _previousRaisedValue=default(T);
+		private bool _enableBusinessModelFeatures;
+		private WeakReference _weakLastBusinessObject;
 
 		/// <summary> Initializes a new instance of the <see cref="ValueVM{T}"/> class.
 		/// </summary>
@@ -171,7 +171,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 			}
 			var metadata=new ValueMetadata<T>();
-			if (m_EnableBusinessModelFeatures) metadata.EnableBusinessModelFeatures = true;
+			if (_enableBusinessModelFeatures) metadata.EnableBusinessModelFeatures = true;
 			return metadata;
 		}
 
@@ -201,7 +201,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 			set {
 				BusinessValueDataProvider<T> provider;
-				if      (!HasMetadata             ) m_EnableBusinessModelFeatures = true;
+				if      (!HasMetadata             ) _enableBusinessModelFeatures = true;
 				else if (!Metadata.HasDataProvider) Metadata.EnableBusinessModelFeatures = true;
 				
 				if (Metadata.DataProvider is BusinessValueDataProvider<T>) provider = (BusinessValueDataProvider<T>) Metadata.DataProvider;
@@ -231,7 +231,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			#region (optional) DataProvider-Validate);
 			if (Metadata.DataProvider != null && Metadata.DataProvider.IsSupported) {
 				try {
-					Metadata.DataProvider.Validate(m_CachedValue);
+					Metadata.DataProvider.Validate(_cachedValue);
 					((IErrorProviderController)ErrorProvider).ResetError();
 				}
 				catch (Exception ex) {
@@ -246,8 +246,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if (e.NewValue is IBusinessValueDataProvider) {
 				var provider = (IBusinessValueDataProvider) e.NewValue;
 				provider.BusinessValueChanged += (s1, e1) => {
-					var lastBusinessObject=m_WeakLastBusinessObject == null ? null : (!m_WeakLastBusinessObject.IsAlive ? null : m_WeakLastBusinessObject.Target);
-					m_WeakLastBusinessObject = e1.NewData == null ? null : new WeakReference(e1.NewData);
+					var lastBusinessObject=_weakLastBusinessObject == null ? null : (!_weakLastBusinessObject.IsAlive ? null : _weakLastBusinessObject.Target);
+					_weakLastBusinessObject = e1.NewData == null ? null : new WeakReference(e1.NewData);
 					OnBusinessObjectChanged(new ValueChangedEventArgs<IObjectBM>((IObjectBM)lastBusinessObject, (IObjectBM) e1.NewData));
 				};
 			}
@@ -357,8 +357,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 				#endregion
 
-				if (Equals(m_CachedValue, value)) return;
-				m_CachedValue = value;
+				if (Equals(_cachedValue, value)) return;
+				_cachedValue = value;
 
 				if (Metadata.DataProvider!=null && Metadata.DataProvider.IsSupported) {
 					#region (optional) DataProvider-SetData
@@ -406,9 +406,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			try {
 				T dataT = (T) (data);
-				if(!Equals(m_CachedValue,data)){/*TODO if(Debugger.IsAttached) Debugger.Break();*//*DEBUG uups*/}
-				m_CachedValue = dataT;
-				return m_CachedValue;
+				if(!Equals(_cachedValue,data)){/*TODO if(Debugger.IsAttached) Debugger.Break();*//*DEBUG uups*/}
+				_cachedValue = dataT;
+				return _cachedValue;
 			}catch (Exception ex) {
 				string text = "=>" + ex.Message + "\r\n\t" + "UniqueID: {8F538E40-842F-4151-BA12-75DEB4BE6B77}";
 				//Debug.WriteLine(text);
@@ -438,10 +438,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 			OnPropertyChanged("HasValue");
 			OnPropertyChanged("Value");
 
-			var args=new ValueChangedEventArgs(m_PreviousRaisedValue,newValue);
+			var args=new ValueChangedEventArgs(_previousRaisedValue,newValue);
 			EventUtil.Raise(ValueChanged,this,args,"{B86ED179-8BE0-4702-A352-5E77A884195C}");
 			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,"ValueChangedEvent", args);
-			m_PreviousRaisedValue = newValue;
+			_previousRaisedValue = newValue;
 		}
 
 

@@ -16,7 +16,7 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 	[TemplatePart(Name="PART_Border"          ,Type=typeof(Border))]
 	[TemplatePart(Name="PART_WindowButtons"   ,Type=typeof(WindowChromeButtons))]
 	[TemplatePart(Name="PART_ExitFullscreen"  ,Type=typeof(Button))]
-	public class WindowChrome:ContentControl {
+	public partial class WindowChrome:ContentControl {
 
 		private Window m_Window;
 		private decimal m_LastF11Timestamp;

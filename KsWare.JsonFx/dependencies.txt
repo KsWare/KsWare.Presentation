@@ -1,0 +1,7 @@
+# Dependencies of: "KsWare.JsonFx.csproj"
+# 12.12.2013 11:56:30,78
+D:\Develop\KsWare\Projects\KoCHelper\KoCHelper.sln
+D:\Develop\KsWare\Projects\KoCTool\KoCTool.sln
+D:\Develop\KsWare\Projects\KsWare.JsonFx\KsWare.JsonFx.sln
+D:\Develop\KsWare\Projects\PornComScanner\PornComScanner.sln
+D:\Develop\KsWare\Projects\VisualStudioFileManager\VisualStudioFileManager.sln

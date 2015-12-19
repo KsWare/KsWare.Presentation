@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.JsonFx", "..\KsWare.JsonFx\KsWare.JsonFx.csproj", "{94C92C05-0489-4764-BB29-F8C477AEB797}"
 EndProject
@@ -19,13 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4755CA29-0BFE-4C40-A9FD-74E091F3AFCD}"
 	ProjectSection(SolutionItems) = preProject
-		..\nuget\create nuget packet.cmd = ..\nuget\create nuget packet.cmd
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Tests.Runner", "..\KsWare.Presentation.Tests.Runner\KsWare.Presentation.Tests.Runner.csproj", "{32B05328-CC4D-4909-89AA-72DB78FAC651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation", "KsWare.Presentation.csproj", "{193C2DD2-C3E6-4188-8691-F9DE9BD38894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation", "..\KsWare.Presentation\KsWare.Presentation.csproj", "{193C2DD2-C3E6-4188-8691-F9DE9BD38894}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Tests", "..\KsWare.Presentation.Tests\KsWare.Presentation.Tests.csproj", "{1E3A05FD-0F03-4B1A-AB41-53AA2018D940}"
 EndProject
@@ -34,8 +33,6 @@ EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "KsWare.Presentation.Documentation", "..\KsWare.Presentation.Documentation\KsWare.Presentation.Documentation.shfbproj", "{DA92A560-1462-4664-81A8-2FE6EAC1313A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.BusyManager.TestApp", "..\KsWare.Presentation.BusyManager.Tests\KsWare.Presentation.BusyManager.TestApp.csproj", "{86FCB3CA-E03C-42D1-9B95-714C45604A2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.UITestApp", "..\KsWare.Presentation.UITestApp\KsWare.Presentation.UITestApp.csproj", "{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,14 +122,6 @@ Global
 		{86FCB3CA-E03C-42D1-9B95-714C45604A2F}.Release_45|Any CPU.Build.0 = Release|Any CPU
 		{86FCB3CA-E03C-42D1-9B95-714C45604A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86FCB3CA-E03C-42D1-9B95-714C45604A2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Debug_45|Any CPU.ActiveCfg = Debug|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Debug_45|Any CPU.Build.0 = Debug|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Release_45|Any CPU.ActiveCfg = Release|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Release_45|Any CPU.Build.0 = Release|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +136,5 @@ Global
 		{BB62C449-8E39-49BE-BDB2-E170139DDE38} = {5DE1F59B-26E6-4C82-AA54-E27781BF0088}
 		{DA92A560-1462-4664-81A8-2FE6EAC1313A} = {C9980D44-9BB9-40E9-9B95-16B0B0C50313}
 		{86FCB3CA-E03C-42D1-9B95-714C45604A2F} = {5DE1F59B-26E6-4C82-AA54-E27781BF0088}
-		{F47E6A54-5EFB-47E1-A68D-18C73C79BC06} = {5DE1F59B-26E6-4C82-AA54-E27781BF0088}
 	EndGlobalSection
 EndGlobal

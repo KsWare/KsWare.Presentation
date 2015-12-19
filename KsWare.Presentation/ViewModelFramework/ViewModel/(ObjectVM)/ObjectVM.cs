@@ -320,8 +320,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Initializes a new instance of the <see cref="ViewModelPropertyChangedEventArgs"/> class.
 		/// </summary>
 		/// <param name="property">The property.</param>
-		public ViewModelPropertyChangedEventArgs(ViewModelProperty property): base(property.Name) {
-			if (property == null) throw new ArgumentNullException("property");
+		public ViewModelPropertyChangedEventArgs(ViewModelProperty property): base(property!=null?property.Name:"") {
+			
+			//if (property == null) throw new ArgumentNullException("property");
+			// ^-DISABLED to support OnPropertyChanged("");
+
 			m_Property = property;
 		}
 

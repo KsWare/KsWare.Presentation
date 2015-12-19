@@ -115,6 +115,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
+		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
+			get { return EventSources.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
+		}
+
 		/// <summary> Occurs when <see cref="Settings"/> or a Settings property has been changed.
 		/// </summary>
 		public event EventHandler<ValueSettingsChangedEventArgs> SettingsChanged;

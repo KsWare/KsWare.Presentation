@@ -10,27 +10,16 @@ using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
-	[Obsolete(@"Requieres System.Windows.Interactivity.dll (Microsoft SDKs\Expression\Blend\.NETFramework\v4.0)")]
-	public class BindableSelectedItemBehaviorV40 : Behavior<TreeView> {
-		/*
-			Reference: System.Windows.Interactivity (C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.0\Libraries\System.Windows.Interactivity.dll)
-		 
-				<e:Interaction.Behaviors>
-					<behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedAction.Target, Mode=TwoWay}" />
-				</e:Interaction.Behaviors>
-		 */
+	public class BindableSelectedItemBehavior:Behavior<TreeView> {
 
-		#region SelectedItem Property
+		public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.RegisterAttached(
+			"SelectedItem", typeof (object), typeof (BindableSelectedItemBehavior), new PropertyMetadata(default(object),AtSelectedItemChanged));
 
-		public object SelectedItem {
-			get { return (object) GetValue(SelectedItemProperty); }
-			set { SetValue(SelectedItemProperty, value); }
-		}
+		public static void SetSelectedItem(DependencyObject element, object value) { element.SetValue(SelectedItemProperty, value); }
 
-		public static readonly DependencyProperty SelectedItemProperty =
-			DependencyProperty.Register("SelectedItem", typeof (object), typeof (BindableSelectedItemBehaviorV40), new UIPropertyMetadata(null, AtSelectedItemChanged));
-
-		private static void AtSelectedItemChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
+		public static object GetSelectedItem(DependencyObject element) { return (object) element.GetValue(SelectedItemProperty); }
+		
+		private static void AtSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
 			if (e.NewValue is TreeViewItem) {
 				var treeViewItem = (TreeViewItem) e.NewValue;
 				treeViewItem.SetValue(TreeViewItem.IsSelectedProperty, true);
@@ -44,7 +33,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 			}
 		}
 
-		#endregion
+
 
 		protected override void OnAttached() {
 			base.OnAttached();
@@ -61,14 +50,14 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		}
 
 		private void AtTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
-			SelectedItem = e.NewValue;
+			SetSelectedItem(AssociatedObject,e.NewValue);
 		}
 	}
 
-	public class TreeViewItemAttachedV40 {
+	public class TreeViewItemAttached {
 
 		public static readonly DependencyProperty InputBindingsProperty =
-			DependencyProperty.RegisterAttached("InputBindings", typeof (System.Windows.Input.InputBindingCollection), typeof (TreeViewItemAttachedV40), new PropertyMetadata(null, AtInputBindingsPropertyChanged));
+			DependencyProperty.RegisterAttached("InputBindings", typeof (System.Windows.Input.InputBindingCollection), typeof (TreeViewItemAttached), new PropertyMetadata(null, AtInputBindingsPropertyChanged));
 
 		public static void SetInputBindings(TreeViewItem element, System.Windows.Input.InputBindingCollection value) { element.SetValue(InputBindingsProperty, value); }
 
