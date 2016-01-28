@@ -55,8 +55,23 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public ActionVM FullscreenAction { get; private set; }
 		public ActionVM CloseAction { get; private set; }
 
+		/// <summary> Shows the view.
+		/// </summary>
+		/// <remarks>
+		/// <para>The type for the view can be configured by a <see cref="DefaultViewAttribute"/>. If no attribute is specified the following naming conventions are used: <br/>
+		/// (name of view model without "VM" | "ViewModel") + (optional "View").</para>
+		/// <para>For example: for "MainWindowVM" a <see cref="Window"/> class with class name "MainWindow" or "MainWindowView" is searched.</para>
+		/// </remarks>
+		/// <seealso cref="DefaultViewAttribute"/>
 		public void Show() {
-			ApplicationVM.Current.WindowsInternal.Show(this);
+			if(!UIAccess.HasWindow) ApplicationVM.Current.WindowsInternal.Show(this);
+			else UIAccess.Window.Show();
+		}
+
+		/// <summary> Manually closes the window.
+		/// </summary>
+		public void Close() {
+			if(UIAccess.HasWindow) UIAccess.Window.Close();
 		}
 
 		private void AtWindowChanged(object sender, EventArgs e) {
@@ -76,7 +91,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public bool IsActivated { get { return Fields.Get<bool>("IsActivated"); } private set { Fields.Set("IsActivated", value); } }
 
 		private void AtWindowClosed(object sender, EventArgs e) {
-			
+			UIAccess.Window.DataContext = null;
+			UIAccess.ReleaseWindowInternal();
 		}
 
 		private void AtCloseActionExecuted(object sender, ExecutedEventArgs e) {
@@ -139,9 +155,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 			base.Dispose(explicitDisposing);
 		}
-
-
-
+		
 		// ###
 
 		/// <summary> Provides direct access to the UI (<see cref="Window"/>).
@@ -179,6 +193,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(window==null) throw new ArgumentNullException("window");
 				DemandAssign();
 				Fields.Set("Window", window);
+			}
+
+			public void ReleaseWindowInternal() {
+				Fields.Set("Window", (Window)null);
 			}
 
 			public event EventHandler<ValueChangedEventArgs<Window>> WindowChanged;
@@ -233,6 +251,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 
 			#endregion
+
+			
+
 		}
 	}
 

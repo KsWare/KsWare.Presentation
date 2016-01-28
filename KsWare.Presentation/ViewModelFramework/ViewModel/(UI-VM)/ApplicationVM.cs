@@ -345,6 +345,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private Type FindView(Type viewModelType) {
+			// if the logic is changed, update the description in WindowVM.Show()
+
 			if (viewModelType == typeof (WindowVM)) return typeof (Window); 
 
 			var defView=viewModelType.GetCustomAttributes(typeof (DefaultViewAttribute), false).OfType<DefaultViewAttribute>().Select(x=>x.View).FirstOrDefault();

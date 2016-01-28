@@ -199,3 +199,6 @@ ModelManifest.xml
 /KsWare.JsonFx.Tests/desktop.ini
 /KsWare.Presentation/desktop.ini
 /KsWare.JsonFx/desktop.ini
+/nuget/old
+/nuget/lib
+/nuget/nuget.exe

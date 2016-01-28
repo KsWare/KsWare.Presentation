@@ -239,9 +239,14 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		public bool IsChecked { get { return Fields.Get<bool>("IsChecked"); } set { Fields.Set("IsChecked", value); } }
 
+		/// <summary> see <see cref="Button.Command"/>
+		/// </summary>
+		public ICommand Command { get { return Fields.Get<ICommand>("Command"); } set { Fields.Set("Command", value); } }
+
 		//### Additional Properties ###
 
 		public bool IsHighlighted { get { return Fields.Get<bool>("IsHighlighted"); } set { Fields.Set("IsHighlighted", value); } }
+
 	}
 
 	/// <summary> TreeViewItem </summary>

@@ -31,25 +31,33 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Bindable(BindableSupport.No)]
 		public virtual object MːData {get { return Metadata.DataProvider.Data; }set {  Metadata.DataProvider.Data=value; }}
 
-		/// <summary> ALIAS for <c>((IObjectBM)Metadata.DataProvider.Data).Metadata.DataProvider.Data</c> </summary>
+		/// <summary> [EXPERIMENTAL] Gets or sets the data of the underlying business object </summary>
 		/// <remarks>
+		/// <para>ALIAS for <c>((IObjectBM)Metadata.DataProvider.Data).Metadata.DataProvider.Data</c> </para>
 		/// <para>This property does not raise <see cref="INotifyPropertyChanged.PropertyChanged"/>.</para>
 		/// </remarks>
 		[Bindable(BindableSupport.No)]
 		public object MːDataːData {
 			get {
 				if (IsInDesignMode) return null; // WORKAROUND because NullReferenceException in designer
-				return ((IObjectBM)MːData).Metadata.DataProvider.Data;
-			}set {  ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
+				// return ((IObjectBM)MːData).Metadata.DataProvider.Data;
+				return (MːData as IObjectBM)?.Metadata?.DataProvider?.Data;
+			} set {  ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
 		}
+
 		/// <summary> [EXPERIMENTAL] Gets or sets the data of the underlying business object.
-		/// ALIAS for <c>((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data</c> </summary>
+		///  </summary>
 		/// <remarks>
+		/// <para>ALIAS for <c>((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data</c></para>
 		/// <para>This property does not raise <see cref="INotifyPropertyChanged.PropertyChanged"/>.</para>
 		/// </remarks>
 		[Bindable(BindableSupport.No)]
 		public object MːBusinessObjectːData {
-			get { return ((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data;}
+			get {
+				if (IsInDesignMode) return null; // WORKAROUND because NullReferenceException in designer
+				// return ((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data;
+				return (Metadata.DataProvider.Data as IBusinessObjectVM)?.Metadata?.DataProvider?.Data;
+			}
 			set { ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
 		}
 
@@ -62,7 +70,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public virtual IObjectBM MːBusinessObject {
 			get {
 				if (this is IBusinessObjectVM) return ((IBusinessObjectVM) this).BusinessObject;
-				else return (IObjectBM) MːData;
+				else return MːData as IObjectBM;
 			}
 			set {
 				if (this is IBusinessObjectVM) ((IBusinessObjectVM) this).BusinessObject = value;

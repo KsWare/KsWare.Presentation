@@ -14,12 +14,13 @@
 <HelpConfigurations selected="HelpFile">
   <HelpConfiguration name="HelpFile">
     <OutputPath>.\Help</OutputPath>
+    <HelpFileName>WEC</HelpFileName>
     <ImageFolderPath />
     <HtmlFormats>
-      <HtmlHelp>false</HtmlHelp>
+      <HtmlHelp>true</HtmlHelp>
       <MSHelpViewer>false</MSHelpViewer>
       <MSHelp2>false</MSHelp2>
-      <Website>true</Website>
+      <Website>false</Website>
     </HtmlFormats>
     <IncludeScopes>
       <Public>true</Public>
@@ -33,10 +34,8 @@
     </IncludeScopes>
     <ResolveCrefLinks>true</ResolveCrefLinks>
     <HeaderText />
-    <FooterText>Copyright © 2002-2014 by KsWare. All rights reserved.</FooterText>
-    <SelectedProjects>
-      <SelectedProject>KsWare.Presentation</SelectedProject>
-    </SelectedProjects>
+    <FooterText />
+    <SelectedProjects />
   </HelpConfiguration>
 </HelpConfigurations>
 </GhostDoc>

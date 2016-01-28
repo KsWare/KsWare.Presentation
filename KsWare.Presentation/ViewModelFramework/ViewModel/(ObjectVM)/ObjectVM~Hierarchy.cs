@@ -95,17 +95,42 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="child">The child view model to register</param>
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		protected TChild RegisterChild<TChild>([NotNull] TChild child) where TChild:class,IObjectVM {
+//			if (child == null) throw new ArgumentNullException("child");
+//			var childHierarchical = (IHierarchical<IObjectVM>) child;
+//			if (childHierarchical.Parent!=null) throw new InvalidOperationException("Child is already in a hierarchy!");
+//
+//			if (string.IsNullOrWhiteSpace(childHierarchical.MemberName)) throw new InvalidOperationException("MemberName not specified");
+//#if DEBUG   //### Slow
+//			var propertyInfo = GetType().GetProperty(childHierarchical.MemberName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+//			if(propertyInfo==null) {
+//				var stackFrame = new StackFrame(1, true);
+//				var msg = "Property not implemented!"+
+//						  "\n\t"+"Type: "+(stackFrame.GetMethod().DeclaringType??GetType()).FullName+
+//						  "\n\t"+"Property: "+childHierarchical.MemberName+
+//					 "\n"+stackFrame.GetFileName()+"("+stackFrame.GetFileLineNumber()+","+stackFrame.GetFileColumnNumber()+")";
+//				DebuggerːBreak(msg); 
+//				throw new InvalidOperationException(msg);
+//			}
+//#endif
+//			m_Children.Add(child);
+//			SetParent(child, this);
+//			return child;
+			return ːːInterfaceHelperːRegisterChild(child, m_Children, this);
+		}
+
+		// [PREPARED]
+		private static TChild ːːInterfaceHelperːRegisterChild<TChild>([NotNull] TChild child, List<IObjectVM> m_Children,IObjectVM @this) where TChild : class, IObjectVM {
 			if (child == null) throw new ArgumentNullException("child");
 			var childHierarchical = (IHierarchical<IObjectVM>) child;
 			if (childHierarchical.Parent!=null) throw new InvalidOperationException("Child is already in a hierarchy!");
 
 			if (string.IsNullOrWhiteSpace(childHierarchical.MemberName)) throw new InvalidOperationException("MemberName not specified");
 #if DEBUG   //### Slow
-			var propertyInfo = GetType().GetProperty(childHierarchical.MemberName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			var propertyInfo = @this.GetType().GetProperty(childHierarchical.MemberName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			if(propertyInfo==null) {
 				var stackFrame = new StackFrame(1, true);
 				var msg = "Property not implemented!"+
-						  "\n\t"+"Type: "+(stackFrame.GetMethod().DeclaringType??GetType()).FullName+
+						  "\n\t"+"Type: "+(stackFrame.GetMethod().DeclaringType??@this.GetType()).FullName+
 						  "\n\t"+"Property: "+childHierarchical.MemberName+
 					 "\n"+stackFrame.GetFileName()+"("+stackFrame.GetFileLineNumber()+","+stackFrame.GetFileColumnNumber()+")";
 				DebuggerːBreak(msg); 
@@ -113,7 +138,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 #endif
 			m_Children.Add(child);
-			SetParent(child, this);
+			SetParent(child, @this);
 			return child;
 		}
 
@@ -122,22 +147,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="child">The child view model to register</param>
 		/// <param name="propertyName"></param>
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		[Obsolete("Use other method",false)]
+		[Obsolete("Use other method",true)]
 		protected TChild RegisterChild<TChild>([NotNull] TChild child, [Localizable(false)] string propertyName) where TChild:class,IObjectVM{
-			if (child == null) throw new ArgumentNullException("child");
-//			if(!(child is IHierarchical) throw new ArgumentException("Type of children not supported!");
-			var hvm = (IHierarchical<IObjectVM>)child;
-				if (string.IsNullOrEmpty(hvm.MemberName) && string.IsNullOrEmpty(propertyName)) 
-					throw new InvalidOperationException("ViewModel must have a PropertyName!");
-				if (!string.IsNullOrEmpty(hvm.MemberName) && hvm.MemberName != propertyName)
-					throw new InvalidOperationException("ViewModel PropertyName cannot be changed!");
-// ReSharper disable RedundantCheckBeforeAssignment
-				if(hvm.MemberName!=propertyName) hvm.MemberName = propertyName;
-// ReSharper restore RedundantCheckBeforeAssignment
-				m_Children.Add(child);
-				SetParent(child, this);
-//			}
-			return child;
+			throw new NotSupportedException("Obsolete!\nErrorID:{03BD0D3F-738D-49DC-9C03-528E7ABD0A6F}");
 		}
 
 		/// <summary> Registers a child view model and assigns the property Name
@@ -196,7 +208,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 			return RegisterChildInternal(memberName, child,replaceExisting:true);
 		}
 
-		private TChild RegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child, bool replaceExisting=false) where TChild : class, IObjectVM {
+		private TChild RegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child,bool replaceExisting = false) where TChild : class, IObjectVM {
+			return ːːInterfaceHelperːRegisterChildInternal(propertyName, child,replaceExisting, m_Children, this);
+		}
+
+		// [PREPARED]
+		private static TChild ːːInterfaceHelperːRegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child, bool replaceExisting, List<IObjectVM> m_Children,IObjectVM @this) where TChild : class, IObjectVM {
 			if (child == null) throw new ArgumentNullException("child");
 //			if(!(child is IHierarchical) throw new ArgumentException("Type of children not supported!");
 
@@ -211,26 +228,26 @@ namespace KsWare.Presentation.ViewModelFramework {
 			PropertyInfo propertyInfo2 = null;
 			try {
 //				propertyInfo = GetType().GetProperty(hvm.MemberName, BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic);
-				propertyInfo = GetType().GetProperty(hvm.MemberName, BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic,null,child.GetType(),new Type[0],null );
+				propertyInfo = @this.GetType().GetProperty(hvm.MemberName, BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic,null,child.GetType(),new Type[0],null );
 				if(propertyInfo==null)
-					propertyInfo2 = GetType().GetProperty(hvm.MemberName, BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic);
+					propertyInfo2 = @this.GetType().GetProperty(hvm.MemberName, BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic);
 			} 
 			catch(AmbiguousMatchException ex) {
 				throw new InvalidOperationException(
 				"Registered property not unique!"+
 				"\n\t"+"Property: "+hvm.MemberName +
-				"\n\t"+"Type: "+DebugUtil.FormatTypeName(this)+
+				"\n\t"+"Type: "+DebugUtil.FormatTypeName(@this)+
 				"\n\t"+"ErrorID: {0088B310-F009-4A5F-A0B7-AE01FD1BC512}",ex);
 			}
 			if(propertyInfo==null && propertyInfo2==null) throw new InvalidOperationException(
 				"Registered property not implemented!"+
 				"\n\t"+"Property: "+hvm.MemberName +
-				"\n\t"+"Type: "+DebugUtil.FormatTypeName(this)+
+				"\n\t"+"Type: "+DebugUtil.FormatTypeName(@this)+
 				"\n\t"+"ErrorID: {377D83B5-E045-49D6-80DB-9CD41E8BC918}");
 			if(propertyInfo2!=null && !propertyInfo2.PropertyType.IsAssignableFrom(child.GetType())) throw new InvalidOperationException(
 				"Registered property has invalid type!"+
 				"\n\t"+"Property: "+hvm.MemberName +
-				"\n\t"+"Type: "+DebugUtil.FormatTypeName(this)+
+				"\n\t"+"Type: "+DebugUtil.FormatTypeName(@this)+
 				"\n\t"+"Registered Type: "+DebugUtil.FormatTypeName(child)+
 				"\n\t"+"Property Type  : "+DebugUtil.FormatTypeName(propertyInfo2.PropertyType)+
 				"\n\t"+"ErrorID: {377D83B5-E045-49D6-80DB-9CD41E8BC918}");
@@ -245,7 +262,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			} else {
 				m_Children.Add(child);
 			}
-			SetParent(child, this);
+			SetParent(child, @this);
 
 			return child;
 		}

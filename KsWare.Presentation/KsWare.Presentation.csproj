@@ -72,10 +72,17 @@
     <DocumentationFile>bin\Release_45\KsWare.Presentation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -264,6 +271,11 @@
     <Compile Include="ViewFramework\AttachedBehavior\InputBinding.cs" />
     <Compile Include="ViewFramework\AttachedBehavior\SharedWidth.cs" />
     <Compile Include="ViewFramework\AttachedBehavior\%28Interactivity.Behavior%29\TreeView.cs" />
+    <Compile Include="ViewFramework\AttachedBehavior\TreeView.cs" />
+    <Compile Include="ViewFramework\Behaviors\DragMove.cs" />
+    <Compile Include="ViewFramework\DataTypeTrigger.cs" />
+    <Compile Include="ViewFramework\Designtime\DesigntimeProperties.cs" />
+    <Compile Include="ViewFramework\Designtime\Namespace.cs" />
     <Compile Include="ViewFramework\ForceException.cs" />
     <Compile Include="ViewFramework\ThemeSelector.cs" />
     <Compile Include="ViewFramework\XmlDoc.cs" />
@@ -280,6 +292,7 @@
     <None Include="Documentation\WeakEvents.dgml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="ViewFramework\Behaviors.DragDrop\Bea\DragDropHelper.cs" />
     <None Include="ViewFramework\Behaviors.DragDrop\Bea\InsertionAdorner.cs" />
     <None Include="ViewFramework\Behaviors.DragDrop\Bea\Utilities.cs" />

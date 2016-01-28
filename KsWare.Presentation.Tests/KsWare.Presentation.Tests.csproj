@@ -56,7 +56,9 @@
       <HintPath>..\Binaries\KsWare.VisualStudio.com.KsWare.Presentation\References\KsWare.UnitTesting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\KsWare.Presentation\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -82,6 +84,7 @@
     <Compile Include="DispatcherWrapperTests.cs" />
     <Compile Include="Core\UnitTest1.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="ViewFramework\%28Converters%29\VisibilityConverterTests.cs" />
     <Compile Include="ViewFramework\Application.Tests.cs" />
     <Compile Include="ViewFramework\AppDomain.Tests.cs" />
     <Compile Include="ViewModelFramework\%28MetadataModel%29\%28BusinessModel%29\BusinessActionMetadata.Tests.cs" />
@@ -102,7 +105,7 @@
     <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMLinkTest.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMWeakEvent.Tests.cs" />
     <Compile Include="BusinessFramework\BusinessAction.Tests.cs" />
-    <Compile Include="BusinessFramework\BusinessList.Tests.cs" />
+    <Compile Include="BusinessFramework\ListBMˑTests.cs" />
     <Compile Include="BusinessFramework\BusinessList.2.Tests.cs" />
     <Compile Include="BusinessFramework\BusinessObjectTreeHelper.Tests.cs" />
     <Compile Include="BusinessFramework\MetricValue.Tests.cs" />
