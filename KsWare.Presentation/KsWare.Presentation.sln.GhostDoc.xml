@@ -14,6 +14,7 @@
 <HelpConfigurations selected="HelpFile">
   <HelpConfiguration name="HelpFile">
     <OutputPath>.\Help</OutputPath>
+    <CleanupOutputPath>true</CleanupOutputPath>
     <ImageFolderPath />
     <HtmlFormats>
       <HtmlHelp>false</HtmlHelp>
@@ -31,6 +32,11 @@
       <EnableTags>false</EnableTags>
       <TagList />
     </IncludeScopes>
+    <SyntaxLanguages>
+      <CSharp>true</CSharp>
+      <VisualBasic>true</VisualBasic>
+      <CPlusPlus>true</CPlusPlus>
+    </SyntaxLanguages>
     <ResolveCrefLinks>true</ResolveCrefLinks>
     <HeaderText />
     <FooterText>Copyright © 2002-2014 by KsWare. All rights reserved.</FooterText>
@@ -39,4 +45,6 @@
     </SelectedProjects>
   </HelpConfiguration>
 </HelpConfigurations>
+<GeneralProperties>
+</GeneralProperties>
 </GhostDoc>

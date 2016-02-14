@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>KsWare.F35FEB77-A8AA-4634-AA21-012EB75BA3C1</id>
-        <version>2015.11.30.2</version>
+        <version>2016.01.28.1</version>
         <authors>KsWare</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>for test purposes only. NO WARRANTY</description>
         <summary>shared libraries</summary>
-        <copyright>© 2002-2015 by KsWare. All rights reserved.</copyright>
+        <copyright>© 2002-2016 by KsWare. All rights reserved.</copyright>
         <language>en-US</language>
         <tags>KsWare, BHS</tags>
         <dependencies>

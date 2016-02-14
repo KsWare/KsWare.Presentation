@@ -202,3 +202,5 @@ ModelManifest.xml
 /nuget/old
 /nuget/lib
 /nuget/nuget.exe
+/KsWare.Presentation/packages/System.Windows.Interactivity.WPF.2.0.20525/lib/net40
+/KsWare.JsonFx/find dependencies.lnk
