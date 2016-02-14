@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4341F602-848B-42FC-AD38-E86F0820E3F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KsWare.Presentation.Core</RootNamespace>
+    <AssemblyName>KsWare.Presentation.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="%28.TODO split components%29\Documentation\docːFeatured.cs" />
+    <Compile Include="%28.TODO split components%29\Rx\SimpleObservable.cs" />
+    <Compile Include="%28Attributes%29\AnnotationAttribute.cs" />
+    <Compile Include="%28Attributes%29\Annotations.cs" />
+    <Compile Include="%28Attributes%29\DefaultViewAttribute.cs" />
+    <Compile Include="%28Attributes%29\HierarchyAttribute.cs" />
+    <Compile Include="%28Attributes%29\ResharperAnotations.cs" />
+    <Compile Include="%28Attributes%29\ResourceAttribute.cs" />
+    <Compile Include="%28Common Interfaces%29\IHierarchical.cs" />
+    <Compile Include="%28Common Interfaces%29\IMetadata.cs" />
+    <Compile Include="%28Common Interfaces%29\IModel.cs" />
+    <Compile Include="%28Common Interfaces%29\IParentSupport.cs" />
+    <Compile Include="%28Common Interfaces%29\IProvider.cs" />
+    <Compile Include="%28EventArgs%29\CanExecuteEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\ExecutedEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\PropertyChangedEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\RoutedComponentEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\TreeChangedEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\UserFeedbackEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\ValueChangedEventArgs.cs" />
+    <Compile Include="%28EventArgs%29\ValueChangingEventArgs.cs" />
+    <Compile Include="%28Exceptions%29\Class1.cs" />
+    <Compile Include="%28Exceptions%29\MultiTargetInvocationException.cs" />
+    <Compile Include="%28Exceptions%29\OperationFailedException.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\BusyUserFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\DetailMessageFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\ExceptionFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\InputFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\MessageFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\OpenFileFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\SaveFileFeedbackEventArgs.cs" />
+    <Compile Include="%28UserFeedbackEventArgs%29\StringResourceFeedbackEventArgs.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\DateTimeExtension.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\DispatcherExtension.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\Extensions.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\KeyEventArgsExtension.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\LinqExtension.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\ListExtension.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\ObjectDebugExtensions.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\SaveNullCheck.cs" />
+    <Compile Include="%28Utils%29\%28Extensions%29\String.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\EventContainer.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\EventHandle.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\EventManager.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\EventSource.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\EventSourceStore.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\IEventHandle.cs" />
+    <Compile Include="%28Utils%29\%28WeakEvents%29\IEventSource.cs" />
+    <Compile Include="%28Utils%29\DebugUtil.cs" />
+    <Compile Include="%28Utils%29\EventUtil.cs" />
+    <Compile Include="%28Utils%29\GeometryUtil.cs" />
+    <Compile Include="%28Utils%29\MemberAccessUtil.cs" />
+    <Compile Include="%28Utils%29\MemberNameUtil.cs" />
+    <Compile Include="%28Utils%29\PathUtil.cs" />
+    <Compile Include="%28Utils%29\Random2.cs" />
+    <Compile Include="BackingFieldsStore.cs" />
+    <Compile Include="BComp.cs" />
+    <Compile Include="Collections\Special\ListWithManualNotifyCollectionChanged.cs" />
+    <Compile Include="ComponentState.cs" />
+    <Compile Include="DataBindingAttribute.cs" />
+    <Compile Include="DataVirtualization\AsyncDataRef.cs" />
+    <Compile Include="DataVirtualization\DataRef.cs" />
+    <Compile Include="DataVirtualization\DataRefBase.cs" />
+    <Compile Include="DependencyPropertyChangeNotifier.cs" />
+    <Compile Include="DispatcherWrapper+4.0.cs" />
+    <Compile Include="DispatcherWrapper+4.5.1.cs" />
+    <Compile Include="DispatcherWrapper.cs" />
+    <Compile Include="ExceptionManager.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Lib.cs" />
+    <Compile Include="PathNodeData.cs" />
+    <Compile Include="Providers\CustomDataProvider.cs" />
+    <Compile Include="Providers\CustomListLogicProvider.cs" />
+    <Compile Include="Providers\DataChangedEventArgs.cs" />
+    <Compile Include="Providers\DataProvider.cs" />
+    <Compile Include="Providers\ILocalizationProvider.cs" />
+    <Compile Include="Providers\LocalDataProvider.cs" />
+    <Compile Include="Providers\NoDataProvider.cs" />
+    <Compile Include="Providers\Provider.cs" />
+    <None Include="Providers\DEACTIVATED\ReflectionDataProvider.cs" />
+    <Compile Include="SimpleMonitor.cs" />
+    <Compile Include="SimpleProperty.cs" />
+    <Compile Include="Singleton.cs" />
+    <Compile Include="UnicodeChars.cs" />
+    <Compile Include="WeakReferenceStore.cs" />
+    <None Include="%28.TODO split components%29\Documentation\WeakEvent.cd" />
+    <None Include="%28.TODO split components%29\Documentation\WeakEvents.dgml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataVirtualization\MSOriginal\CollectionView.cs" />
+    <None Include="DataVirtualization\MSOriginal\CollectionViewGroupRoot.cs" />
+    <None Include="DataVirtualization\MSOriginal\IndexedEnumerable.cs" />
+    <None Include="DataVirtualization\MSOriginal\ListCollectionView.cs" />
+    <Compile Include="DataVirtualization\VirtualList.cs" />
+    <Compile Include="DataVirtualization\VirtualListBase.cs" />
+    <Compile Include="DataVirtualization\VirtualListCollectionView.cs" />
+    <Compile Include="DataVirtualization\WeakAsyncDataRef.cs" />
+    <Compile Include="DataVirtualization\WeakDataRef.cs" />
+    <Compile Include="Diagnostics\StackFrameInfo.cs" />
+    <Compile Include="FrameworkCompatibility45\CallerMemberNameAttribute.cs" />
+    <Compile Include="Logging\Flow.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\LogFilter.cs" />
+    <Compile Include="Logging\LP.cs" />
+    <Compile Include="OBSOLETE\RuntimeMethodData.cs" />
+    <Compile Include="Patterns\SetParentPattern.cs" />
+    <Compile Include="Patterns\SetPropertyWithParentPattern.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataVirtualization\DataVirtualization.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DataVirtualization\Info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KsWare.Presentation\KsWare.Presentation.csproj">
+      <Project>{193c2dd2-c3e6-4188-8691-f9de9bd38894}</Project>
+      <Name>KsWare.Presentation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="%28.TODO split components%29\Documentation\Changes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="%28.TODO split components%29\Documentation\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="%28.TODO split components%29\notes.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
