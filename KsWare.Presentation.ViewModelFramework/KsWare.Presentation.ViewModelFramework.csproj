@@ -28,6 +28,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\KsWare.Presentation.ViewModelFramework.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -105,6 +112,7 @@
     <Compile Include="Providers\ErrorProvider.cs" />
     <Compile Include="Providers\ExternalListControllerProvider.cs" />
     <Compile Include="Providers\IViewModelProvider.cs" />
+    <None Include="Properties\KsWare.Presentation.snk" />
     <None Include="packages.config" />
     <None Include="Providers\DEACTIVATED\MappedDataProvider.cs" />
     <Compile Include="Providers\MultiPropertyErrorProvider.cs" />
@@ -177,10 +185,6 @@
     <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
       <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
       <Name>KsWare.Presentation.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation\KsWare.Presentation.csproj">
-      <Project>{193c2dd2-c3e6-4188-8691-f9de9bd38894}</Project>
-      <Name>KsWare.Presentation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

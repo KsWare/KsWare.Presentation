@@ -14,7 +14,7 @@ using System.Windows.Markup;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("KsWare")]
 [assembly: AssemblyProduct("Presentation Framework")]
-[assembly: AssemblyCopyright("Copyright © 2002-2014 by KsWare. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2002-2016 by KsWare. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

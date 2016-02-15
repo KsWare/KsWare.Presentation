@@ -10,18 +10,48 @@ mkdir lib\net45>nul
 
 echo copy files...
 set options=/Y /D
-xcopy ..\KsWare.Presentation\bin\Debug\KsWare.JsonFx.dll lib\net40\ %options%
+
+::net40
+::xcopy ..\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net40\ %options%
+::if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.Core.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation\bin\Debug\KsWare.Presentation.dll lib\net40\ %options%
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.Core.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation\bin\Debug\KsWare.Presentation.xml lib\net40\ %options%
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.BusinessFramework.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation\bin\Debug_45\KsWare.JsonFx.dll lib\net45\ %options%
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.BusinessFramework.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation\bin\Debug_45\KsWare.Presentation.dll lib\net45\ %options%
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewModelFramework.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation\bin\Debug_45\KsWare.Presentation.xml lib\net45\ %options%
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewModelFramework.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewFramework.dll lib\net40\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewFramework.xml lib\net40\ %options%
+if errorlevel 1 set hasCopyError=true
+
+:: net45
+::xcopy ..\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net45\ %options%
+::if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.Core.dll lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.Core.xml lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.BusinessFramework.dll lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.BusinessFramework.xml lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewModelFramework.dll lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewModelFramework.xml lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewFramework.dll lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation\bin\Release\KsWare.Presentation.ViewFramework.xml lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+
+
 if '%hasCopyError%' equ 'true' (
 	echo ERROR
 	goto PAUSEEXIT

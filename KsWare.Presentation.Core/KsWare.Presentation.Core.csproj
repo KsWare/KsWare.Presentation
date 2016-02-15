@@ -28,6 +28,32 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\KsWare.Presentation.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_40|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug_40\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_40|AnyCPU'">
+    <OutputPath>bin\Release_40\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release_40\KsWare.Presentation.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -124,6 +150,7 @@
     <Compile Include="Providers\LocalDataProvider.cs" />
     <Compile Include="Providers\NoDataProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
+    <None Include="Properties\KsWare.Presentation.snk" />
     <None Include="Providers\DEACTIVATED\ReflectionDataProvider.cs" />
     <Compile Include="SimpleMonitor.cs" />
     <Compile Include="SimpleProperty.cs" />
@@ -161,18 +188,13 @@
     <Resource Include="DataVirtualization\Info.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KsWare.Presentation\KsWare.Presentation.csproj">
-      <Project>{193c2dd2-c3e6-4188-8691-f9de9bd38894}</Project>
-      <Name>KsWare.Presentation</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="%28.TODO split components%29\Documentation\Changes.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="%28.TODO split components%29\Documentation\TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="%28.docs%29\notes.txt" />
     <Content Include="%28.TODO split components%29\notes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

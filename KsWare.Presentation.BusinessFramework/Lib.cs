@@ -6,9 +6,6 @@ using System.Text;
 namespace KsWare.Presentation.BusinessFramework {
 
 	public static class Lib {
-#if(NET_45)
-	#warning Compiling for use with .NET 4.5
-#endif
 
 	}
 }

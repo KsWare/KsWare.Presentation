@@ -20,7 +20,7 @@ namespace KsWare.Presentation {
 	public static partial class EventUtil {
 
 		private static readonly List<EventObject> s_EventObjects=new List<EventObject>();
-		private static long InvocationCount;
+//		private static long InvocationCount;
 		private static readonly DependencyObject _dependencyObject=new DependencyObject();
 
 		/// <summary> Gets a value indicating whether exceptions will be rethrown.

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KsWare.Presentation.ViewModelFramework")]
+[assembly: AssemblyTitle("KsWare Presentation - ViewModel Framework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KsWare.Presentation.ViewModelFramework")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("KsWare")]
+[assembly: AssemblyProduct("Presentation Framework")]
+[assembly: AssemblyCopyright("Copyright © 2002-2016 by KsWare. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

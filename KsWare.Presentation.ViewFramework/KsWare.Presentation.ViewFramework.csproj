@@ -28,6 +28,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\KsWare.Presentation.ViewFramework.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -153,6 +160,7 @@
     <Compile Include="MarkupExtensions\DebugViewer.cs" />
     <Compile Include="MarkupExtensions\VisibilityBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Properties\KsWare.Presentation.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

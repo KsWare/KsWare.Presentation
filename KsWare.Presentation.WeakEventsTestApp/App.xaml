@@ -1,12 +1,14 @@
-﻿<vfw:ViewModelApplication
+﻿<ksv:ViewModelApplication
 	x:TypeArguments="weakEventsTestApp:AppVM" 
 	x:Class="KsWare.Presentation.WeakEventsTestApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vfw="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation"
     xmlns:weakEventsTestApp="clr-namespace:KsWare.Presentation.WeakEventsTestApp"
->
+    xmlns:ksv="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation.ViewFramework">
     <Application.Resources>
          
     </Application.Resources>
-</vfw:ViewModelApplication>
+</ksv:ViewModelApplication>
+
+
+

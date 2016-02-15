@@ -50,27 +50,6 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_45|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug_45\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET_45</DefineConstants>
-    <DocumentationFile>bin\Debug_45\KsWare.Presentation.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_45|AnyCPU'">
-    <OutputPath>bin\Release_45\</OutputPath>
-    <DefineConstants>TRACE;NET_45</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release_45\KsWare.Presentation.xml</DocumentationFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -107,12 +86,6 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Properties\TextFile1.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KsWare.JsonFx\KsWare.JsonFx.csproj">
-      <Project>{94c92c05-0489-4764-bb29-f8c477aeb797}</Project>
-      <Name>KsWare.JsonFx</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

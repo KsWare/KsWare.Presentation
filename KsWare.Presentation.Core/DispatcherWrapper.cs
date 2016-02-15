@@ -401,7 +401,7 @@ namespace KsWare.Presentation {
 	public partial class DispatcherWrapper {
 
 		ThreadLocal<DispatcherPriority> m_ForcePriorityForThread=new ThreadLocal<DispatcherPriority>(()=>DispatcherPriority.Invalid);
-		long invokeCount;
+//		long invokeCount;
 
 		public DispatcherPriority ForcePriority { get; set; }
 		public DispatcherPriority ForcePriorityForThread { get { return m_ForcePriorityForThread.Value; } set { m_ForcePriorityForThread.Value = value; } }
