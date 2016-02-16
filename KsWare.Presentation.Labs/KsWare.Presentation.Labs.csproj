@@ -66,8 +66,8 @@
     <Compile Include="Labs\PathUtil.cs" />
     <Compile Include="Labs\RandomNumberGenerator\Random2.cs" />
     <Compile Include="Core\[OBSOLETE Error]\PropertyChangedEventArgs.cs" />
-    <Compile Include="Core\~Exceptions~\PropertyNullException.cs" />
-    <Compile Include="Core\~Exceptions~\PropertyOutOfRangeException.cs" />
+    <Compile Include="Core\Exceptions %28.%29\PropertyNullException.cs" />
+    <Compile Include="Core\Exceptions %28.%29\PropertyOutOfRangeException.cs" />
     <Compile Include="Core\DataVirtualization\AsyncDataRef.cs" />
     <Compile Include="Core\DataVirtualization\DataRef.cs" />
     <Compile Include="Core\DataVirtualization\DataRefBase.cs" />
