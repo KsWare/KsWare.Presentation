@@ -2,24 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Runtime;
-using System.Security;
 using System.Security.Permissions;
-using System.Text;
 using System.Threading;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Threading;
 using JetBrains.Annotations;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.Core.Logging;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation {
-
 
 	public partial interface IDispatcher/*:IDispatcher40*/ {
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace KsWare.Presentation.Core {
+namespace KsWare.Presentation {
 
 	/// <summary>  Provides a simple monitor
 	/// </summary>

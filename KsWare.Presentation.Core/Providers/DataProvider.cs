@@ -8,17 +8,11 @@
 
 using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Windows;
 using JetBrains.Annotations;
-using KsWare.Presentation;
 using KsWare.Presentation.Providers;
-using KsWare.Presentation.ViewModelFramework;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.Core.Providers {
 

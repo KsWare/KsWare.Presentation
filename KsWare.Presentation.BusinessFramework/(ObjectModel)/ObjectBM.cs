@@ -281,7 +281,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Raises the <see cref="TreeChanged"/> event in this and all overlying instances.
 		/// </summary>
-		/// <param name="e">The <see cref="KsWare.Presentation.BusinessFramework.TreeChangedEventArgs"/> instance containing the event data.</param>
+		/// <param name="e">The <see cref="TreeChangedEventArgs"/> instance containing the event data.</param>
 		/// <seealso cref="docːObjectBM.TreeChangedˑexample1"/>
 		protected virtual void OnTreeChanged(TreeChangedEventArgs e) {
 			if (TreeChanged != null) { BusinessObjectTreeHelper.OnTreeChanged(TreeChanged, this, e); }

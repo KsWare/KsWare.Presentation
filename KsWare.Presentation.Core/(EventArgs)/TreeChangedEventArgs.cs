@@ -1,6 +1,4 @@
-﻿using KsWare.Presentation.Documentation;
-
-namespace KsWare.Presentation.BusinessFramework {
+﻿namespace KsWare.Presentation {
 
 	/// <summary> Provides arguments for the TreeChanged-event
 	/// </summary>

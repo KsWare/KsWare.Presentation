@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace KsWare.Presentation.Core {
+namespace KsWare.Presentation {
 
 	/// <summary> Specifies the default view for the tagged view model
 	/// </summary>

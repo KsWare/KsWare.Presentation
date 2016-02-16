@@ -1,1 +1,0 @@
-﻿TODO implement NET_45 for Debug_45 Release_45

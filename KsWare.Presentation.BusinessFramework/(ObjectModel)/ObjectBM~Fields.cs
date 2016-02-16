@@ -11,7 +11,6 @@ using KsWare.Presentation.Providers;
 using KsWare.Presentation.Core;
 using KsWare.Presentation.Core.Patterns;
 using KsWare.Presentation.Core.Providers;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.BusinessFramework {
 

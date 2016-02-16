@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace KsWare.Presentation {
 
 	/// <summary> EventArgs for getting a resource string.
 	/// </summary>
+	[PublicAPI]
 	public class StringResourceFeedbackEventArgs : UserFeedbackEventArgs {
 
 		/// <summary> Initializes a new instance of the <see cref="StringResourceFeedbackEventArgs"/> class.

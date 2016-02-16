@@ -93,7 +93,6 @@
     <Compile Include="Behaviors.Busy\BusyAdornerVisual.cs" />
     <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
     <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
-    <Compile Include="Lib.cs" />
     <Compile Include="SetterTriggerCollection.cs" />
     <Compile Include="SolidColorBrushAnimation.cs" />
     <Compile Include="ThemeSelector.cs" />

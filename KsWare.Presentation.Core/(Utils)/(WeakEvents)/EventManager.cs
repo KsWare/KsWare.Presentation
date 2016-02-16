@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Threading;
 using JetBrains.Annotations;
-using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation {
 

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace KsWare.Presentation.Annotation {
 
 	[Conditional("__NEVER__")]
 	[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+	[PublicAPI]
 	public class AnnotationAttribute : Attribute {
 		public AnnotationAttribute(string description, params object[] content) {  }
 		public AnnotationAttribute(string description, params Type[] types) {  }

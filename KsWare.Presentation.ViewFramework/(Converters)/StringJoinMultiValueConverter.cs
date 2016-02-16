@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
-using KsWare.Presentation.BusinessFramework;
 
 namespace KsWare.Presentation.ViewFramework {
 

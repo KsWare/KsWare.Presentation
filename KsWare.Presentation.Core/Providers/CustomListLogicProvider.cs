@@ -36,6 +36,7 @@ namespace KsWare.Presentation.Core.Providers {
 
 	/// <summary> A list logic provider with no support
 	/// </summary>
+	[PublicAPI]
 	public class NoListLogicProvider:IListLogicProvider {
 
 		private IMetadata m_Parent;

@@ -6,11 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework;
 using Microsoft.CSharp.RuntimeBinder;
 
 namespace KsWare.Presentation {

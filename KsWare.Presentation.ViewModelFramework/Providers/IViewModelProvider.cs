@@ -86,7 +86,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The parent viewmodel of this instance.</value>
 		/// <remarks></remarks>
-		protected IObjectVM ViewModel{get { return (IObjectVM) this.ʘ(o=>o.Parent).ʘ(o=>o.Parent); }}
+//		protected IObjectVM ViewModel{get { return (IObjectVM) this.ʘ(o=>o.Parent).ʘ(o=>o.Parent); }}
+		protected IObjectVM ViewModel{get { return (IObjectVM) Parent?.Parent; }}
 
 		/// <summary> Called when <see cref="Parent"/>-property has been changed. 
 		/// This indicates provider has been assigned to an metadata object and all provider configuration properties are now read-only.

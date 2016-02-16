@@ -74,9 +74,6 @@
     <Compile Include="DependencyValueWrapper.cs" />
     <None Include="Documentation\docːObjectVM.cs" />
     <Compile Include="ErrorEventArgs.cs" />
-    <Compile Include="Experimental\BusyManager.cs" />
-    <Compile Include="Experimental\DelayedDispatcherTask.cs" />
-    <Compile Include="Experimental\UserFeedbackManager.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InternalStatistics\BaseStatisticsVM.cs" />
     <Compile Include="InternalStatistics\MemberNameUtilStatisticsVM.cs" />
@@ -87,7 +84,6 @@
     <Compile Include="InternalStatistics\StatisticsWindowVM.cs" />
     <Compile Include="InternalStatistics\WeakEventManagerStatisticsVM.cs" />
     <Compile Include="ISelectorVM.cs" />
-    <Compile Include="Lib.cs" />
     <Compile Include="ObservableNotifyableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyCache.cs" />
@@ -118,6 +114,7 @@
     <Compile Include="Providers\MultiPropertyErrorProvider.cs" />
     <Compile Include="Providers\NewItemProvider.cs" />
     <Compile Include="Providers\ValueSourceProvider.cs" />
+    <Compile Include="Rx\SimpleObservable.cs" />
     <Compile Include="ValueProviderStringConverter.cs" />
     <Compile Include="ViewModelProperty.cs" />
     <Compile Include="ViewModel\%28ObjectVM%29\BusinessObjectVM.cs" />

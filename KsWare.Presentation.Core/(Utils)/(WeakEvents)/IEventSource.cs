@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation {
 

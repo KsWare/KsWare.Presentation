@@ -217,7 +217,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <param name="eventDelegate">The event delegate.</param>
 		/// <param name="businessObject">The business object.</param>
-		/// <param name="eventArgs">The <see cref="KsWare.Presentation.BusinessFramework.TreeChangedEventArgs"/> instance containing the event data.</param>
+		/// <param name="eventArgs">The <see cref="TreeChangedEventArgs"/> instance containing the event data.</param>
 		internal static void OnTreeChanged(EventHandler<TreeChangedEventArgs> eventDelegate, ObjectBM businessObject, TreeChangedEventArgs eventArgs) {
 			if (eventDelegate == null) return;
 			if (!IsTreeChangedEventDelayed && !IsTreeChangedEventSkipped && s_DelayedTreeChangedEvents.Count == 0) {
@@ -230,7 +230,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Called by <see cref="IObjectBM"/>.OnTreeChanged() when tree changed.
 		/// </summary>
 		/// <param name="businessObject">The business object.</param>
-		/// <param name="eventArgs">The <see cref="KsWare.Presentation.BusinessFramework.TreeChangedEventArgs"/> instance containing the event data.</param>
+		/// <param name="eventArgs">The <see cref="TreeChangedEventArgs"/> instance containing the event data.</param>
 		internal static void OnTreeChanged(ObjectBM businessObject, TreeChangedEventArgs eventArgs) { OnTreeChanged(TreeChanged, businessObject, eventArgs); }
 
 		/// <summary> [TEST]

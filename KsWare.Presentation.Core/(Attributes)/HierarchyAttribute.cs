@@ -1,5 +1,4 @@
 using System;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation {
 

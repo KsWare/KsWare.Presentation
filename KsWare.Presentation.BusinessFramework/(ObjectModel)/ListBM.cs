@@ -148,8 +148,10 @@ namespace KsWare.Presentation.BusinessFramework {
 			m_InnerListInitializeMonitor=new SimpleMonitor(); // this indicates InnerList is not initialized
 
 			var dataList = (IList) e.NewData;
-			m_IsFixedSize = dataList.ʘ(x=>x.IsFixedSize, true); 
-			m_IsReadOnly  = dataList.ʘ(x=>x.IsReadOnly, true);
+//			m_IsFixedSize = dataList.ʘ(x=>x.IsFixedSize, true); 
+			m_IsFixedSize = dataList?.IsFixedSize ?? true; 
+//			m_IsReadOnly  = dataList.ʘ(x=>x.IsReadOnly, true);
+			m_IsReadOnly  = dataList?.IsReadOnly ?? true; 
 
 			InitializeInnerList();
 		}

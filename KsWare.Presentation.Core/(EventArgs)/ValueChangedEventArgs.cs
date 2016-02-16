@@ -32,7 +32,7 @@ namespace KsWare.Presentation {
 			NewValue = DependencyProperty.UnsetValue;
 		}
 
-		public ValueChangedEventArgs(DependencyPropertyChangedEventArgs e):base() {
+		public ValueChangedEventArgs(DependencyPropertyChangedEventArgs e) {
 			PreviousValue = e.OldValue;
 			NewValue      = e.NewValue;
 		}
@@ -61,7 +61,7 @@ namespace KsWare.Presentation {
 
 	public sealed class ValueChangedEventArgs<T> : ValueChangedEventArgs {
 
-		public ValueChangedEventArgs():base() {}
+		public ValueChangedEventArgs() {}
 		public ValueChangedEventArgs(T oldValue, T newValue):base(oldValue,newValue) {}
 		public ValueChangedEventArgs(T newValue):base(newValue) {}
 		public ValueChangedEventArgs(DependencyPropertyChangedEventArgs e):base(e) {}

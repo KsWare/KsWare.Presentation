@@ -34,3 +34,14 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// namespace must equal to assembly name
+// ReSharper disable once CheckNamespace
+namespace KsWare.Presentation.ViewModelFramework {
+
+	public static class Lib {
+
+		public static Assembly Assembly => Assembly.GetExecutingAssembly();
+
+	}
+}

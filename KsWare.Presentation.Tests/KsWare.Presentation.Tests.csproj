@@ -145,7 +145,6 @@
     <Compile Include="ViewModelFramework\ViewModel\%28ObjectVM%29\ObjectVMTests.cs" />
     <Compile Include="ViewModelFramework\ValueProviderStringConverter.Tests.cs" />
     <Compile Include="WeakEventManagerExample.cs" />
-    <Compile Include="Other\StringTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelFramework\Providers\EditValueProvider~HexNumberExtensionTests.cs" />
@@ -178,7 +177,30 @@
       <Name>KsWare.Presentation.ViewModelFramework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NameSortTest\!\" />
+    <Folder Include="NameSortTest\%28\" />
+    <Folder Include="NameSortTest\%40\" />
+    <Folder Include="NameSortTest\a\" />
+    <Folder Include="NameSortTest\[\" />
+    <Folder Include="NameSortTest\{\" />
+    <Folder Include="NameSortTest\»\" />
+    <Folder Include="NameSortTest\※\" />
+    <Folder Include="NameSortTest\‼\" />
+    <Folder Include="NameSortTest\⁃\" />
+    <Folder Include="NameSortTest\⃠\" />
+    <Folder Include="NameSortTest\→\" />
+    <Folder Include="NameSortTest\⊘\" />
+    <Folder Include="NameSortTest\⋮\" />
+    <Folder Include="NameSortTest\⌦\" />
+    <Folder Include="NameSortTest\①\" />
+    <Folder Include="NameSortTest\⒒\" />
+    <Folder Include="NameSortTest\✖\" />
+    <Folder Include="NameSortTest\❶\" />
+    <Folder Include="NameSortTest\ㆍ\" />
+    <Folder Include="NameSortTest\ａ\" />
+    <Folder Include="Other\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

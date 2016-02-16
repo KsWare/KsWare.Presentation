@@ -8,7 +8,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Gets the business object.
 		/// </summary>
-		/// <param name="args">The <see cref="KsWare.Presentation.BusinessFramework.TreeChangedEventArgs"/> instance containing the event data.</param>
+		/// <param name="args">The <see cref="TreeChangedEventArgs"/> instance containing the event data.</param>
 		/// <returns>The business object</returns>
 		[SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
 		public static IObjectBM GetBusinessObject(this TreeChangedEventArgs args) {

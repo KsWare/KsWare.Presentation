@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
 
-namespace KsWare.Presentation.Core {
+namespace KsWare.Presentation {
 
 	public static class DebugUtil {
 
