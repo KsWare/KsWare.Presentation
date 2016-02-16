@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
 
 namespace KsWare.Presentation.ViewFramework {
@@ -15,7 +12,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
 			//return internalConverter.ConvertFrom(value); BUG??! cannot convert from System.Int32
-			return string.Format("{0}", value);
+			return $"{value}";
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

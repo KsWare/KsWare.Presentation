@@ -2,7 +2,6 @@
 	x:Class="KsWare.Presentation.InternalStatistics.StatisticsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:internalStatistics="clr-namespace:KsWare.Presentation.InternalStatistics"
     xmlns:vfw="clr-namespace:KsWare.Presentation.ViewFramework"
     xmlns:internalStatistics1="clr-namespace:KsWare.Presentation.InternalStatistics;assembly=KsWare.Presentation.ViewModelFramework"
     Title="KsWare.Presentation Statistics" Height="376" Width="353"

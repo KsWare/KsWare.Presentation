@@ -1,6 +1,4 @@
-﻿using KsWare.Presentation.Core;
-
-namespace KsWare.Presentation.InternalStatistics {
+﻿namespace KsWare.Presentation.InternalStatistics {
 
 //	[DefaultView(typeof(BaseStatisticsView))]
 	public class WeakEventManagerStatisticsVM : BaseStatisticsVM {

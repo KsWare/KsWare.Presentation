@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.ViewModelFramework.Providers;
 using KsWare.Presentation.Core.Providers;
 

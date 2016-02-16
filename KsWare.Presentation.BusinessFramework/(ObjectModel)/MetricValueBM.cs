@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KsWare.Presentation.BusinessFramework {
+﻿namespace KsWare.Presentation.BusinessFramework {
 
 	/// <summary> Provides a metric business value
 	/// </summary>

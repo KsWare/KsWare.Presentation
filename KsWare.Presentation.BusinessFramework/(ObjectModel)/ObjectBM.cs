@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using KsWare.Presentation.Documentation;
-using KsWare.Presentation.Providers;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.Core.Patterns;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.BusinessFramework {

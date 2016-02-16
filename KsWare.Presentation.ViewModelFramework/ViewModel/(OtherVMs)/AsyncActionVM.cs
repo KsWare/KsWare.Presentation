@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Input;
-using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

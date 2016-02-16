@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
@@ -23,8 +19,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// <param name="commandBehaviorBindingType">Type of the command behavior binding.</param>
 		/// <remarks></remarks>
 		protected BehaviorBinding(Type commandBehaviorBindingType) {
-			if(commandBehaviorBindingType == null) throw new ArgumentNullException("commandBehaviorBindingType");
-			if(!typeof(CommandBehaviorBinding).IsAssignableFrom(commandBehaviorBindingType)) throw new ArgumentOutOfRangeException("commandBehaviorBindingType");
+			if(commandBehaviorBindingType == null) throw new ArgumentNullException(nameof(commandBehaviorBindingType));
+			if(!typeof(CommandBehaviorBinding).IsAssignableFrom(commandBehaviorBindingType)) throw new ArgumentOutOfRangeException(nameof(commandBehaviorBindingType));
 			m_CommandBehaviorBindingType = commandBehaviorBindingType;
 		}
 
@@ -32,7 +28,9 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// </summary>
 		internal CommandBehaviorBinding Behavior {
 			get {
-				if (m_Behavior == null) m_Behavior = (CommandBehaviorBinding) Activator.CreateInstance(m_CommandBehaviorBindingType);
+				if (m_Behavior == null) {
+					m_Behavior = (CommandBehaviorBinding) Activator.CreateInstance(m_CommandBehaviorBindingType);
+				}
 				return m_Behavior;
 			}
 		}

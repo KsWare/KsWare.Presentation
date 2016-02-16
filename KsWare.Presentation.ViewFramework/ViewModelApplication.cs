@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.ExceptionServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using KsWare.Presentation.ViewModelFramework;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewFramework {
 
@@ -75,7 +70,7 @@ namespace KsWare.Presentation.ViewFramework {
 			var exeTitle = Path.GetFileNameWithoutExtension(location);
 //			var version = assembly.GetCustomAttributes(typeof (AssemblyFileVersionAttribute), false).Cast<AssemblyFileVersionAttribute>().Select(x => x.Version).FirstOrDefault();
 			var version = assembly.GetName(false).Version.ToString(); // AssemblyVersion
-			var file = Path.Combine(Path.GetTempPath(), string.Format("{0} {1} {2:yyyy-MM-dd}.errordump", exeTitle, version, DateTime.Now));
+			var file = Path.Combine(Path.GetTempPath(), $"{exeTitle} {version} {DateTime.Now:yyyy-MM-dd}.errordump");
 			var isSaved = false;
 
 			#region save in daily file
@@ -93,7 +88,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 			#region fallback, save in individual file
 			if (!isSaved) {
-				file = Path.Combine(Path.GetTempPath(), string.Format("{0} {1} {2:yyyy-MM-dd HHmmss}.errordump", exeName, version, DateTime.Now));
+				file = Path.Combine(Path.GetTempPath(), $"{exeName} {version} {DateTime.Now:yyyy-MM-dd HHmmss}.errordump");
 				try {
 					using (var w=new StreamWriter(file,true,Encoding.UTF8)) {
 						w.WriteLine("=== {0:yyyy-MM-dd HH:mm:ss} ===",DateTime.Now);

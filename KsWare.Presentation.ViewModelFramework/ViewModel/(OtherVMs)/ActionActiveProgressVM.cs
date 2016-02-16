@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Input;
+﻿using System.ComponentModel;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

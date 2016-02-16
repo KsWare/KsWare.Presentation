@@ -1,5 +1,6 @@
 ﻿using System.Windows.Data;
 using System.Windows.Markup;
+using JetBrains.Annotations;
 
 namespace KsWare.Presentation.ViewFramework {
 	
@@ -22,6 +23,7 @@ namespace KsWare.Presentation.ViewFramework {
 	/// </code>
 	/// </example>
 	[MarkupExtensionReturnType(typeof (object))]
+	[PublicAPI]
 	public class BindingWithValidation:Binding {
 
 		/// <summary> Initializes a new instance of the <see cref="Binding"/> class 
@@ -34,7 +36,7 @@ namespace KsWare.Presentation.ViewFramework {
 		public BindingWithValidation() {
 			ValidatesOnDataErrors = true;
 			ValidatesOnExceptions = true;
-			UpdateSourceTrigger   = System.Windows.Data.UpdateSourceTrigger.PropertyChanged;
+			UpdateSourceTrigger   = UpdateSourceTrigger.PropertyChanged;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="Binding" /> class with an initial path and
@@ -48,7 +50,7 @@ namespace KsWare.Presentation.ViewFramework {
 		public BindingWithValidation(string path) : base(path) {
 			ValidatesOnDataErrors = true;
 			ValidatesOnExceptions = true;
-			UpdateSourceTrigger   = System.Windows.Data.UpdateSourceTrigger.PropertyChanged;
+			UpdateSourceTrigger   = UpdateSourceTrigger.PropertyChanged;
 		}
 	}
 

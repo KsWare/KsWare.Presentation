@@ -1,10 +1,8 @@
 ﻿
 
 using System;
-using System.Collections.ObjectModel;
 using KsWare.Presentation.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KsWare.Presentation.Providers;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.ViewModelFramework;
 using KsWare.Presentation.ViewModelFramework.Providers;

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
-using KsWare.Presentation.Providers;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.BusinessFramework {

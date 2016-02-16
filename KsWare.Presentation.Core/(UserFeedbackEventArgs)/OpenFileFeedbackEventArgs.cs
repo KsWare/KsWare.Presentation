@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Win32;
 
 namespace KsWare.Presentation {

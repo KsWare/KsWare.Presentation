@@ -10,7 +10,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Interactivity;
 using System.Windows.Interop;
 using Point = System.Windows.Point;
-using DependencyPropertyChangeNotifier=KsWare.Presentation.DependencyPropertyChangeNotifier;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors {
 
@@ -450,28 +449,28 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 				NativeFunctions.GetMonitorInfo(monitor, monitorInfo);
 				RECT rcWorkArea=monitorInfo.rcWork;
 				RECT rcMonitorArea=monitorInfo.rcMonitor;
-				mmi.ptMaxPosition.x=System.Math.Abs(rcWorkArea.left-rcMonitorArea.left);
-				mmi.ptMaxPosition.y=System.Math.Abs(rcWorkArea.top-rcMonitorArea.top);
+				mmi.ptMaxPosition.x=Math.Abs(rcWorkArea.left-rcMonitorArea.left);
+				mmi.ptMaxPosition.y=Math.Abs(rcWorkArea.top-rcMonitorArea.top);
 				if(IsFullscreen) {
 					mmi.ptMaxSize.x = rcMonitorArea.right-rcMonitorArea.left;
 					mmi.ptMaxSize.y = rcMonitorArea.bottom-rcMonitorArea.top;
 				} else {
 					// -1 to keep auto hiding taskbar working, otherwise we have fullscreen mode.
-					mmi.ptMaxSize.x=System.Math.Abs(rcMonitorArea.right-rcMonitorArea.left)==System.Math.Abs(rcWorkArea.right-rcWorkArea.left)
-						? System.Math.Abs(rcWorkArea.right-rcWorkArea.left-1)
-						: System.Math.Abs(rcWorkArea.right-rcWorkArea.left);
-					mmi.ptMaxSize.y=System.Math.Abs(rcMonitorArea.bottom-rcMonitorArea.top)==System.Math.Abs(rcWorkArea.bottom-rcWorkArea.top)
-						? System.Math.Abs(rcWorkArea.bottom-rcWorkArea.top-1)
-						: System.Math.Abs(rcWorkArea.bottom-rcWorkArea.top);						
+					mmi.ptMaxSize.x=Math.Abs(rcMonitorArea.right-rcMonitorArea.left)==Math.Abs(rcWorkArea.right-rcWorkArea.left)
+						? Math.Abs(rcWorkArea.right-rcWorkArea.left-1)
+						: Math.Abs(rcWorkArea.right-rcWorkArea.left);
+					mmi.ptMaxSize.y=Math.Abs(rcMonitorArea.bottom-rcMonitorArea.top)==Math.Abs(rcWorkArea.bottom-rcWorkArea.top)
+						? Math.Abs(rcWorkArea.bottom-rcWorkArea.top-1)
+						: Math.Abs(rcWorkArea.bottom-rcWorkArea.top);						
 				}
 				Point minSize=Util.LogicalToDevice(new Point(AssociatedObject.MinWidth, AssociatedObject.MinHeight), hwnd);
-				mmi.ptMinTrackSize=new POINT((int)System.Math.Ceiling(minSize.X), (int)System.Math.Ceiling(minSize.Y));
+				mmi.ptMinTrackSize=new POINT((int)Math.Ceiling(minSize.X), (int)Math.Ceiling(minSize.Y));
 			}
 
 			Marshal.StructureToPtr(mmi, lParam, true);
 		}
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "Body")]
+		[SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity"), SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "Body")]
 		private int HitTestNca(IntPtr hWnd, Point deviceMousePosition, Rect deviceWindowPosition) {
 /*HACK*/	if(IsFullscreen && deviceMousePosition.Y<20) return (int)HT.CAPTION;
 
@@ -577,7 +576,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			return name!=null?AssociatedObject.Template!=null?AssociatedObject.Template.FindName(name, AssociatedObject)??AssociatedObject.FindName(name):AssociatedObject.FindName(name):null;
 		}
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+		[SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
 		private void ConfigureSpecialWindowParts() {
 			var closeButton=CloseButton??FindName(CloseButtonName) as Button;
 			if(closeButton!=null && closeButton.Command==null)
@@ -621,7 +620,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			}
 		}
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+		[SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
 		private void AtWindowStateChanged(object sender, EventArgs e) {
 
 			if(m_IgnoreWindowStateChanged==0&&AssociatedObject.WindowState!=WindowState.Maximized && IsFullscreen) {
@@ -1173,7 +1172,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     Returns x,y coordinates.
 			/// </summary>
 			public override string ToString() {
-				return string.Format("{0},{1}", x, y);
+				return $"{x},{y}";
 			}
 
 		}
@@ -1275,7 +1274,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     SW_...
 			/// </param>
 			/// <returns>If the window was previously visible, the return value is nonzero. If the window was previously hidden, the return value is zero.</returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", EntryPoint = "ShowWindow")]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", EntryPoint = "ShowWindow")]
 			[return:MarshalAs(UnmanagedType.Bool)]
 			public static extern bool ShowWindow(IntPtr hWnd, SW command);
 
@@ -1304,7 +1303,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     SWP_...
 			/// </param>
 			/// <returns></returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", EntryPoint = "SetWindowPos")]
 			public static extern IntPtr SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SWP wFlags);
 
 			/// <summary>
@@ -1316,7 +1315,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     set the length member to sizeof(WINDOWPLACEMENT). GetWindowPlacement fails if lpwndpl-> length is not set correctly.
 			/// </param>
 			/// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.</returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
 			[return:MarshalAs(UnmanagedType.Bool)]
 			public static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
 
@@ -1348,7 +1347,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     If the function succeeds, the return value is a handle to the window that has the specified class and window names.
 			///     If the function fails, the return value is NULL. To get extended error information, call GetLastError.
 			/// </returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
 			public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
 
 			/// <summary>
@@ -1364,7 +1363,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     If the function succeeds, the return value is nonzero.
 			///     If the function fails, the return value is zero. To get extended error information, call GetLastError.
 			/// </returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
 			[return:MarshalAs(UnmanagedType.Bool)]
 			public static extern bool DestroyWindow(IntPtr hWnd);
 
@@ -1377,7 +1376,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     the identifier of the process to the variable; otherwise, it does not.
 			/// </param>
 			/// <returns>The return value is the identifier of the thread that created the window.</returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", SetLastError = true)]
 			public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
 			/// <summary>
@@ -1401,7 +1400,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     GMMP_...
 			/// </param>
 			/// <returns></returns>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto, SetLastError = true)]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto, SetLastError = true)]
 			public static extern int GetMouseMovePointsEx(uint cbSize, [In] ref MOUSEMOVEPOINT pointsIn, [Out] MOUSEMOVEPOINT[] pointsBufferOut, int nBufPoints, uint resolution);
 
 		}
@@ -1470,7 +1469,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     Gets the width.
 			/// </summary>
 			public int Width {
-				get { return System.Math.Abs(right-left); }
+				get { return Math.Abs(right-left); }
 			}
 
 			/// <summary>
@@ -1487,7 +1486,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			/// <param name="top">The top.</param>
 			/// <param name="right">The right.</param>
 			/// <param name="bottom">The bottom.</param>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 			public RECT(int left, int top, int right, int bottom) {
 				this.left=left;
 				this.top=top;
@@ -1546,7 +1545,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			/// <summary>
 			///     Returns whether window identified by given handle is minimized.
 			/// </summary>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+			[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 			public static bool IsWindowMinimized(IntPtr hwnd) {
 				var placement=new WINDOWPLACEMENT();
 

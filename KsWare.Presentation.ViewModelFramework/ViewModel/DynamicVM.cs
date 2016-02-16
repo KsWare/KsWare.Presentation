@@ -1,15 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows;
-using System.Windows.Data;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.ViewModelFramework;
-using KsWare.Presentation.ViewModelFramework.Providers;
-using KsWare.Presentation.Core.Logging;
-using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

@@ -8,9 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Interop;
-using System.Windows.Threading;
 using Point = System.Windows.Point;
-using DependencyPropertyChangeNotifier=KsWare.Presentation.DependencyPropertyChangeNotifier;
 using System.Drawing;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors {
@@ -435,20 +433,20 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 				NativeFunctions.GetMonitorInfo(monitor, monitorInfo);
 				RECT rcWorkArea=monitorInfo.rcWork;
 				RECT rcMonitorArea=monitorInfo.rcMonitor;
-				mmi.ptMaxPosition.x=System.Math.Abs(rcWorkArea.left-rcMonitorArea.left);
-				mmi.ptMaxPosition.y=System.Math.Abs(rcWorkArea.top-rcMonitorArea.top);
-				mmi.ptMaxSize.x=System.Math.Abs(rcWorkArea.right-rcWorkArea.left);
+				mmi.ptMaxPosition.x=Math.Abs(rcWorkArea.left-rcMonitorArea.left);
+				mmi.ptMaxPosition.y=Math.Abs(rcWorkArea.top-rcMonitorArea.top);
+				mmi.ptMaxSize.x=Math.Abs(rcWorkArea.right-rcWorkArea.left);
 				// -1 to keep auto hiding taskbar working, otherwise we have fullscreen mode.
-				mmi.ptMaxSize.y=System.Math.Abs(rcMonitorArea.bottom-rcMonitorArea.top)==System.Math.Abs(rcWorkArea.bottom-rcWorkArea.top)?System.Math.Abs(rcWorkArea.bottom-rcWorkArea.top-1):System.Math.Abs(rcWorkArea.bottom-rcWorkArea.top);
+				mmi.ptMaxSize.y=Math.Abs(rcMonitorArea.bottom-rcMonitorArea.top)==Math.Abs(rcWorkArea.bottom-rcWorkArea.top)?Math.Abs(rcWorkArea.bottom-rcWorkArea.top-1):Math.Abs(rcWorkArea.bottom-rcWorkArea.top);
 
 				Point minSize=Util.LogicalToDevice(new Point(AssociatedObject.MinWidth, AssociatedObject.MinHeight), hwnd);
-				mmi.ptMinTrackSize=new POINT((int)System.Math.Ceiling(minSize.X), (int)System.Math.Ceiling(minSize.Y));
+				mmi.ptMinTrackSize=new POINT((int)Math.Ceiling(minSize.X), (int)Math.Ceiling(minSize.Y));
 			}
 
 			Marshal.StructureToPtr(mmi, lParam, true);
 		}
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "Body")]
+		[SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "Body")]
 		private int HitTestNca(IntPtr hWnd, Point deviceMousePosition, Rect deviceWindowPosition) {
 			Point logicalMousePosition=Util.DeviceToLogical(deviceMousePosition, hWnd);
 			Rect logicalWindowPosition=Util.DeviceToLogical(deviceWindowPosition, hWnd);
@@ -1112,7 +1110,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     Returns x,y coordinates.
 			/// </summary>
 			public override string ToString() {
-				return string.Format("{0},{1}", x, y);
+				return $"{x},{y}";
 			}
 
 		}
@@ -1409,7 +1407,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			///     Gets the width.
 			/// </summary>
 			public int Width {
-				get { return System.Math.Abs(right-left); }
+				get { return Math.Abs(right-left); }
 			}
 
 			/// <summary>

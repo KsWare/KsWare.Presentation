@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation {
 

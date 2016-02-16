@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using KsWare.Presentation.Providers;
+﻿using System.Diagnostics.CodeAnalysis;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.BusinessFramework {

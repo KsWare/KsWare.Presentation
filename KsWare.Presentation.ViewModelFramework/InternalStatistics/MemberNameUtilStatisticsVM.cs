@@ -1,12 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Threading;
-using JetBrains.Annotations;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework;
-
-namespace KsWare.Presentation.InternalStatistics {
+﻿namespace KsWare.Presentation.InternalStatistics {
 
 //TODO	[DefaultView(typeof(BaseStatisticsView))]
 	public class MemberNameUtilStatisticsVM : BaseStatisticsVM {

@@ -1,5 +1,4 @@
 using System;
-using System.Windows.Controls;
 using System.Windows.Data;
 using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.Providers;

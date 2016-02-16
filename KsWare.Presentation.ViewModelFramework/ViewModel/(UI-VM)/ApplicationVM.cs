@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security;
 using System.Threading;
 using System.Windows;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

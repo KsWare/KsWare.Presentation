@@ -82,7 +82,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 				//if the DataContext implements IDropable, record the data type that can be dropped
 				if (AssociatedObject.DataContext != null) {
 					if (AssociatedObject.DataContext as IDropable != null) {
-						m_DataType = ((IDropable) this.AssociatedObject.DataContext).DataType;
+						m_DataType = ((IDropable) AssociatedObject.DataContext).DataType;
 					}
 				}
 			}

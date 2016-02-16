@@ -9,9 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.Core.Providers;
-using KsWare.Presentation.Providers;
 using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {

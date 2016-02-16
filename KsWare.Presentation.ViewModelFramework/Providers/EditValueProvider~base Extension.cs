@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 
 namespace KsWare.Presentation.ViewModelFramework.Providers {

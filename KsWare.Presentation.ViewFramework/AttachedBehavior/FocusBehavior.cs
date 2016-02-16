@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Data;
 using JetBrains.Annotations;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior 
 {
@@ -62,7 +56,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 			// A)
 			if(BindingOperations.GetBinding(o, OwnerIsKeyboardFocusedProperty)==null) {
 				BindingOperations.SetBinding(o, OwnerIsKeyboardFocusedProperty,
-					new Binding("IsKeyboardFocused") {Source = o, Mode = System.Windows.Data.BindingMode.OneWay}
+					new Binding("IsKeyboardFocused") {Source = o, Mode = BindingMode.OneWay}
 				);
 			}
 

@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
-using System.Windows;
 using KsWare.Presentation.BusinessFramework;
 
 namespace KsWare.Presentation.ViewModelFramework.Providers {

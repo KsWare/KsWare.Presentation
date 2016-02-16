@@ -53,6 +53,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CommandVisibilityBindingTests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebugViewerExtensionTests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -60,6 +68,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommandVisibilityBindingTests.xaml.cs">
+      <DependentUpon>CommandVisibilityBindingTests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugViewerExtensionTests.xaml.cs">
+      <DependentUpon>DebugViewerExtensionTests.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -98,6 +112,10 @@
     <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
       <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
       <Name>KsWare.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Labs\KsWare.Presentation.Labs.csproj">
+      <Project>{b2428431-ad89-4221-8b7c-4109afa93690}</Project>
+      <Name>KsWare.Presentation.Labs</Name>
     </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj">
       <Project>{480179c9-c018-4515-8b83-44e21112887d}</Project>

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Threading;
 using JetBrains.Annotations;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

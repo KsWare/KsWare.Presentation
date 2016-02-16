@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using KsWare.Presentation.Providers;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework.Providers {
 

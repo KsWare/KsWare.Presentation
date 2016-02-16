@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="View\MarkupExtensions\DebugViewer.cs" />
     <None Include="Core\[DEACTIVATED]\RuntimeMethodData.cs" />
     <None Include="Core\[DEACTIVATED]\SaveNullCheck.cs" />
     <Compile Include="Labs\Collections\Special\ListWithManualNotifyCollectionChanged.cs" />
@@ -121,7 +122,6 @@
   <ItemGroup>
     <Folder Include="Business\" />
     <Folder Include="Core\[OBSOLETE Warning]\" />
-    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Core\DataVirtualization\Info.txt" />

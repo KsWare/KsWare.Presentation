@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using KsWare.Presentation.ViewFramework.Behaviors.DragDrop;
 
 namespace KsWare.Presentation.ViewFramework.Controls
 {
@@ -18,7 +17,6 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		public DataContextErrorAdorner() {
 			DataContextChanged += AtDataContextChanged;
 			AdornerType = typeof(RectangleFrameworkElementAdorner);
-			Loaded+=delegate(object sender, RoutedEventArgs args) { if(Adorner==null)return; };
 		}
 
 		private RectangleFrameworkElementAdorner Adorner {
@@ -74,7 +72,7 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		/// Update UI
 		/// </summary>
 		internal void Update() {
-			_adornerLayer.Update(this.AdornedElement);
+			_adornerLayer.Update(AdornedElement);
 			Visibility = Visibility.Visible;
 		}
 

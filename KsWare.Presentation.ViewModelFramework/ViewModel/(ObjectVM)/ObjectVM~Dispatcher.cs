@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
+﻿using System.ComponentModel;
 using System.Windows.Threading;
-using JetBrains.Annotations;
-using KsWare.Presentation.ViewModelFramework.Providers;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework {
 	//

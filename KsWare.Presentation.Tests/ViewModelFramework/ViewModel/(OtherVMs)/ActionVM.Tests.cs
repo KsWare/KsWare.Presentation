@@ -1,6 +1,4 @@
 ﻿using System;
-using KsWare.Presentation;
-using KsWare.Presentation.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KsWare.Presentation.ViewModelFramework;
 using Assert=NUnit.Framework.Assert;

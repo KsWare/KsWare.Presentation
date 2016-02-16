@@ -1,6 +1,4 @@
-﻿using KsWare.Presentation.ViewModelFramework;
-
-namespace KsWare.Presentation.ViewModelFramework {
+﻿namespace KsWare.Presentation.ViewModelFramework {
 
 	public abstract class UserFeedbackVM<T> : DataVM<T> where T:UserFeedbackEventArgs {
 

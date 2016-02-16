@@ -11,10 +11,7 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using KsWare.Presentation;
-using KsWare.Presentation.Core.Patterns;
 using KsWare.Presentation.Providers;
 
 namespace KsWare.Presentation.Core.Providers {

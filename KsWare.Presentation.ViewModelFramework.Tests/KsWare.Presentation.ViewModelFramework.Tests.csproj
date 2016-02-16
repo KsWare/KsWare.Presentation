@@ -77,6 +77,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ViewModelCodeGenerator4DataObjectsTest.cs" />
     <Compile Include="LibTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,6 +85,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj">
+      <Project>{816f4a41-a808-460e-8e5a-d048934b6a5d}</Project>
+      <Name>KsWare.Presentation.BusinessFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
+      <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
+      <Name>KsWare.Presentation.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj">
       <Project>{e45e9672-0236-47fc-9ade-5fef5cdfc7ae}</Project>
       <Name>KsWare.Presentation.ViewModelFramework</Name>

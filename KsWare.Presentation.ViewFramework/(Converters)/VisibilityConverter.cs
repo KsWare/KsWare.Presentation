@@ -166,7 +166,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 		private bool GetBool(object value, object parameter) {
 
-			switch (this.Condition) {
+			switch (Condition) {
 				case Value.IsEqual: case Value.IsNotEqual: {
 					if (value == null && parameter==null) return true;
 					if (value == null || parameter==null) return false;

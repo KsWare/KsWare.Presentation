@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewFramework {
 

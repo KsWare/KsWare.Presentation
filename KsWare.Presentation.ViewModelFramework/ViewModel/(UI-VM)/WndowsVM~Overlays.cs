@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using KsWare.Presentation.Core;
-
-namespace KsWare.Presentation.ViewModelFramework {
+﻿namespace KsWare.Presentation.ViewModelFramework {
 
 	partial class WindowVM /* Part: Overlays*/ {
 

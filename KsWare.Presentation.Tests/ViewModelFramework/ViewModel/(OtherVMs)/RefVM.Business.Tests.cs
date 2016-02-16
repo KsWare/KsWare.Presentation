@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Providers;
+﻿using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

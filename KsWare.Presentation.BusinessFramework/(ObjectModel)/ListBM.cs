@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.BusinessFramework {

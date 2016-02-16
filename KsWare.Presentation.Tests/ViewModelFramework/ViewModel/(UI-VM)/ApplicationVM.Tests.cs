@@ -1,5 +1,4 @@
-﻿using System;
-using KsWare.Presentation.Testing;
+﻿using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

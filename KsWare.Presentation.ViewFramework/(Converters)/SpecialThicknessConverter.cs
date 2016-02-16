@@ -53,7 +53,7 @@ namespace KsWare.Presentation.ViewFramework
 			else if(value is uint  ){v=(uint  )value;}
 			else if(value is ulong ){v=(ulong )value;}
 			else if(value is Decimal ){v=Decimal.ToDouble((Decimal)value);}
-			else {v = 0; Debug.WriteLine("WARNING: Invalid type of value! "+this.GetType().FullName);}
+			else {v = 0; Debug.WriteLine("WARNING: Invalid type of value! "+GetType().FullName);}
 
 			switch (parameter as string) {
 				case "Left"   : return new Thickness(v, 0, 0, 0);

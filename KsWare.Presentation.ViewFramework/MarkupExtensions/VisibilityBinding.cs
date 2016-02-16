@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using JetBrains.Annotations;
 
 namespace KsWare.Presentation.ViewFramework {
 	
@@ -24,6 +25,7 @@ namespace KsWare.Presentation.ViewFramework {
 	/// </code>
 	/// </example>
 	[MarkupExtensionReturnType(typeof (Visibility))]
+	[PublicAPI]
 	public class VisibilityBinding:Binding {
 
 		/// <summary> Initializes a new instance of the <see cref="Binding"/> class 
@@ -35,7 +37,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// </summary>
 		[Obsolete("Not yet implemented",true)]
 		public VisibilityBinding() {
-			Mode=System.Windows.Data.BindingMode.OneWay;
+			Mode=BindingMode.OneWay;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="Binding" /> class with an initial path and
@@ -48,7 +50,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// <param name="path">The initial <see cref="System.Windows.Data.Binding.Path" /> for the binding.</param>
 		/// <param name="expression"> </param>
 		public VisibilityBinding(string path, VisibilityConverter.Expression expression) : base(path) {
-			Mode=System.Windows.Data.BindingMode.OneWay;
+			Mode=BindingMode.OneWay;
 			Converter = VisibilityConverter.Get(expression);
 			ConverterParameter = new VisibilityConverterParameter();
 		}
@@ -64,7 +66,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// <param name="expression"> </param>
 		/// <param name="compareValue"> </param>
 		public VisibilityBinding(string path, VisibilityConverter.Expression expression, object compareValue) : base(path) {
-			Mode=System.Windows.Data.BindingMode.OneWay;
+			Mode=BindingMode.OneWay;
 			Converter = VisibilityConverter.Get(expression);
 			ConverterParameter = new VisibilityConverterParameter {CompareValue = compareValue};
 		}
@@ -102,6 +104,10 @@ namespace KsWare.Presentation.ViewFramework {
 //			ConverterParameter = _parameter = new VisibilityConverterParameter {DesigntimeVisibility = designtimeVisibility,CompareValue = compareValue};
 //		}
 
+		/// <summary> Gets or sets the visibility at designtime.
+		/// </summary>
+		/// <value>The designtime visibility.</value>
+		[PublicAPI]
 		public Visibility? DesigntimeVisibility {
 			set {
 				var parameter = ConverterParameter as VisibilityConverterParameter;
@@ -116,6 +122,9 @@ namespace KsWare.Presentation.ViewFramework {
 			}
 		}
 
+		/// <summary> Gets or sets the compare value used with <see cref="VisibilityConverter.Expression.EqualVisibleElseCollapsed" /> and other compare expressions.
+		/// </summary>
+		/// <value>The value for compare.</value>
 		public object CompareValue {
 			set {
 				var parameter = ConverterParameter as VisibilityConverterParameter;
@@ -128,55 +137,6 @@ namespace KsWare.Presentation.ViewFramework {
 				var parameter = ConverterParameter as VisibilityConverterParameter;
 				return parameter!=null ? parameter.CompareValue : null;
 			}
-		}
-	}
-
-
-	/// <summary> Provides a <see cref="Binding"/> command buttons visibility
-	/// </summary>
-	/// <remarks>
-	/// Identically functionality as <see cref="Binding"/> with additional
-	/// <see cref="Binding.ValidatesOnDataErrors"/>, 
-	/// <see cref="Binding.ValidatesOnExceptions"/> and
-	/// <see cref="Binding.UpdateSourceTrigger"/>
-	/// set to <c>true</c>.
-	/// <p/>
-	/// </remarks>
-	/// <example>
-	/// <code>
-	/// &lt;TextBox 
-	///     Style="{StaticResource ValidatingTextBox}" 
-	/// 	Text="{ext:BindingWithValidation Path=MyBindingPath}" &gt;
-	/// &lt;/TextBox&gt;
-	/// </code>
-	/// </example>
-	[MarkupExtensionReturnType(typeof (Visibility))]
-	public class CommandVisibilityBinding:Binding {
-
-		/// <summary> Initializes a new instance of the <see cref="Binding"/> class 
-		/// with additional
-		/// <see cref="Binding.ValidatesOnDataErrors"/>, 
-		/// <see cref="Binding.ValidatesOnExceptions"/> and
-		/// <see cref="Binding.UpdateSourceTrigger"/>
-		/// set to <c>true</c>..
-		/// </summary>
-		[Obsolete("Not yet implemented",true)]
-		public CommandVisibilityBinding() {
-			Mode=System.Windows.Data.BindingMode.OneWay;
-		}
-
-		/// <summary> Initializes a new instance of the <see cref="Binding" /> class with an initial path and
-		/// with additional
-		/// <see cref="Binding.ValidatesOnDataErrors"/>, 
-		/// <see cref="Binding.ValidatesOnExceptions"/> and
-		/// <see cref="Binding.UpdateSourceTrigger"/>
-		/// set to <c>true</c>.
-		/// </summary>
-		/// <param name="path">The initial <see cref="System.Windows.Data.Binding.Path" /> for the binding.</param>
-		public CommandVisibilityBinding(VisibilityConverter.Expression expression) : base("IsEnabled") {
-			RelativeSource=new RelativeSource(RelativeSourceMode.Self);
-			Mode=System.Windows.Data.BindingMode.OneWay;
-			Converter = VisibilityConverter.Get(expression);
 		}
 	}
 

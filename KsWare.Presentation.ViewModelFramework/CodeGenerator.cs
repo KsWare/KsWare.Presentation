@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework.DesignTime
 {
@@ -103,7 +100,7 @@ namespace KsWare.Presentation.ViewModelFramework.DesignTime
 		public const string ThisTData = "ThisTData";
 		public const string ThisTModel = "ThisTModel";
 
-		public static void GenarateMissingProperties(Type dataType, Type viewmodelType) {
+		public static void GenerateMissingProperties(Type dataType, Type viewmodelType) {
 			var missingBusinessProbs=GetProperties(dataType,viewmodelType,true);
 
 			DesignerPreview(viewmodelType,dataType);
@@ -563,7 +560,7 @@ namespace KsWare.Presentation.ViewModelFramework.DesignTime
 //		[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]//In use if code missing
 //		private static void ClassHelper_ListAllProperties() { BusinessCodeGenerator4DataObjects.GetAllDataProperties(typeof(GeoInfoData), typeof(GeoInfo)); }
 
-//		private static void GenerateModel() {BusinessCodeGenerator4DataObjects.GenarateMissingProperties(typeof(ColorValueData),typeof(ColorValueVM));}
+//		private static void GenerateModel() {BusinessCodeGenerator4DataObjects.GenerateMissingProperties(typeof(ColorValueData),typeof(ColorValueVM));}
 
 		public static void GenarateMissingProperties(Type dataType, Type businessType) {
 			var missingBusinessProbs=GetMissingProperties(dataType,businessType);
@@ -763,26 +760,7 @@ namespace KsWare.Presentation.ViewModelFramework.DesignTime
 	}
 	// ReSharper enable LocalizableElement
 
-	public class CodeGeneratorTest
-	{
-
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-		private static void GenerateCode() {ViewModelCodeGenerator4DataObjects.GenarateMissingProperties(typeof (TestData), typeof (TestVM));}
-
-
-		private class TestData
-		{
-
-			public string[] ArrayOfString { get; set; }
-			public string[][] JaggedArrayOfString { get; set; }
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "Member")]
-			public string[,] MultiDimArrayOfString { get; set; }
-			public Array Array { get; set; }
-			public ReadOnlyCollection<string> ReadOnlyCollectionOfString { get; set; }
-
-		}
-		private class TestVM:DataVM<TestData>{}
-	}
+	
 }
 
 /* 

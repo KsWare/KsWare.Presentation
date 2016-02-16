@@ -1,15 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using JetBrains.Annotations;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.Core.Patterns;
 
 namespace KsWare.Presentation.ViewModelFramework {
 
@@ -27,11 +17,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		protected DisposablesCollection D {get { return Disposables; }set {}}
 
-		private class TempDisposable : IDisposable {
-			private object m_Obj;
-			public TempDisposable(object obj) { m_Obj = obj; }
-			public void Dispose() { m_Obj = null; }
-		}
 	}
 
 	public class DisposablesCollection {

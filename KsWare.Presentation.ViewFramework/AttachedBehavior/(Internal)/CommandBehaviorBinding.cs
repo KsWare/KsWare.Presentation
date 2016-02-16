@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
-using System.Reflection;
 using System.Windows;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior 
@@ -13,13 +9,12 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 	/// </summary>
 	internal abstract class CommandBehaviorBinding : IDisposable 
 	{
-		private ICommand command;
-		private Action<object> action;
-//		private MethodInfo method;
-		private string invokeMethodName;
-		private object invokeObject;
-		private object commandParameter;
-		private IExecutionStrategy strategy;//stores the strategy of how to execute the event handler
+		private ICommand _command;
+		private Action<object> _action;
+		private string _invokeMethodName;
+		private object _invokeObject;
+		private object _commandParameter;
+		private IExecutionStrategy _strategy;//stores the strategy of how to execute the event handler
 
 		/// <summary>  Get the owner of the CommandBinding ex: a Button
 		/// This property can only be set from the <see cref="Bind"/> Method
@@ -29,10 +24,10 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> Gets or sets a CommandParameter
 		/// </summary>
 		public object CommandParameter {
-			get {return this.commandParameter;}
+			get {return _commandParameter;}
 			set {
-				if(this.commandParameter==value) return;
-				this.commandParameter = value;
+				if(_commandParameter==value) return;
+				_commandParameter = value;
 				OnCommandParameterChanged();
 			}
 		}
@@ -41,21 +36,21 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> The command to execute when the specified event is raised
 		/// </summary>
 		public ICommand Command {
-			get { return this.command; }
+			get { return _command; }
 			set {
-				this.command = value;
-				this.strategy = new CommandExecutionStrategy { Behavior = this };
+				_command = value;
+				_strategy = new CommandExecutionStrategy { Behavior = this };
 			}
 		}
 
 		/// <summary> Gets or sets the Action
 		/// </summary>
 		public Action<object> Action {
-			get { return this.action; }
+			get { return _action; }
 			set {
-				this.action = value;
+				_action = value;
 				// set the execution strategy to execute the action
-				this.strategy = new ActionExecutionStrategy { Behavior = this };
+				_strategy = new ActionExecutionStrategy { Behavior = this };
 			}
 		}
 
@@ -73,22 +68,22 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> Gets or sets the name of the method to invoke.
 		/// </summary>
 		public string InvokeMethodName {
-			get { return this.invokeMethodName; }
+			get { return _invokeMethodName; }
 			set {
-				this.invokeMethodName = value;
+				_invokeMethodName = value;
 				// set the execution strategy to execute the action
-				if(!(this.strategy is MethodInvokeExecutionStrategy)) this.strategy = new MethodInvokeExecutionStrategy { Behavior = this };
+				if(!(_strategy is MethodInvokeExecutionStrategy)) _strategy = new MethodInvokeExecutionStrategy { Behavior = this };
 			}
 		}
 
 		/// <summary> Gets or sets the object or <see cref="Type"/> for method invoke
 		/// </summary>
 		public object InvokeObject {
-			get { return this.invokeObject; }
+			get { return _invokeObject; }
 			set {
-				this.invokeObject = value;
+				_invokeObject = value;
 				// set the execution strategy to execute the action
-				if(!(this.strategy is MethodInvokeExecutionStrategy)) this.strategy = new MethodInvokeExecutionStrategy { Behavior = this };
+				if(!(_strategy is MethodInvokeExecutionStrategy)) _strategy = new MethodInvokeExecutionStrategy { Behavior = this };
 			}
 		}
 
@@ -101,7 +96,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// Executes the strategy
 		/// </summary>
 		public void Execute() {
-			this.strategy.Execute(CommandParameter);
+			_strategy.Execute(CommandParameter);
 		}
 
 		#region IDisposable Members

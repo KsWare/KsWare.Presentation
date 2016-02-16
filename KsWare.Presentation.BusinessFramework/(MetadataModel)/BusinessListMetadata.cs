@@ -1,7 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Diagnostics;
-using KsWare.Presentation.BusinessFramework.Providers;
-using KsWare.Presentation.Providers;
+﻿using KsWare.Presentation.BusinessFramework.Providers;
 using KsWare.Presentation.Core.Patterns;
 using KsWare.Presentation.Core.Providers;
 

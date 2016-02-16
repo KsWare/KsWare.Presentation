@@ -1,14 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Windows;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Documentation;
-using KsWare.Presentation.Providers;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {

@@ -8,9 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.Core.Patterns;
-using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

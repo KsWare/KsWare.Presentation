@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

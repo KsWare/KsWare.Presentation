@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using KsWare.Presentation.ViewFramework.Controls;
+﻿using System.Windows;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors {
 

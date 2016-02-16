@@ -1,5 +1,4 @@
-﻿using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework;
+﻿using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.InternalStatistics {
 

@@ -5,14 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
-using JetBrains.Annotations;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {

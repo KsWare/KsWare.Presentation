@@ -152,7 +152,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		private void CheckTopWindowBehavior() {
 			var allowDrop = m_TopWindow.AllowDrop;
-			var dropBehavior=System.Windows.Interactivity.Interaction.GetBehaviors(m_TopWindow).OfType<FrameworkElementDropBehavior>().FirstOrDefault();
+			var dropBehavior=Interaction.GetBehaviors(m_TopWindow).OfType<FrameworkElementDropBehavior>().FirstOrDefault();
 		}
 
 		private void TopWindow_QueryCursor(object sender, QueryCursorEventArgs e) {
@@ -244,9 +244,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 				m_DragCursorAdorner = null;
 			}
 
-			if (this.m_DraggedAdorner != null) {
-				this.m_DraggedAdorner.Detach();
-				this.m_DraggedAdorner = null;
+			if (m_DraggedAdorner != null) {
+				m_DraggedAdorner.Detach();
+				m_DraggedAdorner = null;
 			}
 		}
 

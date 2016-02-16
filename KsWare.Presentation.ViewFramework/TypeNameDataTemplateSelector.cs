@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewFramework {
 
@@ -152,7 +150,7 @@ namespace KsWare.Presentation.ViewFramework {
 			if (vmType.IsGenericType) return null;
 
 			var name = vmType.Name.Substring(0, vmType.Name.Length - 2) + "View";
-			var viewTypes = new System.Collections.Generic.List<Type>();
+			var viewTypes = new List<Type>();
 			var assembly = ControlsAssembly??vmType.Assembly;
 			foreach (var t in assembly.GetTypes()) {
 				//if(typeof(Control).IsAssignableFrom(t)&& t.Name==name){viewType=t;break;}

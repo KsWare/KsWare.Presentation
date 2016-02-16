@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior 
@@ -134,15 +131,9 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 			}
 			#endregion
 
-			Debug.WriteLine("=>" + string.Format("KsWare.AttachedBehavior Error: public '{0}(object)' method not found on 'object' ''{1}' (HashCode={2})'" +
-				"; target element is '{3}' (Name='{4}')"+
-				"; target property is 'Invoke' (type 'String')",
-				behavior.InvokeMethodName,
-				owner.DataContext.GetType().Name,
-				owner.DataContext.GetHashCode(),
-				owner.GetType().Name,
-				owner.Name
-			));
+			Debug.WriteLine("=>" + ($"KsWare.AttachedBehavior Error: public '{behavior.InvokeMethodName}(object)' method not found on 'object' ''{owner.DataContext.GetType().Name}' (HashCode={owner.DataContext.GetHashCode()})'" +
+			                        $"; target element is '{owner.GetType().Name}' (Name='{owner.Name}')" +
+			                        "; target property is 'Invoke' (type 'String')"));
 
 			//throw new MissingMethodException( ((FrameworkElement) d).DataContext.GetType().Name,methodName);
 			StaticMethodInfoCache.Add(key,null);

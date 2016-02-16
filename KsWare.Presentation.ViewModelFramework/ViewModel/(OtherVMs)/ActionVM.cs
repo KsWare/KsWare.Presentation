@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.ViewModelFramework.Providers;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

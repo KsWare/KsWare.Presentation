@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using KsWare.Presentation;
 
 namespace KsWare.Presentation.Core.Patterns {
 

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core.Providers;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

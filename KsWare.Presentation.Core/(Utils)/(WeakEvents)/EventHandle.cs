@@ -6,7 +6,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Threading;
 using JetBrains.Annotations;
 

@@ -2,8 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using KsWare.Presentation.BusinessFramework.Providers;
-using KsWare.Presentation.Providers;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.BusinessFramework {

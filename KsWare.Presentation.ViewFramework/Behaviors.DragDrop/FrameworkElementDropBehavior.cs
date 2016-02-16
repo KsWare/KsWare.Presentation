@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Interactivity;
 using KsWare.Presentation.ViewFramework.Behaviors.DragDrop;
 

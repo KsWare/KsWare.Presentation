@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using JetBrains.Annotations;
-using KsWare.Presentation.Core;
+﻿using JetBrains.Annotations;
 
 namespace KsWare.Presentation.ViewModelFramework 
 {

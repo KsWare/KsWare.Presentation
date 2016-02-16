@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using System.Reflection;
 using System.Windows;
 
@@ -14,7 +10,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 	/// </summary>
 	internal class EventCommandBehaviorBinding : CommandBehaviorBinding 
 	{
-		bool disposed;
+		bool _disposed;
 
 		#region Properties
 
@@ -39,7 +35,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 			Owner = owner;
 			Event = Owner.GetType().GetEvent(EventName, BindingFlags.Public | BindingFlags.Instance);
 			if (Event == null)
-				throw new InvalidOperationException(String.Format("Could not resolve event name {0}", EventName));
+				throw new InvalidOperationException($"Could not resolve event name {EventName}");
 
 			//Create an event handler for the event that will call the ExecuteCommand method
 			EventHandler = EventHandlerGenerator.CreateDelegate(
@@ -54,8 +50,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		//Creates an EventHandler on runtime and registers that handler to the Event specified
 		[Obsolete("Use Bind(DependencyObject)",true)]
 		public void BindEvent(DependencyObject owner, string eventName) {
-			if (eventName == null) throw new ArgumentNullException("eventName"); //ADDED 2010-02-08 ks
-			if (eventName.Length == 0) throw new ArgumentOutOfRangeException("eventName","EventName cannot be empty!");//ADDED 2010-02-08 ks
+			if (eventName == null) throw new ArgumentNullException(nameof(eventName)); //ADDED 2010-02-08 ks
+			if (eventName.Length == 0) throw new ArgumentOutOfRangeException(nameof(eventName),"EventName cannot be empty!");//ADDED 2010-02-08 ks
 			EventName = eventName;
 			Bind(owner);
 		}
@@ -67,9 +63,9 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// </summary>
 		public override void Dispose() {
 //			base.Dispose();
-			if (this.disposed) return;
+			if (_disposed) return;
 			Event.RemoveEventHandler(Owner, EventHandler);
-			this.disposed = true;
+			_disposed = true;
 			GC.SuppressFinalize(this);
 		}
 

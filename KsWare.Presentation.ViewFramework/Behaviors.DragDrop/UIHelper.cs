@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using KsWare.Presentation.ViewFramework.Behaviors.DragDrop;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 

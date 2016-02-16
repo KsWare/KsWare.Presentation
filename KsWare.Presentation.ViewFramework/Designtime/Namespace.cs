@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Markup;
+﻿using System.Windows.Markup;
 
 [assembly:XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "KsWare.Presentation.ViewFramework.Designtime") /* now we don't need a xmlns prefix anymore*/]
 

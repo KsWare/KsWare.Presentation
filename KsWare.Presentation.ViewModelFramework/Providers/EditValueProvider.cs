@@ -1,17 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Threading;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using JetBrains.Annotations;
-using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Providers;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewModelFramework.Providers {
 

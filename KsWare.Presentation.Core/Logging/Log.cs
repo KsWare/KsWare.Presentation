@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using KsWare.Presentation;
 
 #pragma warning disable 1591 //TODO enable warnings
 

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
-using System.Reflection;
 using System.Windows;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior 
@@ -13,17 +9,17 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 	/// </summary>
 	internal abstract class InputCommandBehaviorBinding : CommandBehaviorBinding 
 	{
-		bool disposed;
-		private InputGesture gesture;
+		bool _disposed;
+		private InputGesture _gesture;
 
 		#region Properties
 
 		protected System.Windows.Input.InputBinding InputBinding { get;set; }
 
 		public InputGesture Gesture {
-			get {return this.gesture;}
+			get {return _gesture;}
 			set {
-				this.gesture = value;
+				_gesture = value;
 				if (InputBinding != null) InputBinding.Gesture = value;
 			}
 		}
@@ -42,9 +38,9 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// </summary>
 		public override void Dispose() {
 //			base.Dispose();
-			if (this.disposed) return;
+			if (_disposed) return;
 			((UIElement) Owner).InputBindings.Remove(InputBinding);
-			this.disposed = true;
+			_disposed = true;
 			GC.SuppressFinalize(this);
 		}
 
@@ -53,14 +49,14 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 
 	internal sealed class MouseBinding : InputCommandBehaviorBinding 
 	{
-		private MouseAction mouseAction;
+		private MouseAction _mouseAction;
 
 		public new System.Windows.Input.MouseBinding InputBinding { get { return (System.Windows.Input.MouseBinding)base.InputBinding; } private set {base.InputBinding = value; } }
 		
 		public MouseAction MouseAction {
-			get {return this.mouseAction;}
+			get {return _mouseAction;}
 			set {
-				this.mouseAction = value;
+				_mouseAction = value;
 				if (InputBinding != null) InputBinding.MouseAction = value;
 			}
 		}
@@ -76,7 +72,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 			};
 			if (Gesture != null) InputBinding.Gesture = Gesture;
 
-			((UIElement) Owner).InputBindings.Add(this.InputBinding);
+			((UIElement) Owner).InputBindings.Add(InputBinding);
 		}
 	}
 
@@ -87,16 +83,16 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		public new System.Windows.Input.KeyBinding InputBinding { get {return (System.Windows.Input.KeyBinding) base.InputBinding; } private set {base.InputBinding = value; } }
 
 		public Key Key {
-			get {return this.key;}
+			get {return key;}
 			set {
-				this.key = value;
+				key = value;
 				if (InputBinding != null) InputBinding.Key = value;
 			}
 		}
 
 		//Creates an EventHandler on runtime and registers that handler to the Event specified
 		public override void Bind(DependencyObject owner) {
-			if (owner == null) throw new ArgumentNullException("owner");
+			if (owner == null) throw new ArgumentNullException(nameof(owner));
 			Owner = owner;
 			InputBinding = new System.Windows.Input.KeyBinding {
 				Key              = Key, 
@@ -105,7 +101,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 			};
 			if (Gesture != null) InputBinding.Gesture = Gesture;
 
-			((UIElement) Owner).InputBindings.Add(this.InputBinding);
+			((UIElement) Owner).InputBindings.Add(InputBinding);
 		}
 	}
 }

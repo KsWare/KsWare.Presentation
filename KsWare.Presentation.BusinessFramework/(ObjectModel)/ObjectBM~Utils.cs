@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.BusinessFramework {
 

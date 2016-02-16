@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -253,7 +252,7 @@ namespace KsWare.Presentation.ViewFramework
 				}
 					
 				if(!m_ResourceSets.ContainsKey(culture)) {
-					var resourceSet     = this.m_ResourceManager.GetResourceSet(culture, true, true);
+					var resourceSet     = m_ResourceManager.GetResourceSet(culture, true, true);
 					m_ResourceSets.Add(culture,resourceSet);
 					return resourceSet;
 				} else {

@@ -1,7 +1,5 @@
 ﻿using System.Windows;
-using KsWare.Presentation.Core;
 using KsWare.Presentation.Core.Providers;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

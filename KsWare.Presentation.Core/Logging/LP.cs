@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using KsWare.Presentation;
 
 namespace KsWare.Presentation.Core.Logging
 {

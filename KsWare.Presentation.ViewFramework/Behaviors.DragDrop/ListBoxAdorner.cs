@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Documents;
+﻿using System.Windows.Documents;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 
@@ -16,26 +11,26 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 		public bool IsAboveElement { get; set; }
 
 		public ListBoxAdorner(UIElement adornedElement, AdornerLayer adornerLayer) : base(adornedElement) {
-			this.m_AdornerLayer = adornerLayer;
-			this.m_AdornerLayer.Add(this);
+			m_AdornerLayer = adornerLayer;
+			m_AdornerLayer.Add(this);
 		}
 
 		/// <summary> Update UI
 		/// </summary>
 		internal void Update() {
-			m_AdornerLayer.Update(this.AdornedElement);
+			m_AdornerLayer.Update(AdornedElement);
 			Visibility = Visibility.Visible;
 		}
 
 		public void Remove() {
-			Visibility = System.Windows.Visibility.Collapsed;
+			Visibility = Visibility.Collapsed;
 		}
 
-		protected override void OnRender(System.Windows.Media.DrawingContext drawingContext) {
+		protected override void OnRender(DrawingContext drawingContext) {
 //            double width = this.AdornedElement.DesiredSize.Width;
 //            double height = this.AdornedElement.DesiredSize.Height;
 
-			var adornedElementRect = new Rect(this.AdornedElement.DesiredSize);
+			var adornedElementRect = new Rect(AdornedElement.DesiredSize);
 
 			var renderBrush = new SolidColorBrush(Colors.Red);
 			renderBrush.Opacity = 0.5;

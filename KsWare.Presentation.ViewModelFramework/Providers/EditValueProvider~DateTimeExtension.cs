@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-
-namespace KsWare.Presentation.ViewModelFramework.Providers {
+﻿namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 	public interface IEditValueProviderDateTimeExtension:IEditValueProviderExtension {
 

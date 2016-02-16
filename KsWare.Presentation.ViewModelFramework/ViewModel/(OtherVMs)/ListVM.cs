@@ -4,19 +4,13 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime;
-using System.Text;
 using System.Threading;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
 using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Providers;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework.Providers;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {

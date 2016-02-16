@@ -1,5 +1,4 @@
 ﻿using KsWare.Presentation.BusinessFramework;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation.InternalStatistics {
 

@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using JetBrains.Annotations;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Providers;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewModelFramework.Providers {
 

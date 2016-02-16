@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using KsWare.Presentation;
-using MS.Internal.KnownBoxes;
-using MS.Internal.PresentationCore;
 
 namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation {
 
 	/// <summary> Animates the value of a SolidColorBrush.Color property between two target values using linear interpolation over a specified <see cref="Timeline.Duration"/>. 
 	/// </summary>
-	public class SolidColorBrushAnimation:System.Windows.Media.Animation.ObjectAnimationBase {
+	public class SolidColorBrushAnimation:ObjectAnimationBase {
 
 		private ColorAnimation m_ColorAnimation=new ColorAnimation();
 		private SolidColorBrush m_From;

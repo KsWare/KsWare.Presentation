@@ -3,8 +3,14 @@ using System.Windows.Data;
 
 namespace KsWare.Presentation.ViewFramework {
 
+	/// <summary>
+	/// Internal base class for all multi value bindings (e.g. <see cref="BindingWithPrefixAndSuffix"/>)
+	/// </summary>
+	/// <seealso cref="System.Windows.Data.MultiBinding" />
 	public class BindingUsesMultiBinding : MultiBinding {
 
+		/// <summary> The main binding
+		/// </summary>
 		protected Binding MainBinding;
 
 		/// <summary>

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Documents;
 using System.Windows;
 using System.Windows.Media;
@@ -40,7 +37,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 		readonly Pen    edgePen2 = new Pen(new SolidColorBrush(Colors.White), 2.5);
 
 		protected override void OnRender(DrawingContext dc) {
-			var adornedElementRect = new Rect(this.AdornedElement.DesiredSize);
+			var adornedElementRect = new Rect(AdornedElement.DesiredSize);
 			
 			Brush edgeBrush;
 			Pen linePen;

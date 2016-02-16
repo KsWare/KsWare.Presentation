@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using KsWare.Presentation.Core;
 
 namespace KsWare.Presentation {
 

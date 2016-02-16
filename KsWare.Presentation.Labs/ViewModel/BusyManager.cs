@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using KsWare.Presentation.Core;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewModelFramework {
 

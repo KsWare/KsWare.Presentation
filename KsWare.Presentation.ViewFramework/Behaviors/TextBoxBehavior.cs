@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows;
 using KsWare.Presentation.ViewModelFramework;
 using KsWare.Presentation.ViewModelFramework.Providers;
-using KsWare.Presentation.ViewFramework.Controls;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using TextBox = System.Windows.Controls.TextBox;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors {
