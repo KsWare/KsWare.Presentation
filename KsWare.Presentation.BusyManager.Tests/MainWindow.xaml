@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:vm="clr-namespace:KsWare.Presentation.BusyManagerTestApp"
-	xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors;assembly=KsWare.Presentation"
+	xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors;assembly=KsWare.Presentation.ViewFramework"
 	mc:Ignorable="d" 
 	Height="350" Width="525"
 	Title="KsWare.Presentation.BusyManager.TestApp" 

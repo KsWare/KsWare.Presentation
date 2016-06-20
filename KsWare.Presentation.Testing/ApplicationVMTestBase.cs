@@ -3,12 +3,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using KsWare.Presentation.UnitTesting;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KsWare.Presentation.Testing {
 

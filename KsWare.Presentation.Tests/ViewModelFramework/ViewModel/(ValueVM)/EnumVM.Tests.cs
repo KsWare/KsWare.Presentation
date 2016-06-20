@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using KsWare.Presentation.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

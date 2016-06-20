@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{480179C9-C018-4515-8B83-44E21112887D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KsWare.Presentation.ViewFramework</RootNamespace>
+    <AssemblyName>KsWare.Presentation.ViewFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\KsWare.Presentation.ViewFramework.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="%28Converters%29\DebugTypeNameConverter.cs" />
+    <Compile Include="%28Converters%29\DisplayTimeSpanConverter.cs" />
+    <Compile Include="%28Converters%29\EnumImageConverter.cs" />
+    <Compile Include="%28Converters%29\EnumResourceConverter.cs" />
+    <Compile Include="%28Converters%29\HexConverter.cs" />
+    <Compile Include="%28Converters%29\ResourceDictionaryLockupConverter.cs" />
+    <Compile Include="%28Converters%29\SpecialBooleanConverter.cs" />
+    <Compile Include="%28Converters%29\SpecialThicknessConverter.cs" />
+    <Compile Include="%28Converters%29\StringConverter.cs" />
+    <Compile Include="%28Converters%29\StringJoinMultiValueConverter.cs" />
+    <Compile Include="%28Converters%29\UIElementConverter.cs" />
+    <Compile Include="%28Converters%29\VisibilityConverter.cs" />
+    <Compile Include="%28Obsolete%29\AttachedBehavior\Attributes.cs" />
+    <Compile Include="AttachedBehavior\%28Base%29\BehaviorBinding.cs" />
+    <Compile Include="AttachedBehavior\%28Interactivity.Behavior%29\TreeView.cs" />
+    <Compile Include="AttachedBehavior\%28Internal%29\CommandBehaviorBinding.cs" />
+    <Compile Include="AttachedBehavior\%28Internal%29\EventCommandBehaviorBinding.cs" />
+    <Compile Include="AttachedBehavior\%28Internal%29\EventHandlerGenerator.cs" />
+    <Compile Include="AttachedBehavior\%28Internal%29\ExecutionStrategy.cs" />
+    <Compile Include="AttachedBehavior\%28Internal%29\InputCommandBehaviorBinding.cs" />
+    <Compile Include="AttachedBehavior\%28Internal%29\SimpleCommand.cs" />
+    <Compile Include="AttachedBehavior\Behavior.cs" />
+    <Compile Include="AttachedBehavior\BehaviorBindingCollection.cs" />
+    <Compile Include="AttachedBehavior\EventBehavior.cs" />
+    <Compile Include="AttachedBehavior\EventBinding.cs" />
+    <Compile Include="AttachedBehavior\FocusBehavior.cs" />
+    <Compile Include="AttachedBehavior\ImageHelper.cs" />
+    <Compile Include="AttachedBehavior\InputBinding.cs" />
+    <Compile Include="AttachedBehavior\SharedWidth.cs" />
+    <Compile Include="AttachedBehavior\TreeView.cs" />
+    <Compile Include="Behaviors.Busy\BusyAdornerBehavior.cs" />
+    <Compile Include="Behaviors.Busy\BusyAdornerVisual.cs" />
+    <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
+    <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
+    <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
+    <Compile Include="SetterTriggerCollection.cs" />
+    <Compile Include="SolidColorBrushAnimation.cs" />
+    <Compile Include="ThemeSelector.cs" />
+    <Compile Include="TypeNameDataTemplateSelector.cs" />
+    <Compile Include="UIWorker.cs" />
+    <Compile Include="ViewModelApplication.cs" />
+    <Compile Include="XmlDoc.cs" />
+    <None Include="Behaviors.DragDrop\Bea\DragDropHelper.cs" />
+    <None Include="Behaviors.DragDrop\Bea\InsertionAdorner.cs" />
+    <None Include="Behaviors.DragDrop\Bea\Utilities.cs" />
+    <Compile Include="Behaviors.DragDrop\DraggedAdorner.cs" />
+    <Compile Include="Behaviors.DragDrop\FrameworkElementAdorner.cs" />
+    <Compile Include="Behaviors.DragDrop\FrameworkElementDragBehavior.cs" />
+    <Compile Include="Behaviors.DragDrop\FrameworkElementDropBehavior.cs" />
+    <Compile Include="Behaviors.DragDrop\FrameworkElementRedGreenAdorner.cs" />
+    <Compile Include="Behaviors.DragDrop\IDragable.cs" />
+    <Compile Include="Behaviors.DragDrop\IDropable.cs" />
+    <Compile Include="Behaviors.DragDrop\ListBoxAdorner.cs" />
+    <Compile Include="Behaviors.DragDrop\ListBoxAdornerManager.cs" />
+    <Compile Include="Behaviors.DragDrop\ListBoxDropBehavior.cs" />
+    <Compile Include="Behaviors.DragDrop\UIHelper.cs" />
+    <Compile Include="Behaviors\%28Interactivity.Behavior%29\CustomWindowBehavior.cs" />
+    <Compile Include="Behaviors\%28Interactivity.Behavior%29\Interaction.cs" />
+    <Compile Include="Behaviors\%28Interactivity.Behavior%29\MouseDoubleClickBehavior.cs" />
+    <Compile Include="Behaviors\%28Interactivity.Behavior%29\MouseDoubleClickEventTrigger.cs" />
+    <Compile Include="Behaviors\%28Interactivity.Behavior%29\WindowChromeBehavior.cs" />
+    <Compile Include="Behaviors\CommandBindingsBehavior.cs" />
+    <Compile Include="Behaviors\ContextMenuExtension.cs" />
+    <Compile Include="Behaviors\DataContextErrorVisualizer.cs" />
+    <Compile Include="Behaviors\DragMove.cs" />
+    <Compile Include="Behaviors\ExpanderExtension.cs" />
+    <Compile Include="Behaviors\ItemsControlExtension.cs" />
+    <Compile Include="Behaviors\OpenContextMenuAtLeftClickBehavior.cs" />
+    <Compile Include="Behaviors\PixelBasedScrollingBehavior.cs" />
+    <Compile Include="Behaviors\TextBoxBehavior.cs" />
+    <Compile Include="Behaviors\ToolTipBehavior.cs" />
+    <Compile Include="Behaviors\UIElementBehavior.cs" />
+    <Compile Include="Behaviors\ViewModelBehavior.cs" />
+    <Compile Include="Behaviors\Watermark.cs" />
+    <Compile Include="ContextMenuServiceExtensions.cs" />
+    <Compile Include="Controls\DataContextErrorAdorner.cs" />
+    <Compile Include="Controls\GraphLayer.cs" />
+    <Compile Include="Controls\KsButton.cs" />
+    <Compile Include="Controls\KsToolbarButton.cs" />
+    <Compile Include="Controls\PopupChrome.cs" />
+    <Compile Include="Controls\ResourcePresenter.xaml.cs">
+      <DependentUpon>ResourcePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TransparentImage.cs" />
+    <Compile Include="Controls\WindowChrome.xaml.cs">
+      <DependentUpon>WindowChrome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WindowChrome2.xaml.cs">
+      <DependentUpon>WindowChrome2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTypeTrigger.cs" />
+    <Compile Include="Designtime\DesigntimeProperties.cs" />
+    <Compile Include="Designtime\Namespace.cs" />
+    <Compile Include="ForceException.cs" />
+    <Compile Include="GroupStyleSelector.cs" />
+    <Compile Include="MarkupExtensions\BindingUsesMultiBinding.cs" />
+    <Compile Include="MarkupExtensions\BindingWithPrefixAndSuffix.cs" />
+    <Compile Include="MarkupExtensions\BindingWithValidationExtension.cs" />
+    <Compile Include="MarkupExtensions\VisibilityBinding.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Properties\KsWare.Presentation.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AttachedBehavior\#docu\ACB.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AttachedBehavior\#docu\info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Behaviors.Busy\Hourglass.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ResourcePresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WindowChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WindowChrome2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WindowChromeButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InternalStatistics\BaseStatisticsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InternalStatistics\StatisticsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ViewModelStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles\BusyAdornerVisual.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Behaviors.DragDrop\Bea\info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="%28Obsolete%29\Behaviors\" />
+    <Folder Include="Interactivity\" />
+    <Folder Include="XmlDocMarkup\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
+      <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
+      <Name>KsWare.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj">
+      <Project>{e45e9672-0236-47fc-9ade-5fef5cdfc7ae}</Project>
+      <Name>KsWare.Presentation.ViewModelFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InternalStatistics\notes.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

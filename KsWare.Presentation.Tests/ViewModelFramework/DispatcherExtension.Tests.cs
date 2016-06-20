@@ -1,9 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
-using KsWare.Presentation.Testing;
-using KsWare.Presentation.Tests.ViewModelFramework;
+﻿using KsWare.Presentation.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {

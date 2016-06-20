@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using JetBrains.Annotations;
 using KsWare.Presentation.ViewModelFramework;
 

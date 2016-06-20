@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using KsWare.Presentation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert=NUnit.Framework.Assert;
 

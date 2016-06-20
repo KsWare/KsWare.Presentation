@@ -1,0 +1,33 @@
+﻿<Window 
+	x:Class="KsWare.Presentation.InternalStatistics.StatisticsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vfw="clr-namespace:KsWare.Presentation.ViewFramework"
+    xmlns:internalStatistics1="clr-namespace:KsWare.Presentation.InternalStatistics;assembly=KsWare.Presentation.ViewModelFramework"
+    Title="KsWare.Presentation Statistics" Height="376" Width="353"
+	DataContext="{x:Static internalStatistics1:StatisticsWindowVM.Instance}"
+	>
+	<x:Code><![CDATA[ public StatisticsWindow() { InitializeComponent(); } ]]></x:Code>
+<!--    <TabControl ItemsSource="{Binding Modules}">-->
+<!--		<TabControl.ItemTemplate>-->
+<!--			<DataTemplate>-->
+<!--				<TextBlock Text="{Binding Caption}"/>-->
+<!--			</DataTemplate>-->
+<!--		</TabControl.ItemTemplate>-->
+<!--		<TabControl.ContentTemplateSelector>-->
+<!--			<vfw:TypeNameDataTemplateSelector/>-->
+<!--		</TabControl.ContentTemplateSelector>-->
+<!--	</TabControl>-->
+	<ScrollViewer Margin="4">
+		<ItemsControl ItemsSource="{Binding Modules}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate DataType="{x:Type internalStatistics1:IContentModuleVM}">
+					<StackPanel>
+						<TextBlock Text="{Binding Caption}" FontWeight="Bold" Margin="0 10 0 4"/>
+						<ContentControl Content="{Binding .}" ContentTemplateSelector="{x:Static vfw:TypeNameDataTemplateSelector.Default}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</ScrollViewer>
+</Window>

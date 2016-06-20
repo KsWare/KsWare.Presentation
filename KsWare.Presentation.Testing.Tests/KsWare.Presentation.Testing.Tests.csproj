@@ -39,9 +39,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KsWare.UnitTesting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=45e0ea08c80521ed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\KsWare.VisualStudio.com.KsWare.Presentation\References\KsWare.UnitTesting.dll</HintPath>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -72,17 +88,30 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
+      <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
+      <Name>KsWare.Presentation.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj">
       <Project>{48bd0342-2458-44f5-a3bb-1405a56efaf4}</Project>
       <Name>KsWare.Presentation.Testing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation\KsWare.Presentation.csproj">
-      <Project>{193c2dd2-c3e6-4188-8691-f9de9bd38894}</Project>
-      <Name>KsWare.Presentation</Name>
+    <ProjectReference Include="..\KsWare.Presentation.Tests\KsWare.Presentation.Tests.csproj">
+      <Project>{1e3a05fd-0f03-4b1a-ab41-53aa2018d940}</Project>
+      <Name>KsWare.Presentation.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj">
+      <Project>{480179c9-c018-4515-8b83-44e21112887d}</Project>
+      <Name>KsWare.Presentation.ViewFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj">
+      <Project>{e45e9672-0236-47fc-9ade-5fef5cdfc7ae}</Project>
+      <Name>KsWare.Presentation.ViewModelFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="NUnitWpf\#Docu\Docu.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

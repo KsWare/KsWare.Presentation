@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KsWare.Presentation.ViewModelFramework;
@@ -159,8 +160,10 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			Assert.AreEqual("1,1",(string)TestSubject.ConvertFrom((Double ) 1.1));
 			Assert.AreEqual("NaN",(string)TestSubject.ConvertFrom( Double.NaN));
-			Assert.AreEqual("+unendlich",(string)TestSubject.ConvertFrom( Double.PositiveInfinity));
-			Assert.AreEqual("-unendlich",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
+//			Assert.AreEqual("+unendlich",(string)TestSubject.ConvertFrom( Double.PositiveInfinity));
+//			Assert.AreEqual("-unendlich",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
+			Assert.AreEqual("∞",(string)TestSubject.ConvertFrom( Double.PositiveInfinity));
+			Assert.AreEqual("-∞",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
 		}
 
 		[TestMethod]
@@ -169,8 +172,10 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			Assert.AreEqual("1.1",(string)TestSubject.ConvertFrom((Double ) 1.1));
 			Assert.AreEqual("NaN",(string)TestSubject.ConvertFrom((Double ) Double.NaN));
-			Assert.AreEqual("Infinity",(string)TestSubject.ConvertFrom((Double ) Double.PositiveInfinity));
-			Assert.AreEqual("-Infinity",(string)TestSubject.ConvertFrom((Double ) Double.NegativeInfinity));
+//			Assert.AreEqual("Infinity",(string)TestSubject.ConvertFrom((Double ) Double.PositiveInfinity));
+//			Assert.AreEqual("-Infinity",(string)TestSubject.ConvertFrom((Double ) Double.NegativeInfinity));
+			Assert.AreEqual("∞",(string)TestSubject.ConvertFrom((Double ) Double.PositiveInfinity));
+			Assert.AreEqual("-∞",(string)TestSubject.ConvertFrom((Double ) Double.NegativeInfinity));
 		}
 		
 		[TestMethod]
@@ -179,8 +184,35 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			Assert.AreEqual("1,1",(string)TestSubject.ConvertFrom((Double ) 1.1));
 			Assert.AreEqual("NaN",(string)TestSubject.ConvertFrom( Double.NaN));
-			Assert.AreEqual("+unendlich",(string)TestSubject.ConvertFrom( Double.PositiveInfinity));
-			Assert.AreEqual("-unendlich",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
+//			Assert.AreEqual("+unendlich",(string)TestSubject.ConvertFrom( Double.PositiveInfinity));
+//			Assert.AreEqual("-unendlich",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
+			Assert.AreEqual("∞",(string)TestSubject.ConvertFrom( Double.PositiveInfinity));
+			Assert.AreEqual("-∞",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
+		}
+
+		[TestMethod,Explicit]
+		public void ConvertFrom_Double_Show_Default_String_for_Infinity() {
+			var s = new StringBuilder();
+
+			SetCulture(CultureInfo.InvariantCulture);
+			s.AppendLine(Thread.CurrentThread.CurrentCulture.DisplayName);
+			s.AppendLine("  "+Double.NaN.ToString());
+			s.AppendLine("  "+Double.PositiveInfinity.ToString());
+			s.AppendLine("  "+Double.NegativeInfinity.ToString());
+
+			SetCulture(CultureInfo.CreateSpecificCulture("en-Us"));
+			s.AppendLine(Thread.CurrentThread.CurrentCulture.DisplayName);
+			s.AppendLine("  "+Double.NaN.ToString());
+			s.AppendLine("  "+Double.PositiveInfinity.ToString());
+			s.AppendLine("  "+Double.NegativeInfinity.ToString());
+
+			SetCulture(CultureInfo.CreateSpecificCulture("de-DE"));
+			s.AppendLine(Thread.CurrentThread.CurrentCulture.DisplayName);
+			s.AppendLine("  "+Double.NaN.ToString());
+			s.AppendLine("  "+Double.PositiveInfinity.ToString());
+			s.AppendLine("  "+Double.NegativeInfinity.ToString());
+
+			Console.Write(s);
 		}
 
 	}

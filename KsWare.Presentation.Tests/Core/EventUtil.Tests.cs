@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Threading;
 using System.Windows.Threading;
-using KsWare.Presentation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert=NUnit.Framework.Assert;
 

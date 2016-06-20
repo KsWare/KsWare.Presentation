@@ -1,5 +1,4 @@
-﻿using System;
-using KsWare.Presentation.ViewModelFramework;
+﻿using KsWare.Presentation.ViewModelFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KsWare.Presentation.Tests.ViewFramework {

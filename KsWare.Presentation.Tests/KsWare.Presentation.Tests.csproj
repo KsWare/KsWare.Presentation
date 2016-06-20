@@ -51,16 +51,33 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KsWare.UnitTesting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=45e0ea08c80521ed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\KsWare.VisualStudio.com.KsWare.Presentation\References\KsWare.UnitTesting.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\KsWare.Presentation\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -99,7 +116,7 @@
     <Compile Include="Core\BasicTests.cs" />
     <None Include="Core\WeakEventManager.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM+CustomDataProvider+NotifyDataChangedTests.cs" />
-    <Compile Include="Core\MappedDataProvider.Tests.cs" />
+    <None Include="Core\DEACTIVATED\MappedDataProvider.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\RefVM.Business.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28UI-VM%29\ApplicationVM.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMLinkTest.cs" />
@@ -128,7 +145,6 @@
     <Compile Include="ViewModelFramework\ViewModel\%28ObjectVM%29\ObjectVMTests.cs" />
     <Compile Include="ViewModelFramework\ValueProviderStringConverter.Tests.cs" />
     <Compile Include="WeakEventManagerExample.cs" />
-    <Compile Include="Other\StringTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelFramework\Providers\EditValueProvider~HexNumberExtensionTests.cs" />
@@ -140,16 +156,51 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj">
+      <Project>{816f4a41-a808-460e-8e5a-d048934b6a5d}</Project>
+      <Name>KsWare.Presentation.BusinessFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
+      <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
+      <Name>KsWare.Presentation.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj">
       <Project>{48bd0342-2458-44f5-a3bb-1405a56efaf4}</Project>
       <Name>KsWare.Presentation.Testing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation\KsWare.Presentation.csproj">
-      <Project>{193c2dd2-c3e6-4188-8691-f9de9bd38894}</Project>
-      <Name>KsWare.Presentation</Name>
+    <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj">
+      <Project>{480179c9-c018-4515-8b83-44e21112887d}</Project>
+      <Name>KsWare.Presentation.ViewFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj">
+      <Project>{e45e9672-0236-47fc-9ade-5fef5cdfc7ae}</Project>
+      <Name>KsWare.Presentation.ViewModelFramework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NameSortTest\!\" />
+    <Folder Include="NameSortTest\%28\" />
+    <Folder Include="NameSortTest\%40\" />
+    <Folder Include="NameSortTest\a\" />
+    <Folder Include="NameSortTest\[\" />
+    <Folder Include="NameSortTest\{\" />
+    <Folder Include="NameSortTest\»\" />
+    <Folder Include="NameSortTest\※\" />
+    <Folder Include="NameSortTest\‼\" />
+    <Folder Include="NameSortTest\⁃\" />
+    <Folder Include="NameSortTest\⃠\" />
+    <Folder Include="NameSortTest\→\" />
+    <Folder Include="NameSortTest\⊘\" />
+    <Folder Include="NameSortTest\⋮\" />
+    <Folder Include="NameSortTest\⌦\" />
+    <Folder Include="NameSortTest\①\" />
+    <Folder Include="NameSortTest\⒒\" />
+    <Folder Include="NameSortTest\✖\" />
+    <Folder Include="NameSortTest\❶\" />
+    <Folder Include="NameSortTest\ㆍ\" />
+    <Folder Include="NameSortTest\ａ\" />
+    <Folder Include="Other\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
