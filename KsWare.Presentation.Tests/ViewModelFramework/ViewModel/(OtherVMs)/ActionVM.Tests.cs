@@ -1,10 +1,6 @@
 ﻿using System;
-using JetBrains.Annotations;
-using KsWare.Presentation;
-using KsWare.Presentation.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KsWare.Presentation.ViewModelFramework;
-using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
@@ -49,30 +45,6 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.IsTrue(vm.CanExecute);
 			vm.Execute("Call2");
 			Assert.AreEqual(1,c);
-		}
-
-		[TestMethod]
-		public void AutoActionMethodAssignment() {
-			var sut = new TestVM();
-			sut.EditAction.Execute();
-			Assert.That(sut.TestResult, Is.EqualTo("DoEdit"));
-			sut.EditParameterAction.Execute("test");
-			Assert.That(sut.TestResult, Is.EqualTo("DoEditParameter test"));
-		}
-
-		public class TestVM:ObjectVM {
-
-			public TestVM() {
-				RegisterChildren(()=>this);
-			}
-
-			public ActionVM EditAction { get; [UsedImplicitly] private set; }
-			public ActionVM EditParameterAction { get; [UsedImplicitly] private set; }
-
-			private void DoEdit() { TestResult = "DoEdit"; }
-			private void DoEditParameter(object p) { TestResult = "DoEditParameter "+p; }
-
-			public string TestResult { get; set; }
 		}
 
 	}
