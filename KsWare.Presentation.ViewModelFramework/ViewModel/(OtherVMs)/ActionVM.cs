@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using KsWare.Presentation.BusinessFramework;
@@ -103,6 +105,38 @@ namespace KsWare.Presentation.ViewModelFramework {
 			OnPropertyChanged("CanExecute");
 			EventUtil.Raise(CanExecuteChanged,this,EventArgs.Empty,"{E372D3E9-878A-4F7D-8B17-57F4300E7442}");
 			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"CanExecuteChangedEvent",EventArgs.Empty);
+		}
+
+		protected override void OnParentChanged(object oldParent, object newParent) {
+			base.OnParentChanged(oldParent, newParent);
+			if (newParent != null) {
+				// MemberName: "EditAction" or "Edit"
+				// MethodName: "DoEdit"
+				var name = MemberName.EndsWith("Action") ? MemberName.Substring(0, MemberName.Length - 6) : MemberName;
+				string methodName= "Do"+name;
+				var methods=newParent.GetType().GetMembers(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic)
+					.Where(m=>m.Name==methodName && m.MemberType==MemberTypes.Method)
+					.OfType<MethodInfo>()
+					.ToArray();
+				if (methods.Length == 0) { /*TODO LOG: No method {methodName} found. */}
+				else if (methods.Length == 1) {
+					var parameters = methods[0].GetParameters();
+					if (parameters.Length == 0) {
+						var body   = Expression.Call(Expression.Constant(newParent), methods[0]);
+						var lambda = Expression.Lambda<Action>(body);
+						MːDoAction = lambda.Compile();
+					} else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(object)) {
+						var param   = Expression.Parameter(parameters[0].ParameterType);
+						var body    = Expression.Call(Expression.Constant(newParent), methods[0],param);
+						var lambda  = Expression.Lambda<Action<object>>(body, param);
+						MːDoActionP = lambda.Compile();
+					}
+					else {
+						 /*TODO LOG: No method {methodName} with matching signature found. */
+						 // see http://stackoverflow.com/questions/2933221/can-you-get-a-funct-or-similar-from-a-methodinfo-object
+					}
+				}
+			}
 		}
 
 		public ContextMenuVM ContextMenu { get; private set; }
