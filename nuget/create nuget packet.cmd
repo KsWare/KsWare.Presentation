@@ -37,6 +37,10 @@ if %ERRORLEVEL% neq 0 (
 pause
 :compile.end
 
+echo clean folder structure..
+del lib\net40\*.* /Q>nul
+del lib\net45\*.* /Q>nul
+
 echo create folder structure..
 mkdir content>nul
 mkdir lib>nul
@@ -44,10 +48,12 @@ mkdir lib\net40>nul
 mkdir lib\net45>nul
 mkdir archive>nul
 
+
 echo copy files...
 set options=/Y /D
 
 ::net40
+
 ::xcopy ..\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net40\ %options%
 ::if errorlevel 1 set hasCopyError=true
 xcopy ..\KsWare.Presentation.Core\bin\Release_40\KsWare.Presentation.Core.dll lib\net40\ %options%
