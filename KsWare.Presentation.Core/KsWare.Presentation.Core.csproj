@@ -56,6 +56,10 @@
     <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.1.5.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\KsWare.Presentation.Solution\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -75,7 +79,6 @@
     <Compile Include="%28Attributes%29\AnnotationAttribute.cs" />
     <Compile Include="%28Attributes%29\DefaultViewAttribute.cs" />
     <Compile Include="%28Attributes%29\HierarchyAttribute.cs" />
-    <Compile Include="%28Attributes%29\ResharperAnotations.cs" />
     <Compile Include="%28Attributes%29\ResourceAttribute.cs" />
     <Compile Include="%28Common Interfaces%29\IHierarchical.cs" />
     <Compile Include="%28Common Interfaces%29\IMetadata.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Providers\LocalDataProvider.cs" />
     <Compile Include="Providers\NoDataProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
+    <None Include="packages.config" />
     <None Include="Properties\KsWare.Presentation.snk" />
     <None Include="Providers\DEACTIVATED\ReflectionDataProvider.cs" />
     <Compile Include="SimpleMonitor.cs" />

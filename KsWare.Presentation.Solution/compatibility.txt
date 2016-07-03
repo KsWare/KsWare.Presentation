@@ -1,0 +1,96 @@
+﻿https://msdn.microsoft.com/de-de/library/bb822049(v=vs.110).aspx
+
+.NET 4 
+CLR 4
++ 7
++ Vista 
++ 2008 R2 SP1
++ 2008 SP2
++ 2003
++ XP SP3
+
+.NET 4.5
+CLR 4
+Unterstützung für Windows Store-Apps
+WPF, WCF, WF, ASP.NET-Updates
+Weitere...
+2012
+✓ 8
++ 7
++ Vista
+✓ 2012
++ 2008 R2 SP1
++ 2008 SP2
+‼ 2003 (nicht mehr unterstützt)
+
+4.5.1
+4
+Support for Windows Phone Store apps
+Automatic binding redirection
+Performance and debugging improvements
+More...
+2013
+✓ 8.1
++ 8
++ 7
++ Vista
+✓ 2012 R2
++ 2012
++ 2008 R2 SP1
++ 2008 SP2
+‼ 2003 (nicht mehr unterstützt)
+
+
+4.5.2
+4
+New APIs for transactional systems and ASP.NET
+System DPI resizing in Windows Forms controls
+Profiling improvements
+ETW and stress logging improvements
+More...
+-
++ 8.1
++ 8
++ 7
++ Vista
++ 2012 R2
++ 2012
++ 2008 R2 SP1
++ 2008 SP2
+‼ 2003 (nicht mehr unterstützt)
+
+.NET 4.6
+4
+Compilation using .NET Native
+ASP.NET Core 5
+Event tracing improvements
+Support for page encodings
+More...
+2015, although some .NET libraries are available on NuGet. For more information see, The .NET Framework and Out-of-Band Releases.
+✓ 10
++ 8.1
++ 8
++ 7
++ Vista
++ 2012 R2
++ 2012
++ 2008 R2 SP1
++ 2008 SP2
+‼ 2003 (nicht mehr unterstützt)
+
+Net 4.6.1
+4
+Support for X509 certificates containing ECDSA
+Always Encrypted support for hardware protected keys in ADO.NET
+Spell checking improvements in WPF
+More...
+✓ 10 November Update
++ 10
++ 8.1
++ 8
++ 7
++ 2012 R2
++ 2012
++ 2008 R2 SP1
++ 2008 SP2
+‼ 2003 (nicht mehr unterstützt)
