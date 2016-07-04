@@ -44,7 +44,7 @@ namespace KsWare.Presentation {
 
 		#endregion
 
-		private readonly WeakReference m_PropertySource;
+		private readonly WeakReference _PropertySource;
 
 		public DependencyPropertyChangeNotifier(DependencyObject propertySource, string path)
 			:this(propertySource, new PropertyPath(path)) {}
@@ -53,10 +53,10 @@ namespace KsWare.Presentation {
 			:this(propertySource, new PropertyPath(property)) {}
 
 		public DependencyPropertyChangeNotifier(DependencyObject propertySource, PropertyPath property) {
-			if(propertySource==null) throw new ArgumentNullException("propertySource");
-			if(property      ==null) throw new ArgumentNullException("property");
+			if(propertySource==null) throw new ArgumentNullException(nameof(propertySource));
+			if(property      ==null) throw new ArgumentNullException(nameof(property));
 
-			m_PropertySource=new WeakReference(propertySource);
+			_PropertySource=new WeakReference(propertySource);
 			var binding = new Binding {
 				Path   = property,
 				Mode   = System.Windows.Data.BindingMode.OneWay,
@@ -81,7 +81,7 @@ namespace KsWare.Presentation {
 				try {
 					// note, it is possible that accessing the target property will result in an exception 
 					// so we have wrapped this check in a try catch
-					return m_PropertySource.IsAlive?m_PropertySource.Target as DependencyObject:null;
+					return _PropertySource.IsAlive?_PropertySource.Target as DependencyObject:null;
 				} catch {
 					return null;
 				}

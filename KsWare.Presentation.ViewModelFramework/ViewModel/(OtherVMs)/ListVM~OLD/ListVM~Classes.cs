@@ -57,8 +57,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	public class ListViewModelMetadata:ViewModelMetadata,IListViewModelMetadata {
 
-		private INewItemProvider m_NewItemProvider;
-		private IExternalListControllerProvider m_ExternalControlProvider;
+		private INewItemProvider _NewItemProvider;
+		private IExternalListControllerProvider _ExternalControlProvider;
 
 		/// <summary> Gets or sets the ExternalControlProvider.
 		/// </summary>
@@ -67,11 +67,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// The ExternalControlProvider allows to change the logic of this ListVM w/o to write a new ListVM.
 		/// </remarks>
 		public IExternalListControllerProvider ExternalControlProvider {
-			get {return m_ExternalControlProvider;}
+			get {return _ExternalControlProvider;}
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_ExternalControlProvider==null,null,this,"ExternalControlProvider","{91AD3CA1-DDE5-47A4-A441-D19CD62CA690}");
-				m_ExternalControlProvider = value;
-				m_ExternalControlProvider.Parent = this;
+				MemberAccessUtil.DemandWriteOnce(_ExternalControlProvider==null,null,this,"ExternalControlProvider","{91AD3CA1-DDE5-47A4-A441-D19CD62CA690}");
+				_ExternalControlProvider = value;
+				_ExternalControlProvider.Parent = this;
 			}
 		}
 
@@ -102,16 +102,16 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		public INewItemProvider NewItemProvider {
 			get {
-				if(m_NewItemProvider==null) {
-					m_NewItemProvider = CreateDefaultNewItemProvider();
-					m_NewItemProvider.Parent = this;
+				if(_NewItemProvider==null) {
+					_NewItemProvider = CreateDefaultNewItemProvider();
+					_NewItemProvider.Parent = this;
 				}
-				return m_NewItemProvider;
+				return _NewItemProvider;
 			}
 			set {
 				DemandPropertySet();
-				m_NewItemProvider = value;
-				m_NewItemProvider.Parent = this;
+				_NewItemProvider = value;
+				_NewItemProvider.Parent = this;
 			}
 		}
 
@@ -138,8 +138,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class ListMetadataAttribute : MetadataAttribute {
 
-		private Type m_NewItemProvider;
-		private Type m_ExternalControlProvider;
+		private Type _NewItemProvider;
+		private Type _ExternalControlProvider;
 
 		/// <summary> Gets or sets the type of external control provider. 
 		/// The external control provider must implement <see cref="IExternalListControllerProvider"/>
@@ -147,10 +147,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of external control provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IExternalListControllerProvider"/>!</exception>
 		public Type ExternalControlProvider {
-			get { return m_ExternalControlProvider; }
+			get { return _ExternalControlProvider; }
 			set {
 				if (!typeof (IExternalListControllerProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IExternalListControllerProvider!");
-				m_ExternalControlProvider = value;
+				_ExternalControlProvider = value;
 			}
 		}
 
@@ -160,10 +160,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of new item provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="INewItemProvider"/>!</exception>
 		public Type NewItemProvider {
-			get { return m_NewItemProvider; }
+			get { return _NewItemProvider; }
 			set {
 				if (!typeof (INewItemProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement INewItemProvider!");
-				m_NewItemProvider = value;
+				_NewItemProvider = value;
 			}
 		}
 

@@ -19,34 +19,34 @@ namespace KsWare.Presentation.DataVirtualization {
 		private static readonly PropertyChangedEventArgs CurrentItemChanged          = new PropertyChangedEventArgs("CurrentItem");
 // ReSharper restore StaticFieldInGenericType
 		
-		private readonly VirtualList<T> m_SourceCollection;
-		private readonly Func<int, SortDescriptionCollection, Predicate<object>, T[], int> Load;
-		private int m_DeferRefreshCount;
-		private bool m_NeedsRefresh;
-		private CultureInfo m_CultureInfo;
-		private int m_CurrentPosition;
-		private DataRefBase<T> m_CurrentItem;
-		private bool m_IsCurrentAfterLast;
-		private bool m_IsCurrentBeforeFirst;
-		private Predicate<object> m_Filter;
-		private SortDescriptionCollection m_SortDescriptionCollection;
+		private readonly VirtualList<T> _sourceCollection;
+		private readonly Func<int, SortDescriptionCollection, Predicate<object>, T[], int> _loadFunc;
+		private int _deferRefreshCount;
+		private bool _needsRefresh;
+		private CultureInfo _cultureInfo;
+		private int _currentPosition;
+		private DataRefBase<T> _currentItem;
+		private bool _isCurrentAfterLast;
+		private bool _isCurrentBeforeFirst;
+		private Predicate<object> _filter;
+		private SortDescriptionCollection _sortDescriptionCollection;
 
 		public VirtualListCollectionView(VirtualList<T> list)
 			: base(list.Cache.NumCacheBlocks, list.Cache.NumItemsPerCacheBlock) 
 		{
-			Load = list.Load;
-			m_SourceCollection = list;
+			_loadFunc = list.Load;
+			_sourceCollection = list;
 
 			
-			m_SourceCollection.CollectionChanged += AtSourceCollectionChanged; //EXPERIMENTAL "Add" Support
+			_sourceCollection.CollectionChanged += AtSourceCollectionChanged; //EXPERIMENTAL "Add" Support
 
 			// initialize current item and markers
-			if (list.Count == 0) m_IsCurrentAfterLast = m_IsCurrentBeforeFirst = true;
+			if (list.Count == 0) _isCurrentAfterLast = _isCurrentBeforeFirst = true;
 			else {
-				m_CurrentPosition = 0;
-				m_CurrentItem = list[0];
+				_currentPosition = 0;
+				_currentItem = list[0];
 			}
-			m_NeedsRefresh = true;
+			_needsRefresh = true;
 		}
 
 		#region EXPERIMENTAL "Add" Support
@@ -54,13 +54,13 @@ namespace KsWare.Presentation.DataVirtualization {
 		private void AtSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
 			switch (e.Action) {
 				case NotifyCollectionChangedAction.Add:
-//					var data = m_SourceCollection[m_SourceCollection.Count - 1].Data;
+//					var data = _SourceCollection[m_SourceCollection.Count - 1].Data;
 					var data = ((CachedDataRef) e.NewItems[0]).Data;
 					if (PassesFilter(data)) {
-						var unfilteredIndex= m_SourceCollection.Count-1; // Count is Count after add item in source collection
+						var unfilteredIndex= _sourceCollection.Count-1; // Count is Count after add item in source collection
 						var filteredIndex = Count;// Count is Count before add item in this view
 						if (filteredIndex%Cache.NumItemsPerCacheBlock == 0) {
-							m_FilterMap.Add(filteredIndex, unfilteredIndex);
+							_FilterMap.Add(filteredIndex, unfilteredIndex);
 						}
 						Cache.NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,data));
 						RefreshForAdd();
@@ -79,9 +79,9 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		#endregion
 
-//		protected override int InternalLoad(T[] data, int startIndex) {return Load(m_SortDescriptionCollection, m_Filter, data, startIndex);}
+//		protected override int InternalLoad(T[] data, int startIndex) {return Load(_SortDescriptionCollection, _Filter, data, startIndex);}
 
-		private Dictionary<int,int> m_FilterMap;
+		private Dictionary<int,int> _FilterMap;
 
 		protected override int InternalLoad(int startIndex, T[] data) {
 
@@ -89,24 +89,24 @@ namespace KsWare.Presentation.DataVirtualization {
 
 			#region create filter index
 
-			if (m_FilterMap == null /*reset requiered*/) {
-				if (m_Filter != null) {
+			if (_FilterMap == null /*reset requiered*/) {
+				if (_filter != null) {
 					count = 0; // will be increased for each filter match
-					m_FilterMap = new Dictionary<int, int>();
-					var unfilteredCount = m_SourceCollection.Count;
+					_FilterMap = new Dictionary<int, int>();
+					var unfilteredCount = _sourceCollection.Count;
 					int iFiltered = -1;
 
 					for (int i = 0; i < unfilteredCount; i++) {
-						var p = m_SourceCollection[i].Data;
-						if (m_Filter.Invoke(p)) {
+						var p = _sourceCollection[i].Data;
+						if (_filter.Invoke(p)) {
 							iFiltered++;
 							count++;
-							if (iFiltered%Cache.NumItemsPerCacheBlock == 0) { m_FilterMap.Add(iFiltered, i); }
+							if (iFiltered%Cache.NumItemsPerCacheBlock == 0) { _FilterMap.Add(iFiltered, i); }
 						}
 					}
 				} else /*no filter*/ {
-					count = Load(startIndex, m_SortDescriptionCollection, null, data);
-					m_FilterMap = new Dictionary<int, int>(); // let the map empty, we don't need this
+					count = _loadFunc(startIndex, _sortDescriptionCollection, null, data);
+					_FilterMap = new Dictionary<int, int>(); // let the map empty, we don't need this
 				}
 			} else {
 				count = Cache.Count; 
@@ -114,21 +114,21 @@ namespace KsWare.Presentation.DataVirtualization {
 
 			#endregion
 
-			if (m_Filter != null) {
+			if (_filter != null) {
 				int unfilteredStartIndex;
-				if (!m_FilterMap.TryGetValue(startIndex, out unfilteredStartIndex)) {
+				if (!_FilterMap.TryGetValue(startIndex, out unfilteredStartIndex)) {
 					return count; // TODO check this
 				}
-				var unfilteredCount = m_SourceCollection.Count;
+				var unfilteredCount = _sourceCollection.Count;
 
 				for (int i = 0, iUnfiltered = unfilteredStartIndex; iUnfiltered < unfilteredCount && i < Cache.NumItemsPerCacheBlock; ++iUnfiltered) {
 					if (iUnfiltered == unfilteredStartIndex) {
-						var item = m_SourceCollection[iUnfiltered].Data; /*DEBUG*/ if (item == null) { Debug.WriteLine("returning null!");} 
+						var item = _sourceCollection[iUnfiltered].Data; /*DEBUG*/ if (item == null) { Debug.WriteLine("returning null!");} 
 						data[i] = item;
 						i++;
 					} else {
-						var item = m_SourceCollection[iUnfiltered].Data; /*DEBUG*/ if (item == null) { Debug.WriteLine("returning null!");} 
-						if (m_Filter.Invoke(item)) {
+						var item = _sourceCollection[iUnfiltered].Data; /*DEBUG*/ if (item == null) { Debug.WriteLine("returning null!");} 
+						if (_filter.Invoke(item)) {
 							data[i] = item;
 							i++;
 						}
@@ -136,20 +136,20 @@ namespace KsWare.Presentation.DataVirtualization {
 				}
 				return count;
 			} else /*no filter*/ {
-				return Load(startIndex, m_SortDescriptionCollection, null, data);
+				return _loadFunc(startIndex, _sortDescriptionCollection, null, data);
 			}
 		}
 
-		private bool IsRefreshDeferred { get { return m_DeferRefreshCount > 0; } }
+		private bool IsRefreshDeferred { get { return _deferRefreshCount > 0; } }
 
 		private void ThrowIfDeferred() { if (IsRefreshDeferred) throw new Exception("Can't do this while I'm deferred"); }
 
 		private void RefreshOrDefer() {
-			if (IsRefreshDeferred) m_NeedsRefresh = true;
+			if (IsRefreshDeferred) _needsRefresh = true;
 			else Refresh();
 		}
 
-		private void EndDeferRefresh() { if (0 == --m_DeferRefreshCount && m_NeedsRefresh) Refresh(); }
+		private void EndDeferRefresh() { if (0 == --_deferRefreshCount && _needsRefresh) Refresh(); }
 
 		private bool IsCurrentInView {
 			get {
@@ -163,16 +163,16 @@ namespace KsWare.Presentation.DataVirtualization {
 		private void SortDescriptionsChanged(object sender, NotifyCollectionChangedEventArgs e) { RefreshOrDefer(); }
 
 		private void SetCurrent(DataRefBase<T> newItem, int newPosition, int count) {
-			if (newItem != null) m_IsCurrentBeforeFirst = m_IsCurrentAfterLast = false;
+			if (newItem != null) _isCurrentBeforeFirst = _isCurrentAfterLast = false;
 			else if (count == 0) {
-				m_IsCurrentBeforeFirst = m_IsCurrentAfterLast = true;
+				_isCurrentBeforeFirst = _isCurrentAfterLast = true;
 				newPosition = -1;
 			} else {
-				m_IsCurrentBeforeFirst = newPosition < 0;
-				m_IsCurrentAfterLast = newPosition >= count;
+				_isCurrentBeforeFirst = newPosition < 0;
+				_isCurrentAfterLast = newPosition >= count;
 			}
-			m_CurrentItem = newItem;
-			m_CurrentPosition = newPosition;
+			_currentItem = newItem;
+			_currentPosition = newPosition;
 		}
 
 		private void SetCurrent(DataRefBase<T> newItem, int newPosition) {
@@ -200,11 +200,11 @@ namespace KsWare.Presentation.DataVirtualization {
 		public bool CanSort { get { return true; } }
 
 		public CultureInfo Culture {
-			get { return m_CultureInfo; }
+			get { return _cultureInfo; }
 			set {
-				if (value == null) throw new ArgumentNullException("value");
-				if (m_CultureInfo != value) {
-					m_CultureInfo = value;
+				if (value == null) throw new ArgumentNullException(nameof(value));
+				if (_cultureInfo != value) {
+					_cultureInfo = value;
 					OnPropertyChanged(CulturePropertyChanged);
 				}
 			}
@@ -217,27 +217,27 @@ namespace KsWare.Presentation.DataVirtualization {
 		public object CurrentItem {
 			get {
 				ThrowIfDeferred();
-				return m_CurrentItem;
+				return _currentItem;
 			}
 		}
 
 		public int CurrentPosition {
 			get {
 				ThrowIfDeferred();
-				return m_CurrentPosition;
+				return _currentPosition;
 			}
 		}
 
 		public IDisposable DeferRefresh() {
-			++m_DeferRefreshCount;
+			++_deferRefreshCount;
 			return new RefreshDeferrer(this);
 		}
 
 		public Predicate<object> Filter {
-			get { return m_Filter; }
+			get { return _filter; }
 			set {
 				if (!CanFilter) throw new NotSupportedException("Filter not supported");
-				m_Filter = value;
+				_filter = value;
 				RefreshOrDefer();
 			}
 		}
@@ -249,14 +249,14 @@ namespace KsWare.Presentation.DataVirtualization {
 		public bool IsCurrentAfterLast {
 			get {
 				ThrowIfDeferred();
-				return m_IsCurrentAfterLast;
+				return _isCurrentAfterLast;
 			}
 		}
 
 		public bool IsCurrentBeforeFirst {
 			get {
 				ThrowIfDeferred();
-				return m_IsCurrentBeforeFirst;
+				return _isCurrentBeforeFirst;
 			}
 		}
 
@@ -288,23 +288,23 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		public bool MoveCurrentToPosition(int position) {
 			ThrowIfDeferred();
-			if (position < -1 || position > Count) throw new ArgumentOutOfRangeException("position");
+			if (position < -1 || position > Count) throw new ArgumentOutOfRangeException(nameof(position));
 			if (position != CurrentPosition && OnCurrentChanging()) {
-				bool isCurrentBeforeFirst = m_IsCurrentBeforeFirst;
-				bool isCurrentAfterLast = m_IsCurrentAfterLast;
+				bool isCurrentBeforeFirst = _isCurrentBeforeFirst;
+				bool isCurrentAfterLast = _isCurrentAfterLast;
 				if (position < 0) {
-					m_IsCurrentBeforeFirst = true;
+					_isCurrentBeforeFirst = true;
 					SetCurrent(null, -1);
 				} else if (position >= Count) {
-					m_IsCurrentAfterLast = true;
+					_isCurrentAfterLast = true;
 					SetCurrent(null, Count);
 				} else {
-					m_IsCurrentBeforeFirst = m_IsCurrentAfterLast = false;
+					_isCurrentBeforeFirst = _isCurrentAfterLast = false;
 					SetCurrent(this[position], position);
 				}
 				OnCurrentChanged();
-				if (isCurrentBeforeFirst != m_IsCurrentBeforeFirst) OnPropertyChanged(IsCurrentBeforeFirstChanged);
-				if (isCurrentAfterLast != m_IsCurrentAfterLast) OnPropertyChanged(IsCurrentAfterLastChanged);
+				if (isCurrentBeforeFirst != _isCurrentBeforeFirst) OnPropertyChanged(IsCurrentBeforeFirstChanged);
+				if (isCurrentAfterLast != _isCurrentAfterLast) OnPropertyChanged(IsCurrentAfterLastChanged);
 				OnPropertyChanged(CurrentPositionChanged);
 				OnPropertyChanged(CurrentItemChanged);
 			}
@@ -318,15 +318,15 @@ namespace KsWare.Presentation.DataVirtualization {
 		}
 
 		protected override void ClearCache() {
-			m_FilterMap = null;
+			_FilterMap = null;
 			base.ClearCache();
 		}
 
 		public void Refresh() {
 			var currentItem           = (DataRefBase<T>) CurrentItem;
 			int currentPosition       = IsEmpty ? -1 : CurrentPosition;
-			bool isCurrentBeforeFirst = m_IsCurrentBeforeFirst;
-			bool isCurrentAfterLast   = m_IsCurrentAfterLast;
+			bool isCurrentBeforeFirst = _isCurrentBeforeFirst;
+			bool isCurrentAfterLast   = _isCurrentAfterLast;
 			OnCurrentChanging();
 			ClearCache(); // raises a CollectionChanged! 
 			if (isCurrentBeforeFirst || IsEmpty) {
@@ -338,11 +338,11 @@ namespace KsWare.Presentation.DataVirtualization {
 				if (index < 0) SetCurrent(null, -1);
 				else SetCurrent(currentItem, index);
 			}
-			m_NeedsRefresh = false;
+			_needsRefresh = false;
 			OnCollectionReset();
 			OnCurrentChanged();
-			if (isCurrentBeforeFirst != m_IsCurrentBeforeFirst) OnPropertyChanged(IsCurrentBeforeFirstChanged);
-			if (isCurrentAfterLast   != m_IsCurrentAfterLast  ) OnPropertyChanged(IsCurrentAfterLastChanged);
+			if (isCurrentBeforeFirst != _isCurrentBeforeFirst) OnPropertyChanged(IsCurrentBeforeFirstChanged);
+			if (isCurrentAfterLast   != _isCurrentAfterLast  ) OnPropertyChanged(IsCurrentAfterLastChanged);
 			if (currentPosition      != CurrentPosition       ) OnPropertyChanged(CurrentPositionChanged);
 			if (currentItem          != CurrentItem           ) OnPropertyChanged(CurrentItemChanged);
 		}
@@ -350,8 +350,8 @@ namespace KsWare.Presentation.DataVirtualization {
 		public void RefreshForAdd() {//EXPERIMENTAL for "Add" support
 			var currentItem           = (DataRefBase<T>) CurrentItem;
 			int currentPosition       = IsEmpty ? -1 : CurrentPosition;
-			bool isCurrentBeforeFirst = m_IsCurrentBeforeFirst;
-			bool isCurrentAfterLast   = m_IsCurrentAfterLast;
+			bool isCurrentBeforeFirst = _isCurrentBeforeFirst;
+			bool isCurrentAfterLast   = _isCurrentAfterLast;
 			OnCurrentChanging();
 
 			// clears the cache, set count to undefined and raises a CollectionChanged! 
@@ -367,42 +367,42 @@ namespace KsWare.Presentation.DataVirtualization {
 				if (index < 0) SetCurrent(null, -1);
 				else SetCurrent(currentItem, index);
 			}
-			m_NeedsRefresh = false;
+			_needsRefresh = false;
 			OnCollectionReset();
 			OnCurrentChanged();
-			if (isCurrentBeforeFirst != m_IsCurrentBeforeFirst) OnPropertyChanged(IsCurrentBeforeFirstChanged);
-			if (isCurrentAfterLast   != m_IsCurrentAfterLast  ) OnPropertyChanged(IsCurrentAfterLastChanged);
+			if (isCurrentBeforeFirst != _isCurrentBeforeFirst) OnPropertyChanged(IsCurrentBeforeFirstChanged);
+			if (isCurrentAfterLast   != _isCurrentAfterLast  ) OnPropertyChanged(IsCurrentAfterLastChanged);
 			if (currentPosition      != CurrentPosition       ) OnPropertyChanged(CurrentPositionChanged);
 			if (currentItem          != CurrentItem           ) OnPropertyChanged(CurrentItemChanged);
 		}
 
 		public SortDescriptionCollection SortDescriptions {
 			get {
-				if (m_SortDescriptionCollection == null) {
-					m_SortDescriptionCollection = new SortDescriptionCollection();
-					((INotifyCollectionChanged) m_SortDescriptionCollection).CollectionChanged += SortDescriptionsChanged;
+				if (_sortDescriptionCollection == null) {
+					_sortDescriptionCollection = new SortDescriptionCollection();
+					((INotifyCollectionChanged) _sortDescriptionCollection).CollectionChanged += SortDescriptionsChanged;
 				}
-				return m_SortDescriptionCollection;
+				return _sortDescriptionCollection;
 			}
 		}
 
 
-		public IEnumerable SourceCollection { get { return m_SourceCollection; } }
+		public IEnumerable SourceCollection { get { return _sourceCollection; } }
 
 		#endregion
 
 		private class RefreshDeferrer : IDisposable {
 
-			private VirtualListCollectionView<T> m_List;
+			private VirtualListCollectionView<T> _list;
 
-			public RefreshDeferrer(VirtualListCollectionView<T> list) { m_List = list; }
+			public RefreshDeferrer(VirtualListCollectionView<T> list) { _list = list; }
 
 			#region IDisposable Members
 
 			public void Dispose() {
-				if (m_List != null) {
-					m_List.EndDeferRefresh();
-					m_List = null;
+				if (_list != null) {
+					_list.EndDeferRefresh();
+					_list = null;
 				}
 			}
 

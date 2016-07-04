@@ -46,19 +46,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected static readonly Dictionary<Type,List<string>> PropertyNameCache=new Dictionary<Type, List<string>>(); 
 
-		private TData m_Data;
+		private TData _data;
 
 		public SlimDataVM() {}
-		public SlimDataVM(TData data) { m_Data = data; }
+		public SlimDataVM(TData data) { _data = data; }
 
 		public TData Data {
-			get { return m_Data; }
+			get { return _data; }
 			set {
-				if(Equals(m_Data,value)) return;
-				var prev = m_Data;
-				m_Data = value;
-				OnDataChanged(prev, m_Data);
-				OnPropertyChanged("Data");
+				if(Equals(_data,value)) return;
+				var prev = _data;
+				_data = value;
+				OnDataChanged(prev, _data);
+				OnPropertyChanged(nameof(Data));
 			}
 		}
 

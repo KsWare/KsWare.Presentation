@@ -309,11 +309,11 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		#region Behavior Implementation
 
-		private IntPtr m_Hwnd;
-		private HwndSource m_HwndSource;
-		private DependencyPropertyChangeNotifier m_WindowStatePropertyChangeNotifier;
-		private Thickness m_BorderThickness;
-		private int m_IgnoreWindowStateChanged;
+		private IntPtr _hwnd;
+		private HwndSource _hwndSource;
+		private DependencyPropertyChangeNotifier _windowStatePropertyChangeNotifier;
+		private Thickness _borderThickness;
+		private int _ignoreWindowStateChanged;
 
 		/// <summary>
 		///     Called after the behavior is attached to an AssociatedObject.
@@ -340,9 +340,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		protected override void OnDetaching() {
 			RemoveHwndHook();
 			AssociatedObject.Loaded-=AssociatedObjectLoaded;
-			if(m_WindowStatePropertyChangeNotifier!=null) {
-				m_WindowStatePropertyChangeNotifier.Dispose();
-				m_WindowStatePropertyChangeNotifier=null;
+			if(_windowStatePropertyChangeNotifier!=null) {
+				_windowStatePropertyChangeNotifier.Dispose();
+				_windowStatePropertyChangeNotifier=null;
 			}
 			base.OnDetaching();
 		}
@@ -351,16 +351,16 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     Adds the HWND hook.
 		/// </summary>
 		private void AddHwndHook() {
-			m_HwndSource=(HwndSource)PresentationSource.FromVisual(AssociatedObject);
-			m_HwndSource.AddHook(HwndHook);
-			m_Hwnd=new WindowInteropHelper(AssociatedObject).Handle;
+			_hwndSource=(HwndSource)PresentationSource.FromVisual(AssociatedObject);
+			_hwndSource.AddHook(HwndHook);
+			_hwnd=new WindowInteropHelper(AssociatedObject).Handle;
 		}
 
 		/// <summary> Removes the HWND hook.
 		/// </summary>
 		private void RemoveHwndHook() {
 			AssociatedObject.SourceInitialized-=AtAssociatedObjectSourceInitialized;
-			m_HwndSource.RemoveHook(HwndHook);
+			_hwndSource.RemoveHook(HwndHook);
 		}
 
 		/// <summary> Handles the SourceInitialized event of the AssociatedObject control.
@@ -398,7 +398,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 					// Works for Windows Vista and higher
 					if(Environment.OSVersion.Version.Major>=6) {
 						var m=new MARGINS {cxBottomHeight=1, cxLeftWidth=1, cxRightWidth=1, cxTopHeight=1};
-						NativeFunctions.DwmExtendFrameIntoClientArea(m_Hwnd, ref m);
+						NativeFunctions.DwmExtendFrameIntoClientArea(_hwnd, ref m);
 					}
 					handled=true;
 					break;
@@ -609,11 +609,11 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 			var border=Border??FindName(BorderName) as Border;
 			if(border!=null)
-				m_BorderThickness=border.BorderThickness;
+				_borderThickness=border.BorderThickness;
 
 			if(maximizeButton!=null&&restoreButton!=null) {
-				m_WindowStatePropertyChangeNotifier=new DependencyPropertyChangeNotifier(AssociatedObject, Window.WindowStateProperty);
-				m_WindowStatePropertyChangeNotifier.ValueChanged+=AtWindowStateChanged;
+				_windowStatePropertyChangeNotifier=new DependencyPropertyChangeNotifier(AssociatedObject, Window.WindowStateProperty);
+				_windowStatePropertyChangeNotifier.ValueChanged+=AtWindowStateChanged;
 
 				maximizeButton.Visibility=AssociatedObject.WindowState==WindowState.Maximized ? Visibility.Collapsed : Visibility.Visible;
 				restoreButton .Visibility=AssociatedObject.WindowState==WindowState.Maximized ? Visibility.Visible : Visibility.Collapsed;
@@ -623,7 +623,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		[SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
 		private void AtWindowStateChanged(object sender, EventArgs e) {
 
-			if(m_IgnoreWindowStateChanged==0&&AssociatedObject.WindowState!=WindowState.Maximized && IsFullscreen) {
+			if(_ignoreWindowStateChanged==0&&AssociatedObject.WindowState!=WindowState.Maximized && IsFullscreen) {
 				IsFullscreen = false;
 			}
 
@@ -659,7 +659,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			if(titleBar!=null && !NoCollapseTitleBar)
 				titleBar.Visibility = IsFullscreen ? Visibility.Collapsed : Visibility.Visible;
 			if(border!=null)
-				border.BorderThickness = AssociatedObject.WindowState==WindowState.Maximized ? new Thickness(0) : m_BorderThickness;
+				border.BorderThickness = AssociatedObject.WindowState==WindowState.Maximized ? new Thickness(0) : _borderThickness;
 
 			
 		}
@@ -676,9 +676,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			AssociatedObject.Topmost = IsFullscreen;
 			if (IsFullscreen) {
 				if(AssociatedObject.WindowState==WindowState.Maximized) {
-					m_IgnoreWindowStateChanged++;
+					_ignoreWindowStateChanged++;
 					AssociatedObject.WindowState=WindowState.Normal;
-					m_IgnoreWindowStateChanged--;
+					_ignoreWindowStateChanged--;
 				}
 				AssociatedObject.WindowState = WindowState.Maximized;
 			} else {

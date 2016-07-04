@@ -74,8 +74,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public abstract class ActionProvider:ViewModelProvider,IActionProvider {
 
-		private bool? m_UseAsync;
-		private Lazy<SimpleObservable<bool>> m_LazyCanExecuteObservable=new Lazy<SimpleObservable<bool>>(() => new SimpleObservable<bool>());
+		private bool? _useAsync;
+		private Lazy<SimpleObservable<bool>> _lazyCanExecuteObservable=new Lazy<SimpleObservable<bool>>(() => new SimpleObservable<bool>());
 
 		protected ActionProvider() {
 			
@@ -97,7 +97,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler CanExecuteChanged;
 
-		public IObservable<bool> CanExecuteObservable { get { return m_LazyCanExecuteObservable.Value; }} 
+		public IObservable<bool> CanExecuteObservable { get { return _lazyCanExecuteObservable.Value; }} 
 
 		public void NotifyCanExecuteChanged() {OnCanExecuteChanged();}
 
@@ -106,15 +106,15 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		protected void OnCanExecuteChanged() { 
 			//if(canExecute!=CanExecute) OnPropertyChanged("CanExecute");
 			EventUtil.Raise(CanExecuteChanged,this, EventArgs.Empty,"{5992B5C0-13B1-4921-8176-E0EA4B005C1B}");
-			if(m_LazyCanExecuteObservable.IsValueCreated) m_LazyCanExecuteObservable.Value.Raise(CanExecute);
+			if(_lazyCanExecuteObservable.IsValueCreated) _lazyCanExecuteObservable.Value.Raise(CanExecute);
 		}
 
 		[Bindable(false)]
 		public bool Async {
-			get { return m_UseAsync==true; }
+			get { return _useAsync==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_UseAsync==null,null,this,"Async","{50EA3CCF-2609-44F9-B023-1E450350E774}");
-				m_UseAsync = value;
+				MemberAccessUtil.DemandWriteOnce(_useAsync==null,null,this,nameof(Async),"{50EA3CCF-2609-44F9-B023-1E450350E774}");
+				_useAsync = value;
 			}
 		}
 
@@ -141,7 +141,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		protected void OnExecute(object parameter) { 
 			if(ExecutedCallback==null) return;
 			
-			if(m_UseAsync!=true) { 
+			if(_useAsync!=true) { 
 				//Blocking ExecutedCallback
 				OnBeforeExecute();
 				TryAndCatchExecute(parameter);

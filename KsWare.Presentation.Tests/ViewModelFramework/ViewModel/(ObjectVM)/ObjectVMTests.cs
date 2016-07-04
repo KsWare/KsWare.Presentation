@@ -156,8 +156,8 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		private class TextChildVM:IObjectVM,IHierarchical<IObjectVM> {
 
-			private readonly List<IObjectVM> m_Children=new List<IObjectVM>();
-			private PropertyChangedEventHandler m_NotifyPropertyChangedPropertyChanged;
+			private readonly List<IObjectVM> _Children=new List<IObjectVM>();
+			private PropertyChangedEventHandler _notifyPropertyChangedPropertyChanged;
 
 			public TextChildVM() {
 
@@ -174,7 +174,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			public event EventHandler Disposed;
 
 			
-			event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{m_NotifyPropertyChangedPropertyChanged+=value;}remove {m_NotifyPropertyChangedPropertyChanged-=value;}}
+			event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{_notifyPropertyChangedPropertyChanged+=value;}remove {_notifyPropertyChangedPropertyChanged-=value;}}
 			public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent { get; private set; }
 			public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent { get; private set; }
 			public bool IsEnabled { get; private set; }
@@ -213,7 +213,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			IObjectVM IHierarchical<IObjectVM>.Parent { get { return Parent; } set { Parent = value; } }
 
-			public ICollection<IObjectVM> Children {get {return this.m_Children;}}
+			public ICollection<IObjectVM> Children {get {return this._Children;}}
 
 			public string MemberPath {
 				get {

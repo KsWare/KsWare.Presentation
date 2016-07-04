@@ -14,8 +14,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	public class MultiPropertyErrorProvider : ErrorProvider,IDataErrorInfo {
 
 //		IList<ValidationFailure> validationErrors;
-		private Lazy<Dictionary<string, List<ValidationRule>>> m_ValidationRules=new Lazy<Dictionary<string, List<ValidationRule>>>(() => new Dictionary<string, List<ValidationRule>>()); 
-		private List<ValidationResult> m_ValidationResults;
+		private Lazy<Dictionary<string, List<ValidationRule>>> _validationRules=new Lazy<Dictionary<string, List<ValidationRule>>>(() => new Dictionary<string, List<ValidationRule>>()); 
+		private List<ValidationResult> _validationResults;
 
 		public void Add<TRet>(Expression<Func<object,TRet>> propertyExpression, ValidationRule rule) {
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
@@ -28,10 +28,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		public void Add(string propertyName, ValidationRule rule) {
-			if (!m_ValidationRules.Value.ContainsKey(propertyName)) {
-				m_ValidationRules.Value.Add(propertyName,new List<ValidationRule>());
+			if (!_validationRules.Value.ContainsKey(propertyName)) {
+				_validationRules.Value.Add(propertyName,new List<ValidationRule>());
 			}
-			var validationRules = m_ValidationRules.Value[propertyName];
+			var validationRules = _validationRules.Value[propertyName];
 			validationRules.Add(rule);
 		}
 
@@ -46,11 +46,11 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 //                    ? string.Join(Environment.NewLine, (from error in this.ValidationErrors where error.PropertyName == propertyName select error.ErrorMessage).ToArray())
 //                        : null;
 
-				if (!m_ValidationRules.IsValueCreated) return "";
-				if (!m_ValidationRules.Value.ContainsKey(propertyName)) return "";
+				if (!_validationRules.IsValueCreated) return "";
+				if (!_validationRules.Value.ContainsKey(propertyName)) return "";
 				var value=GetPropertyValue(propertyName);
 				var results=new List<ValidationResult>();
-				foreach (var validationRule in m_ValidationRules.Value[propertyName]) {
+				foreach (var validationRule in _validationRules.Value[propertyName]) {
 					var validationResult = validationRule.Validate(value, Thread.CurrentThread.CurrentUICulture);
 					results.Add(validationResult);
 				}

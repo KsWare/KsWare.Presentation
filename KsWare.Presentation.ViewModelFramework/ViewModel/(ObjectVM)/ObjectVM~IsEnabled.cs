@@ -42,17 +42,17 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// Multiple objections with same token does not increase the objection counter.
 		/// </remarks>
 		public bool SetEnabled(object token, bool value) {
-			lock (m_EnableObjections) {
-				bool oldIsEnabled = m_EnableObjections.Count==0;
+			lock (_enableObjections) {
+				bool oldIsEnabled = _enableObjections.Count==0;
 				if (value==false) {
-					if(!m_EnableObjections.Contains(token)) // ADDED [xgksc 2013-01-24] to prevent multiple objection with same token
-						m_EnableObjections.Add(token);
+					if(!_enableObjections.Contains(token)) // ADDED [xgksc 2013-01-24] to prevent multiple objection with same token
+						_enableObjections.Add(token);
 				} else {
 					//FIX: System.ArgumentOutOfRangeException in List<>.Remove(o) (ObjectVM.SetEnabled)
-					var idx = m_EnableObjections.IndexOf(token);
-					if(idx>=0) m_EnableObjections.RemoveAt(idx);
+					var idx = _enableObjections.IndexOf(token);
+					if(idx>=0) _enableObjections.RemoveAt(idx);
 				}
-				bool newIsEnabled = m_EnableObjections.Count==0;
+				bool newIsEnabled = _enableObjections.Count==0;
 				if(oldIsEnabled!=newIsEnabled) {
 					IsEnabled = newIsEnabled;
 					OnPropertyChanged("IsEnabled");

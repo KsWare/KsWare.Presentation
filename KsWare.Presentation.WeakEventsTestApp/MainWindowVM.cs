@@ -7,11 +7,11 @@ namespace KsWare.Presentation.WeakEventsTestApp {
 
 	public class MainWindowVM:WindowVM {
 
-		static MainWindowVM s_Instance;
-		private TestViewModel1VM m_TestViewModel;
-		private WeakReference m_WeakTestViewModel;
+		static MainWindowVM s_instance;
+		private TestViewModel1VM _testViewModel;
+		private WeakReference _weakTestViewModel;
 
-		public static MainWindowVM Instance {get { return s_Instance ?? (s_Instance = new MainWindowVM()); } }
+		public static MainWindowVM Instance {get { return s_instance ?? (s_instance = new MainWindowVM()); } }
 
 		public MainWindowVM() {
 
@@ -24,17 +24,17 @@ namespace KsWare.Presentation.WeakEventsTestApp {
 			RegisterChildren(_=>this);
 
 			CreateAction.MːDoAction = () => {
-				m_WeakTestViewModel=new WeakReference(m_TestViewModel = new TestViewModel1VM());
-//				DoForget=m_TestViewModel.IsSelectedChangedEvent;
-				m_TestViewModel.IsSelectedChangedEvent.Register(null, "AtIsSelectedChanged",AtIsSelectedChangedEvent);
+				_weakTestViewModel=new WeakReference(_testViewModel = new TestViewModel1VM());
+//				DoForget=_TestViewModel.IsSelectedChangedEvent;
+				_testViewModel.IsSelectedChangedEvent.Register(null, "AtIsSelectedChanged",AtIsSelectedChangedEvent);
 			};
 			DeleteAction.MːDoAction = () => {
-//				m_TestViewModel.IsSelectedChangedEvent.Release(this,"AtIsSelectedChanged");
-//				m_TestViewModel.Dispose();
-				m_TestViewModel = null; 
+//				_TestViewModel.IsSelectedChangedEvent.Release(this,"AtIsSelectedChanged");
+//				_TestViewModel.Dispose();
+				_testViewModel = null; 
 				GC.Collect(); 
 				EventManager.Collect();
-				if(m_WeakTestViewModel.IsAlive) Debug.WriteLine("m_WeakTestViewModel.IsAlive");
+				if(_weakTestViewModel.IsAlive) Debug.WriteLine("m_WeakTestViewModel.IsAlive");
 			};
 		}
 

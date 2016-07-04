@@ -11,13 +11,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class SlimObjectVM: ISlimObjectVM {
 
-		private readonly Lazy<BackingFieldsStore> m_LazyFields;
+		private readonly Lazy<BackingFieldsStore> _LazyFields;
 
 		public SlimObjectVM() {
-			m_LazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
+			_LazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
 		}
 
-		public BackingFieldsStore Fields { get { return m_LazyFields.Value; } }
+		public BackingFieldsStore Fields { get { return _LazyFields.Value; } }
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {

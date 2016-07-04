@@ -10,8 +10,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		class StringExtension : Extension, IEditValueProviderStringExtension {
 
-			private string        m_String             ;
-			private bool          m_StringIsInitialized;
+			private string        _String             ;
+			private bool          _StringIsInitialized;
 
 			public StringExtension(EditValueProvider provider) : base(provider) {}
 
@@ -20,17 +20,17 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <value>The editable value.</value>
 			public string Value {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_StringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_StringIsInitialized = UpdateValue(false);
 					}
-					return m_String;
+					return _String;
 				}
 				set {
-					if (Equals(m_String, value)) return;
-					m_String = value; m_StringIsInitialized=true;
+					if (Equals(_String, value)) return;
+					_String = value; _StringIsInitialized=true;
 
-					OnPropertyChanged("Value");
+					OnPropertyChanged(nameof(Value));
 					UpdateSource();
 				}
 			}
@@ -43,7 +43,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 				object newValue;
 				try {
-					newValue = Provider.TypeConverter.ConvertTo(m_String, ViewModel.ValueType); //throws an exception if conversation failed
+					newValue = Provider.TypeConverter.ConvertTo(_String, ViewModel.ValueType); //throws an exception if conversation failed
 				} catch(Exception ex) {
 					((IErrorProviderController)ViewModel.Metadata.ErrorProvider).SetError(ex.Message); //TODO localize message
 					return;
@@ -77,9 +77,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 					newStringValue = (string)Provider.TypeConverter.ConvertFrom(ViewModel.Value);
 				}
 
-				if (Equals(newStringValue, m_String)) return false;
-				m_String = newStringValue;
-				if (raiseEvents) OnPropertyChanged("Value"); 
+				if (Equals(newStringValue, _String)) return false;
+				_String = newStringValue;
+				if (raiseEvents) OnPropertyChanged(nameof(Value)); 
 				return true;
 			}
 		}

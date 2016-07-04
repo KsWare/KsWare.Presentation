@@ -110,7 +110,7 @@ namespace KsWare.Presentation {
 		}
 
 		public static IDispatcher FromDispatcher([NotNull]Dispatcher dispatcher) {
-			if (dispatcher == null) throw new ArgumentNullException("dispatcher");
+			if (dispatcher == null) throw new ArgumentNullException(nameof(dispatcher));
 			IDispatcher wrapper;
 			if (s_Map.TryGetValue(dispatcher, out wrapper)) return wrapper;
 			wrapper = new DispatcherWrapper(dispatcher);
@@ -119,7 +119,7 @@ namespace KsWare.Presentation {
 		}
 
 		internal static ApplicationDispatcher GetApplicationDispatcher([NotNull]Dispatcher dispatcher) {
-			if (dispatcher == null) throw new ArgumentNullException("dispatcher");
+			if (dispatcher == null) throw new ArgumentNullException(nameof(dispatcher));
 			IDispatcher wrapper;
 			if (s_Map.TryGetValue(dispatcher, out wrapper)) {
 				if(wrapper is ApplicationDispatcher) return (ApplicationDispatcher) wrapper;
@@ -195,11 +195,12 @@ namespace KsWare.Presentation {
 
 		#endregion
 
-		private Dispatcher m_WrappedDispatcher;
+		private Dispatcher _wrappedDispatcher;
 
 		private const DispatcherPriority PriorityDefault = DispatcherPriority.Normal;
 		private const DispatcherPriority DefaultInvokePriority = DispatcherPriority.Send;
 
+	    // ReSharper disable once InconsistentNaming
 		private readonly TimeSpan TimeSpanMinusOne = TimeSpan.FromMilliseconds(-1.0);
 
 		/// <summary> Initializes a new instance of the <see cref="DispatcherWrapper"/> class.
@@ -207,23 +208,23 @@ namespace KsWare.Presentation {
 		/// <param name="dispatcher">The dispatcher.</param>
 		/// <exception cref="System.ArgumentNullException">dispatcher</exception>
 		public DispatcherWrapper([NotNull] Dispatcher dispatcher) {
-			if(dispatcher==null) throw new ArgumentNullException("dispatcher");
-			m_WrappedDispatcher = dispatcher;
+			if(dispatcher==null) throw new ArgumentNullException(nameof(dispatcher));
+			_wrappedDispatcher = dispatcher;
 		}
 
 		/// <summary> Gets direct access to the wrapped <see cref="Dispatcher"/>.
 		/// </summary>
 		/// <value>The deprecated dispatcher.</value>
 		[Obsolete("Deprecated")]
-		public Dispatcher DeprecatedDispatcher { get { return m_WrappedDispatcher; } private set { m_WrappedDispatcher = value; }}
+		public Dispatcher DeprecatedDispatcher { get { return _wrappedDispatcher; } private set { _wrappedDispatcher = value; }}
 
 		private DispatcherOperation LegacyBeginInvokeImpl(DispatcherPriority priority, Delegate method, object args,int numArgs) {
 //			Debug.WriteLine(string.Format("*   {0}\n==> BeginInvoke {1}",DebugUtil.FormatMethod(GetCallingMethod()),DebugUtil.FormatDelegate(method)));
 //			InvokeArgumentsCheck(method.Method, args); // OPTIONAL, usefull for debug
 			if(HasHook) HookInternal("BeginInvoke", method, ref priority);
-			if (numArgs==0) return m_WrappedDispatcher.BeginInvoke(priority,method);
-			if (numArgs==1) return m_WrappedDispatcher.BeginInvoke(priority,method,args);
-			                return m_WrappedDispatcher.BeginInvoke(method, priority,(object[])args);
+			if (numArgs==0) return _wrappedDispatcher.BeginInvoke(priority,method);
+			if (numArgs==1) return _wrappedDispatcher.BeginInvoke(priority,method,args);
+			                return _wrappedDispatcher.BeginInvoke(method, priority,(object[])args);
 		}
 
 
@@ -231,9 +232,9 @@ namespace KsWare.Presentation {
 //			Debug.WriteLine(string.Format("*   {0}\n==> BeginInvoke {1}",DebugUtil.FormatMethod(GetCallingMethod()),DebugUtil.FormatDelegate(method)));
 //			InvokeArgumentsCheck(method.Method, args); // OPTIONAL, usefull for debug
 			if(HasHook) HookInternal("Invoke", method, ref priority);
-			if (numArgs==0) return m_WrappedDispatcher.Invoke(priority,timeout,method);
-			if (numArgs==1) return m_WrappedDispatcher.Invoke(priority,timeout,method,args);
-			                return m_WrappedDispatcher.Invoke(method, priority,timeout,(object[])args);
+			if (numArgs==0) return _wrappedDispatcher.Invoke(priority,timeout,method);
+			if (numArgs==1) return _wrappedDispatcher.Invoke(priority,timeout,method,args);
+			                return _wrappedDispatcher.Invoke(method, priority,timeout,(object[])args);
 		}
 
 //		private void InvokeArgumentsCheck(MethodBase method, object args) {
@@ -267,7 +268,7 @@ namespace KsWare.Presentation {
 
 //		private object LegacyInvokeImpl(DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout, Delegate method, object args) {
 //			if(HasHook) HookInternal("Invoke", method, ref priority);
-//			return m_WrappedDispatcher.Invoke(priority, timeout, method, args);
+//			return _WrappedDispatcher.Invoke(priority, timeout, method, args);
 //		}
 
 		[Browsable(false),EditorBrowsable(EditorBrowsableState.Never)]
@@ -312,7 +313,7 @@ namespace KsWare.Presentation {
 //
 //		public object Invoke(Delegate callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout) {
 //			if(HasHook) HookInternal("Invoke", callback, ref priority);
-//			return m_WrappedDispatcher.Invoke(callback, priority, cancellationToken, timeout);
+//			return _WrappedDispatcher.Invoke(callback, priority, cancellationToken, timeout);
 //		}
 
 		public TResult Invoke<TResult>(Func<TResult> method) {return (TResult)LegacyInvokeImpl(DefaultInvokePriority, TimeSpanMinusOne, method, null,0);}
@@ -323,7 +324,7 @@ namespace KsWare.Presentation {
 
 //		public TResult Invoke<TResult>(Func<TResult> callback, DispatcherPriority priority, CancellationToken cancellationToken, TimeSpan timeout) {
 //			if(HasHook) HookInternal("Invoke", callback, ref priority);
-//			return (TResult)m_WrappedDispatcher.Invoke(callback,priority,cancellationToken,timeout);
+//			return (TResult)_WrappedDispatcher.Invoke(callback,priority,cancellationToken,timeout);
 //		}
 
 
@@ -336,20 +337,20 @@ namespace KsWare.Presentation {
 //		public DispatcherOperation InvokeAsync(Action callback) { return this.InvokeAsync(callback, DispatcherPriority.Normal, CancellationToken.None); }
 //		public DispatcherOperation InvokeAsync(Action callback, DispatcherPriority priority) { return this.InvokeAsync(callback, priority, CancellationToken.None); }
 //		public DispatcherOperation InvokeAsync(Action callback, DispatcherPriority priority, CancellationToken cancellationToken) {
-//			return m_WrappedDispatcher.InvokeAsync(...)
+//			return _WrappedDispatcher.InvokeAsync(...)
 //		}
 //		public DispatcherOperation<TResult> InvokeAsync<TResult>(Func<TResult> callback) { return this.InvokeAsync<TResult>(callback, DispatcherPriority.Normal, CancellationToken.None); }
 //		public DispatcherOperation<TResult> InvokeAsync<TResult>(Func<TResult> callback, DispatcherPriority priority) { return this.InvokeAsync<TResult>(callback, priority, CancellationToken.None); }
 //		public DispatcherOperation<TResult> InvokeAsync<TResult>(Func<TResult> callback, DispatcherPriority priority, CancellationToken cancellationToken) {
-//			return m_WrappedDispatcher.InvokeAsync(...)
+//			return _WrappedDispatcher.InvokeAsync(...)
 //		}
 
-		public Thread Thread { get { return m_WrappedDispatcher.Thread; } }
+		public Thread Thread { get { return _wrappedDispatcher.Thread; } }
 		
 		/// <summary> Gets a value indicating whether the caller must call an invoke method when making method calls to the UI because the caller is on a different thread than the one the UI was created on.
 		/// </summary>
-//		public bool IsInvokeRequired {get { return m_WrappedDispatcher.Thread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId; }}
-		public bool IsInvokeRequired {get { return m_WrappedDispatcher.Thread != Thread.CurrentThread; }}
+//		public bool IsInvokeRequired {get { return _WrappedDispatcher.Thread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId; }}
+		public bool IsInvokeRequired {get { return _wrappedDispatcher.Thread != Thread.CurrentThread; }}
 
 		/// <summary> Executes a delegate on the application dispatcher.
 		/// </summary>
@@ -357,7 +358,7 @@ namespace KsWare.Presentation {
 		/// <param name="args">The method arguments</param>
 		/// <returns></returns>
 		public object InvokeIfRequired(Delegate method, params object[] args) {
-			if (IsInvokeRequired) return m_WrappedDispatcher.Invoke(method, args);
+			if (IsInvokeRequired) return _wrappedDispatcher.Invoke(method, args);
 			return method.DynamicInvoke(args);
 		}
 		public object InvokeIfRequired<T>(Action<T> action, T arg) { return InvokeIfRequired((Delegate)action, arg); }
@@ -390,11 +391,11 @@ namespace KsWare.Presentation {
 
 	public partial class DispatcherWrapper {
 
-		ThreadLocal<DispatcherPriority> m_ForcePriorityForThread=new ThreadLocal<DispatcherPriority>(()=>DispatcherPriority.Invalid);
+		ThreadLocal<DispatcherPriority> _ForcePriorityForThread=new ThreadLocal<DispatcherPriority>(()=>DispatcherPriority.Invalid);
 //		long invokeCount;
 
 		public DispatcherPriority ForcePriority { get; set; }
-		public DispatcherPriority ForcePriorityForThread { get { return m_ForcePriorityForThread.Value; } set { m_ForcePriorityForThread.Value = value; } }
+		public DispatcherPriority ForcePriorityForThread { get { return _ForcePriorityForThread.Value; } set { _ForcePriorityForThread.Value = value; } }
 
 		private void HookInternal(string invokeMethod, Delegate callback, ref DispatcherPriority priority) {
 //			var methodName = DebugUtil.FormatTypeName(callback.Target)+"."+callback.Method.Name;
@@ -473,7 +474,7 @@ namespace KsWare.Presentation {
 		/// <param name="dispatcher">The dispatcher.</param>
 		/// <exception cref="System.ArgumentNullException">dispatcher</exception>
 		internal ApplicationDispatcher([NotNull] Dispatcher dispatcher) {
-			if(dispatcher==null) throw new ArgumentNullException("dispatcher");
+			if(dispatcher==null) throw new ArgumentNullException(nameof(dispatcher));
 			s_Wrapper = new DispatcherWrapper(dispatcher);
 
 //			//TODO EXPERIMENTAL

@@ -13,8 +13,8 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 	[TestClass]
 	public class MappedDataProviderTests:TestBase {
 
-		private RootVM m_RootVM;
-		private TestVM m_TestVM;
+		private RootVM _RootVM;
+		private TestVM _TestVM;
 		private MappedDataProvider<TestData, int> provider;
 
 		/// <summary> Initialize the test.
@@ -22,10 +22,10 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 		[TestInitialize]
 		public override void TestInitialize() {
 			base.TestInitialize();
-//			m_RootVM=new RootVM();
-//			provider = (MappedDataProvider<TestData, int>) m_RootVM.TestObject.Number.Metadata.DataProvider;
-			m_TestVM=new TestVM();
-			provider = (MappedDataProvider<TestData, int>) m_TestVM.Number.Metadata.DataProvider;
+//			_RootVM=new RootVM();
+//			provider = (MappedDataProvider<TestData, int>) _RootVM.TestObject.Number.Metadata.DataProvider;
+			_TestVM=new TestVM();
+			provider = (MappedDataProvider<TestData, int>) _TestVM.Number.Metadata.DataProvider;
 		}
 
 		/// <summary> Cleanup this test.
@@ -42,43 +42,43 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 
 		[TestMethod]
 		public void T002_InitData() {
-			m_TestVM.Data=new TestData{Number = 1};
-			Assert.AreEqual(1,m_TestVM.Number.Value);
+			_TestVM.Data=new TestData{Number = 1};
+			Assert.AreEqual(1,_TestVM.Number.Value);
 		}
 		[TestMethod]
 		public void T003_GetSet() {
 			var data = new TestData();
-			m_TestVM.Data=data;
+			_TestVM.Data=data;
 
-			m_TestVM.Number.Value = 2;
+			_TestVM.Number.Value = 2;
 			Assert.AreEqual(2,data.Number);
 
 			data.Number = 3;
-			Assert.AreEqual(3,m_TestVM.Number.Value);
+			Assert.AreEqual(3,_TestVM.Number.Value);
 		}
 
 		[TestMethod]
 		public void T004_InitRootData() {
-			m_RootVM=new RootVM();
+			_RootVM=new RootVM();
 			var data = new RootData {TestObject = new TestData {Number = 1},TestList = new List<TestData>{new TestData{Number = 2}}};
-			m_RootVM.Data=data;
-			m_RootVM.TestList.Metadata.DataProvider.NotifyDataChanged();//HACK
+			_RootVM.Data=data;
+			_RootVM.TestList.Metadata.DataProvider.NotifyDataChanged();//HACK
 
 			Assert.AreEqual(1,data.TestObject.Number);
 			Assert.AreEqual(1,data.TestList.Count);
 			Assert.AreEqual(2,data.TestList[0].Number);
 
-			Assert.IsNotNull(m_RootVM.TestObject.Data);
-			Assert.IsNotNull(m_RootVM.TestList.MːData);
+			Assert.IsNotNull(_RootVM.TestObject.Data);
+			Assert.IsNotNull(_RootVM.TestList.MːData);
 
-			Assert.AreEqual(1,m_RootVM.TestObject.Number.Value);
-			Assert.AreEqual(1,m_RootVM.TestList.Count);
-			Assert.AreEqual(2,m_RootVM.TestList[0].Number.Value);
+			Assert.AreEqual(1,_RootVM.TestObject.Number.Value);
+			Assert.AreEqual(1,_RootVM.TestList.Count);
+			Assert.AreEqual(2,_RootVM.TestList[0].Number.Value);
 		}
 
 //		[TestMethod]
 //		public void GetSet() {
-//			m_RootVM.Data=new RootData{TestObject=new TestData{Number = 1}};
+//			_RootVM.Data=new RootData{TestObject=new TestData{Number = 1}};
 //			Assert.AreEqual(1,provider.Data=1);
 //			Assert.AreEqual(data,provider.Data  );
 //

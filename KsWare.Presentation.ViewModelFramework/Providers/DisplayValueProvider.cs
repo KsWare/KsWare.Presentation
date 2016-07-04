@@ -49,26 +49,26 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class DisplayValueProvider : ViewModelValueProvider, IDisplayValueProvider {
 
-		private string m_DisplayValue;
-		private bool m_DisplayValueIsInitialized;
-		private object m_EnumValue;
-		private bool? m_BooleanNullValue;
-		private bool m_IsFalse;	
-		private string m_StringValue;
-		private TypeConverter m_TypeConverter = new ValueProviderStringConverter();
-		private IValueVM m_ViewModelIsEnabledChangedIsObserved;
-		private IValueVM m_ViewModelCultureChangedIsObserved;
+		private string _displayValue;
+		private bool _displayValueIsInitialized;
+		private object _enumValue;
+		private bool? _booleanNullValue;
+		private bool _isFalse;	
+		private string _stringValue;
+		private TypeConverter _typeConverter = new ValueProviderStringConverter();
+		private IValueVM _viewModelIsEnabledChangedIsObserved;
+		private IValueVM _viewModelCultureChangedIsObserved;
 
 		/// <summary> Gets or sets the type converter to convert a value into different types.
 		/// </summary>
 		/// <value>The type converter.</value>
 		/// <remarks></remarks>
 		public virtual TypeConverter TypeConverter {
-			get { return m_TypeConverter; }
+			get { return _typeConverter; }
 			set {
 				MemberAccessUtil.DemandNotNull(value, null, this, "TypeConverter", "{431F8775-4ACD-42C5-AD23-F5963BBB162F}");
-				MemberAccessUtil.DemandWriteOnce(Parent == null, null, this, "TypeConverter", "{A6A9D618-7ED4-454E-B7B1-D9153DE2AD52}");
-				m_TypeConverter = value;
+				MemberAccessUtil.DemandWriteOnce(Parent == null, null, this, nameof(TypeConverter), "{A6A9D618-7ED4-454E-B7B1-D9153DE2AD52}");
+				_typeConverter = value;
 			}
 		}
 
@@ -101,10 +101,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		[Obsolete("Use String")]
 		public string Value {
 			get {
-				if (!m_DisplayValueIsInitialized) {
-					if (UpdateDisplayValues(false)) m_DisplayValueIsInitialized = true;
+				if (!_displayValueIsInitialized) {
+					if (UpdateDisplayValues(false)) _displayValueIsInitialized = true;
 				}
-				return m_DisplayValue;
+				return _displayValue;
 			}
 		}
 
@@ -113,11 +113,11 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public string String {
 			get {
-				if (!m_DisplayValueIsInitialized) {
-					if (UpdateDisplayValues(false)) m_DisplayValueIsInitialized = true;
+				if (!_displayValueIsInitialized) {
+					if (UpdateDisplayValues(false)) _displayValueIsInitialized = true;
 				}
 				if (!ParentValueVMIsEnabled) return null;
-				return m_StringValue;
+				return _stringValue;
 			}
 		}
 
@@ -129,11 +129,11 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
 		public bool? AsBooleanNull {
 			get {
-				if (!m_DisplayValueIsInitialized) {
-					if (UpdateDisplayValues(false)) m_DisplayValueIsInitialized = true;
+				if (!_displayValueIsInitialized) {
+					if (UpdateDisplayValues(false)) _displayValueIsInitialized = true;
 				}
 				if (!ParentValueVMIsEnabled) return false;
-				return m_BooleanNullValue;
+				return _booleanNullValue;
 			}
 		}
 
@@ -143,11 +143,11 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
 		public bool IsTrue {
 			get {
-				if (!m_DisplayValueIsInitialized) {
-					if (UpdateDisplayValues(false)) m_DisplayValueIsInitialized = true;
+				if (!_displayValueIsInitialized) {
+					if (UpdateDisplayValues(false)) _displayValueIsInitialized = true;
 				}
 				if (!ParentValueVMIsEnabled) return false;
-				return m_BooleanNullValue == true;
+				return _booleanNullValue == true;
 			}
 		}
 
@@ -157,12 +157,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
 		public bool IsFalse {
 			get {
-				if (!m_DisplayValueIsInitialized) {
-					if (UpdateDisplayValues(false)) m_DisplayValueIsInitialized = true;
+				if (!_displayValueIsInitialized) {
+					if (UpdateDisplayValues(false)) _displayValueIsInitialized = true;
 				}
 				if (!ParentValueVMIsEnabled)
 					return false;
-				return m_IsFalse;
+				return _isFalse;
 			}
 		}
 
@@ -174,8 +174,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
 		public object AsEnum {
 			get {
-				if (!m_DisplayValueIsInitialized) {
-					if (UpdateDisplayValues(false)) m_DisplayValueIsInitialized = true;
+				if (!_displayValueIsInitialized) {
+					if (UpdateDisplayValues(false)) _displayValueIsInitialized = true;
 				}
 				if (ViewModel.GetType().Name.Contains("EnumVM")) {
 					Type t = ViewModel.GetType().GetGenericArguments()[0];
@@ -184,7 +184,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 					}
 				}
 
-				return m_EnumValue;
+				return _enumValue;
 			}
 		}
 
@@ -201,12 +201,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 			if (ViewModel == null) return false;
 
-			if(m_ViewModelIsEnabledChangedIsObserved!=ViewModel) {
-				m_ViewModelIsEnabledChangedIsObserved = ViewModel;
+			if(_viewModelIsEnabledChangedIsObserved!=ViewModel) {
+				_viewModelIsEnabledChangedIsObserved = ViewModel;
 				ViewModel.IsEnabledChanged+= delegate { UpdateDisplayValues(true); };
 			}
-			if(m_ViewModelCultureChangedIsObserved!=ViewModel) {
-				m_ViewModelCultureChangedIsObserved = ViewModel;
+			if(_viewModelCultureChangedIsObserved!=ViewModel) {
+				_viewModelCultureChangedIsObserved = ViewModel;
 				ObjectVM.CultureChanged+= delegate { UpdateDisplayValues(true); };
 			}
 
@@ -258,16 +258,16 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				if(exception!=null) return false;
 				tmp = (string) TypeConverter.ConvertFrom(null, culture, v);
 			}
-			m_StringValue = ParentValueVMIsEnabled ? tmp : null;
+			_stringValue = ParentValueVMIsEnabled ? tmp : null;
 
 			#region BoolVM
 
 			if (ViewModel is BoolVM && ParentValueVMIsEnabled) {
-				m_BooleanNullValue = (bool) ViewModel.Value;
-				m_IsFalse = (m_BooleanNullValue == false);
+				_booleanNullValue = (bool) ViewModel.Value;
+				_isFalse = (_booleanNullValue == false);
 			} else {
-				m_BooleanNullValue = false;
-				m_IsFalse = false;
+				_booleanNullValue = false;
+				_isFalse = false;
 			}
 
 			#endregion
@@ -277,16 +277,16 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			if (ViewModel.GetType().Name.Contains("EnumVM")) {
 				Type t = ViewModel.GetType().GetGenericArguments()[0];
 				if (!((ObjectVM) ViewModel).IsEnabled) {
-					m_EnumValue = Enum.ToObject(t, 0);
+					_enumValue = Enum.ToObject(t, 0);
 				} else {
-					m_EnumValue = ViewModel.Value;
+					_enumValue = ViewModel.Value;
 				}
 			}
 
 			#endregion
 
-			// if (Equals(tmp, m_DisplayValue)) return true;
-			m_DisplayValue = tmp;
+			// if (Equals(tmp, _DisplayValue)) return true;
+			_displayValue = tmp;
 			if (raiseEvents) RaiseEvents();
 			return true;
 		}
@@ -315,7 +315,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// <remarks></remarks>
 	public class EnumDisplayValueProvider : ViewModelValueProvider, IDisplayValueProvider {
 
-		private string m_DisplayValue;
+		private string _displayValue;
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -327,12 +327,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Gets the display value
 		/// </summary>
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
-		public string Value {get { return m_DisplayValue; }}
+		public string Value {get { return _displayValue; }}
 
 		/// <summary> Gets the value as string
 		/// </summary>
 		/// <remarks></remarks>
-		public string String {get { return m_DisplayValue; /*TODO implement use of IsEnabled*/ }}
+		public string String {get { return _displayValue; /*TODO implement use of IsEnabled*/ }}
 
 		/// <summary> Returns allways <see langword="null" />
 		/// </summary>
@@ -360,7 +360,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <param name="value"></param>
 		public void SetValue(String value) {
-			m_DisplayValue = value;
+			_displayValue = value;
 			OnPropertyChanged("Value");
 			OnPropertyChanged("String");
 		}

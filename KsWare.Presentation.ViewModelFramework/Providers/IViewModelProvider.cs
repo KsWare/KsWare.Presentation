@@ -22,16 +22,16 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public abstract class ViewModelProvider:IViewModelProvider {
 
-		private Lazy<EventSourceStore> m_LazyWeakEventStore;
-		private IViewModelMetadata m_Parent;
-		private bool? m_IsAutoCreated;
+		private Lazy<EventSourceStore> _lazyWeakEventStore;
+		private IViewModelMetadata _parent;
+		private bool? _isAutoCreated;
 
 		protected ViewModelProvider() {
-			m_LazyWeakEventStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
+			_lazyWeakEventStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 		}
 
-		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return m_LazyWeakEventStore; } }
-		protected EventSourceStore EventStore { get { return m_LazyWeakEventStore.Value; } }
+		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventStore; } }
+		protected EventSourceStore EventStore { get { return _lazyWeakEventStore.Value; } }
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -40,10 +40,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		public abstract bool IsSupported{get;}
 
 		public bool IsAutoCreated {
-			get { return m_IsAutoCreated==true; }
+			get { return _isAutoCreated==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
-				m_IsAutoCreated = value;
+				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
+				_isAutoCreated = value;
 			}
 		}
 
@@ -55,13 +55,13 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public IViewModelMetadata Parent {
 			[CanBeNull]
-			get {return m_Parent;}
+			get {return _parent;}
 			[NotNull]
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Parent cannot be null!",this,"{99788DA6-EB8A-44DF-974D-1E5CA567B9CF}");
-				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{5B977C30-B3E4-4A50-8BAB-7A7EF8E789FA}");
-				m_Parent = value;
-				((ViewModelMetadata) m_Parent).ParentChanged+=AtMetadataParentChanged;
+				MemberAccessUtil.DemandWriteOnce(_parent==null,null,this,nameof(Parent),"{5B977C30-B3E4-4A50-8BAB-7A7EF8E789FA}");
+				_parent = value;
+				((ViewModelMetadata) _parent).ParentChanged+=AtMetadataParentChanged;
 				OnParentChanged();
 			}
 		}
@@ -94,7 +94,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		protected virtual void OnParentChanged() {
 			EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{8AC4DF0E-2DCE-491E-A2CB-DA7AEA029A4A}");
-			EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
+			EventManager.Raise<EventHandler,EventArgs>(_lazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 			OnPropertyChanged("Parent");
 		}
 

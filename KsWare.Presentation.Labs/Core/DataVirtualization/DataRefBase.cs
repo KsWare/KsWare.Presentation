@@ -7,16 +7,16 @@ namespace KsWare.Presentation.DataVirtualization {
 
 	public abstract class DataRefBase<T> : ICustomTypeDescriptor, INotifyPropertyChanged where T : class {
 
-		private static readonly IDictionary<PropertyDescriptor, PropertyDescriptor> m_PropertyMap;
+		private static readonly IDictionary<PropertyDescriptor, PropertyDescriptor> _PropertyMap;
 		internal static readonly PropertyDescriptorCollection PropertyDescriptorCollection;
 
 		static DataRefBase() {
 			PropertyDescriptorCollection = new PropertyDescriptorCollection(null);
 			var propertyDescriptorCollection = TypeDescriptor.GetProperties(typeof (T));
-			m_PropertyMap = new Dictionary<PropertyDescriptor, PropertyDescriptor>(propertyDescriptorCollection.Count);
+			_PropertyMap = new Dictionary<PropertyDescriptor, PropertyDescriptor>(propertyDescriptorCollection.Count);
 			foreach (PropertyDescriptor propertyDescriptor in propertyDescriptorCollection) {
 				var mappedPropertyDescriptor = new DataRefPropertyDescriptor(propertyDescriptor);
-				m_PropertyMap.Add(propertyDescriptor, mappedPropertyDescriptor);
+				_PropertyMap.Add(propertyDescriptor, mappedPropertyDescriptor);
 				PropertyDescriptorCollection.Add(mappedPropertyDescriptor);
 			}
 			// create an artificial read-only property for the referenced instance
@@ -70,8 +70,8 @@ namespace KsWare.Presentation.DataVirtualization {
 		public PropertyDescriptorCollection GetProperties(Attribute[] attributes) {
 			var mappedCollection = new PropertyDescriptorCollection(null);
 			foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(typeof (T), attributes)) {
-				Debug.Assert(m_PropertyMap.ContainsKey(propertyDescriptor));
-				mappedCollection.Add(m_PropertyMap[propertyDescriptor]);
+				Debug.Assert(_PropertyMap.ContainsKey(propertyDescriptor));
+				mappedCollection.Add(_PropertyMap[propertyDescriptor]);
 			}
 			return mappedCollection;
 		}
@@ -91,12 +91,12 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		private class DataRefPropertyDescriptor : PropertyDescriptor {
 
-			private readonly PropertyDescriptor m_PropertyDescriptor;
+			private readonly PropertyDescriptor _PropertyDescriptor;
 			public readonly PropertyChangedEventArgs PropertyChangedEventArgs;
 
 			public DataRefPropertyDescriptor(PropertyDescriptor propertyDescriptor)
 				: base(propertyDescriptor) {
-				m_PropertyDescriptor = propertyDescriptor;
+				_PropertyDescriptor = propertyDescriptor;
 				PropertyChangedEventArgs = new PropertyChangedEventArgs(propertyDescriptor.Name);
 			}
 
@@ -105,17 +105,17 @@ namespace KsWare.Presentation.DataVirtualization {
 
 			public override Type ComponentType { get { return typeof (DataRefBase<T>); } }
 
-			public override object GetValue(object component) { return ((DataRefBase<T>) component).GetValue(m_PropertyDescriptor); }
+			public override object GetValue(object component) { return ((DataRefBase<T>) component).GetValue(_PropertyDescriptor); }
 
-			public override bool IsReadOnly { get { return m_PropertyDescriptor.IsReadOnly; } }
+			public override bool IsReadOnly { get { return _PropertyDescriptor.IsReadOnly; } }
 
-			public override Type PropertyType { get { return m_PropertyDescriptor.PropertyType; } }
+			public override Type PropertyType { get { return _PropertyDescriptor.PropertyType; } }
 
 			public override void ResetValue(object component) { throw new NotImplementedException(); }
 
 			public override void SetValue(object component, object value) { ((DataRefBase<T>) component).SetValue(this, value); }
 
-			public override bool ShouldSerializeValue(object component) { return m_PropertyDescriptor.ShouldSerializeValue(component); }
+			public override bool ShouldSerializeValue(object component) { return _PropertyDescriptor.ShouldSerializeValue(component); }
 
 		}
 

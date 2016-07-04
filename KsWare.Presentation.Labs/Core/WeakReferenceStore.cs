@@ -8,25 +8,25 @@ namespace KsWare.Presentation {
 
 	internal class WeakReferenceStore:INotifyPropertyChanged,IEnumerable<WeakReference> {
 
-		private List<WeakReference> m_WeakReferences =new List<WeakReference>();
+		private List<WeakReference> _weakReferences =new List<WeakReference>();
 		
 		public void Add(WeakReference r) {
 			Cleanup();
-			m_WeakReferences.Add(r);
+			_weakReferences.Add(r);
 		}
 
 		public void Add(object o) {
 			Cleanup();
-			m_WeakReferences.Add(new WeakReference(o));
+			_weakReferences.Add(new WeakReference(o));
 		}
 
-		public int Count { get { return m_WeakReferences.Count;} }
+		public int Count { get { return _weakReferences.Count;} }
 
 		public List<object> Targets {
 			get {
 				var targets = new List<object>();
-				lock (m_WeakReferences) {
-					foreach (var r in m_WeakReferences) {
+				lock (_weakReferences) {
+					foreach (var r in _weakReferences) {
 						object o;
 						if (!r.IsAlive) continue; else try { o = r.Target;} catch{continue;} 
 						targets.Add(o);
@@ -37,11 +37,11 @@ namespace KsWare.Presentation {
 		} 
 
 		private void Cleanup() {
-			var count = m_WeakReferences.Count;
-			for (int i = 0; i < m_WeakReferences.Count; i++) {
-				if (!m_WeakReferences[i].IsAlive) m_WeakReferences.RemoveAt(i--);
+			var count = _weakReferences.Count;
+			for (int i = 0; i < _weakReferences.Count; i++) {
+				if (!_weakReferences[i].IsAlive) _weakReferences.RemoveAt(i--);
 			}
-			if(m_WeakReferences.Count!=count) OnPropertyChanged("Count");
+			if(_weakReferences.Count!=count) OnPropertyChanged(nameof(Count));
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -61,16 +61,16 @@ namespace KsWare.Presentation {
 
 		private class Enumerator : IEnumerator<WeakReference> {
 
-			private WeakReferenceStore m_WeakReferenceList;
-			private int m_CurrentIndex;
+			private WeakReferenceStore _weakReferenceList;
+			private int _currentIndex;
 
 			public Enumerator(WeakReferenceStore weakReferenceList) {
-				m_WeakReferenceList = weakReferenceList;
+				_weakReferenceList = weakReferenceList;
 			}
 
 			#region Implementation of IDisposable
 
-			public void Dispose() { m_WeakReferenceList = null; }
+			public void Dispose() { _weakReferenceList = null; }
 
 			#endregion
 
@@ -78,14 +78,14 @@ namespace KsWare.Presentation {
 
 			public bool MoveNext() {
 				while (true) {
-					m_CurrentIndex++;
-					if (m_CurrentIndex >= m_WeakReferenceList.m_WeakReferences.Count) return false;
-					var r = m_WeakReferenceList.m_WeakReferences[m_CurrentIndex];
+					_currentIndex++;
+					if (_currentIndex >= _weakReferenceList._weakReferences.Count) return false;
+					var r = _weakReferenceList._weakReferences[_currentIndex];
 					if(r.IsAlive) {Current = r;return true;}
 				}
 			}
 
-			public void Reset() { m_CurrentIndex = -1; }
+			public void Reset() { _currentIndex = -1; }
 			public WeakReference Current { get; private set; }
 
 			object IEnumerator.Current {get { return Current; } }

@@ -9,7 +9,7 @@
 		private const double FactorH = 100.0;
 		private const double FactorD = 10.0;
 
-		private Unit m_Unit;
+		private Unit _unit;
 
 #pragma warning disable 1591 //TODO document this
 		public double Micro{get {return GetValue(FactorM);}set {SetValue(value,FactorM);}}
@@ -22,14 +22,14 @@
 		public double Mega {get {return GetValue(1/FactorM);}set {SetValue(value,1/FactorM);}}
 #pragma warning restore 1591
 
-		/// <summary> Gets or sets the m_Unit of measure.
+		/// <summary> Gets or sets the _Unit of measure.
 		/// </summary>
-		/// <value>The m_Unit of measure.</value>
+		/// <value>The _Unit of measure.</value>
 		public Unit Unit {
-			get {return m_Unit;}
+			get {return _unit;}
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_Unit==Unit.None,null,this,"Unit","{554C3318-8CF8-4990-A3C6-51023ECA2D16}");
-				m_Unit = value;
+				MemberAccessUtil.DemandWriteOnce(_unit==Unit.None,null,this,nameof(Unit),"{554C3318-8CF8-4990-A3C6-51023ECA2D16}");
+				_unit = value;
 			}
 		}
 

@@ -249,7 +249,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>							
 		protected virtual void OnValueChanged(ValueChangedEventArgs e) {
 			EventUtil.Raise(ValueChanged,this,e,"{22C6594D-CEF4-4502-8A35-8B30A2E37BBB}");
-			OnPropertyChanged("Value");
+			OnPropertyChanged(nameof(Value));
 			OnTreeChanged();
 			//REVISE ??? Metadata.DataProvider.NotifyDataChanged();
 		}

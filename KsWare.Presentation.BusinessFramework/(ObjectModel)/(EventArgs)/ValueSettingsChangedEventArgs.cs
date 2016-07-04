@@ -6,16 +6,16 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	public class ValueSettingsChangedEventArgs: EventArgs {
 
-		private readonly ValueSettingName m_PropertyName;
+		private readonly ValueSettingName _PropertyName;
 
 		/// <summary> Initializes a new instance of the <see cref="ValueSettingsChangedEventArgs"/> class.
 		/// </summary>
 		/// <param name="propertyName">Name of the changed property.</param>
-		public ValueSettingsChangedEventArgs(ValueSettingName propertyName) { m_PropertyName = propertyName; }
+		public ValueSettingsChangedEventArgs(ValueSettingName propertyName) { _PropertyName = propertyName; }
 
 		/// <summary> Gets the name of the changed property.
 		/// </summary>
 		/// <value>The name of the changed property.</value>
-		public ValueSettingName PropertyName{get {return m_PropertyName;}}
+		public ValueSettingName PropertyName{get {return _PropertyName;}}
 	}
 }

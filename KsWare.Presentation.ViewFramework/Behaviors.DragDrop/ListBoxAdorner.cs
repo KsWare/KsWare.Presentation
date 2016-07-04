@@ -6,19 +6,19 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 
 	public class ListBoxAdorner : Adorner {
 
-		private AdornerLayer m_AdornerLayer;
+		private AdornerLayer _adornerLayer;
 
 		public bool IsAboveElement { get; set; }
 
 		public ListBoxAdorner(UIElement adornedElement, AdornerLayer adornerLayer) : base(adornedElement) {
-			m_AdornerLayer = adornerLayer;
-			m_AdornerLayer.Add(this);
+			_adornerLayer = adornerLayer;
+			_adornerLayer.Add(this);
 		}
 
 		/// <summary> Update UI
 		/// </summary>
 		internal void Update() {
-			m_AdornerLayer.Update(AdornedElement);
+			_adornerLayer.Update(AdornedElement);
 			Visibility = Visibility.Visible;
 		}
 

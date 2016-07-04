@@ -6,18 +6,18 @@ namespace KsWare.Presentation {
 	/// </summary>
 	public class ExecutedEventArgs:EventArgs {
 
-		private readonly object m_Parameter;
+		private readonly object _Parameter;
 
 		/// <summary> Initializes a new instance of the <see cref="ExecutedEventArgs"/> class.
 		/// </summary>
-		/// <param name="parameter">The action m_Parameter.</param>
-		public ExecutedEventArgs(object parameter) { m_Parameter = parameter; }
+		/// <param name="parameter">The action _Parameter.</param>
+		public ExecutedEventArgs(object parameter) { _Parameter = parameter; }
 
-		/// <summary> Gets the action m_Parameter.
+		/// <summary> Gets the action _Parameter.
 		/// </summary>
-		/// <value>The action m_Parameter.</value>
+		/// <value>The action _Parameter.</value>
 		public object Parameter {
-			get {return m_Parameter;}
+			get {return _Parameter;}
 		}
 	}
 

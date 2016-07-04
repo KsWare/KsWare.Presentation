@@ -91,7 +91,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			    result = ValidateValueInternal(((IValueBM) value).Value, ((IValueBM) value).Settings, (IValueBM) value, throwOnInvalid);
 			    if (result!=null) return result;
 			} else {
-			    throw new ArgumentException("Invalid type!", "value");
+			    throw new ArgumentException("Invalid type!", nameof(value));
 			}
 
 			var ex=new ValueValidationException(value,new NotImplementedException("{9E172533-449F-46A9-BCE7-83B0ABDA409B}"));
@@ -134,7 +134,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="throwOnInvalid">if set to <see langword="true"/> throws on invalid value.</param>
 		/// <returns><see langword="null"/>if the value is valid; else an <see cref="Exception"/>> </returns>
 		public Exception Validate(object value, IValueBM businessValue, bool throwOnInvalid) {
-			if (businessValue == null) throw new ArgumentNullException("businessValue");
+			if (businessValue == null) throw new ArgumentNullException(nameof(businessValue));
 			//string typeName = value.ValueType!=null ? value.ValueType.Name : null;
 
 			return ValidateValueInternal(value, businessValue.Settings, businessValue, throwOnInvalid);
@@ -158,7 +158,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 			if (Equals(value, null)) {
 			    if (!rules.AllowNull) {
-					var ex=new ValueValidationException(value, businessObject,new ArgumentNullException("value","Value must be not null!"));
+					var ex=new ValueValidationException(value, businessObject,new ArgumentNullException(nameof(value),"Value must be not null!"));
 			        if (!throwOnInvalid) return ex;
 			    	throw ex;
 			    }
@@ -173,7 +173,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 			if (value is string && Equals(value, string.Empty)) {
 			    if (!rules.AllowEmpty) {
-			    	var ex = new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException("value",value,"Value must not be an empty string!"));
+			    	var ex = new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException(nameof(value),value,"Value must not be an empty string!"));
 			        if (!throwOnInvalid) return ex;
 			        throw ex;
 			    }
@@ -189,28 +189,28 @@ namespace KsWare.Presentation.BusinessFramework {
 
 			    if (rules.MinimumSpecified) {
 			        if (Comparer.Default.Compare(rules.Minimum, value) > 0) {
-						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException("value",value,"Value must not be less then Minimum!"));
+						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException(nameof(value),value,"Value must not be less then Minimum!"));
 			            if (!throwOnInvalid) return ex;
 			        	throw ex;
 			        }
 			    }
 			    if (rules.MaximumSpecified) {
 			        if (Comparer.Default.Compare(value, rules.Maximum) > 0) {
-						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException("value",value,"Value must not be greater then Maximum!"));
+						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException(nameof(value),value,"Value must not be greater then Maximum!"));
 			            if (!throwOnInvalid) return ex;
 			        	throw ex;
 			        }
 			    }
 			    if (rules.IncludeValuesSpecified) {
 			        if (!rules.IncludeValues.Cast<object>().Any(a => Comparer.Default.Compare(a, value) == 0)) {
-						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException("value",value,"Value must be in IncludeValues"));
+						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException(nameof(value),value,"Value must be in IncludeValues"));
 			            if (!throwOnInvalid) return ex;
 			        	throw ex;
 			        }
 			    }
 				if (rules.ExcludeValuesSpecified && rules.ExcludeValues!=null) {
 			        if (rules.ExcludeValues.Cast<object>().Any(a => Comparer.Default.Compare(a, value) == 0)) {
-						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException("value",value,"Value must not be in EcludeValues!"));
+						var ex=new ValueValidationException(value, businessObject,new ArgumentOutOfRangeException(nameof(value),value,"Value must not be in EcludeValues!"));
 			            if (!throwOnInvalid) return ex;
 			        	throw ex;
 			        }

@@ -93,7 +93,7 @@ namespace KsWare.Presentation.BusinessFramework {
 	[Serializable] //Added for FxCop
 	public class ValueValidationException: ValidationException {
 
-		private readonly object m_Value;
+		private readonly object _Value;
 
 
 		/// <summary> Initializes a new instance of the <see cref="ValueValidationException"/> class.
@@ -125,7 +125,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <param name="value">The value.</param>
 		public ValueValidationException(object value): base(BusinessModelError.ValueValidationError) {
-			m_Value = value;
+			_Value = value;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="ValueValidationException"/> class.
@@ -133,7 +133,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="value">The value.</param>
 		/// <param name="innerException">The inner exception.</param>
 		public ValueValidationException(object value, Exception innerException): base(BusinessModelError.ValueValidationError, innerException) {
-			m_Value = value;
+			_Value = value;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="ValueValidationException"/> class.
@@ -141,7 +141,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="value">The value.</param>
 		/// <param name="businessObject">The business object.</param>
 		public ValueValidationException(object value, IObjectBM businessObject): base(BusinessModelError.ValueValidationError, businessObject) {
-			m_Value = value;
+			_Value = value;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="ValueValidationException"/> class.
@@ -150,7 +150,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="businessObject">The business object.</param>
 		/// <param name="innerException">The inner exception.</param>
 		public ValueValidationException(object value, IObjectBM businessObject, Exception innerException): base(BusinessModelError.ValueValidationError, businessObject,innerException) {
-			m_Value = value;
+			_Value = value;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="ValueValidationException"/> class.
@@ -161,7 +161,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0). </exception>
 		[Obsolete("Not implemented")]
 		protected ValueValidationException(SerializationInfo info, StreamingContext context): base(info, context) {
-			m_Value = info.GetValue("Value",typeof(object));
+			_Value = info.GetValue("Value",typeof(object));
 		}
 
 		/// <summary> Gets the object data.
@@ -170,13 +170,13 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="context">The context.</param>
 		public override void GetObjectData(SerializationInfo info, StreamingContext context) {
 			base.GetObjectData(info, context);
-			info.AddValue("Value",m_Value);
+			info.AddValue("Value",_Value);
 		}
 		
 		/// <summary> Gets the erroneous value.
 		/// </summary>
 		/// <value>The erroneous value.</value>
-		public object Value{get {return m_Value;}}
+		public object Value{get {return _Value;}}
 
 		//TODO implement ValueValidationException
 	}

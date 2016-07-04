@@ -9,9 +9,9 @@ namespace KsWare.Presentation.Core.Diagnostics {
 	/// </summary>
 	public class StackFrameInfo {
 
-		private int m_FileColumnNumber;
-		private int m_FileLineNumber;
-		private string m_FileName;
+		private int _fileColumnNumber;
+		private int _fileLineNumber;
+		private string _fileName;
 		//private string methodSig;
 
 		/// <summary> Initializes a new instance of the <see cref="StackFrameInfo"/> class.
@@ -22,9 +22,9 @@ namespace KsWare.Presentation.Core.Diagnostics {
 		/// </summary>
 		/// <param name="stackFrame">The stack frame.</param>
 		public StackFrameInfo(StackFrame stackFrame) {
-			m_FileColumnNumber = stackFrame.GetFileColumnNumber();
-			m_FileLineNumber   = stackFrame.GetFileLineNumber();
-			m_FileName         = stackFrame.GetFileName();
+			_fileColumnNumber = stackFrame.GetFileColumnNumber();
+			_fileLineNumber   = stackFrame.GetFileLineNumber();
+			_fileName         = stackFrame.GetFileName();
 
 			//var m=stackFrame.GetMethod().ToString();
 			//var s=string.Format(CultureInfo.InvariantCulture, "at {0} in {1}:line {2}",m, fileName,fileLineNumber);
@@ -73,26 +73,26 @@ namespace KsWare.Presentation.Core.Diagnostics {
 			} else {
 				//
 				//var method     = match.Groups["Method"].Value;
-				m_FileColumnNumber = 0;
-				m_FileLineNumber   = string.IsNullOrWhiteSpace(match.Groups["Line"].Value)?0:int.Parse(match.Groups["Line"].Value,CultureInfo.InvariantCulture);
-				m_FileName         = match.Groups["File"].Value;
+				_fileColumnNumber = 0;
+				_fileLineNumber   = string.IsNullOrWhiteSpace(match.Groups["Line"].Value)?0:int.Parse(match.Groups["Line"].Value,CultureInfo.InvariantCulture);
+				_fileName         = match.Groups["File"].Value;
 			}
 		}
 
 		/// <summary> Gets the column number in the file that contains the code that is executing. 
 		/// This information is typically extracted from the debugging symbols for the executable.
 		/// </summary>
-		public int FileColumnNumber {get {return m_FileColumnNumber;}}
+		public int FileColumnNumber {get {return _fileColumnNumber;}}
 
 		/// <summary> Gets the line number in the file that contains the code that is executing. 
 		/// This information is typically extracted from the debugging symbols for the executable.
 		/// </summary>
-		public int FileLineNumber {get {return m_FileLineNumber;}}
+		public int FileLineNumber {get {return _fileLineNumber;}}
 
 		/// <summary> Gets the file name that contains the code that is executing. 
 		/// This information is typically extracted from the debugging symbols for the executable.
 		/// </summary>
-		public string FileName {get {return m_FileName;}}
+		public string FileName {get {return _fileName;}}
 
 		///// <summary> [PRELIMINARY] Get the method signature.
 		///// </summary>

@@ -36,7 +36,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </remarks>
 	public class DefaultNewItemProvider:ViewModelProvider,INewItemProvider {
 
-		private IDictionary<Type, Type> m_TypeMap;
+		private IDictionary<Type, Type> _TypeMap;
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -65,8 +65,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			var declaredViewModelType = typeof (T);
 			Type viewmodelType = null;
 			T newItem=default(T);
-			if (m_TypeMap != null) {
-				foreach (var p in m_TypeMap) {
+			if (_TypeMap != null) {
+				foreach (var p in _TypeMap) {
 					if(p.Key==businessType){viewmodelType=p.Value;break;}
 					if(p.Value==businessType){viewmodelType=p.Key;break;}
 				}				
@@ -120,10 +120,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		public IDictionary<Type, Type> TypeMap {
 			get {
-				if(m_TypeMap==null)m_TypeMap = new Dictionary<Type, Type>();
-				return m_TypeMap;
+				if(_TypeMap==null)_TypeMap = new Dictionary<Type, Type>();
+				return _TypeMap;
 			}
-			set { m_TypeMap = value; }
+			set { _TypeMap = value; }
 		}
 
 		protected virtual void AssignMetaData(IObjectVM item, object data) {
@@ -176,7 +176,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	[AttributeUsage(AttributeTargets.Interface,AllowMultiple = false)]
 	public class NewItemProviderItemFactoryAttribute:Attribute {
 
-		private Type m_Factory;
+		private Type _factory;
 
 		public NewItemProviderItemFactoryAttribute() {}
 
@@ -193,10 +193,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The factory.</value>
 		public Type Factory {
-			get { return m_Factory; }
+			get { return _factory; }
 			set {
-				if(!typeof(ITypeFactory).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value", "Type does not implement ITypeFactory");
-				m_Factory = value;
+				if(!typeof(ITypeFactory).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value), "Type does not implement ITypeFactory");
+				_factory = value;
 			}
 		}
 
@@ -212,12 +212,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class CustomNewItemProvider:ViewModelProvider,INewItemProvider {
 
-		private CreateNewItemCallbackHandler m_CreateNewItemCallbackHandler;
+		private CreateNewItemCallbackHandler _createNewItemCallbackHandler;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomNewItemProvider"/> class.
 		/// </summary>
 		/// <param name="createNewItemCallback">The create new item callback.</param>
-		public CustomNewItemProvider(CreateNewItemCallbackHandler createNewItemCallback) { m_CreateNewItemCallbackHandler = createNewItemCallback; }
+		public CustomNewItemProvider(CreateNewItemCallbackHandler createNewItemCallback) { _createNewItemCallbackHandler = createNewItemCallback; }
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -248,10 +248,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The create new item callback.</value>
 		public CreateNewItemCallbackHandler CreateNewItemCallback {
-			get {return m_CreateNewItemCallbackHandler;}
+			get {return _createNewItemCallbackHandler;}
 			set {
-				if(m_CreateNewItemCallbackHandler!=null) throw new InvalidOperationException("CreateNewItemCallback already specified!");
-				m_CreateNewItemCallbackHandler=value;
+				if(_createNewItemCallbackHandler!=null) throw new InvalidOperationException("CreateNewItemCallback already specified!");
+				_createNewItemCallbackHandler=value;
 			}
 		}
 
@@ -263,8 +263,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		[SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
 		public T CreateItem<T>(object data) /*where T:class,IObjectVM*/  { 
-			if(m_CreateNewItemCallbackHandler==null) throw new InvalidOperationException("CreateNewItemCallback not specified!");
-			return (T) m_CreateNewItemCallbackHandler(data);
+			if(_createNewItemCallbackHandler==null) throw new InvalidOperationException("CreateNewItemCallback not specified!");
+			return (T) _createNewItemCallbackHandler(data);
 		}
 
 		public IDictionary<Type, Type> TypeMap { get; set; }

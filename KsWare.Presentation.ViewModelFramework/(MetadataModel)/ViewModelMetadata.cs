@@ -26,20 +26,20 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </example>
 	public class ViewModelMetadata:IViewModelMetadata,INotifyPropertyChanged,IParentSupport {
 
-		private IDataProvider         m_DataProvider        ;
-		private IErrorProvider        m_ErrorProvider       ;
-		private IDisplayValueProvider m_DisplayValueProvider;
-		private IEditValueProvider    m_EditValueProvider   ;
-		private IValueSourceProvider  m_ValueSourceProvider ;
-		private IBindingProvider      m_BindingProvider     ;
-		private IObjectVM             m_Parent              ;
-		private readonly Lazy<EventSourceStore> m_LazyWeakEventProperties;
-		private bool m_EnableBusinessModelFeatures;
+		private IDataProvider         _dataProvider        ;
+		private IErrorProvider        _errorProvider       ;
+		private IDisplayValueProvider _displayValueProvider;
+		private IEditValueProvider    _editValueProvider   ;
+		private IValueSourceProvider  _valueSourceProvider ;
+		private IBindingProvider      _bindingProvider     ;
+		private IObjectVM             _parent              ;
+		private readonly Lazy<EventSourceStore> _lazyWeakEventProperties;
+		private bool _enableBusinessModelFeatures;
 
 		/// <summary> Initializes a new instance of the <see cref="ViewModelMetadata"/> class.
 		/// </summary>
 		public ViewModelMetadata() {
-			m_LazyWeakEventProperties = new Lazy<EventSourceStore>(() => new EventSourceStore(this));
+			_lazyWeakEventProperties = new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 
 			//m_dataProvider         = new LocalDataProvider();
 			//m_errorProvider        = new ErrorProvider();
@@ -52,8 +52,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		internal ReflectedPropertyInfo Reflection { get; set; }
 
-		protected EventSourceStore EventStore { get { return m_LazyWeakEventProperties.Value; }}
-		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return m_LazyWeakEventProperties; }}
+		protected EventSourceStore EventStore { get { return _lazyWeakEventProperties.Value; }}
+		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventProperties; }}
 
 		/// <summary> Gets the view model object which holds this metadata.
 		/// </summary>
@@ -64,12 +64,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		public IObjectVM Parent {
 			[CanBeNull]
-			get{return m_Parent;}
+			get{return _parent;}
 			[NotNull] 
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Property can not be null!",this,"Parent","{0317A98F-B4CD-4E89-AE9C-0A8A1ABBC196}");
-				MemberAccessUtil.DemandWriteOnce(m_Parent==null,"Property can only set one time!",this,"Parent","{968E415C-F520-4267-BC27-303EE01A5591}");
-				m_Parent = value;
+				MemberAccessUtil.DemandWriteOnce(_parent==null,"Property can only set one time!",this,nameof(Parent),"{968E415C-F520-4267-BC27-303EE01A5591}");
+				_parent = value;
 				OnParentChanged();
 				EndInitalize();
 			}
@@ -89,7 +89,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		protected virtual void OnParentChanged() {
 			EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{F65518B0-4D15-4F8C-AE33-DC789AFA3AAB}");
-			EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
+			EventManager.Raise<EventHandler,EventArgs>(_lazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 
 //			if (Parent != null) {
 //				Parent.ParentChangedEvent.RegisterChild(this, "{8F72EC5D-93B3-426D-841B-BF6B54BC6F79}", delegate(object sender, EventArgs args) {
@@ -99,10 +99,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		public bool EnableBusinessModelFeatures {
-			get { return m_EnableBusinessModelFeatures; }
+			get { return _enableBusinessModelFeatures; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_EnableBusinessModelFeatures==false,null,this,"EnableBusinessModelFeatures","{6BAD9F66-E6DF-4556-B4CF-3A7D91DDD666}");
-				m_EnableBusinessModelFeatures = value;
+				MemberAccessUtil.DemandWriteOnce(_enableBusinessModelFeatures==false,null,this,nameof(EnableBusinessModelFeatures),"{6BAD9F66-E6DF-4556-B4CF-3A7D91DDD666}");
+				_enableBusinessModelFeatures = value;
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>
 		/// <c>true</c> if this instance has data provider assigned; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasDataProvider {get { return m_DataProvider != null; }}
+		public bool HasDataProvider {get { return _dataProvider != null; }}
 
 		/// <summary> Gets or sets the data provider.
 		/// </summary>
@@ -137,38 +137,38 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public IDataProvider DataProvider {
 			[NotNull] 
 			get {
-				if(m_DataProvider==null) {
-					m_DataProvider = CreateDefaultDataProvider();
-					m_DataProvider.IsAutoCreated = true;
-					m_DataProvider.Parent = this;
-					OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(null,m_DataProvider));
+				if(_dataProvider==null) {
+					_dataProvider = CreateDefaultDataProvider();
+					_dataProvider.IsAutoCreated = true;
+					_dataProvider.Parent = this;
+					OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(null,_dataProvider));
 					OnPropertyChanged("HasDataProvider");
 				}
-				return m_DataProvider;
+				return _dataProvider;
 			}
 			[NotNull] 
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();
-				if(Equals(m_DataProvider,value)) return;
+				if(Equals(_dataProvider,value)) return;
 				
-				var oldProvider = m_DataProvider;
-				m_DataProvider = value;
-				m_DataProvider.Parent = this;
-				OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldProvider,m_DataProvider));
+				var oldProvider = _dataProvider;
+				_dataProvider = value;
+				_dataProvider.Parent = this;
+				OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldProvider,_dataProvider));
 				OnPropertyChanged("HasDataProvider");
 			}
 		}
 
 		public void ChangeDataProvider(IDataProvider dataProvider) {
 			DemandNotNull(dataProvider);
-			if(Equals(m_DataProvider,dataProvider)) return;
+			if(Equals(_dataProvider,dataProvider)) return;
 
-			var oldProvider = m_DataProvider;
+			var oldProvider = _dataProvider;
 			if(oldProvider!=null && oldProvider.Data!=null) throw new InvalidOperationException("DataProvider is in use! ErrorID: {3F43DE4B-737C-4D62-B764-A5B23957D813}");
 
-			m_DataProvider = dataProvider;
-			m_DataProvider.Parent = this;
+			_dataProvider = dataProvider;
+			_dataProvider.Parent = this;
 			OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldProvider,dataProvider));
 			OnPropertyChanged("HasDataProvider");
 
@@ -180,7 +180,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void OnDataProviderChanged(ValueChangedEventArgs<IDataProvider> e) { 
 			//OnPropertyChanged("DataProvider");
 			EventUtil.Raise(DataProviderChanged,this,e,"{869F3686-8B2C-4AFE-86BF-93AD6D99AA29}");
-			EventManager.Raise<EventHandler<ValueChangedEventArgs<IDataProvider>>,ValueChangedEventArgs<IDataProvider>>(m_LazyWeakEventProperties,"DataProviderChangedEvent", e);
+			EventManager.Raise<EventHandler<ValueChangedEventArgs<IDataProvider>>,ValueChangedEventArgs<IDataProvider>>(_lazyWeakEventProperties,"DataProviderChangedEvent", e);
 		}
 
 		[Obsolete("Use DataProviderChangedEvent")]
@@ -218,18 +218,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The error provider.</value>
 		public IErrorProvider ErrorProvider {
 			get {
-				if(m_ErrorProvider==null) {
-					m_ErrorProvider = CreateDefaultErrorProvider();
-//					m_ErrorProvider.IsAutoCreated = true;
-					m_ErrorProvider.Parent = this;
+				if(_errorProvider==null) {
+					_errorProvider = CreateDefaultErrorProvider();
+//					_ErrorProvider.IsAutoCreated = true;
+					_errorProvider.Parent = this;
 				}
-				return m_ErrorProvider;
+				return _errorProvider;
 			}
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();
-				m_ErrorProvider = value;
-				m_ErrorProvider.Parent = this;
+				_errorProvider = value;
+				_errorProvider.Parent = this;
 			}
 		}
 
@@ -266,18 +266,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The display value provider.</value>
 		public IDisplayValueProvider DisplayValueProvider {
 			get {
-				if (m_DisplayValueProvider == null) {
-					m_DisplayValueProvider = CreateDefaultDisplayValueProvider();
-//					m_DisplayValueProvider.IsAutoCreated = true;
-					m_DisplayValueProvider.Parent = this;
+				if (_displayValueProvider == null) {
+					_displayValueProvider = CreateDefaultDisplayValueProvider();
+//					_DisplayValueProvider.IsAutoCreated = true;
+					_displayValueProvider.Parent = this;
 				}
-				return m_DisplayValueProvider;
+				return _displayValueProvider;
 			}
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();
-				m_DisplayValueProvider = value;
-				m_DisplayValueProvider.Parent = this;
+				_displayValueProvider = value;
+				_displayValueProvider.Parent = this;
 			}
 		}
 
@@ -317,18 +317,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		public IEditValueProvider EditValueProvider {
 			get {
-				if(m_EditValueProvider==null) {
-					m_EditValueProvider = CreateDefaultEditValueProvider();
-//					m_EditValueProvider.IsAutoCreated = true;
-					m_EditValueProvider.Parent = this;
+				if(_editValueProvider==null) {
+					_editValueProvider = CreateDefaultEditValueProvider();
+//					_EditValueProvider.IsAutoCreated = true;
+					_editValueProvider.Parent = this;
 				}
-				return m_EditValueProvider;
+				return _editValueProvider;
 			}
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();
-				m_EditValueProvider = value;
-				m_EditValueProvider.Parent = this;
+				_editValueProvider = value;
+				_editValueProvider.Parent = this;
 			}
 		}
 
@@ -367,18 +367,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		public IValueSourceProvider ValueSourceProvider {
 			get {
-				if(m_ValueSourceProvider==null) {
-					m_ValueSourceProvider = CreateDefaultValueSourceProvider();
-//					m_ValueSourceProvider.IsAutoCreated = true;
-					m_ValueSourceProvider.Parent = this;
+				if(_valueSourceProvider==null) {
+					_valueSourceProvider = CreateDefaultValueSourceProvider();
+//					_ValueSourceProvider.IsAutoCreated = true;
+					_valueSourceProvider.Parent = this;
 				}
-				return m_ValueSourceProvider;
+				return _valueSourceProvider;
 			}
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();
-				m_ValueSourceProvider = value;
-				m_ValueSourceProvider.Parent = this;
+				_valueSourceProvider = value;
+				_valueSourceProvider.Parent = this;
 			}
 		}
 
@@ -419,18 +419,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public IBindingProvider BindingProvider {
 			get {
-				if(m_BindingProvider==null) {
-					m_BindingProvider = CreateDefaultBindingProvider();
-//					m_BindingProvider.IsAutoCreated = true;
-					m_BindingProvider.Parent = this;
+				if(_bindingProvider==null) {
+					_bindingProvider = CreateDefaultBindingProvider();
+//					_BindingProvider.IsAutoCreated = true;
+					_bindingProvider.Parent = this;
 				}
-				return m_BindingProvider;
+				return _bindingProvider;
 			}
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();
-				m_BindingProvider = value;
-				m_BindingProvider.Parent = this;
+				_bindingProvider = value;
+				_bindingProvider.Parent = this;
 			}
 		}
 
@@ -458,9 +458,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[AssertionMethod]
 		protected void DemandPropertySet() { 
 			MemberAccessUtil.Demand (
-				m_Parent==null,
+				_parent==null,
 				()=>"Cannot set a metadata property once it is applied to a view model object!"+
-					DebugUtil.P("MemberPath",()=>m_Parent.MemberPath),
+					DebugUtil.P("MemberPath",()=>_parent.MemberPath),
 				this,
 				"{92971A8E-4C86-402F-8CDE-FCC15FE60C85}"
 			);
@@ -479,7 +479,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected void OnPropertyChanged(string propertyName) {
 			var ea = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,ea,"{3ED247AA-CBA5-4D2E-B0DE-2BE3CBAF61B7}");
-			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", ea);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(_lazyWeakEventProperties,"PropertyChangedEvent", ea);
 		}
 
 	}
@@ -488,19 +488,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	public class ViewModelMetadataAttribute : MetadataAttribute {
 
-		private Type m_MetadataType;
-		private Type m_DataProvider;
-		private Type m_ErrorProvider;
-		private Type m_DisplayValueProvider;
-		private Type m_EditValueProvider;
-		private Type m_ValueSourceProvider;
-		private Type m_LocalizationProvider;
-		private Type m_BindingProvider;
+		private Type _metadataType;
+		private Type _dataProvider;
+		private Type _errorProvider;
+		private Type _displayValueProvider;
+		private Type _editValueProvider;
+		private Type _valueSourceProvider;
+		private Type _localizationProvider;
+		private Type _bindingProvider;
 
 		public ViewModelMetadataAttribute() {}
 
 		public ViewModelMetadataAttribute(Type metadataType) {
-			m_MetadataType = metadataType;
+			_metadataType = metadataType;
 		}
 
 		/// <summary> Gets or sets the type of the metadata.
@@ -508,10 +508,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of the metadata.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type is not derived from ViewModelMetadata!</exception>
 		public Type MetadataType {
-			get { return m_MetadataType; }
+			get { return _metadataType; }
 			set {
-				if (!typeof (ViewModelMetadata).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type is not derived from ViewModelMetadata!");
-				m_MetadataType = value;
+				if (!typeof (ViewModelMetadata).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type is not derived from ViewModelMetadata!");
+				_metadataType = value;
 			}
 		}
 
@@ -521,10 +521,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of data provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IDataProvider"/>!</exception>
 		public Type DataProvider {
-			get { return m_DataProvider; }
+			get { return _dataProvider; }
 			set {
-				if (!typeof (IDataProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IDataProvider!");
-				m_DataProvider = value;
+				if (!typeof (IDataProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IDataProvider!");
+				_dataProvider = value;
 			}
 		}
 
@@ -534,10 +534,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of action provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IErrorProvider"/>!</exception>
 		public Type ErrorProvider {
-			get { return m_ErrorProvider; }
+			get { return _errorProvider; }
 			set {
-				if (!typeof (IErrorProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IErrorProvider!");
-				m_ErrorProvider = value;
+				if (!typeof (IErrorProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IErrorProvider!");
+				_errorProvider = value;
 			}
 		}
 
@@ -547,10 +547,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of display provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IDisplayValueProvider"/>!</exception>
 		public Type DisplayValueProvider {
-			get { return m_DisplayValueProvider; }
+			get { return _displayValueProvider; }
 			set {
-				if (!typeof (IDisplayValueProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IDisplayValueProvider!");
-				m_DisplayValueProvider = value;
+				if (!typeof (IDisplayValueProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IDisplayValueProvider!");
+				_displayValueProvider = value;
 			}
 		}
 
@@ -560,10 +560,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of edit provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IEditValueProvider"/>!</exception>
 		public Type EditValueProvider {
-			get { return m_EditValueProvider; }
+			get { return _editValueProvider; }
 			set {
-				if (!typeof (IEditValueProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IEditValueProvider!");
-				m_EditValueProvider = value;
+				if (!typeof (IEditValueProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IEditValueProvider!");
+				_editValueProvider = value;
 			}
 		}
 
@@ -573,10 +573,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of value soure provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IValueSourceProvider"/>!</exception>
 		public Type ValueSourceProvider {
-			get { return m_ValueSourceProvider; }
+			get { return _valueSourceProvider; }
 			set {
-				if (!typeof (IValueSourceProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IValueSourceProvider!");
-				m_ValueSourceProvider = value;
+				if (!typeof (IValueSourceProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IValueSourceProvider!");
+				_valueSourceProvider = value;
 			}
 		}
 
@@ -586,10 +586,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of localization provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="ILocalizationProvider"/>!</exception>
 		public Type LocalizationProvider {
-			get { return m_LocalizationProvider; }
+			get { return _localizationProvider; }
 			set {
-				if (!typeof (ILocalizationProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement ILocalizationProvider!");
-				m_LocalizationProvider = value;
+				if (!typeof (ILocalizationProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement ILocalizationProvider!");
+				_localizationProvider = value;
 			}
 		}
 	
@@ -599,10 +599,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of binding provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IBindingProvider"/>!</exception>
 		public Type BindingProvider {
-			get { return m_BindingProvider; }
+			get { return _bindingProvider; }
 			set {
-				if (!typeof (IBindingProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IBindingProvider!");
-				m_BindingProvider = value;
+				if (!typeof (IBindingProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IBindingProvider!");
+				_bindingProvider = value;
 			}
 		}
 	}

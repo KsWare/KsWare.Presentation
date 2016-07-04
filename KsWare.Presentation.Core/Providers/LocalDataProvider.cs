@@ -6,7 +6,7 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </summary>
 	public class LocalDataProvider : DataProvider,ILocalDataProvider {
 
-		private object m_Data;
+		private object _data;
 
 		/// <summary> Initializes a new instance of the <see cref="LocalDataProvider"/> class.
 		/// </summary>
@@ -28,13 +28,13 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The provided data.</value>
 		public override object Data {
 			get {
-				return m_Data;
+				return _data;
 			}
 			set {
 				if(Equals(value,PreviousData)) return;
 				Validate(value);
-				m_Data=value;
-				OnDataChanged(PreviousData,m_Data);
+				_data=value;
+				OnDataChanged(PreviousData,_data);
 				PreviousData = value;
 			}
 		}
@@ -51,7 +51,7 @@ namespace KsWare.Presentation.Core.Providers {
 	/// <typeparam name="TData">Type of data</typeparam>
 	public class LocalDataProvider<TData>:DataProvider<TData>,IDataProvider,ILocalDataProvider {
 
-		private TData m_Data;
+		private TData _data;
 
 		/// <summary> Initializes a new instance of the <see cref="LocalDataProvider{TData}"/> class.
 		/// </summary>
@@ -72,13 +72,13 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The provided data.</value>
 		public override TData Data {
-			get {return m_Data;}
+			get {return _data;}
 			set {
 				if (Equals(PreviousData, value)) return;
 				Validate(value);
-				m_Data = value;
-				OnDataChanged(PreviousData, m_Data);
-				PreviousData = m_Data;
+				_data = value;
+				OnDataChanged(PreviousData, _data);
+				PreviousData = _data;
 			}
 		}
 

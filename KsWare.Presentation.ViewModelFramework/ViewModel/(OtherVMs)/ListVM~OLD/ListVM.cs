@@ -32,23 +32,23 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 //		static readonly CultureInfo enUS = CultureInfo.CreateSpecificCulture("en-US");
 
-		private string m_ObjectKey; //for managing instance 
-		private bool m_IsDisposed;
+		private string _ObjectKey; //for managing instance 
+		private bool _IsDisposed;
 
-		private readonly List<TItem> m_InnerList;
-		private IList m_CachedDataList;
-		private MethodInfo m_CachedDataListMove;
-		private ListVM<TItem>.ItemMap m_TmpMapIns;
-		private ItemMap m_TmpMapRem;
-		private readonly SimpleMonitor m_Monitor;
-		[NonSerialized] private NotifyCollectionChangedEventHandler m_CollectionChanged;
+		private readonly List<TItem> _InnerList;
+		private IList _CachedDataList;
+		private MethodInfo _CachedDataListMove;
+		private ListVM<TItem>.ItemMap _TmpMapIns;
+		private ItemMap _TmpMapRem;
+		private readonly SimpleMonitor _Monitor;
+		[NonSerialized] private NotifyCollectionChangedEventHandler _CollectionChanged;
 		protected bool IsReferenceList;
 		
-		private TItem m_ItemTemplate;
-//		private RuntimeMethodData m_OnDataChangedStats=new RuntimeMethodData();
+		private TItem _ItemTemplate;
+//		private RuntimeMethodData _OnDataChangedStats=new RuntimeMethodData();
 
-		private ICollectionView m_CollectionView;
-		private bool m_IsInBackgroundMode;
+		private ICollectionView _CollectionView;
+		private bool _IsInBackgroundMode;
 
 		private const string CountString = "Count";
 		private const string IndexerName = "Item[]";
@@ -57,8 +57,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public ListVM() {
 			base.DebuggerFlags=new ClassDebuggerFlags();
-			m_InnerList    = new List<TItem>();
-			m_Monitor      = new SimpleMonitor();
+			_InnerList    = new List<TItem>();
+			_Monitor      = new SimpleMonitor();
 
 //			try {_itemTemplate = (TItem)Activator.CreateInstance(typeof(TItem));}catch(Exception ex) {
 //				Debug.WriteLine("WARNING: Can not create instance for ItemTemplate!"
@@ -260,14 +260,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 			base.Dispose(explicitDisposing);
 			if(explicitDisposing) {
 				WeakEventManager.ReleaseSource(this);
-				m_ObjectKey = this.GetObjectKey(); // gets a unique key which ist used after Dispose to identify this instance
-				m_IsDisposed = true;
+				_ObjectKey = this.GetObjectKey(); // gets a unique key which ist used after Dispose to identify this instance
+				_IsDisposed = true;
 				this.DebugObjectTraceˑDispose(explicitDisposing);
 			}
 		}
 
 		protected virtual void DemandValidObject() {
-			if(m_IsDisposed) throw new ObjectDisposedException(m_ObjectKey);
+			if(_IsDisposed) throw new ObjectDisposedException(_ObjectKey);
 		}
 
 		#region Metadata
@@ -295,7 +295,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 				// DRAFT Solution A: check only if we not have data, suppress any events.
 				// so we get an initialized list on first access.
-				if (m_CachedDataList == null) {
+				if (_CachedDataList == null) {
 					Exception exception;
 					var data=Metadata.DataProvider.TryGetData(out exception);
 					if (data != null) {
@@ -303,11 +303,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 								        "\n\t"+"Type: " + DebugUtil.FormatTypeName(this) +
 								        "\n\t"+"UniqueID: {3BEA2E12-8CC6-4952-8714-4C57FC370764}");
 						SuppressAnyEvents++;
-						UpdateInnerList(new DataChangedEventArgs(m_CachedDataList,data));
+						UpdateInnerList(new DataChangedEventArgs(_CachedDataList,data));
 						SuppressAnyEvents--;
 					}
 				}
-				return m_InnerList;
+				return _InnerList;
 			}
 		}
 
@@ -315,7 +315,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected override void OnDataChanged(DataChangedEventArgs e) {
 			if(DebuggerFlags.Breakpoints.OnDataChanged) DebuggerːBreak("OnDataChanged");
-//			if (m_IsInBackgroundMode) UpdateInnerList(e);
+//			if (_IsInBackgroundMode) UpdateInnerList(e);
 //			ApplicationDispatcher.InvokeIfRequired(UpdateInnerList, e);
 			UpdateInnerList(e);
 		}
@@ -323,21 +323,21 @@ namespace KsWare.Presentation.ViewModelFramework {
 		private void UpdateInnerList(DataChangedEventArgs e) {
 
 			#region clean-up cached data
-			if(m_CachedDataList!=null) {
-				if (m_CachedDataList is INotifyCollectionChanged) {
-					((INotifyCollectionChanged) m_CachedDataList).CollectionChanged -= AtDataCollectionChanged;
+			if(_CachedDataList!=null) {
+				if (_CachedDataList is INotifyCollectionChanged) {
+					((INotifyCollectionChanged) _CachedDataList).CollectionChanged -= AtDataCollectionChanged;
 				}
-				if (m_CachedDataList is IModel) {
-					((IModel) m_CachedDataList).Disposed -= AtDataDisposed;
+				if (_CachedDataList is IModel) {
+					((IModel) _CachedDataList).Disposed -= AtDataDisposed;
 				}
-				m_CachedDataListMove = null;
+				_CachedDataListMove = null;
 			}
 			#endregion
 
 			//var tmpDataList = (IList) newDataList;
 			IList tmpDataList = null;
 			if (e.NewData == null || e.NewData == DBNull.Value) {
-				if(m_CachedDataList==null) /*no changes*/ return;
+				if(_CachedDataList==null) /*no changes*/ return;
 			} else if(e.NewData is IList ){
 				tmpDataList = (IList) e.NewData;
 			} else if(e.NewData is IEnumerable ){
@@ -365,42 +365,42 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if (tmpDataList != null) {
 				foreach (object data in tmpDataList) {
 					var item = Metadata.NewItemProvider.CreateItem<TItem>(data);
-					m_InnerList.Add(item);
+					_InnerList.Add(item);
 					if(!IsReferenceList) {
 						var hirarchicalItem = item as IHierarchical<IObjectVM>;
 						if(hirarchicalItem!=null) {
 							hirarchicalItem.Parent = this;
-							hirarchicalItem.MemberName = string.Format(EnUs,"[{0}]", (m_InnerList.Count - 1));
+							hirarchicalItem.MemberName = string.Format(EnUs,"[{0}]", (_InnerList.Count - 1));
 							//hirarchicalItem.MemberName = "[?]";
 						}						
 					}
 				}
 			}
 
-			m_CachedDataList = tmpDataList;
+			_CachedDataList = tmpDataList;
 
-			if(m_CachedDataList!=null) {
-				if(m_CachedDataList is INotifyCollectionChanged) {
-					((INotifyCollectionChanged)m_CachedDataList).CollectionChanged+=AtDataCollectionChanged;
+			if(_CachedDataList!=null) {
+				if(_CachedDataList is INotifyCollectionChanged) {
+					((INotifyCollectionChanged)_CachedDataList).CollectionChanged+=AtDataCollectionChanged;
 				}
-				if(m_CachedDataList is IModel) {
-					((IModel)m_CachedDataList).Disposed+=AtDataDisposed;
+				if(_CachedDataList is IModel) {
+					((IModel)_CachedDataList).Disposed+=AtDataDisposed;
 				}
 
-				m_CachedDataListMove = m_CachedDataList.GetType().GetMethod("Move", new[] {typeof (int), typeof (int)});				
+				_CachedDataListMove = _CachedDataList.GetType().GetMethod("Move", new[] {typeof (int), typeof (int)});				
 			}
 			
 			OnCollectionReset();
 		}
 
 		private void ClearInnerList() {
-			foreach (TItem item in m_InnerList) CleanupRemovedItem(item);
-			m_InnerList.Clear();
+			foreach (TItem item in _InnerList) CleanupRemovedItem(item);
+			_InnerList.Clear();
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
 		private void CleanupRemovedItem(TItem item) {
-			if(item==null) return; // for whatever reason?! REVISE sometime  foreach m_InnerList returns a null item
+			if(item==null) return; // for whatever reason?! REVISE sometime  foreach _InnerList returns a null item
 			var hierarchicalItem = item as IHierarchical<IObjectVM>;
 			if (hierarchicalItem!=null) {
 				hierarchicalItem.Parent = null;
@@ -426,9 +426,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 					if(e.NewItems.Count!=1) throw new NotImplementedException("{04009FB6-1A37-4A8A-9B44-EAEE29B073CE}");
 					TItem newItem;
 					int index=e.NewStartingIndex;
-					if(m_TmpMapIns!=null) {
+					if(_TmpMapIns!=null) {
 						//triggered by this list
-						newItem = m_TmpMapIns.Item;
+						newItem = _TmpMapIns.Item;
 					} else /*triggered by underlying list*/ {
 						if (IsReferenceList && Metadata.ValueSourceProvider.SourceList != null) {
 							//EXPERIMENTAL 2014-0-15
@@ -437,7 +437,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 							newItem = Metadata.NewItemProvider.CreateItem<TItem>(e.NewItems[0]);
 						}
 					}
-					m_InnerList.Insert(index,newItem);
+					_InnerList.Insert(index,newItem);
 					if(!IsReferenceList) {
 						var hierarchicalItem = newItem as IHierarchical<IObjectVM>;
 						if(hierarchicalItem!=null) {
@@ -460,8 +460,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 				case NotifyCollectionChangedAction.Remove:{
 					int idx = e.OldStartingIndex;
 					foreach (object data in e.OldItems) {
-						TItem oldItem = m_InnerList[idx];
-						m_InnerList.RemoveAt(idx);
+						TItem oldItem = _InnerList[idx];
+						_InnerList.RemoveAt(idx);
 						OnItemRemoved(idx,oldItem);
 						CleanupRemovedItem(oldItem);
 					}
@@ -471,19 +471,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 					if(e.NewItems.Count!=1) throw new NotImplementedException("{15C55634-0EC1-40DB-96D6-ADEE7C2ACA6E}");
 					TItem newItem,oldItem;
 					int index=e.NewStartingIndex;
-					if(m_TmpMapIns!=null && m_TmpMapRem==null) throw new NotImplementedException("{0002AE66-4DB4-4505-BD89-2007FAFEFA9E}");
-					if(m_TmpMapIns==null && m_TmpMapRem!=null) throw new NotImplementedException("{18F96D1A-9190-4DA8-8395-CF2D262B54DB}");
-					if(m_TmpMapIns!=null && m_TmpMapRem!=null) {
+					if(_TmpMapIns!=null && _TmpMapRem==null) throw new NotImplementedException("{0002AE66-4DB4-4505-BD89-2007FAFEFA9E}");
+					if(_TmpMapIns==null && _TmpMapRem!=null) throw new NotImplementedException("{18F96D1A-9190-4DA8-8395-CF2D262B54DB}");
+					if(_TmpMapIns!=null && _TmpMapRem!=null) {
 						//triggered by this list
-						newItem = m_TmpMapIns.Item;
-						oldItem = m_TmpMapRem.Item;
+						newItem = _TmpMapIns.Item;
+						oldItem = _TmpMapRem.Item;
 					} else {
 						//triggered by underlying list
 						newItem = Metadata.NewItemProvider.CreateItem<TItem>(e.NewItems[0]);
-						oldItem = m_InnerList[index];
+						oldItem = _InnerList[index];
 					}
 					CleanupRemovedItem(oldItem);
-					m_InnerList[index]=newItem;
+					_InnerList[index]=newItem;
 					var hierarchicalItem = newItem as IHierarchical<IObjectVM>;
 					if(hierarchicalItem!=null) {
 						hierarchicalItem.Parent = this;
@@ -504,22 +504,22 @@ namespace KsWare.Presentation.ViewModelFramework {
 				case NotifyCollectionChangedAction.Move:{
 					if(e.NewItems.Count>1)throw new NotImplementedException("{3B5993CB-D286-4A3D-9FE5-4DC5EDBA1052}"); 
 
-					var item = m_InnerList[e.OldStartingIndex];
-					m_InnerList.RemoveAt(e.OldStartingIndex);
-					m_InnerList.Insert(e.NewStartingIndex,item);
+					var item = _InnerList[e.OldStartingIndex];
+					_InnerList.RemoveAt(e.OldStartingIndex);
+					_InnerList.Insert(e.NewStartingIndex,item);
 					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move,item,e.NewStartingIndex,e.OldStartingIndex));
 					break;
 				}
 				case NotifyCollectionChangedAction.Reset:{
 					ClearInnerList();
-					foreach (object data in m_CachedDataList) {
+					foreach (object data in _CachedDataList) {
 						var item = Metadata.NewItemProvider.CreateItem<TItem>(data);
-						m_InnerList.Add(item);
+						_InnerList.Add(item);
 						if(!IsReferenceList) {
 							var hirarchicalItem = item as IHierarchical<IObjectVM>;
 							if (hirarchicalItem != null) {
 								hirarchicalItem.Parent = this;
-								hirarchicalItem.MemberName = string.Format(EnUs,"[{0}]", (m_InnerList.Count - 1));
+								hirarchicalItem.MemberName = string.Format(EnUs,"[{0}]", (_InnerList.Count - 1));
 								hirarchicalItem.MemberName = "[?]";
 							}							
 						}
@@ -548,15 +548,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <returns></returns>
 		/// <remarks></remarks>
 		protected IDisposable BlockReentrancy() {
-			m_Monitor.Enter();
-			return m_Monitor;
+			_Monitor.Enter();
+			return _Monitor;
 		}
 
 		/// <summary> Checks reentrancy.
 		/// </summary>
 		/// <remarks></remarks>
 		protected void CheckReentrancy() {
-			if ((m_Monitor.IsBusy && (m_CollectionChanged != null)) && (m_CollectionChanged.GetInvocationList().Length > 0)) {
+			if ((_Monitor.IsBusy && (_CollectionChanged != null)) && (_CollectionChanged.GetInvocationList().Length > 0)) {
 				throw new InvalidOperationException("Cannot change ObservableCollection during a CollectionChanged event.");
 			}
 		}
@@ -574,25 +574,25 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if(DebuggerFlags.Breakpoints.Insert) DebuggerːBreak("Insert");
 			CheckReentrancy();
 			OnItemInserting(index, item);
-			m_TmpMapIns=new ItemMap(item, GetItemData(item));
+			_TmpMapIns=new ItemMap(item, GetItemData(item));
 			this.DoNothing(InnerList);//forces InnerList init
-			if(m_CachedDataList!=null) {
-				if(m_TmpMapIns.Data==null) {
+			if(_CachedDataList!=null) {
+				if(_TmpMapIns.Data==null) {
 					if(item is IListItemVM) {
-						m_TmpMapIns.Data = ((IListItemVM) item).DataRequired();
+						_TmpMapIns.Data = ((IListItemVM) item).DataRequired();
 					}
-					if(m_TmpMapIns.Data==null) throw new InvalidOperationException("Item.Data can not be null! \r\n\tErrorID:{0DE8AEA7-04D6-49D2-9F17-D59BF527613F}");//REVISE: create new Data?
+					if(_TmpMapIns.Data==null) throw new InvalidOperationException("Item.Data can not be null! \r\n\tErrorID:{0DE8AEA7-04D6-49D2-9F17-D59BF527613F}");//REVISE: create new Data?
 				}
-				m_CachedDataList.Insert(index, m_TmpMapIns.Data);
+				_CachedDataList.Insert(index, _TmpMapIns.Data);
 			}
-			if(m_CachedDataList==null || !(m_CachedDataList is INotifyCollectionChanged)) {
+			if(_CachedDataList==null || !(_CachedDataList is INotifyCollectionChanged)) {
 				InnerList.Insert(index, item);
 				if(!IsReferenceList) {
 					item.Parent = this;
 				}
 				OnItemInserted(index, item);
 			}
-			m_TmpMapIns = null;
+			_TmpMapIns = null;
 			return index;
 		}
 
@@ -606,16 +606,16 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if(DebuggerFlags.Breakpoints.Remove) DebuggerːBreak("Remove");
 			if(DebuggerFlags.Breakpoints.RemoveAt) DebuggerːBreak("RemoveAt");
 			this.CheckReentrancy();
-			m_TmpMapRem = new ItemMap(InnerList[index], GetItemData(InnerList[index]));
-			OnItemRemoving(index,m_TmpMapRem.Item);
-			if(m_CachedDataList!=null) {
-				m_CachedDataList.RemoveAt(index);
+			_TmpMapRem = new ItemMap(InnerList[index], GetItemData(InnerList[index]));
+			OnItemRemoving(index,_TmpMapRem.Item);
+			if(_CachedDataList!=null) {
+				_CachedDataList.RemoveAt(index);
 			}
-			if(m_CachedDataList==null || !(m_CachedDataList is INotifyCollectionChanged)) {
+			if(_CachedDataList==null || !(_CachedDataList is INotifyCollectionChanged)) {
 				InnerList.RemoveAt(index);
-				OnItemRemoved(index, m_TmpMapRem.Item);
+				OnItemRemoved(index, _TmpMapRem.Item);
 			}
-			m_TmpMapRem = null;
+			_TmpMapRem = null;
 			return true;
 		}
 
@@ -634,19 +634,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if(DebuggerFlags.Breakpoints.ThisSet) DebuggerːBreak("ThisSet");
 			CheckReentrancy();
 			TItem replaced;
-			m_TmpMapRem=new ItemMap(replaced=InnerList[index],GetItemData(InnerList[index]));
-			m_TmpMapIns=new ItemMap(value,GetItemData(value));
-			OnItemReplacing(index, m_TmpMapRem.Item, value);
-			if(m_CachedDataList!=null) {
-				m_CachedDataList[index] = m_TmpMapIns.Data;
+			_TmpMapRem=new ItemMap(replaced=InnerList[index],GetItemData(InnerList[index]));
+			_TmpMapIns=new ItemMap(value,GetItemData(value));
+			OnItemReplacing(index, _TmpMapRem.Item, value);
+			if(_CachedDataList!=null) {
+				_CachedDataList[index] = _TmpMapIns.Data;
 			}
-			if (m_CachedDataList != null && (m_CachedDataList is INotifyCollectionChanged)) {
+			if (_CachedDataList != null && (_CachedDataList is INotifyCollectionChanged)) {
 				//done, continue handling event -> AtDataCollectionChanged
 			} else {
 				InnerList[index] = value;
-				OnItemReplaced(index, m_TmpMapRem.Item, value);
+				OnItemReplaced(index, _TmpMapRem.Item, value);
 			}
-			m_TmpMapRem = m_TmpMapIns = null;
+			_TmpMapRem = _TmpMapIns = null;
 			return replaced;
 		}
 
@@ -658,26 +658,26 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void MoveItem(int oldIndex, int newIndex){
 			CheckReentrancy();
 			TItem movedItem;
-			m_TmpMapIns=new ItemMap(movedItem=InnerList[oldIndex],GetItemData(InnerList[oldIndex]));
+			_TmpMapIns=new ItemMap(movedItem=InnerList[oldIndex],GetItemData(InnerList[oldIndex]));
 
-			if((m_CachedDataList is INotifyCollectionChanged) && m_CachedDataListMove!=null) {
+			if((_CachedDataList is INotifyCollectionChanged) && _CachedDataListMove!=null) {
 				// (_cachedDataList is ObservableCollection)
-				m_CachedDataListMove.Invoke(m_CachedDataList,new object[]{oldIndex,newIndex});
+				_CachedDataListMove.Invoke(_CachedDataList,new object[]{oldIndex,newIndex});
 				//done, continue handling event -> AtDataCollectionChanged
 			} else {
-				if(m_CachedDataList!=null) {
-					m_CachedDataList.RemoveAt(oldIndex);
-					m_CachedDataList.Insert(newIndex, m_TmpMapIns.Data);
+				if(_CachedDataList!=null) {
+					_CachedDataList.RemoveAt(oldIndex);
+					_CachedDataList.Insert(newIndex, _TmpMapIns.Data);
 				}
-				if (m_CachedDataList is INotifyCollectionChanged) {
+				if (_CachedDataList is INotifyCollectionChanged) {
 					//done, continue handling event -> AtDataCollectionChanged
 				} else {
 					InnerList.RemoveAt(oldIndex);
-					InnerList.Insert(newIndex, m_TmpMapIns.Item);
+					InnerList.Insert(newIndex, _TmpMapIns.Item);
 					OnItemMoved(movedItem, oldIndex, newIndex);
 				}
 			}
-			m_TmpMapIns = null;
+			_TmpMapIns = null;
 		}
 
 		/// <summary> Removes all items in a single operation.
@@ -688,10 +688,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 			CheckReentrancy();
 			this.DoNothing(InnerList);//forces InnerList init
 			OnClearing();
-			if(m_CachedDataList!=null) {
-				m_CachedDataList.Clear();
+			if(_CachedDataList!=null) {
+				_CachedDataList.Clear();
 			}
-			if(m_CachedDataList==null || !(m_CachedDataList is INotifyCollectionChanged)) {
+			if(_CachedDataList==null || !(_CachedDataList is INotifyCollectionChanged)) {
 				InnerList.Clear();
 				OnCollectionReset();
 			}
@@ -819,7 +819,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 					base.OnPropertyChanged(propertyName);
 				});
 
-			if (m_IsInBackgroundMode) ApplicationDispatcher.Invoke(DispatcherPriority.Background, raiseEvent);
+			if (_IsInBackgroundMode) ApplicationDispatcher.Invoke(DispatcherPriority.Background, raiseEvent);
 			else ApplicationDispatcher.InvokeIfRequired(raiseEvent);
 		}
 
@@ -832,12 +832,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			var raiseEvent = new Action(() => {
 					using (BlockReentrancy()) {
-						EventUtil.Raise(m_CollectionChanged, this, e, "{FDAFEEF3-5008-40B1-83A6-BBA5D45E9AD5}");
+						EventUtil.Raise(_CollectionChanged, this, e, "{FDAFEEF3-5008-40B1-83A6-BBA5D45E9AD5}");
 						WeakEventManager.Raise(CollectionChangedEvent, e);
 					}
 				});
 
-			if (m_IsInBackgroundMode) ApplicationDispatcher.BeginInvoke(DispatcherPriority.Background, raiseEvent);
+			if (_IsInBackgroundMode) ApplicationDispatcher.BeginInvoke(DispatcherPriority.Background, raiseEvent);
 			else ApplicationDispatcher.InvokeIfRequired(raiseEvent);
 
 //			if (SuppressAnyEvents == 0) {
@@ -859,20 +859,20 @@ namespace KsWare.Presentation.ViewModelFramework {
 			// TODO [xgksc 2012-11-27] revise this complicated stuff!
 			add {
 				NotifyCollectionChangedEventHandler handler2;
-				NotifyCollectionChangedEventHandler collectionChanged = m_CollectionChanged;
+				NotifyCollectionChangedEventHandler collectionChanged = _CollectionChanged;
 				do {
 					handler2 = collectionChanged;
 					var handler3 = (NotifyCollectionChangedEventHandler) Delegate.Combine(handler2, value);
-					collectionChanged = Interlocked.CompareExchange<NotifyCollectionChangedEventHandler>(ref m_CollectionChanged, handler3, handler2);
+					collectionChanged = Interlocked.CompareExchange<NotifyCollectionChangedEventHandler>(ref _CollectionChanged, handler3, handler2);
 				} while (collectionChanged != handler2);
 			}
 			remove {
 				NotifyCollectionChangedEventHandler handler2;
-				NotifyCollectionChangedEventHandler collectionChanged = m_CollectionChanged;
+				NotifyCollectionChangedEventHandler collectionChanged = _CollectionChanged;
 				do {
 					handler2 = collectionChanged;
 					var handler3 = (NotifyCollectionChangedEventHandler) Delegate.Remove(handler2, value);
-					collectionChanged = Interlocked.CompareExchange<NotifyCollectionChangedEventHandler>(ref m_CollectionChanged, handler3, handler2);
+					collectionChanged = Interlocked.CompareExchange<NotifyCollectionChangedEventHandler>(ref _CollectionChanged, handler3, handler2);
 				} while (collectionChanged != handler2);
 			}
 		}
@@ -890,7 +890,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Obsolete("DRAFT")]
 		public TItem ItemTemplate {
 			get {
-				if (m_ItemTemplate == null) {
+				if (_ItemTemplate == null) {
 					Debug.WriteLine("WARNING: Possible NullReferenceException!"
 						+"\n\t"+"Property: "+ "ItemTemplate"
 						+"\r\t"+"Property Type: "+typeof(TItem).Name
@@ -899,18 +899,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 						+"\r\t"+"ErrorID: {08B0C478-4AE0-41B6-A588-B306067DB09C}"
 					);					
 				}
-				return m_ItemTemplate;
+				return _ItemTemplate;
 			}
 			set {
 				MemberAccessUtil.DemandNotNull(value,null,this,"{AD627602-2FF2-4C71-9827-863FDDE8D2B5}");
-				m_ItemTemplate=value;
+				_ItemTemplate=value;
 				OnPropertyChanged("ItemTemplate");
 			}
 		}
 
 		public ICollectionView CollectionView {
-			get { return m_CollectionView??CollectionViewSource.GetDefaultView(this); }
-			set { m_CollectionView = value; OnPropertyChanged("CollectionView");}
+			get { return _CollectionView??CollectionViewSource.GetDefaultView(this); }
+			set { _CollectionView = value; OnPropertyChanged("CollectionView");}
 		}
 
 		public TItem Next(TItem item) {
@@ -937,13 +937,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> [EXPERIMENTAL]
 		/// </summary>
 		public void BeginBackgroundUpdate() {
-			m_IsInBackgroundMode = true;
+			_IsInBackgroundMode = true;
 		}
 
 		/// <summary> [EXPERIMENTAL]
 		/// </summary>
 		public void EndBackgroundUpdate() {
-			m_IsInBackgroundMode = false;
+			_IsInBackgroundMode = false;
 		}
 
 	}

@@ -60,8 +60,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <typeparam name="TRef">The type of the reference</typeparam>
 	public class RefVM<TRef> : ObjectVM, IRefVM<TRef>,IRefVM where TRef : class, IObjectVM {
 
-		private TRef m_ItemTemplate;
-		private TRef m_Target;
+		private TRef _itemTemplate;
+		private TRef _target;
 
 		/// <summary> Initializes a new instance of the <see cref="RefVM{TRef}" /> class.
 		/// </summary>
@@ -93,30 +93,30 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// If Target is set to the same value/reference as before, no changes will occur.
 		/// </remarks>
 		public TRef Target {
-			get { return m_Target; }
+			get { return _target; }
 			set {
-				if(Equals(m_Target,value)) return;
-				var e=new ValueChangingEventArgs<TRef>(m_Target,value);
+				if(Equals(_target,value)) return;
+				var e=new ValueChangingEventArgs<TRef>(_target,value);
 				EventUtil.Raise(TargetChanging,this,e,"{ABE618BB-DAC8-4557-9BA9-0BFA5116D5E8}" );
 				//WeakEventManager.Raise(LazyWeakEventProperties,()=>TargetChangingEvent, e);
-				var prevTarget=m_Target;
+				var prevTarget=_target;
 				var prevHasTarget = HasTarget;
-				m_Target = value;
+				_target = value;
 
 				#region Sync with Data/BusinessObject
 				var data =  Metadata.DataProvider.Data;
 				if (data == null) {
 					
 				}else if(data is IRefBM) {
-					((IRefBM)data).Target = m_Target==null?null:((IObjectBM) m_Target.Metadata.DataProvider.Data);
+					((IRefBM)data).Target = _target==null?null:((IObjectBM) _target.Metadata.DataProvider.Data);
 				} else if (data is IRefVM) {
-					((IRefVM) data).Target = m_Target == null ? null : ((IObjectVM) m_Target.Metadata.DataProvider.Data);
+					((IRefVM) data).Target = _target == null ? null : ((IObjectVM) _target.Metadata.DataProvider.Data);
 				} else {
 					throw new NotImplementedException("{30E67041-CBE5-4674-9695-BC36982C36C7}");
 				}
 				#endregion
 
-				var ea=new ValueChangedEventArgs<TRef>(prevTarget,m_Target);
+				var ea=new ValueChangedEventArgs<TRef>(prevTarget,_target);
 				EventUtil.Raise(TargetChanged,this,ea,"{0ABD9487-DD5C-45A1-B997-A4E5C3188320}" );
 				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent", ea);
 				OnPropertyChanged("Target");
@@ -127,7 +127,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether <see cref="Target"/> is not null.
 		/// </summary>
 		/// <value><c>true</c> if <see cref="Target"/> is not null; otherwise, <c>false</c>.</value>
-		public bool HasTarget { get { return m_Target != null; } }
+		public bool HasTarget { get { return _target != null; } }
 
 		object IRefVM.Target {get { return Target; }set { Target = (TRef) value; }}
 
@@ -138,12 +138,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks>The item template is used when the underlying/linked <see cref="DataProvider.Data"/> changes its target</remarks>
 		public TRef ItemTemplate {
 			get {
-				if(m_ItemTemplate==null) m_ItemTemplate=Metadata.NewItemProvider.CreateItem<TRef>(null);
-				return m_ItemTemplate;
+				if(_itemTemplate==null) _itemTemplate=Metadata.NewItemProvider.CreateItem<TRef>(null);
+				return _itemTemplate;
 			}
 			set {
-				if(value==null) throw new ArgumentNullException("value");
-				m_ItemTemplate=value;
+				if(value==null) throw new ArgumentNullException(nameof(value));
+				_itemTemplate=value;
 				OnPropertyChanged("ItemTemplate");
 			}
 		}
@@ -268,7 +268,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	public class ReferenceViewModelMetadata : ViewModelMetadata {
 
-		private INewItemProvider m_NewItemProvider;
+		private INewItemProvider _newItemProvider;
 
 		/// <summary> Gets or sets the "NewItemProvider".
 		/// </summary>
@@ -278,15 +278,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		public INewItemProvider NewItemProvider {
 			get {
-				if(m_NewItemProvider==null) {
+				if(_newItemProvider==null) {
 //LOG				Debug.WriteLine("=>WARNING: Create default NewItemProvider!");
-					m_NewItemProvider=new DefaultNewItemProvider();
+					_newItemProvider=new DefaultNewItemProvider();
 				}
-				return m_NewItemProvider;
+				return _newItemProvider;
 			}
 			set {
 				DemandPropertySet();
-				m_NewItemProvider = value;
+				_newItemProvider = value;
 			}
 		}
 	}

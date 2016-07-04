@@ -9,8 +9,8 @@ namespace KsWare.Presentation.BusinessFramework {
 	[Serializable] //Added for FxCop
 	public class BusinessModelException: Exception {
 
-		private BusinessModelError m_ErrorNumber;
-		private IObjectBM m_BusinessObject;
+		private BusinessModelError _errorNumber;
+		private IObjectBM _businessObject;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BusinessModelException"/> class.
@@ -31,8 +31,8 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="businessObject">The business object.</param>
 		/// <param name="innerException">The inner exception.</param>
 		public BusinessModelException(BusinessModelError errorNumber, IObjectBM businessObject, Exception innerException): base(CreateMessage(errorNumber), innerException) {
-			m_ErrorNumber = errorNumber;
-			m_BusinessObject = businessObject;
+			_errorNumber = errorNumber;
+			_businessObject = businessObject;
 		}
 
 		/// <summary>[Obsolete] Initializes a new instance of the <see cref="BusinessModelException"/> class.
@@ -58,7 +58,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is null. </exception>
 		/// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0). </exception>
 		protected BusinessModelException(SerializationInfo info, StreamingContext context): base(info, context) {
-			this.m_ErrorNumber = (BusinessModelError) info.GetValue("ErrorNumber",typeof (BusinessModelError));
+			this._errorNumber = (BusinessModelError) info.GetValue("ErrorNumber",typeof (BusinessModelError));
 		}
 
 		/// <summary> When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo"/> with information about the exception.
@@ -72,18 +72,18 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </PermissionSet>
 		public override void GetObjectData(SerializationInfo info, StreamingContext context) {
 			base.GetObjectData(info, context);
-			info.AddValue("ErrorNumber",m_ErrorNumber);
+			info.AddValue("ErrorNumber",_errorNumber);
 		}
 
 		/// <summary> Gets the error number.
 		/// </summary>
 		/// <value>The error number.</value>
-		public BusinessModelError ErrorNumber{get {return m_ErrorNumber;}}
+		public BusinessModelError ErrorNumber{get {return _errorNumber;}}
 
 		/// <summary> Gets the business object.
 		/// </summary>
 		/// <value>The business object.</value>
-		public IObjectBM BusinessObject{get {return m_BusinessObject;}}
+		public IObjectBM BusinessObject{get {return _businessObject;}}
 
 		private static string CreateMessage(BusinessModelError error) {
 			//TODO implement CreateMessage

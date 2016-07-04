@@ -4,10 +4,10 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	public class BusinessValueMetadata:BusinessMetadata {
 		
-		private IValueSettings m_Settings;
-		private ValidateValueCallback m_ValidateValueCallback;
-		private BusinessValueChangedCallback m_ValueChangedCallback;
-		private CoerceValueCallback m_CoerceValueCallback;
+		private IValueSettings _settings;
+		private ValidateValueCallback _validateValueCallback;
+		private BusinessValueChangedCallback _valueChangedCallback;
+		private CoerceValueCallback _coerceValueCallback;
 
 		/// <summary> Initializes a new instance of the <see cref="BusinessValueMetadata"/> class.
 		/// </summary>
@@ -20,10 +20,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="valueChangedCallback">A reference to a handler implementation that the property system will call whenever the effective value of the property changes.</param>
 		/// <param name="coerceValueCallback">A reference to a handler implementation will be called whenever the property system calls CoerceValue for the business value.</param>
 		public BusinessValueMetadata(IValueSettings settings, ValidateValueCallback validateValueCallback, BusinessValueChangedCallback valueChangedCallback, CoerceValueCallback coerceValueCallback) {
-			m_Settings              = settings;
-			m_ValidateValueCallback = validateValueCallback;
-			m_ValueChangedCallback  = valueChangedCallback;
-			m_CoerceValueCallback   = coerceValueCallback;
+			_settings              = settings;
+			_validateValueCallback = validateValueCallback;
+			_valueChangedCallback  = valueChangedCallback;
+			_coerceValueCallback   = coerceValueCallback;
 		}
 
 
@@ -33,17 +33,17 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <value>The validate value callback.</value>
 		public ValidateValueCallback ValidateValueCallback {
 			get {
-				if(this.m_ValidateValueCallback!=null) return this.m_ValidateValueCallback;
+				if(this._validateValueCallback!=null) return this._validateValueCallback;
 
 				//if no custom validator is specified and Settings is specified return the Settings validator
-				if(this.m_Settings!=null) return this.Settings.Validate;
+				if(this._settings!=null) return this.Settings.Validate;
 
 				//else return null
 				return null;
 			}
 			set {
 				DemandWrite();
-				m_ValidateValueCallback = value;
+				_validateValueCallback = value;
 			}
 		}
 
@@ -51,10 +51,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>A PropertyChangedCallback implementation reference.</value>
 		public BusinessValueChangedCallback ValueChangedCallback {
-			get {return m_ValueChangedCallback;}
+			get {return _valueChangedCallback;}
 			set {
 				DemandWrite();
-				m_ValueChangedCallback = value;
+				_valueChangedCallback = value;
 			}
 		}
 
@@ -62,10 +62,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>A CoerceValueCallback implementation reference.</value>
 		public CoerceValueCallback CoerceValueCallback {
-			get {return m_CoerceValueCallback;}
+			get {return _coerceValueCallback;}
 			set {
 				DemandWrite();
-				m_CoerceValueCallback = value;
+				_coerceValueCallback = value;
 			}
 		}
 
@@ -73,10 +73,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The settings.</value>
 		public IValueSettings Settings {
-			get {return m_Settings;}
+			get {return _settings;}
 			set {
 				DemandWrite();
-				m_Settings = value;
+				_settings = value;
 			}
 		}
 	}

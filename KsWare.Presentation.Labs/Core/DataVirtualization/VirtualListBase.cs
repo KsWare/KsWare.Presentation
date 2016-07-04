@@ -30,16 +30,16 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		#endregion
 
-//		protected int m_Count;
+//		protected int _Count;
 
 		// for IList //
-		private object m_SyncRoot;
+		private object _syncRoot;
 
 		public readonly CacheImpl Cache;
 
 
 		public VirtualListBase(int numCacheBlocks, int cacheBlockLength) {
-//			m_Count = UninitializedCount;
+//			_Count = UninitializedCount;
 			Cache   = new CacheImpl(InternalLoad, numCacheBlocks, cacheBlockLength, this);
 		}
 
@@ -61,7 +61,7 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		protected virtual void ClearCache() {
 			Cache.Clear();
-//			m_Count = UndefinedCount;
+//			_Count = UndefinedCount;
 			NotifyCollectionChanged();
 		}
 
@@ -95,8 +95,8 @@ namespace KsWare.Presentation.DataVirtualization {
 		public bool Contains(DataRefBase<T> item) { return item != null && ((CachedDataRef) item).List == this; }
 
 		public void CopyTo(DataRefBase<T>[] array, int arrayIndex) {
-			if (array == null) throw new ArgumentNullException("array");
-			if (arrayIndex < 0) throw new ArgumentOutOfRangeException("arrayIndex");
+			if (array == null) throw new ArgumentNullException(nameof(array));
+			if (arrayIndex < 0) throw new ArgumentOutOfRangeException(nameof(arrayIndex));
 			if (arrayIndex >= array.Length) throw new ArgumentException("arrayIndex is greater or equal than the array length");
 			if (arrayIndex + Count > array.Length) throw new ArgumentException("Number of elements in list is greater than available space");
 			foreach (var item in this) array[arrayIndex++] = item;
@@ -159,9 +159,9 @@ namespace KsWare.Presentation.DataVirtualization {
 		#region ICollection Members
 
 		public void CopyTo(Array array, int index) {
-			if (array == null) throw new ArgumentNullException("array");
+			if (array == null) throw new ArgumentNullException(nameof(array));
 			if (array.Rank != 1) throw new ArgumentException("Array rank must be 1");
-			if (index < array.GetLowerBound(0)) throw new ArgumentOutOfRangeException("index");
+			if (index < array.GetLowerBound(0)) throw new ArgumentOutOfRangeException(nameof(index));
 			if (index > array.GetUpperBound(0)) throw new ArgumentException("arrayIndex is greater or equal than the array upper bound");
 			if (index + Count - 1 > array.GetUpperBound(0)) throw new ArgumentException("Number of elements in list is greater than available space");
 			if (array is DataRefBase<T>[]) CopyTo((DataRefBase<T>[]) array, index);
@@ -176,8 +176,8 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		public object SyncRoot {
 			get {
-				if (m_SyncRoot == null) Interlocked.CompareExchange(ref m_SyncRoot, new object(), null);
-				return m_SyncRoot;
+				if (_syncRoot == null) Interlocked.CompareExchange(ref _syncRoot, new object(), null);
+				return _syncRoot;
 			}
 		}
 
@@ -208,24 +208,24 @@ namespace KsWare.Presentation.DataVirtualization {
 			// used in public IEnumerator<DataRefBase<T>> GetEnumerator() {...}
 			// therewith is possible to use perfomance analysing for the enumerator
 
-			private VirtualListBase<T> m_List;
-			private int m_Current;
+			private VirtualListBase<T> _list;
+			private int _current;
 
 			public VirtualEnumerator(VirtualListBase<T> list) {
-				m_List = list;
-				m_Current = -1;
+				_list = list;
+				_current = -1;
 			}
 
-			public void Dispose() { m_List = null; }
+			public void Dispose() { _list = null; }
 
 			public bool MoveNext() {
-				m_Current++;
-				return m_Current < m_List.Count;
+				_current++;
+				return _current < _list.Count;
 			}
 
-			public void Reset() { m_Current = -1; }
+			public void Reset() { _current = -1; }
 
-			public DataRefBase<T> Current { get { return m_List[m_Current]; } }
+			public DataRefBase<T> Current { get { return _list[_current]; } }
 
 			object IEnumerator.Current { get { return Current; } }
 		}
@@ -307,47 +307,47 @@ namespace KsWare.Presentation.DataVirtualization {
 		public sealed class CacheImpl {
 
 			// statistics
-			private int m_CacheRequest;
-			private int m_CacheMisses;
+			private int _cacheRequest;
+			private int _cacheMisses;
 
-			private readonly LinkedList<CacheBlock> m_CacheBlock;
+			private readonly LinkedList<CacheBlock> _cacheBlock;
 			internal readonly int NumCacheBlocks;
 			internal readonly int NumItemsPerCacheBlock;
 
-			private int m_Count;
-			private Func<int,T[], int> m_LoadCallback;
-			private VirtualListBase<T> m_List; /*DEPRECATED*/
+			private int _count;
+			private Func<int,T[], int> _loadCallback;
+			private VirtualListBase<T> _list; /*DEPRECATED*/
 
 			public CacheImpl(Func<int,T[], int> loadCallback, int numCacheBlocks, int cacheBlockLength, VirtualListBase<T> list /*DEPRECATED*/) {
-				m_LoadCallback = loadCallback;
-				m_Count               = UninitializedCount;
+				_loadCallback = loadCallback;
+				_count               = UninitializedCount;
 				NumCacheBlocks        = numCacheBlocks;
 				NumItemsPerCacheBlock = cacheBlockLength;
-				m_CacheBlock          = new LinkedList<CacheBlock>();
-				m_List                = list; /*DEPRECATED*/
+				_cacheBlock          = new LinkedList<CacheBlock>();
+				_list                = list; /*DEPRECATED*/
 			}
 
 			public int Count {
 				get {
 					// if the count hasn't been determind yet, we need to access at least one remote item to get it
-					if (m_Count == UndefinedCount || m_Count == UninitializedCount) LoadData(0);
-					return m_Count;
+					if (_count == UndefinedCount || _count == UninitializedCount) LoadData(0);
+					return _count;
 				}
 			}
 
 			public void Clear() {
-				m_Count=UninitializedCount;
-				m_CacheBlock.Clear();
+				_count=UninitializedCount;
+				_cacheBlock.Clear();
 			}
 
-			private int InternalLoad(int startIndex, T[] data) { return m_LoadCallback(startIndex, data); }
+			private int InternalLoad(int startIndex, T[] data) { return _loadCallback(startIndex, data); }
 
 			public T LoadData(int index) {
 				//Debug.WriteLine(string.Format("LoadData {0}",index));
-				++m_CacheRequest;
+				++_cacheRequest;
 				T returnValue;
  
-				var cacheBlockNode = m_CacheBlock.First;
+				var cacheBlockNode = _cacheBlock.First;
 				int indexInCacheBlock = -1;
 				while (cacheBlockNode != null) {
 					if (cacheBlockNode.Value.Contains(index, out indexInCacheBlock)) break;
@@ -355,13 +355,13 @@ namespace KsWare.Presentation.DataVirtualization {
 				}
 
 				if (cacheBlockNode == null) {
-					++m_CacheMisses;
+					++_cacheMisses;
 					CacheBlock cacheBlock;
-					if (m_CacheBlock.Count < NumCacheBlocks) {
+					if (_cacheBlock.Count < NumCacheBlocks) {
 						cacheBlockNode = new LinkedListNode<CacheBlock>(cacheBlock = new CacheBlock(NumItemsPerCacheBlock));
 					} else {
-						cacheBlockNode = m_CacheBlock.Last;
-						m_CacheBlock.RemoveLast();
+						cacheBlockNode = _cacheBlock.Last;
+						_cacheBlock.RemoveLast();
 						cacheBlock = cacheBlockNode.Value;
 					}
 					indexInCacheBlock = index%cacheBlock.Data.Length;
@@ -370,19 +370,19 @@ namespace KsWare.Presentation.DataVirtualization {
 					cacheBlock.StartIndex = index - indexInCacheBlock;
 					int count = InternalLoad(cacheBlock.StartIndex, cacheBlock.Data);
 					cacheBlock.EndIndex = Math.Min(count, cacheBlock.StartIndex + cacheBlock.Data.Length) -1;
-					if (count != m_Count /*collection has changed in the meantime*/) { 
-						bool firstTime = m_Count == UninitializedCount;
+					if (count != _count /*collection has changed in the meantime*/) { 
+						bool firstTime = _count == UninitializedCount;
 						// update the count [HÄÄ??->] unless it was undefined
-						m_Count = count;
+						_count = count;
 
 						// signal that our collection has changed, if this is not the first time aroud
 						// failure to check for this will give a nullreferenceexception on collectionchanged
-						if (!firstTime) m_List.NotifyCollectionChanged(); /*DEPRECATED*/ //TODO remove list access
+						if (!firstTime) _list.NotifyCollectionChanged(); /*DEPRECATED*/ //TODO remove list access
 						
 						// clear the cache: the only block left is the one we're holding
-						m_CacheBlock.Clear();
+						_cacheBlock.Clear();
 					}
-					m_CacheBlock.AddFirst(cacheBlockNode);
+					_cacheBlock.AddFirst(cacheBlockNode);
 
 					// if the index is outside the bounds of the new count, return nothing
 					if (indexInCacheBlock > cacheBlock.EndIndex) returnValue=null;
@@ -390,9 +390,9 @@ namespace KsWare.Presentation.DataVirtualization {
 					 if (/*DEBUG*/ returnValue == null) { Debug.WriteLine("returning null!");} 
 				} else {
 					// move the block to the front of the cache if it's not already there
-					if (cacheBlockNode != m_CacheBlock.First) {
-						m_CacheBlock.Remove(cacheBlockNode);
-						m_CacheBlock.AddFirst(cacheBlockNode);
+					if (cacheBlockNode != _cacheBlock.First) {
+						_cacheBlock.Remove(cacheBlockNode);
+						_cacheBlock.AddFirst(cacheBlockNode);
 					}
 					returnValue= cacheBlockNode.Value.Data[indexInCacheBlock];
 					if (/*DEBUG*/ returnValue == null) { Debug.WriteLine("returning null!");} 
@@ -407,7 +407,7 @@ namespace KsWare.Presentation.DataVirtualization {
 
 				var lastIndex = newIndex - 1;
 
-				var cacheBlockNode = m_CacheBlock.First;
+				var cacheBlockNode = _cacheBlock.First;
 				int indexInCacheBlock = -1;
 				while (indexInCacheBlock==-1 && cacheBlockNode != null) {
 					indexInCacheBlock = cacheBlockNode.Value.IndexOf(lastIndex);
@@ -416,7 +416,7 @@ namespace KsWare.Presentation.DataVirtualization {
 				}
 
 				if (cacheBlockNode == null /* index not in cache*/) {
-					m_Count++;
+					_count++;
 //					Debug.WriteLine(string.Format("AddItem {0,7} : no matching CacheBlockNode => do nothing", newIndex));
 					return; // nothing to do
 				} else /* block found */ {
@@ -426,12 +426,12 @@ namespace KsWare.Presentation.DataVirtualization {
 					if (numEntries == NumItemsPerCacheBlock /*block is full*/) {
 //						Debug.WriteLine(string.Format("AddItem {0,7} : CacheBlockNode is full, need new one => do nothing", newIndex));
 						// TODO we could create a new cache block
-						m_Count++;
+						_count++;
 					} else {
 //						Debug.WriteLine(string.Format("AddItem {0,7} : CacheBlockNode expanded", newIndex));
 						cacheBlockNode.Value.EndIndex++;
 						cacheBlockNode.Value.Data[indexInCacheBlock+1]=item;
-						m_Count++;
+						_count++;
 					}
 				}
 			}
@@ -439,7 +439,7 @@ namespace KsWare.Presentation.DataVirtualization {
 			public void ReplaceItem(int index, T item) {
 				//Debug.WriteLine(string.Format("Cache.Replace {0}",index));
 
-				var cacheBlockNode = m_CacheBlock.First;
+				var cacheBlockNode = _cacheBlock.First;
 				int indexInCacheBlock = -1;
  
 				while (cacheBlockNode != null) {
@@ -455,16 +455,16 @@ namespace KsWare.Presentation.DataVirtualization {
 			}
 
 			public void NotifyCollectionChanged(NotifyCollectionChangedEventArgs e) {
-				if (m_Count == UndefinedCount) {Debugger.Break(); /*should not occur*/ return;}
+				if (_count == UndefinedCount) {Debugger.Break(); /*should not occur*/ return;}
 
-				// NOTE m_Count: from here we assume m_Count has a valid value
+				// NOTE _Count: from here we assume _Count has a valid value
 
 				switch (e.Action) {
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewStartingIndex != -1 /*Insert*/ && e.NewStartingIndex!=m_Count) {
+						if (e.NewStartingIndex != -1 /*Insert*/ && e.NewStartingIndex!=_count) {
 							throw new NotImplementedException("{6A835BE6-2823-4B91-AB4E-5CB3086DC01E}");
 						}
-						var newIndex = m_Count;
+						var newIndex = _count;
 						foreach (T newItem in e.NewItems) AddItem(newIndex++,newItem);
 						//PERFORMANCE if more as 1 new item, we could implement AddRange
 						break;

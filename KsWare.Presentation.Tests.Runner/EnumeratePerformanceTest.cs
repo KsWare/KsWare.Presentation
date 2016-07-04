@@ -4,11 +4,12 @@ using System.Runtime.CompilerServices;
 namespace KsWare.Presentation.Tests.Runner {
 
 	public class EnumeratePerformanceTest {
-		List<int> m_List=new List<int>(); 
+
+		List<int> _list=new List<int>(); 
 
 		public void Run() {
 			for (int i = 0; i < 10000000; i++) {
-				m_List.Add(i);
+				_list.Add(i);
 			}
 
 			For();
@@ -20,7 +21,7 @@ namespace KsWare.Presentation.Tests.Runner {
 		public void For() {
 			int a;
 			for (int i = 0; i < 10000000; i++) {
-				var v = m_List[i];
+				var v = _list[i];
 				a = v;
 			}
 		}
@@ -29,7 +30,7 @@ namespace KsWare.Presentation.Tests.Runner {
 		public void ForReverse() {
 			int a;
 			for (int i = 1000000-1; i>=0 ; i--) {
-				var v = m_List[10000000-1-i];
+				var v = _list[10000000-1-i];
 				a = v;
 			}
 		}
@@ -37,7 +38,7 @@ namespace KsWare.Presentation.Tests.Runner {
 		[MethodImpl(MethodImplOptions.NoOptimization|MethodImplOptions.NoInlining)]
 		public void ForEach() {
 			int a;
-			foreach (var v in m_List) {
+			foreach (var v in _list) {
 				a = v;
 			}
 		}

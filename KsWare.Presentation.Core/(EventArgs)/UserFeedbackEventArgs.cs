@@ -20,11 +20,11 @@ namespace KsWare.Presentation {
 	/// </remarks>
 	public abstract class UserFeedbackEventArgs: EventArgs {
 		
-		private bool m_Handled;
-		private object m_ReturnValue;
-		private bool m_AsyncHandled;
-		private Action<UserFeedbackEventArgs> m_AsyncCallback;
-		private object m_AsyncCallbackParameters;
+		private bool _handled;
+		private object _returnValue;
+		private bool _asyncHandled;
+		private Action<UserFeedbackEventArgs> _asyncCallback;
+		private object _asyncCallbackParameters;
 
 		/// <summary> Initializes a new instance of the <see cref="UserFeedbackEventArgs"/> class.
 		/// </summary>
@@ -35,11 +35,11 @@ namespace KsWare.Presentation {
 		/// <value><see langword="true"/> if handled asynchronous; otherwise, <see langword="false"/>.
 		/// </value>
 		public bool AsyncHandled {
-			get {return m_AsyncHandled;}
+			get {return _asyncHandled;}
 			set {
-				if (m_AsyncHandled == true && value == false)
+				if (_asyncHandled == true && value == false)
 					throw new InvalidOperationException("UniqueID: {499187B0-B162-4DCC-AAEE-DA2DFAEB8E7F}");//REVIEW
-				m_AsyncHandled = value;
+				_asyncHandled = value;
 			}
 		}
 
@@ -48,11 +48,11 @@ namespace KsWare.Presentation {
 		/// <value><see langword="true"/> if handled; otherwise, <see langword="false"/>.
 		/// </value>
 		public bool Handled {
-			get {return m_Handled;}
+			get {return _handled;}
 			set {
-				if (m_Handled == true && value == false)
+				if (_handled == true && value == false)
 					throw new InvalidOperationException("UniqueID: {83D4D228-D7B7-4A9E-AC4B-BB47533E6246}");//REVIEW
-				m_Handled = value;
+				_handled = value;
 			}
 		}
 
@@ -60,26 +60,26 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value>The return value.</value>
 		public object ReturnValue {
-			get {return m_ReturnValue;}
+			get {return _returnValue;}
 			set {
-				MemberAccessUtil.DemandWriteOnce(this.m_ReturnValue==null,null,this,"ReturnValue","{E10EB54D-F471-4C8E-8682-8C678A374E9B}");
-				this.m_ReturnValue = value;
+				MemberAccessUtil.DemandWriteOnce(this._returnValue==null,null,this,nameof(ReturnValue),"{E10EB54D-F471-4C8E-8682-8C678A374E9B}");
+				this._returnValue = value;
 			}
 		}
 
 		public Action<UserFeedbackEventArgs> AsyncCallback {
-			get { return m_AsyncCallback; }
+			get { return _asyncCallback; }
 			set { 
-//				MemberAccessUtil.DemandWriteOnce(m_AsyncCallback==null && m_AsyncCallbackParameters==null,null,this,"AsyncCallback","{CD39C0F6-59AF-4CFD-9C19-95E650766618}");
-				m_AsyncCallback = value;
+//				MemberAccessUtil.DemandWriteOnce(_AsyncCallback==null && _AsyncCallbackParameters==null,null,this,"AsyncCallback","{CD39C0F6-59AF-4CFD-9C19-95E650766618}");
+				_asyncCallback = value;
 			}
 		}
 
 		public object AsyncCallbackParameters {
-			get { return m_AsyncCallbackParameters; }
+			get { return _asyncCallbackParameters; }
 			set {
-//				MemberAccessUtil.DemandWriteOnce(m_AsyncCallback==null && m_AsyncCallbackParameters==null,null,this,"AsyncCallbackParameters","{CD39C0F6-59AF-4CFD-9C19-95E650766618}");
-				m_AsyncCallbackParameters = value;
+//				MemberAccessUtil.DemandWriteOnce(_AsyncCallback==null && _AsyncCallbackParameters==null,null,this,"AsyncCallbackParameters","{CD39C0F6-59AF-4CFD-9C19-95E650766618}");
+				_asyncCallbackParameters = value;
 			}
 		}
 

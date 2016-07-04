@@ -25,7 +25,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	public class ValueSourceProvider:Provider,IValueSourceProvider {
 
 		
-		private IEnumerable m_SourceList;
+		private IEnumerable _sourceList;
 
 
 		/// <summary> Initializes a new instance of the <see cref="ValueSourceProvider"/> class.
@@ -51,10 +51,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </code>
 		/// </example>
 		public IEnumerable SourceList {
-			get {return m_SourceList;}
+			get {return _sourceList;}
 			set {
-				m_SourceList=value;
-				OnPropertyChanged("SourceList");
+				_sourceList=value;
+				OnPropertyChanged(nameof(SourceList));
 			}
 		}
 
@@ -71,9 +71,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class BusinessValueSourceProvider:Provider,IValueSourceProvider,IWeakEventListener {
 
-		private IValueBM m_BusinessValue;
-		private readonly ObservableNotifyableCollection<object> m_Values=new ObservableNotifyableCollection<object>();
-		private IValueSettings m_BusinessValueSettings;
+		private IValueBM _businessValue;
+		private readonly ObservableNotifyableCollection<object> _values=new ObservableNotifyableCollection<object>();
+		private IValueSettings _businessValueSettings;
 
 		/// <summary> Initializes a new instance of the <see cref="BusinessValueSourceProvider"/> class.
 		/// </summary>
@@ -84,21 +84,21 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The business value.</value>
 		public IValueBM BusinessValue {
-			get {return m_BusinessValue;}
+			get {return _businessValue;}
 			set {
-				if(m_BusinessValue!=null) {
+				if(_businessValue!=null) {
 					//m_BusinessValue.Disposed-=AtBusinessValueDisposed;
-					m_BusinessValue.SettingsChanged-=AtBusinessValueSettingsChanged;
-					if(m_BusinessValue.Settings.IncludeValues is INotifyCollectionChanged) {
-						CollectionChangedEventManager.RemoveListener(((INotifyCollectionChanged) m_BusinessValue.Settings.IncludeValues), this);
+					_businessValue.SettingsChanged-=AtBusinessValueSettingsChanged;
+					if(_businessValue.Settings.IncludeValues is INotifyCollectionChanged) {
+						CollectionChangedEventManager.RemoveListener(((INotifyCollectionChanged) _businessValue.Settings.IncludeValues), this);
 					}
 				}
 
-				m_BusinessValue = value;
+				_businessValue = value;
 				
-				if(m_BusinessValue!=null){
+				if(_businessValue!=null){
 					//m_BusinessValue.Disposed+=AtBusinessValueDisposed;
-					m_BusinessValue.SettingsChanged+=AtBusinessValueSettingsChanged;
+					_businessValue.SettingsChanged+=AtBusinessValueSettingsChanged;
 				}
 				AtBusinessValueSettingsChanged(value,new ValueSettingsChangedEventArgs(ValueSettingName.All));
 			}
@@ -118,32 +118,32 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 		private void AtBusinessValueDisposed(object sender, EventArgs eventArgs) { 
-			if(sender!=m_BusinessValue) return;
+			if(sender!=_businessValue) return;
 			BusinessValue = null;
 		}
 
 		private void AtBusinessValueSettingsChanged(object sender, ValueSettingsChangedEventArgs args) {
 			// <- ValueBM{set;}
 			// <- ValueBM.SettingsChanged-event
-			var newSettings = m_BusinessValue != null ? m_BusinessValue.Settings : null;
-			if(m_BusinessValueSettings!=newSettings) {
-				if(m_BusinessValueSettings!=null) {
-					if(m_BusinessValueSettings.IncludeValues is INotifyCollectionChanged) {
-						CollectionChangedEventManager.RemoveListener(((INotifyCollectionChanged) m_BusinessValueSettings.IncludeValues), this);
+			var newSettings = _businessValue != null ? _businessValue.Settings : null;
+			if(_businessValueSettings!=newSettings) {
+				if(_businessValueSettings!=null) {
+					if(_businessValueSettings.IncludeValues is INotifyCollectionChanged) {
+						CollectionChangedEventManager.RemoveListener(((INotifyCollectionChanged) _businessValueSettings.IncludeValues), this);
 					}
-					if(m_BusinessValueSettings.ExcludeValues is INotifyCollectionChanged) {
-						CollectionChangedEventManager.RemoveListener(((INotifyCollectionChanged) m_BusinessValueSettings.ExcludeValues), this);
+					if(_businessValueSettings.ExcludeValues is INotifyCollectionChanged) {
+						CollectionChangedEventManager.RemoveListener(((INotifyCollectionChanged) _businessValueSettings.ExcludeValues), this);
 					}
 				}
 
-				m_BusinessValueSettings = newSettings;
+				_businessValueSettings = newSettings;
 
-				if(m_BusinessValueSettings!=null) {
-					if(m_BusinessValueSettings.IncludeValues is INotifyCollectionChanged) {
-						CollectionChangedEventManager.AddListener(((INotifyCollectionChanged) m_BusinessValueSettings.IncludeValues), this);
+				if(_businessValueSettings!=null) {
+					if(_businessValueSettings.IncludeValues is INotifyCollectionChanged) {
+						CollectionChangedEventManager.AddListener(((INotifyCollectionChanged) _businessValueSettings.IncludeValues), this);
 					}				
-					if(m_BusinessValueSettings.ExcludeValues is INotifyCollectionChanged) {
-						CollectionChangedEventManager.AddListener(((INotifyCollectionChanged) m_BusinessValueSettings.ExcludeValues), this);
+					if(_businessValueSettings.ExcludeValues is INotifyCollectionChanged) {
+						CollectionChangedEventManager.AddListener(((INotifyCollectionChanged) _businessValueSettings.ExcludeValues), this);
 					}				
 				}
 			}
@@ -159,17 +159,17 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		private void FillValueList() {
-			m_Values.Clear();
+			_values.Clear();
 			
-			if (m_BusinessValue == null) return;
-			if (m_BusinessValue.Settings == null || !m_BusinessValue.Settings.IncludeValuesSpecified || m_BusinessValue.Settings.IncludeValues == null) return;
+			if (_businessValue == null) return;
+			if (_businessValue.Settings == null || !_businessValue.Settings.IncludeValuesSpecified || _businessValue.Settings.IncludeValues == null) return;
 			
-			foreach (var value in m_BusinessValue.Settings.IncludeValues) {
+			foreach (var value in _businessValue.Settings.IncludeValues) {
 				if (value.GetType().IsEnum) {
 					var vm = EnumVM.GetVM((Enum)value);
-					m_Values.Add(vm);
+					_values.Add(vm);
 				} else {
-					m_Values.Add(value);
+					_values.Add(value);
 				}
 			}
 		}
@@ -177,7 +177,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Gets or sets the a list of available values.
 		/// </summary>
 		/// <value>The list of available values.</value>
-		public IEnumerable SourceList {get {return m_Values;}set {throw new InvalidOperationException("The SourceList is managed by underlying business object only!");}}
+		public IEnumerable SourceList {get {return _values;}set {throw new InvalidOperationException("The SourceList is managed by underlying business object only!");}}
 
 		/// <summary> Receives events from the centralized event manager.
 		/// </summary>

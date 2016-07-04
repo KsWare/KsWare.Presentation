@@ -21,13 +21,13 @@ namespace KsWare.Presentation.BusinessFramework {
 		private const int MaxDelayedCollectionChangedEvents=10; //
 
 		/// <summary> Don't use this field directly! Use <see cref="InnerList"/> instead. Only <see cref="InnerList"/> and <see cref="InitializeInnerList"/> should call this field. </summary>
-		private List<TItem> m_InnerList;
-		private List<TItem> m_InnerListOld;
+		private List<TItem> _innerList;
+		private List<TItem> _innerListOld;
 
-		private bool m_Updating;
-		private readonly List<NotifyCollectionChangedEventArgs> m_DelayedCollectionChangedEventArgs=new List<NotifyCollectionChangedEventArgs>();
-		private readonly SimpleMonitor m_CollectionChangedMonitor= new SimpleMonitor();
-		private SimpleMonitor m_InnerListInitializeMonitor= new SimpleMonitor();
+		private bool _updating;
+		private readonly List<NotifyCollectionChangedEventArgs> _delayedCollectionChangedEventArgs=new List<NotifyCollectionChangedEventArgs>();
+		private readonly SimpleMonitor _collectionChangedMonitor= new SimpleMonitor();
+		private SimpleMonitor _innerListInitializeMonitor= new SimpleMonitor();
 		protected bool IsReferenceList;
 
 
@@ -37,7 +37,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			if(typeof(TItem).GetInterface(typeof(IValueBM).FullName)!=null) {
 				Debug.WriteLine("=>WARNING: BusinessObjectListBM<" + typeof(TItem).FullName + "> is not fully supported!");
 			}
-			m_InnerList = new List<TItem>();
+			_innerList = new List<TItem>();
 		}
 
 		#region Metadata
@@ -69,9 +69,9 @@ namespace KsWare.Presentation.BusinessFramework {
 		override protected void OnDataChanged(DataChangedEventArgs e) {
 			base.OnDataChanged(e);
 
-			m_InnerListOld=m_InnerList;
-			m_InnerList = null;
-			m_InnerListInitializeMonitor=new SimpleMonitor(); // this indicates InnerList is not initialized
+			_innerListOld=_innerList;
+			_innerList = null;
+			_innerListInitializeMonitor=new SimpleMonitor(); // this indicates InnerList is not initialized
 
 			InitializeInnerList();
 		}
@@ -86,8 +86,8 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		private IList<TItem> InnerList {
 			get {
-				if(m_InnerListInitializeMonitor!=null) InitializeInnerList();
-				return m_InnerList;
+				if(_innerListInitializeMonitor!=null) InitializeInnerList();
+				return _innerList;
 			}
 		}
 
@@ -98,15 +98,15 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </remarks>
 		private void InitializeInnerList() {
 			const string noDataToken = "InitializeInnerList:NoData";
-			if(m_InnerListInitializeMonitor==null/*this indicates InnerList is initialized*/) return;
+			if(_innerListInitializeMonitor==null/*this indicates InnerList is initialized*/) return;
 
 			//check reentrancy
-			if (m_InnerListInitializeMonitor.IsBusy) 
+			if (_innerListInitializeMonitor.IsBusy) 
 				throw new InvalidOperationException("Cannot initialize the list during an event! (Possibly recursive call)");
 
 			var delayedevents = new List<InvokeArgs>();
 			//block reentrancy
-			using(m_InnerListInitializeMonitor.Enter()){
+			using(_innerListInitializeMonitor.Enter()){
 
 				IList dataList;
 				//dataList = this.DataList;
@@ -135,10 +135,10 @@ namespace KsWare.Presentation.BusinessFramework {
 					dataList=new ArrayList();
 				}
 
-				if(m_InnerListOld!=null && m_InnerListOld.Count>0) {
+				if(_innerListOld!=null && _innerListOld.Count>0) {
 					//REVISE: OnItemRemoved(..) -or- OnCleared()
-					/*A:*/ while (m_InnerListOld.Count>0) {
-						var item = m_InnerListOld[0]; m_InnerListOld.RemoveAt(0);
+					/*A:*/ while (_innerListOld.Count>0) {
+						var item = _innerListOld[0]; _innerListOld.RemoveAt(0);
 						delayedevents.Add(new InvokeArgs(new Action<int, TItem>(OnItemRemoved), new object[] {0, item}));//OnItemRemoved(0,item);
 					}
 					/*B:*/ // OnCleared();
@@ -147,13 +147,13 @@ namespace KsWare.Presentation.BusinessFramework {
 				if (dataList == null) {
 				
 				} else {
-					m_InnerList=new List<TItem>();
+					_innerList=new List<TItem>();
 					int i = -1;
 					
 					foreach (object data in dataList) {
 						i++;
 						var item = Metadata.NewItemProvider.CreateItem<TItem>(data);
-						m_InnerList.Add(item);
+						_innerList.Add(item);
 						if(!IsReferenceList) {
 							item.Parent = this;
 						}
@@ -165,9 +165,9 @@ namespace KsWare.Presentation.BusinessFramework {
 
 				/*B:*/ // innerListBackingFieldOld.Clear(); OnCleared();
 
-				m_InnerListOld = null;
+				_innerListOld = null;
 			}
-			m_InnerListInitializeMonitor = null;// this indicates InnerList is initialized
+			_innerListInitializeMonitor = null;// this indicates InnerList is initialized
 
 			//raise delayed events
 //			foreach (var delayedevent in delayedevents) {
@@ -276,7 +276,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <filterpriority>2</filterpriority>
 		public int Count {
 			get {
-				if(m_InnerListInitializeMonitor!=null) { // use DataList if innerList not yet initialized
+				if(_innerListInitializeMonitor!=null) { // use DataList if innerList not yet initialized
 					var dataList = DataList;
 					return dataList!=null ? dataList.Count : 0;
 				}
@@ -367,13 +367,13 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// A monitor which is used in <see langword="using"/>(){...}
 		/// </returns>
 		protected IDisposable BlockReentrancy() {
-			return m_CollectionChangedMonitor.Enter();
+			return _collectionChangedMonitor.Enter();
 		}
 
 		/// <summary> Checks the reentrancy.
 		/// </summary>
 		protected void CheckReentrancy() {
-			if ((m_CollectionChangedMonitor.IsBusy && (CollectionChanged != null)) && (CollectionChanged.GetInvocationList().Length > 0)) {
+			if ((_collectionChangedMonitor.IsBusy && (CollectionChanged != null)) && (CollectionChanged.GetInvocationList().Length > 0)) {
 				throw new InvalidOperationException("Cannot change ObservableCollection during a CollectionChanged event.");
 			}
 		}
@@ -381,24 +381,24 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Delays any event raising until <see cref="EndUpdate"/> is invoked.
 		/// </summary>
 		public void BeginUpdate() {
-			if(m_Updating) throw new InvalidOperationException("Update operation already started!");
-			m_Updating = true;
+			if(_updating) throw new InvalidOperationException("Update operation already started!");
+			_updating = true;
 		}
 
 		/// <summary> Disables event raising delay and raises all events since <see cref="BeginUpdate"/>-call.
 		/// </summary>
 		public void EndUpdate() {
-			if(!m_Updating) throw new InvalidOperationException("Update operation not started!");
-			m_Updating = false;
+			if(!_updating) throw new InvalidOperationException("Update operation not started!");
+			_updating = false;
 			if(CollectionChanged!=null) {
 
-				if(m_DelayedCollectionChangedEventArgs.Count>MaxDelayedCollectionChangedEvents) {
-					m_DelayedCollectionChangedEventArgs.Clear();
+				if(_delayedCollectionChangedEventArgs.Count>MaxDelayedCollectionChangedEvents) {
+					_delayedCollectionChangedEventArgs.Clear();
 					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 				} else {
-					while (m_DelayedCollectionChangedEventArgs.Count != 0) {
-						OnCollectionChanged(m_DelayedCollectionChangedEventArgs[0]);
-						m_DelayedCollectionChangedEventArgs.RemoveAt(0);
+					while (_delayedCollectionChangedEventArgs.Count != 0) {
+						OnCollectionChanged(_delayedCollectionChangedEventArgs[0]);
+						_delayedCollectionChangedEventArgs.RemoveAt(0);
 					}					
 				}
 			}
@@ -494,8 +494,8 @@ namespace KsWare.Presentation.BusinessFramework {
 
 			if(ItemInserted!=null) ItemInserted(index,insertedItem);
 
-			if (!m_Updating) OnCollectionChanged(args);
-			else if (CollectionChanged != null) m_DelayedCollectionChangedEventArgs.Add(args);
+			if (!_updating) OnCollectionChanged(args);
+			else if (CollectionChanged != null) _delayedCollectionChangedEventArgs.Add(args);
 
 			OnTreeChanged();
 		}
@@ -527,8 +527,8 @@ namespace KsWare.Presentation.BusinessFramework {
 			if (ItemRemoved  != null) ItemRemoved(index, removedItem);
 			if (ItemInserted != null) ItemInserted(index, insertedItem);
 
-			if(!m_Updating) OnCollectionChanged(args);
-			else if(CollectionChanged!=null) m_DelayedCollectionChangedEventArgs.Add(args);
+			if(!_updating) OnCollectionChanged(args);
+			else if(CollectionChanged!=null) _delayedCollectionChangedEventArgs.Add(args);
 
 			OnTreeChanged();
 		}
@@ -554,8 +554,8 @@ namespace KsWare.Presentation.BusinessFramework {
 
 			if (ItemRemoved!=null) ItemRemoved(index, removedItem);
 
-			if(!m_Updating) OnCollectionChanged(args);
-			else if(CollectionChanged!=null) m_DelayedCollectionChangedEventArgs.Add(args);
+			if(!_updating) OnCollectionChanged(args);
+			else if(CollectionChanged!=null) _delayedCollectionChangedEventArgs.Add(args);
 
 			OnTreeChanged();
 		}
@@ -584,8 +584,8 @@ namespace KsWare.Presentation.BusinessFramework {
 				Metadata.LogicProvider.CollectionChanged(args);
 			}
 
-			if(!m_Updating) OnCollectionChanged(args);
-			else if(CollectionChanged!=null) m_DelayedCollectionChangedEventArgs.Add(args);
+			if(!_updating) OnCollectionChanged(args);
+			else if(CollectionChanged!=null) _delayedCollectionChangedEventArgs.Add(args);
 
 			OnTreeChanged();
 		}
@@ -600,7 +600,7 @@ namespace KsWare.Presentation.BusinessFramework {
 					EventUtil.Raise(CollectionChanged,this,e,"{80369EB5-B7BE-4DA7-BE83-F711D2227D5A}");
 				}
 			}
-			OnPropertyChanged("Count");
+			OnPropertyChanged(nameof(Count));
 		}
 
 		#endregion

@@ -14,23 +14,23 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		abstract class Extension:INotifyPropertyChanged,IDataErrorInfo {
 
-			private EditValueProvider m_Provider;
-			private Dictionary<string,string> m_ErrorInfos=new Dictionary<string, string>();
-			private string m_ErrorInfo;
+			private EditValueProvider _provider;
+			private Dictionary<string,string> _errorInfos=new Dictionary<string, string>();
+			private string _errorInfo;
 
 			protected Extension(EditValueProvider provider) {
-				m_Provider = provider;
+				_provider = provider;
 			}
 
 			/// <summary> Gets the associated provider.
 			/// </summary>
 			/// <value>The associated provider.</value>
-			protected EditValueProvider Provider { get { return m_Provider; } }
+			protected EditValueProvider Provider { get { return _provider; } }
 
 			/// <summary> Gets the associated view model.
 			/// </summary>
 			/// <value>The associated view model.</value>
-			protected IValueVM ViewModel { get { return m_Provider.ViewModel; } }
+			protected IValueVM ViewModel { get { return _provider.ViewModel; } }
 
 			/// <summary> Gets the associated metadata. 
 			/// </summary>
@@ -50,30 +50,30 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				if(handler!=null) handler(this, new PropertyChangedEventArgs(propertyName));
 			}
 			
-			protected void ResetError() { m_ErrorInfo = null; }
+			protected void ResetError() { _errorInfo = null; }
 
-			protected void ResetError(string property) { m_ErrorInfos.Remove(property); }
+			protected void ResetError(string property) { _errorInfos.Remove(property); }
 
-			protected void SetError(string message) { m_ErrorInfo = message; }
+			protected void SetError(string message) { _errorInfo = message; }
 
 			protected void SetError(string property, string message) {
-				if(m_ErrorInfos.ContainsKey(property)) m_ErrorInfos[property] = message;
-				else m_ErrorInfos.Add(property,message);
+				if(_errorInfos.ContainsKey(property)) _errorInfos[property] = message;
+				else _errorInfos.Add(property,message);
 			}
 
-			protected bool HasError { get { return !string.IsNullOrEmpty(m_ErrorInfo) || m_ErrorInfos.Count > 0; } }
+			protected bool HasError { get { return !string.IsNullOrEmpty(_errorInfo) || _errorInfos.Count > 0; } }
 
 			string IDataErrorInfo.this[string columnName] {
 				get {
 					string value;
-					if (m_ErrorInfos.TryGetValue(columnName, out value)) return value;
+					if (_errorInfos.TryGetValue(columnName, out value)) return value;
 					return ViewModel.Metadata.ErrorProvider.HasError == false ? "" : ViewModel.Metadata.ErrorProvider.ErrorMessage;
 				}
 			}
 
 			string IDataErrorInfo.Error {
 				get {
-					if (!string.IsNullOrEmpty(m_ErrorInfo)) return m_ErrorInfo;
+					if (!string.IsNullOrEmpty(_errorInfo)) return _errorInfo;
 					return ViewModel.Metadata.ErrorProvider.HasError == false ? "" : ViewModel.Metadata.ErrorProvider.ErrorMessage;
 				}
 			}

@@ -19,39 +19,39 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		class TimeSpanExtension:Extension,IEditValueProviderTimeSpanExtension {
 
-			private string m_Days;
-			private string m_Hours;
-			private string m_Minutes;
-			private string m_Seconds;
-			private string m_Milliseconds;
+			private string _days;
+			private string _hours;
+			private string _minutes;
+			private string _seconds;
+			private string _milliseconds;
 
-			private int m_DaysValue;
-			private int m_HoursValue;
-			private int m_MinutesValue;
-			private int m_SecondsValue;
-			private int m_MillisecondsValue;
+			private int _daysValue;
+			private int _hoursValue;
+			private int _minutesValue;
+			private int _secondsValue;
+			private int _millisecondsValue;
 
-			private bool m_DaysHasError;
-			private bool m_HoursHasError;
-			private bool m_MinutesHasError;
-			private bool m_SecondsHasError;
-			private bool m_MillisecondsHasError;
+			private bool _daysHasError;
+			private bool _hoursHasError;
+			private bool _minutesHasError;
+			private bool _secondsHasError;
+			private bool _millisecondsHasError;
 
-			private double m_TotalSecondsAsDouble;
+			private double _totalSecondsAsDouble;
 
 			public TimeSpanExtension(EditValueProvider provider) : base(provider) {}
 
 			public string Days {
-				get {return m_Days; }
+				get {return _days; }
 				set {
-					if(Equals(m_Days,value))return;
-					m_Days = value;
-					OnPropertyChanged("Days");
+					if(Equals(_days,value))return;
+					_days = value;
+					OnPropertyChanged(nameof(Days));
 
 					int result;
 					if(int.TryParse(value,NumberStyles.Integer,null,out result)){
 						if (result >= 0) {
-							m_DaysValue = result;
+							_daysValue = result;
 							DaysHasError = false;
 							TriggerUpdateSource();
 							return;
@@ -63,25 +63,25 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool DaysHasError {
-				get {return m_DaysHasError; }
+				get {return _daysHasError; }
 				private set {
-					if(Equals(m_DaysHasError,value))return;
-					m_DaysHasError = value;
-					OnPropertyChanged("DaysHasError");
+					if(Equals(_daysHasError,value))return;
+					_daysHasError = value;
+					OnPropertyChanged(nameof(DaysHasError));
 				}
 			}
 
 			public string Hours {
-				get {return m_Hours; }
+				get {return _hours; }
 				set {
-					if(Equals(m_Hours,value))return;
-					m_Hours = value;
-					OnPropertyChanged("Hours");
+					if(Equals(_hours,value))return;
+					_hours = value;
+					OnPropertyChanged(nameof(Hours));
 
 					int result;
 					if(int.TryParse(value,NumberStyles.Integer,null,out result)){
 						if (result >= 0 && result < 24) {
-							m_HoursValue=result;
+							_hoursValue=result;
 							HoursHasError = false;
 							TriggerUpdateSource(); 
 							return;
@@ -93,25 +93,25 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool HoursHasError {
-				get {return m_HoursHasError; }
+				get {return _hoursHasError; }
 				private set {
-					if(Equals(m_HoursHasError,value))return;
-					m_HoursHasError = value;
-					OnPropertyChanged("HoursHasError");
+					if(Equals(_hoursHasError,value))return;
+					_hoursHasError = value;
+					OnPropertyChanged(nameof(HoursHasError));
 				}
 			}
 
 			public string Minutes {
-				get {return m_Minutes; }
+				get {return _minutes; }
 				set {
-					if(Equals(m_Minutes,value))return;
-					m_Minutes = value;
-					OnPropertyChanged("Minutes");
+					if(Equals(_minutes,value))return;
+					_minutes = value;
+					OnPropertyChanged(nameof(Minutes));
 
 					int result;
 					if(int.TryParse(value,NumberStyles.Integer,null,out result)){
 						if (result >= 0 && result < 60) {
-							m_MinutesValue=result;
+							_minutesValue=result;
 							MinutesHasError = false;
 							TriggerUpdateSource(); 
 							return;
@@ -123,25 +123,25 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool MinutesHasError {
-				get {return m_MinutesHasError; }
+				get {return _minutesHasError; }
 				private set {
-					if(Equals(m_MinutesHasError,value))return;
-					m_MinutesHasError = value;
-					OnPropertyChanged("MinutesHasError");
+					if(Equals(_minutesHasError,value))return;
+					_minutesHasError = value;
+					OnPropertyChanged(nameof(MinutesHasError));
 				}
 			}
 
 			public string Seconds {
-				get {return m_Seconds; }
+				get {return _seconds; }
 				set {
-					if(Equals(m_Seconds,value))return;
-					m_Seconds = value;
-					OnPropertyChanged("Seconds");
+					if(Equals(_seconds,value))return;
+					_seconds = value;
+					OnPropertyChanged(nameof(Seconds));
 
 					int result;
 					if(int.TryParse(value,NumberStyles.Integer,null,out result)){
 						if (result >= 0 && result < 60) {
-							m_SecondsValue=result;
+							_secondsValue=result;
 							SecondsHasError = false;
 							TriggerUpdateSource();
 							return;
@@ -153,25 +153,25 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool SecondsHasError {
-				get {return m_SecondsHasError; }
+				get {return _secondsHasError; }
 				private set {
-					if(Equals(m_SecondsHasError,value))return;
-					m_SecondsHasError = value;
-					OnPropertyChanged("SecondsHasError");
+					if(Equals(_secondsHasError,value))return;
+					_secondsHasError = value;
+					OnPropertyChanged(nameof(SecondsHasError));
 				}
 			}
 
 			public string Milliseconds {
-				get {return m_Milliseconds; }
+				get {return _milliseconds; }
 				set {
-					if(Equals(m_Milliseconds,value))return;
-					m_Milliseconds = value;
-					OnPropertyChanged("Milliseconds");
+					if(Equals(_milliseconds,value))return;
+					_milliseconds = value;
+					OnPropertyChanged(nameof(Milliseconds));
 
 					int result;
 					if(int.TryParse(value,NumberStyles.Integer,null,out result)){
 						if (result >= 0 && result < 1000) {
-							m_MillisecondsValue=result;
+							_millisecondsValue=result;
 							MillisecondsHasError = false;
 							TriggerUpdateSource();
 							return;
@@ -183,18 +183,18 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool MillisecondsHasError {
-				get {return m_MillisecondsHasError; }
+				get {return _millisecondsHasError; }
 				private set {
-					if(Equals(m_MillisecondsHasError,value))return;
-					m_MillisecondsHasError = value;
-					OnPropertyChanged("MillisecondsHasError");
+					if(Equals(_millisecondsHasError,value))return;
+					_millisecondsHasError = value;
+					OnPropertyChanged(nameof(MillisecondsHasError));
 				}
 			}
 
 			private void TriggerUpdateSource() {
-				if(DaysHasError||HoursHasError||MinutesHasError||SecondsHasError||m_MillisecondsHasError)return;
+				if(DaysHasError||HoursHasError||MinutesHasError||SecondsHasError||_millisecondsHasError)return;
 
-				var value = new TimeSpan(m_DaysValue, m_HoursValue, m_MinutesValue, m_SecondsValue, m_MillisecondsValue);
+				var value = new TimeSpan(_daysValue, _hoursValue, _minutesValue, _secondsValue, _millisecondsValue);
 				ViewModel.Value = value;
 			}
 
@@ -204,57 +204,57 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 			internal bool UpdateValue(bool raiseEvents) {
 				if (!ViewModel.HasValue) {
-					m_Days=m_Hours=m_Minutes=m_Seconds=m_Milliseconds = null;
+					_days=_hours=_minutes=_seconds=_milliseconds = null;
 				} else if (ViewModel.Value is TimeSpan) {
 					var timespan = (TimeSpan) this.ViewModel.Value;
-					m_DaysValue            = timespan.Days;
-					m_HoursValue           = timespan.Hours;
-					m_MinutesValue         = timespan.Minutes;
-					m_SecondsValue         = timespan.Seconds;
-					m_MillisecondsValue    = timespan.Milliseconds;
-					m_Days                 = m_DaysValue        .ToStringEnUs();
-					m_Hours                = m_HoursValue       .ToStringEnUs();
-					m_Minutes              = m_MinutesValue     .ToStringEnUs();
-					m_Seconds              = m_SecondsValue     .ToStringEnUs();
-					m_Milliseconds         = m_MillisecondsValue.ToStringEnUs();
-					m_DaysHasError         = false;
-					m_HoursHasError        = false;
-					m_MinutesHasError      = false;
-					m_SecondsHasError      = false;
-					m_MillisecondsHasError = false;
-					m_TotalSecondsAsDouble = timespan.TotalSeconds;
+					_daysValue            = timespan.Days;
+					_hoursValue           = timespan.Hours;
+					_minutesValue         = timespan.Minutes;
+					_secondsValue         = timespan.Seconds;
+					_millisecondsValue    = timespan.Milliseconds;
+					_days                 = _daysValue        .ToStringEnUs();
+					_hours                = _hoursValue       .ToStringEnUs();
+					_minutes              = _minutesValue     .ToStringEnUs();
+					_seconds              = _secondsValue     .ToStringEnUs();
+					_milliseconds         = _millisecondsValue.ToStringEnUs();
+					_daysHasError         = false;
+					_hoursHasError        = false;
+					_minutesHasError      = false;
+					_secondsHasError      = false;
+					_millisecondsHasError = false;
+					_totalSecondsAsDouble = timespan.TotalSeconds;
 	//			} else if (this.ParentValueVM.Value is Double) {
 	//				
 				} else {
-					m_Days=m_Hours=m_Minutes=m_Seconds=m_Milliseconds = null;
+					_days=_hours=_minutes=_seconds=_milliseconds = null;
 				}
 			
 				if(raiseEvents) {
-					OnPropertyChanged("Days");
-					OnPropertyChanged("Hours");
-					OnPropertyChanged("Minutes");
-					OnPropertyChanged("Seconds");
-					OnPropertyChanged("Milliseconds");
+					OnPropertyChanged(nameof(Days));
+					OnPropertyChanged(nameof(Hours));
+					OnPropertyChanged(nameof(Minutes));
+					OnPropertyChanged(nameof(Seconds));
+					OnPropertyChanged(nameof(Milliseconds));
 
-					OnPropertyChanged("DaysHasError");
-					OnPropertyChanged("HoursHasError");
-					OnPropertyChanged("MinutesHasError");
-					OnPropertyChanged("SecondsHasError");
-					OnPropertyChanged("MillisecondsHasError");
+					OnPropertyChanged(nameof(DaysHasError));
+					OnPropertyChanged(nameof(HoursHasError));
+					OnPropertyChanged(nameof(MinutesHasError));
+					OnPropertyChanged(nameof(SecondsHasError));
+					OnPropertyChanged(nameof(MillisecondsHasError));
 
-					OnPropertyChanged("TotalSecondsAsDouble");
+					OnPropertyChanged(nameof(TotalSecondsAsDouble));
 				}
 				return true;
 			}
 
 			public double TotalSecondsAsDouble {
-				get {return m_TotalSecondsAsDouble; }
+				get {return _totalSecondsAsDouble; }
 				set {
-					if(Equals(m_TotalSecondsAsDouble,value))return;
-					m_TotalSecondsAsDouble = value;
-					OnPropertyChanged("TotalSecondsAsDouble");
+					if(Equals(_totalSecondsAsDouble,value))return;
+					_totalSecondsAsDouble = value;
+					OnPropertyChanged(nameof(TotalSecondsAsDouble));
 
-					var v = System.TimeSpan.FromSeconds(m_TotalSecondsAsDouble);
+					var v = System.TimeSpan.FromSeconds(_totalSecondsAsDouble);
 					ViewModel.Value = v;
 				}
 			}

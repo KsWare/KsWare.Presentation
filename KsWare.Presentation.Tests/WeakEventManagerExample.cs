@@ -22,23 +22,23 @@ namespace KsWare.Presentation.WeakEventManagerExamples {
 	}
 		
 	public class MyEventListener {
-		private IEventHandle m_MyEventHolder;
+		private IEventHandle _myEventHolder;
 		
 		public MyEventListener(MyEventProvider provider) {
-			m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+			_myEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 		}
 		
 		private void AtMyEvent(object sender, EventArgs eventArgs) { /*...*/ }
 	}
 
 	public class MyEventListener2 {
-		private List<IEventHandle> m_MyWeakEventHolder=new List<IEventHandle>();
+		private List<IEventHandle> _myWeakEventHolder=new List<IEventHandle>();
 		
 		public MyEventListener2(MyEventProvider provider,MyEventProvider provider2) {
-			m_MyWeakEventHolder.Add(provider.MyEvent.RegisterWeak(AtMyEvent));
-			m_MyWeakEventHolder.Add(provider.MyEvent2.RegisterWeak(AtMyEvent));
-			m_MyWeakEventHolder.Add(provider2.MyEvent.RegisterWeak(AtMyEvent));
-			m_MyWeakEventHolder.Add(provider2.MyEvent2.RegisterWeak(AtMyEvent));
+			_myWeakEventHolder.Add(provider.MyEvent.RegisterWeak(AtMyEvent));
+			_myWeakEventHolder.Add(provider.MyEvent2.RegisterWeak(AtMyEvent));
+			_myWeakEventHolder.Add(provider2.MyEvent.RegisterWeak(AtMyEvent));
+			_myWeakEventHolder.Add(provider2.MyEvent2.RegisterWeak(AtMyEvent));
 		}
 		
 		private void AtMyEvent(object sender, EventArgs eventArgs) { /*...*/ }

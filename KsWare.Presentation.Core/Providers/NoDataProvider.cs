@@ -9,14 +9,14 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </summary>
 	public sealed class NoDataProvider:IDataProvider {
 
-		private object m_Parent;
-		private bool? m_IsAutoCreated;
-		private Lazy<EventSourceStore> m_LazyWeakEventProperties;
+		private object _parent;
+		private bool? _isAutoCreated;
+		private Lazy<EventSourceStore> _lazyWeakEventProperties;
 
 		public NoDataProvider() {
-			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
+			_lazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return _lazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -28,14 +28,14 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The parent of this provider.</value>
 		public object Parent {
 			[CanBeNull]
-			get {return m_Parent;}
+			get {return _parent;}
 			[NotNull]
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Property cannot be null!",this,"{8D3472D8-B6FD-45BE-A63F-79FA56577E24}");
-				MemberAccessUtil.DemandWriteOnce(this.m_Parent==null,null,this,"Parent","{734D4ADC-52CF-4ED5-AA58-5274F4E66911}");
-				m_Parent = value;
+				MemberAccessUtil.DemandWriteOnce(this._parent==null,null,this,nameof(Parent),"{734D4ADC-52CF-4ED5-AA58-5274F4E66911}");
+				_parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{C86F40A2-9A2A-46F2-9005-2C5FD5140823}");
-				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(_lazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -53,10 +53,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return m_IsAutoCreated==true; }
+			get { return _isAutoCreated==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
-				m_IsAutoCreated = value;
+				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
+				_isAutoCreated = value;
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace KsWare.Presentation.Core.Providers {
 		private void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{A0C86ABF-E7AF-427C-AFFA-3FF446E2F6C0}");
-			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent", args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(_lazyWeakEventProperties,"PropertyChangedEvent", args);
 		}
 
 		public void Dispose() { }

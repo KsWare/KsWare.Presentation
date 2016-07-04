@@ -13,7 +13,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 	public abstract class BindingProvider : ViewModelProvider, IBindingProvider {
 
-		private object m_Source;
+		private object _source;
 
 		public BindingProvider() {}
 
@@ -35,10 +35,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The source.</value>
 		public object Source {
-			get { return m_Source; }
+			get { return _source; }
 			set {
-				var prev = m_Source;
-				m_Source = value;
+				var prev = _source;
+				_source = value;
 				OnSourceChanged(new ValueChangedEventArgs(prev, value));
 				OnPropertyChanged("Source");
 			}
@@ -76,7 +76,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		 * 
 		\*/
 
-		private bool m_DataChangedLock;
+		private bool _dataChangedLock;
 
 		public ValueBindingProvider() {}
 
@@ -91,13 +91,13 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		private void LocalValueDataChanged(object sender, DataChangedEventArgs e) {
-			if(m_DataChangedLock) return;
-			m_DataChangedLock = true;
+			if(_dataChangedLock) return;
+			_dataChangedLock = true;
 			try {
 				var source = Source as IValueVM;
 				source.Metadata.DataProvider.Data = e.NewData;
 			}
-			finally {m_DataChangedLock = false;}
+			finally {_dataChangedLock = false;}
 		}
 
 		protected override void OnSourceChanged(ValueChangedEventArgs e) {
@@ -111,13 +111,13 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		private void LinkedValueDataChanged(object sender, DataChangedEventArgs e) {
-			if(m_DataChangedLock)return;
-			m_DataChangedLock = true;
+			if(_dataChangedLock)return;
+			_dataChangedLock = true;
 			try {
 				var parent = (ViewModelMetadata) Parent;
 				parent.DataProvider.Data = e.NewData;
 			}
-			finally {m_DataChangedLock = false;}
+			finally {_dataChangedLock = false;}
 		}
 
 	}

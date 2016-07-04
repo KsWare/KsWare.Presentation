@@ -8,8 +8,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class CommandActionProvider: ActionProvider {
 
-		private readonly ArrayList m_CanExecuteObjections=new ArrayList();
-		private ICommand m_Command;
+		private readonly ArrayList _canExecuteObjections=new ArrayList();
+		private ICommand _command;
 
 		/// <summary> Initializes a new instance of the <see cref="DisplayValueProvider"/> class.
 		/// </summary>
@@ -26,8 +26,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The value whether the action can be executed or not</value>
 		public override bool CanExecute {
 			get {
-				//return m_CanExecuteObjections.Count==0;
-//				return m_Command!=null && m_Command.CanExecute(null);
+				//return _CanExecuteObjections.Count==0;
+//				return _Command!=null && _Command.CanExecute(null);
 				return true;
 			}
 		}
@@ -39,24 +39,24 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public override void SetCanExecute(object token, bool value) {
 			var canExecute = this.CanExecute;
-			if(value) m_CanExecuteObjections.Remove(token);
-			else if(!m_CanExecuteObjections.Contains(token)) m_CanExecuteObjections.Add(token);
+			if(value) _canExecuteObjections.Remove(token);
+			else if(!_canExecuteObjections.Contains(token)) _canExecuteObjections.Add(token);
 			if(CanExecute != canExecute) OnCanExecuteChanged();
 		}
 
 		public ICommand Command {
-			get { return m_Command; }
+			get { return _command; }
 			set {
-				if(m_Command==value)return;
+				if(_command==value)return;
 
-				if(m_Command!=null) {
-					m_Command.CanExecuteChanged-=AtCommandOnCanExecuteChanged;
+				if(_command!=null) {
+					_command.CanExecuteChanged-=AtCommandOnCanExecuteChanged;
 					ExecutedCallback = null;
 				}
-				m_Command = value;
-				if(m_Command!=null) {
-					m_Command.CanExecuteChanged+=AtCommandOnCanExecuteChanged;
-					ExecutedCallback= (s,e) => m_Command.Execute(e.Parameter);
+				_command = value;
+				if(_command!=null) {
+					_command.CanExecuteChanged+=AtCommandOnCanExecuteChanged;
+					ExecutedCallback= (s,e) => _command.Execute(e.Parameter);
 				}
 			}
 		}

@@ -24,7 +24,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// <typeparam name="T">ValueBM-type</typeparam>
 	public class BusinessValueDataProvider<T>:DataProvider<T>, IBusinessValueDataProvider {
 
-		private IValueBM<T> m_BusinessValue;
+		private IValueBM<T> _businessValue;
 
 		/// <summary> Initializes a new instance of the <see cref="BusinessValueDataProvider{T}"/> class.
 		/// </summary>
@@ -47,16 +47,16 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		public override T Data {
 			get {
 				DemandValidBusinessObject();
-				return m_BusinessValue.Value;
+				return _businessValue.Value;
 			}
 			set {
 				Validate(value);
 				DemandValidBusinessObject();
-				m_BusinessValue.Value=value;
+				_businessValue.Value=value;
 
-				// NOT REQUIERED: m_BusinessValue raises a event -> 
-				// var previousData = m_BusinessValue.Value;
-				// m_BusinessValue.Value=value;
+				// NOT REQUIERED: _BusinessValue raises a event -> 
+				// var previousData = _BusinessValue.Value;
+				// _BusinessValue.Value=value;
 				// AtDataChanged(previousData,value);
 			}
 		}
@@ -72,7 +72,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			if(result!=null) 
 				return result;
 
-			return m_BusinessValue.Validate(data, true);
+			return _businessValue.Validate(data, true);
 		}
 
 		#endregion
@@ -87,23 +87,23 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The underlying <see cref="IValueBM"/>.</value>
 		public IValueBM<T> BusinessValue {
-			get {return m_BusinessValue;}
+			get {return _businessValue;}
 			set {
-				var previousBusinessValue = m_BusinessValue;
+				var previousBusinessValue = _businessValue;
 				var previousData = BusinessValue == null || !BusinessValue.HasValue ? default(T) : BusinessValue.Value;
 
-				if(m_BusinessValue!=null) {
-					m_BusinessValue.ValueChanged       -=AtBusinessValueOnValueChanged;
-					m_BusinessValue.IsApplicableChanged-=AtBusinessValueIsApplicableChanged;
+				if(_businessValue!=null) {
+					_businessValue.ValueChanged       -=AtBusinessValueOnValueChanged;
+					_businessValue.IsApplicableChanged-=AtBusinessValueIsApplicableChanged;
 				}
 				
-				m_BusinessValue=value;
+				_businessValue=value;
 				
-				if(m_BusinessValue!=null) {
-					m_BusinessValue.ValueChanged       +=AtBusinessValueOnValueChanged;
-					m_BusinessValue.IsApplicableChanged+=AtBusinessValueIsApplicableChanged; AtBusinessValueIsApplicableChanged(null,null);
+				if(_businessValue!=null) {
+					_businessValue.ValueChanged       +=AtBusinessValueOnValueChanged;
+					_businessValue.IsApplicableChanged+=AtBusinessValueIsApplicableChanged; AtBusinessValueIsApplicableChanged(null,null);
 				}
-				EventUtil.Raise(BusinessValueChanged,this,new DataChangedEventArgs(previousBusinessValue,m_BusinessValue),"{21F1DD1C-BBA4-4673-A414-2D15B9DC6358}");
+				EventUtil.Raise(BusinessValueChanged,this,new DataChangedEventArgs(previousBusinessValue,_businessValue),"{21F1DD1C-BBA4-4673-A414-2D15B9DC6358}");
 				
 				var newData = BusinessValue == null || !BusinessValue.HasValue ? default(T) : BusinessValue.Value;
 				if(!Equals(newData,previousData)) OnDataChanged(previousData,newData);
@@ -130,9 +130,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		private void AtBusinessValueIsApplicableChanged(object sender, EventArgs eventArgs) {
 			if(ParentVM==null           ) return;
-			if(m_BusinessValue==null) return;
+			if(_businessValue==null) return;
 
-			bool isApplicable = m_BusinessValue.IsApplicable;
+			bool isApplicable = _businessValue.IsApplicable;
 			ParentVM.SetEnabled("BusinessObject is not applicable", isApplicable);
 		}
 
@@ -144,7 +144,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		public override T TryGetData(out Exception exception) {
 			exception = null;
-			if (m_BusinessValue == null) {
+			if (_businessValue == null) {
 			    var vm = ((ViewModelMetadata)Parent).Parent;
 			    string ex = "Underlying business object is null!" +
 			        "\n\t" + "Type: " + DebugUtil.FormatTypeFullName(vm) +
@@ -153,7 +153,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			    exception = new InvalidOperationException(ex);
 			}
 
-			return m_BusinessValue != null ? m_BusinessValue.Value : default(T);
+			return _businessValue != null ? _businessValue.Value : default(T);
 		}
 
 		/// <summary> Demands the business object is valid.
@@ -161,7 +161,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <exception cref="InvalidOperationException">The business object is not valid!</exception>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		private void DemandValidBusinessObject() { 
-			if(m_BusinessValue==null) {
+			if(_businessValue==null) {
 				var vm = ((ViewModelMetadata) Parent).Parent;
 				string ex = "Underlying business object is null!"+
 					"\n\t"+"Type: "+DebugUtil.FormatTypeFullName(vm) +
@@ -170,7 +170,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				Debug.WriteLine("=> " + ex);
 				throw new InvalidOperationException(ex);
 			}
-//TODO		if(m_BusinessValue.IsDisposed==null) throw new InvalidOperationException("Underlying business object is disposed!");
+//TODO		if(_BusinessValue.IsDisposed==null) throw new InvalidOperationException("Underlying business object is disposed!");
 		}
 	}
 

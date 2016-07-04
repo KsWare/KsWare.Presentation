@@ -383,28 +383,28 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		#endregion
 
-		private readonly List<object> m_IsAvailableObjections = new List<object>();
-		private readonly List<object> m_IsReadOnlyObjections = new List<object>();
-		private ValueValidator m_Validator;
-		private TValue m_DefaultValue;
-		private TValue m_Minimum;
-		private bool m_MinimumSpecified;
-		private TValue m_Maximum;
-		private bool m_MaximumSpecified;
-		private IEnumerable<TValue> m_IncludeValues;
-		private bool m_IncludeValuesSpecified;
-		private IEnumerable<TValue> m_ExcludeValues;
-		private bool m_ExcludeValuesSpecified;
-		private TValue m_DecimalAccuracy;
-		private bool m_DecimalAccuracySpecified;		
+		private readonly List<object> _isAvailableObjections = new List<object>();
+		private readonly List<object> _isReadOnlyObjections = new List<object>();
+		private ValueValidator _validator;
+		private TValue _defaultValue;
+		private TValue _minimum;
+		private bool _minimumSpecified;
+		private TValue _maximum;
+		private bool _maximumSpecified;
+		private IEnumerable<TValue> _includeValues;
+		private bool _includeValuesSpecified;
+		private IEnumerable<TValue> _excludeValues;
+		private bool _excludeValuesSpecified;
+		private TValue _decimalAccuracy;
+		private bool _decimalAccuracySpecified;		
 		
 		/// <summary> Initializes a new instance of the <see cref="ValueSettings{T}"/> class.
 		/// </summary>
 		public ValueSettings() {
 			Default       = GetDefaultValue();
-			Minimum       = GetMinimumDefault(out m_MinimumSpecified);
-			Maximum       = GetMaximumDefault(out m_MaximumSpecified);
-			IncludeValues = GetDefaultIncludeValues(out m_IncludeValuesSpecified);
+			Minimum       = GetMinimumDefault(out _minimumSpecified);
+			Maximum       = GetMaximumDefault(out _maximumSpecified);
+			IncludeValues = GetDefaultIncludeValues(out _includeValuesSpecified);
 			ExcludeValues = new List<TValue>();
 			AllowNull     = AllowNullDefault;
 			AllowEmpty    = AllowEmptyDefault;
@@ -428,17 +428,17 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="value"><see langword="false"/> to add a available ojection; otherwise, <see langword="true"/> to remove a available ojection.</param>
 		/// <value><see langword="true"/> if the value is available; otherwise, <see langword="false"/>.</value>
 		public bool SetAvailable(object token, bool value) {
-			var v = m_IsAvailableObjections.Count == 0;
+			var v = _isAvailableObjections.Count == 0;
 			if (value) {
-			    m_IsAvailableObjections.Add(token);
+			    _isAvailableObjections.Add(token);
 			} else {
-			    m_IsAvailableObjections.Remove(token);
+			    _isAvailableObjections.Remove(token);
 			}
-			if(v!=(m_IsAvailableObjections.Count==0)) {
-				IsAvailable = m_IsAvailableObjections.Count == 0;
+			if(v!=(_isAvailableObjections.Count==0)) {
+				IsAvailable = _isAvailableObjections.Count == 0;
 				OnPropertyChanged(ValueSettingName.IsAvailable);
 			}
-			return m_IsAvailableObjections.Count == 0;
+			return _isAvailableObjections.Count == 0;
 		}
 
 		/// <summary> Gets or sets a value indicating whether the business value is read only.
@@ -452,27 +452,27 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="value"><see langword="false"/> to add a write objection; otherwise, <see langword="true"/> to remove a write objection.</param>
 		/// <value><see langword="true"/> if the business value is available; otherwise, <see langword="false"/>.</value>
 		public bool SetReadOnly(object token, bool value) {
-			var v = m_IsReadOnlyObjections.Count == 0;
+			var v = _isReadOnlyObjections.Count == 0;
 			if (value) {
-			    m_IsReadOnlyObjections.Add(token);
+			    _isReadOnlyObjections.Add(token);
 			} else {
-			    m_IsReadOnlyObjections.Remove(token);
+			    _isReadOnlyObjections.Remove(token);
 			}
-			if(v!=(m_IsReadOnlyObjections.Count==0)) {
-				IsReadOnly = m_IsReadOnlyObjections.Count == 0;
+			if(v!=(_isReadOnlyObjections.Count==0)) {
+				IsReadOnly = _isReadOnlyObjections.Count == 0;
 				OnPropertyChanged(ValueSettingName.IsReadOnly);
 			}
-			return m_IsReadOnlyObjections.Count == 0;
+			return _isReadOnlyObjections.Count == 0;
 		}
 
 		/// <summary> Gets or sets the default value.
 		/// </summary>
 		/// <value>The default value.</value>
 		public TValue Default {
-			get {return m_DefaultValue;}
+			get {return _defaultValue;}
 			set {
-				if (Equals(m_DefaultValue, value)) return;
-				m_DefaultValue = value;
+				if (Equals(_defaultValue, value)) return;
+				_defaultValue = value;
 				OnPropertyChanged(ValueSettingName.Default);
 			}
 		}
@@ -481,10 +481,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The minimum value.</value>
 		public TValue Minimum {
-			get {return m_Minimum;}
+			get {return _minimum;}
 			set {
-				if (Equals(m_Minimum, value)) return;
-				m_Minimum = value;
+				if (Equals(_minimum, value)) return;
+				_minimum = value;
 				OnPropertyChanged(ValueSettingName.Minimum);
 			}
 		}
@@ -493,10 +493,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="Minimum"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool MinimumSpecified {
-			get {return m_MinimumSpecified;}
+			get {return _minimumSpecified;}
 			set {
-				if (Equals(m_MinimumSpecified, value)) return;
-				m_MinimumSpecified = value;
+				if (Equals(_minimumSpecified, value)) return;
+				_minimumSpecified = value;
 				OnPropertyChanged(ValueSettingName.Minimum);
 			}
 		}
@@ -505,10 +505,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The maximum value.</value>
 		public TValue Maximum {
-			get {return m_Maximum;}
+			get {return _maximum;}
 			set {
-				if (Equals(m_Maximum, value)) return;
-				m_Maximum = value;
+				if (Equals(_maximum, value)) return;
+				_maximum = value;
 				OnPropertyChanged(ValueSettingName.Maximum);
 			}
 		}
@@ -517,10 +517,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="Minimum"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool MaximumSpecified {
-			get {return m_MaximumSpecified;}
+			get {return _maximumSpecified;}
 			set {
-				if (Equals(m_MaximumSpecified, value)) return;
-				m_MaximumSpecified = value;
+				if (Equals(_maximumSpecified, value)) return;
+				_maximumSpecified = value;
 				OnPropertyChanged(ValueSettingName.Maximum);
 			}
 		}
@@ -529,10 +529,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The list of valid values.</value>
 		public IEnumerable<TValue> IncludeValues {
-			get {return m_IncludeValues;}
+			get {return _includeValues;}
 			set {
-				if (Equals(m_IncludeValues, value)) return;
-				m_IncludeValues = value;
+				if (Equals(_includeValues, value)) return;
+				_includeValues = value;
 				OnPropertyChanged(ValueSettingName.IncludeValues);
 			}
 		}
@@ -541,10 +541,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="IncludeValues"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool IncludeValuesSpecified {
-			get {return m_IncludeValuesSpecified;}
+			get {return _includeValuesSpecified;}
 			set {
-				if (Equals(m_IncludeValuesSpecified, value)) return;
-				m_IncludeValuesSpecified = value;
+				if (Equals(_includeValuesSpecified, value)) return;
+				_includeValuesSpecified = value;
 				OnPropertyChanged(ValueSettingName.IncludeValues);
 			}
 		}
@@ -553,10 +553,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The list of invalid values.</value>
 		public IEnumerable<TValue> ExcludeValues {
-			get {return m_ExcludeValues;}
+			get {return _excludeValues;}
 			set {
-				if (Equals(m_ExcludeValues, value)) return;
-				m_ExcludeValues = value;
+				if (Equals(_excludeValues, value)) return;
+				_excludeValues = value;
 				OnPropertyChanged(ValueSettingName.ExcludeValues);
 			}
 		}
@@ -565,10 +565,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="ExcludeValues"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool ExcludeValuesSpecified {
-			get {return m_ExcludeValuesSpecified;}
+			get {return _excludeValuesSpecified;}
 			set {
-				if (Equals(m_ExcludeValuesSpecified, value)) return;
-				m_ExcludeValuesSpecified = value;
+				if (Equals(_excludeValuesSpecified, value)) return;
+				_excludeValuesSpecified = value;
 				OnPropertyChanged(ValueSettingName.ExcludeValues);
 			}
 		}
@@ -578,10 +578,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The decimal accuracy.</value>
 		public TValue DecimalAccuracy {
-			get {return m_DecimalAccuracy;}
+			get {return _decimalAccuracy;}
 			set {
-				if (Equals(m_DecimalAccuracy, value)) return;
-				m_DecimalAccuracy = value;
+				if (Equals(_decimalAccuracy, value)) return;
+				_decimalAccuracy = value;
 				OnPropertyChanged(ValueSettingName.DecimalAccuracy);
 			}
 		}
@@ -590,10 +590,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="DecimalAccuracy"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool DecimalAccuracySpecified {
-			get {return m_DecimalAccuracySpecified;}
+			get {return _decimalAccuracySpecified;}
 			set {
-				if (Equals(m_DecimalAccuracySpecified, value)) return;
-				m_DecimalAccuracySpecified = value;
+				if (Equals(_decimalAccuracySpecified, value)) return;
+				_decimalAccuracySpecified = value;
 				OnPropertyChanged(ValueSettingName.DecimalAccuracy);
 			}
 		}
@@ -605,10 +605,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		public TValue NullValue{get;set;}
 
 		public Exception Validate(IValueBM businessValue, TValue value) { 
-			if(m_Validator==null) {
-				m_Validator = new ValueValidator();
+			if(_validator==null) {
+				_validator = new ValueValidator();
 			}
-			return m_Validator.Validate(value, businessValue, false);
+			return _validator.Validate(value, businessValue, false);
 		}
 
 		#endregion

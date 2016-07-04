@@ -11,8 +11,8 @@ namespace KsWare.Presentation.Core.Providers {
 	/// <typeparam name="TData">Type of data</typeparam>
 	public class CustomDataProvider<TData> : DataProvider<TData>, ICustomDataProvider {
 
-		private readonly Func<TData> m_GetValue;
-		private readonly Action<TData> m_SetValue;
+		private readonly Func<TData> _GetValue;
+		private readonly Action<TData> _SetValue;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomDataProvider&lt;TData&gt;"/> class.
 		/// </summary>
@@ -22,8 +22,8 @@ namespace KsWare.Presentation.Core.Providers {
 //			if (getValueFunc == null) throw new ArgumentNullException("getValueFunc");
 //			if (setValueFunc == null) throw new ArgumentNullException("setValueFunc");
 
-			m_GetValue = getValueFunc;
-			m_SetValue = setValueFunc;
+			_GetValue = getValueFunc;
+			_SetValue = setValueFunc;
 		}
 
 		public override bool IsSupported {get {	return true;}}
@@ -44,16 +44,16 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The provided data.</value>
 		public override TData Data {
 			get {
-				if(m_GetValue==null) throw new NotSupportedException("Property get method not defined! UniqueID: {6708C25A-A2CF-4C60-98C5-C129A1FABD19}");
+				if(_GetValue==null) throw new NotSupportedException("Property get method not defined! UniqueID: {6708C25A-A2CF-4C60-98C5-C129A1FABD19}");
 				//possible NullReferenceException, is Data is null!
 				//ex.: DataProvider = new CustomDataProvider<String>(() => this.Data.Author, value => this.Data.Author = value)
-				return m_GetValue();
+				return _GetValue();
 			}
 			set {
-				if(m_SetValue==null) throw new NotSupportedException("Property set method not defined! UniqueID: {D880F93C-25D5-4170-B803-415A38013118}");
+				if(_SetValue==null) throw new NotSupportedException("Property set method not defined! UniqueID: {D880F93C-25D5-4170-B803-415A38013118}");
 				if(Equals(value,PreviousData)) return;
 				Validate(value);
-				m_SetValue(value);
+				_SetValue(value);
 				OnDataChanged(PreviousData, value);
 				PreviousData = value;
 			}
@@ -68,8 +68,8 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </summary>
 	public class CustomDataProvider:DataProvider,ICustomDataProvider {
 
-		private readonly Func<object> m_GetValue;
-		private readonly Action<object> m_SetValue;
+		private readonly Func<object> _GetValue;
+		private readonly Action<object> _SetValue;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomDataProvider"/> class.
 		/// </summary>
@@ -79,8 +79,8 @@ namespace KsWare.Presentation.Core.Providers {
 //			if (getValue == null) throw new ArgumentNullException("getValue");
 //			if (setValue == null) throw new ArgumentNullException("setValue");
 
-			m_GetValue = getValue;
-			m_SetValue = setValue;
+			_GetValue = getValue;
+			_SetValue = setValue;
 		}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
@@ -93,14 +93,14 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The provided data.</value>
 		public override object Data {
 			get {
-				if(m_GetValue==null) throw new InvalidOperationException("Data has not getter!");
-				return m_GetValue();
+				if(_GetValue==null) throw new InvalidOperationException("Data has not getter!");
+				return _GetValue();
 			}
 			set {
-				if(m_SetValue==null) throw new InvalidOperationException("Data has not setter!");
+				if(_SetValue==null) throw new InvalidOperationException("Data has not setter!");
 				if(Equals(value,PreviousData)) return;
 				Validate(value);
-				m_SetValue(value);
+				_SetValue(value);
 				//NotifyDataChanged();
 				OnDataChanged(PreviousData, value);
 				PreviousData = value;

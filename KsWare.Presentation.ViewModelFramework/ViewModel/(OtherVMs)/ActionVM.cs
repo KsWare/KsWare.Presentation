@@ -23,9 +23,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 	
 		private static Dictionary<string, RoutedCommand> s_RoutedCommands;
 
-		private bool m_IsActive;
-		private RoutedCommand m_RoutedCommand;
-		private bool m_EnableBusinessModelFeatures;
+		private bool _isActive;
+		private RoutedCommand _routedCommand;
+		private bool _enableBusinessModelFeatures;
 
 		/// <summary> Initializes a new instance of the <see cref="ActionVM"/> class.
 		/// </summary>
@@ -66,7 +66,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 
 			metadata.Reflection = this.Reflection;
-			metadata.EnableBusinessModelFeatures = m_EnableBusinessModelFeatures;
+			metadata.EnableBusinessModelFeatures = _enableBusinessModelFeatures;
 
 			return metadata;
 		}
@@ -209,10 +209,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Supports ToogleButton.IsChecked, MenuEvent.IsChecked
 		/// </summary>
 		public bool IsActive {
-			get { return m_IsActive; }
+			get { return _isActive; }
 			set {
-				if (Equals(m_IsActive, value)) return;
-				m_IsActive = value;
+				if (Equals(_isActive, value)) return;
+				_isActive = value;
 				OnPropertyChanged("IsActive");
 			}
 		}
@@ -264,7 +264,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 			set {
 				BusinessActionProvider provider;
-				if      (!HasMetadata             ) m_EnableBusinessModelFeatures = true;
+				if      (!HasMetadata             ) _enableBusinessModelFeatures = true;
 				else if (!Metadata.HasDataProvider) Metadata.EnableBusinessModelFeatures = true;
 				
 				if (Metadata.DataProvider is BusinessActionProvider) provider = (BusinessActionProvider) Metadata.DataProvider;
@@ -280,24 +280,24 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		#region DRAFT RoutedCommands support 
 
-		public bool HasRoutedCommand{get { return m_RoutedCommand!=null; }}
+		public bool HasRoutedCommand{get { return _routedCommand!=null; }}
 
 		public RoutedCommand RoutedCommand {
 			get {
-				if(m_RoutedCommand==null) {
+				if(_routedCommand==null) {
 					var key = Parent.GetType().FullName+"."+MemberName;
 					if(s_RoutedCommands==null) {
 						s_RoutedCommands = new Dictionary<string, RoutedCommand>();
 						if(!s_RoutedCommands.ContainsKey(key)) {
-							m_RoutedCommand=new RoutedCommand(MemberName, Parent.GetType());
-							s_RoutedCommands.Add(key,m_RoutedCommand);
+							_routedCommand=new RoutedCommand(MemberName, Parent.GetType());
+							s_RoutedCommands.Add(key,_routedCommand);
 						} else {
-							m_RoutedCommand = s_RoutedCommands[key];
+							_routedCommand = s_RoutedCommands[key];
 						}
 					}
-					m_RoutedCommand=new RoutedCommand(MemberName, Parent.GetType());
+					_routedCommand=new RoutedCommand(MemberName, Parent.GetType());
 				}
-				return m_RoutedCommand;
+				return _routedCommand;
 			}
 		}
 

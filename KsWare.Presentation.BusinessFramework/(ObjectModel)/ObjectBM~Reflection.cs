@@ -23,26 +23,26 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	internal class ReflectedInfo {
 
-		private readonly ObjectBM m_ReflectedObjectBM;
+		private readonly ObjectBM _ReflectedObjectBM;
 
 		public ReflectedInfo(ObjectBM reflectedObjectBM, BusinessPropertyInfo propertyInfo) {
 			PropertyInfo = propertyInfo;
-			m_ReflectedObjectBM = reflectedObjectBM;
+			_ReflectedObjectBM = reflectedObjectBM;
 		}
 
-		public ObjectBM ReflectedObject { get { return m_ReflectedObjectBM; } }
+		public ObjectBM ReflectedObject { get { return _ReflectedObjectBM; } }
 
 		public BusinessPropertyInfo PropertyInfo { get; set; }
 	}
 
 	internal class BusinessPropertyInfo {
 
-		private Lazy<HierarchyAttribute[]> m_LazyHierarchyAttributes;
-		private Lazy<ValueSettingsAttribute> m_LazyValueSettingsAttribute;
+		private Lazy<HierarchyAttribute[]> _lazyHierarchyAttributes;
+		private Lazy<ValueSettingsAttribute> _lazyValueSettingsAttribute;
 
 		public BusinessPropertyInfo() {
-			m_LazyValueSettingsAttribute=new Lazy<ValueSettingsAttribute>(()=>PropertyInfo.GetCustomAttributes(typeof (ValueSettingsAttribute), false).Cast<ValueSettingsAttribute>().FirstOrDefault());
-			m_LazyHierarchyAttributes=new Lazy<HierarchyAttribute[]>(()=>PropertyInfo.GetCustomAttributes(typeof (HierarchyAttribute), false).Cast<HierarchyAttribute>().ToArray());
+			_lazyValueSettingsAttribute=new Lazy<ValueSettingsAttribute>(()=>PropertyInfo.GetCustomAttributes(typeof (ValueSettingsAttribute), false).Cast<ValueSettingsAttribute>().FirstOrDefault());
+			_lazyHierarchyAttributes=new Lazy<HierarchyAttribute[]>(()=>PropertyInfo.GetCustomAttributes(typeof (HierarchyAttribute), false).Cast<HierarchyAttribute>().ToArray());
 		}
 
 		public BusinessPropertyInfo(PropertyInfo propertyInfo):this() {
@@ -61,9 +61,9 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <value>TThe type of this property.</value>
 		public Type Type {get {return PropertyInfo.PropertyType;}}
 
-		public HierarchyAttribute[] HierarchyAttributes {get {return m_LazyHierarchyAttributes.Value;}}
+		public HierarchyAttribute[] HierarchyAttributes {get {return _lazyHierarchyAttributes.Value;}}
 
-		public ValueSettingsAttribute ValueSettingsAttribute {get {return m_LazyValueSettingsAttribute.Value;}}
+		public ValueSettingsAttribute ValueSettingsAttribute {get {return _lazyValueSettingsAttribute.Value;}}
 
 	}
 }

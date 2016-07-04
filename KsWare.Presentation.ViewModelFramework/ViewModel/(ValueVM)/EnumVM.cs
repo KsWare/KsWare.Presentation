@@ -30,10 +30,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		private readonly Type BaseType;
 		private readonly bool HasFlags;
-		private bool m_IsUpdatingValues;
-		private ReadOnlyCollection<EnumMemberVM<T>> m_Values;
+		private bool _isUpdatingValues;
+		private ReadOnlyCollection<EnumMemberVM<T>> _values;
 		private bool _isValues;
-		private List<EnumMemberVM<T>> m_ValuesBase;
+		private List<EnumMemberVM<T>> _valuesBase;
 
 		public EnumVM() {
 			if(!typeof(T).IsEnum) throw new InvalidOperationException("Invalid type!\n\tErrorID: {37C628AD-AC98-46C4-BB49-FA72BA0CDE7B}");
@@ -42,41 +42,41 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private ReadOnlyCollection<EnumMemberVM<T>> CreateValues() {
-			m_ValuesBase = EnumVM.CreateValues<T>();
-			foreach (var vm in m_ValuesBase) {
+			_valuesBase = EnumVM.CreateValues<T>();
+			foreach (var vm in _valuesBase) {
 				vm.SetEnabled("No Data", false);
 				vm.IsCheckedChanged+=AtValueIsCheckedChanged;
 			}
-			return m_ValuesBase.AsReadOnly();
+			return _valuesBase.AsReadOnly();
 		}
 
 		public void SetValuesFromString(params string[] args) {
-			m_ValuesBase = EnumVM.CreateValuesFromString<T>(args);
-			foreach (var vm in m_ValuesBase) {
+			_valuesBase = EnumVM.CreateValuesFromString<T>(args);
+			foreach (var vm in _valuesBase) {
 				vm.SetEnabled("No Data", false);
 				vm.IsCheckedChanged+=AtValueIsCheckedChanged;
 			}
-			Values= m_ValuesBase.AsReadOnly();
+			Values= _valuesBase.AsReadOnly();
 		}
 
 		public void SetValues(params object[] args) {
-			m_ValuesBase = EnumVM.CreateValues<T>(args);
-			foreach (var vm in m_ValuesBase) {
+			_valuesBase = EnumVM.CreateValues<T>(args);
+			foreach (var vm in _valuesBase) {
 				vm.SetEnabled("No Data", false);
 				vm.IsCheckedChanged+=AtValueIsCheckedChanged;
 			}
-			Values= m_ValuesBase.AsReadOnly();
+			Values= _valuesBase.AsReadOnly();
 		}
 
 		protected override void Dispose(bool explicitDisposing) {
 			if(explicitDisposing) {
-				if(m_ValuesBase!=null) {
-					foreach(var vm in m_ValuesBase) {
+				if(_valuesBase!=null) {
+					foreach(var vm in _valuesBase) {
 						vm.IsCheckedChanged -= AtValueIsCheckedChanged;
 						vm.Dispose();
 					}
-					m_ValuesBase = null;
-					m_Values = null;
+					_valuesBase = null;
+					_values = null;
 				}
 			}
 			base.Dispose(explicitDisposing);
@@ -85,11 +85,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		//TODO Values docu
 		public ReadOnlyCollection<EnumMemberVM<T>> Values {
 			get {
-				if(m_Values==null) m_Values=CreateValues();
+				if(_values==null) _values=CreateValues();
 				if (!_isValues) {UpdateValues();_isValues = true;} //TODO revise _isValues
-				return m_Values;
+				return _values;
 			}
-			private set { m_Values = value; }
+			private set { _values = value; }
 		}
 
 		private void UpdateValues() {
@@ -101,29 +101,29 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private void UpdateValues(object data) {
-			m_IsUpdatingValues = true;
-			if(m_Values==null) m_Values = CreateValues();
+			_isUpdatingValues = true;
+			if(_values==null) _values = CreateValues();
 			if (data == null || data==DBNull.Value) {
-				foreach (var emvm in m_Values) {
+				foreach (var emvm in _values) {
 					emvm.SetEnabled("No Data", false);
 					emvm.IsChecked = false;
 				}
 			} else {
 				var value = (T) data;
 				if (HasFlags) {
-					foreach (var emvm in m_Values) {
+					foreach (var emvm in _values) {
 						emvm.SetEnabled("No Data", true);
 						emvm.IsChecked = IsChecked(value, emvm.Value);
 					}
 				} else {
-					foreach (var emvm in m_Values) {
+					foreach (var emvm in _values) {
 						emvm.SetEnabled("No Data", true);
 						emvm.IsChecked = Equals(value,emvm.Value);
 					}
 				}
 				
 			}
-			m_IsUpdatingValues = false;
+			_isUpdatingValues = false;
 		}	
 
 		protected override void OnDataChanged(DataChangedEventArgs e) {
@@ -134,40 +134,40 @@ namespace KsWare.Presentation.ViewModelFramework {
 //		private void AtValueChanged(object sender, EventArgs e) {
 //			var value = Value;
 //			if(HasFlags){
-//				foreach (var emvm in m_Values) {
+//				foreach (var emvm in _Values) {
 //					emvm.IsChecked = IsChecked(value, emvm.Value);
 //				}
 //			} else {
-//				foreach (var emvm in m_Values) {
+//				foreach (var emvm in _Values) {
 //					emvm.IsChecked = Equals(value, emvm.Value);
 //				}
 //			}
 //		}
 
 		private void AtValueIsCheckedChanged(object sender, EventArgs e) {
-			if(m_IsUpdatingValues)return;
+			if(_isUpdatingValues)return;
 
 			var newValue = (T)Enum.ToObject(typeof(T),0);
 			if (HasFlags) {
-				foreach (var emvm in m_Values) {
+				foreach (var emvm in _values) {
 					if (emvm.IsChecked) newValue = BinaryOr(newValue, emvm.Value);
 				}
 			} else {
 				var em = ((EnumMemberVM<T>) sender);
 				if (em.IsChecked) {
 					newValue = em.Value;
-					m_IsUpdatingValues = true;
+					_isUpdatingValues = true;
 					//Uncheck all other
-					foreach (var emvm in m_Values) {if(emvm.IsChecked && !Equals(emvm.Value,newValue)) emvm.IsChecked=false;}
+					foreach (var emvm in _values) {if(emvm.IsChecked && !Equals(emvm.Value,newValue)) emvm.IsChecked=false;}
 				} else {
 					var defaultValue = (T)Enum.ToObject(typeof(T), 0);
-					m_IsUpdatingValues = true;
+					_isUpdatingValues = true;
 					var dispatcher = ApplicationDispatcher.CurrentDispatcher;
-					if(m_Values.Any(vm => Equals(vm.Value,defaultValue))){
-						dispatcher.BeginInvoke(() => { em.IsChecked = true; m_IsUpdatingValues = false; });
+					if(_values.Any(vm => Equals(vm.Value,defaultValue))){
+						dispatcher.BeginInvoke(() => { em.IsChecked = true; _isUpdatingValues = false; });
 					} else 	if(Equals(em.Value,defaultValue)) dispatcher.Invoke(new Action(delegate {
 						em.IsChecked = true;
-						m_IsUpdatingValues = false;
+						_isUpdatingValues = false;
 					}));
 				}
 			}
@@ -238,7 +238,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		/// <exception cref="ArgumentException">Value is not an enum value!</exception>
 		private static IValueVM GetVMInternal(object value) { 
-			if(!value.GetType().IsEnum) throw new ArgumentException("Value is not an enum value!","value");
+			if(!value.GetType().IsEnum) throw new ArgumentException("Value is not an enum value!",nameof(value));
 			
 			if(!__cache.ContainsKey(value)) {
 				var vm = CreateVMInternal(value);
@@ -255,7 +255,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		/// <exception cref="ArgumentException">Value is not an enum value!</exception>
 		private static IValueVM CreateVMInternal(object value) {
-			if(!value.GetType().IsEnum) throw new ArgumentException("Value is not an enum value!","value");
+			if(!value.GetType().IsEnum) throw new ArgumentException("Value is not an enum value!",nameof(value));
 
 			var vmType = typeof (EnumMemberVM<>).MakeGenericType(value.GetType());
 			var vm = (IValueVM)Activator.CreateInstance(vmType, value);
@@ -280,7 +280,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="objectVM">The object VM.</param>
 		/// <remarks></remarks>
 		public static void UpdateEnums(ObjectVM objectVM) {
-			if (objectVM == null) throw new ArgumentNullException("objectVM");
+			if (objectVM == null) throw new ArgumentNullException(nameof(objectVM));
 
 			var enumVMs = (from child in objectVM.Children
 						   where child.GetType().IsGenericType && child.GetType().GetGenericTypeDefinition() == typeof(EnumVM<>)

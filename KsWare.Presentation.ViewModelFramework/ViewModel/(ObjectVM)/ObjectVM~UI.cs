@@ -18,10 +18,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public partial class ObjectVM {
 
-		private Lazy<UIPropertiesRoot> m_UI;
+		private Lazy<UIPropertiesRoot> _ui;
 
 		private void InitUIProperties() {
-			m_UI = new Lazy<UIPropertiesRoot>(() => new UIPropertiesRoot(this));
+			_ui = new Lazy<UIPropertiesRoot>(() => new UIPropertiesRoot(this));
 		}
 
 		/// <summary> Provides additional strong typed, bindable properties
@@ -30,7 +30,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// All properties are implemented as "only property" w/o further logic.
 		/// <code>public object Icon {get { return GetValue&lt;object>("Icon"); }set { SetValue("Icon",value);}}</code>
 		/// </remarks>
-		public UIPropertiesRoot UI { get { return m_UI.Value; } }
+		public UIPropertiesRoot UI { get { return _ui.Value; } }
 	}
 }
 
@@ -39,18 +39,18 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 	public class UIPropertiesBase:INotifyPropertyChanged {
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")] 
-		private readonly IObjectVM m_Owner;
-		private readonly BackingFieldsStore m_Fields;
+		private readonly IObjectVM _Owner;
+		private readonly BackingFieldsStore _Fields;
 
 		/// <summary> Initializes a new instance of the <see cref="UIPropertiesBase" /> class.
 		/// </summary>
 		/// <param name="owner">The owner.</param>
 		public UIPropertiesBase(IObjectVM owner) {
-			m_Owner = owner;
-			m_Fields=new BackingFieldsStore(this,OnPropertyChanged);
+			_Owner = owner;
+			_Fields=new BackingFieldsStore(this,OnPropertyChanged);
 		}
 
-		public BackingFieldsStore Fields{get { return m_Fields; }}
+		public BackingFieldsStore Fields{get { return _Fields; }}
 
 		/// <summary> Occurs when a property changed.
 		/// </summary>
@@ -71,9 +71,9 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 	/// <summary> <see cref="UIElement"/>/<see cref="FrameworkElement"/>
 	/// </summary>
 	public sealed class UIPropertiesRoot:UIPropertiesBase {
-		private readonly Lazy<UIEventConnector> m_EventConnector;
-		private readonly Lazy<UIEvents> m_Events        ;
-		private readonly Lazy<InputGestureCollection> m_InputGestures ;
+		private readonly Lazy<UIEventConnector> _EventConnector;
+		private readonly Lazy<UIEvents> _Events        ;
+		private readonly Lazy<InputGestureCollection> _InputGestures ;
 
 		/// <summary> Initializes a new instance of the <see cref="UIPropertiesRoot" /> class.
 		/// </summary>
@@ -85,9 +85,9 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 			Fields.AddLazy("Selector"       , new Lazy<Selector     >(()=> new Selector(owner)));
 			Fields.AddLazy("Item"           , new Lazy<ItemContainer>(()=> new ItemContainer(owner)));
 			Fields.AddLazy("ComboBox"       , new Lazy<ComboBox     >(()=> new ComboBox(owner)));
-			m_EventConnector = new Lazy<UIEventConnector        >(()=> new UIEventConnector(owner));
-			m_Events         = new Lazy<UIEvents                >(()=> new UIEvents(owner));
-			m_InputGestures  = new Lazy<InputGestureCollection  >(()=> new InputGestureCollection());
+			_EventConnector = new Lazy<UIEventConnector        >(()=> new UIEventConnector(owner));
+			_Events         = new Lazy<UIEvents                >(()=> new UIEvents(owner));
+			_InputGestures  = new Lazy<InputGestureCollection  >(()=> new InputGestureCollection());
 		}
 
 
@@ -115,9 +115,9 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
 		public MenuItem MenuItem {get { return Fields.GetLazy<MenuItem>("MenuItem"); }}
 
-		public UIEventConnector EventConnector {get { return m_EventConnector.Value; }}
+		public UIEventConnector EventConnector {get { return _EventConnector.Value; }}
 
-		public UIEvents Events {get { return m_Events.Value; }}
+		public UIEvents Events {get { return _Events.Value; }}
 
 		/// <summary> System.Windows.Controls.Primitives.Selector
 		/// </summary>
@@ -129,7 +129,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
 		public ItemContainer Item {get { return Fields.GetLazy<ItemContainer>("Item"); }}
 		
-		public InputGestureCollection InputGestures {get { return m_InputGestures.Value; }}
+		public InputGestureCollection InputGestures {get { return _InputGestures.Value; }}
 
 		/// <summary> System.Windows.Controls.ComboBox
 		/// </summary>
@@ -156,34 +156,34 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 
 	public class UIEvents {
 
-		private readonly IObjectVM m_Owner;
+		private readonly IObjectVM _Owner;
 
 		public UIEvents(IObjectVM owner) {
-			m_Owner = owner;
+			_Owner = owner;
 		}
 
 		public event EventHandler<KeyEventArgs> PreviewKeyDown {
-			add    { m_Owner.UI.EventConnector.PreviewKeyDownEventHandler+=value; }
-			remove { m_Owner.UI.EventConnector.PreviewKeyDownEventHandler-=value; }
+			add    { _Owner.UI.EventConnector.PreviewKeyDownEventHandler+=value; }
+			remove { _Owner.UI.EventConnector.PreviewKeyDownEventHandler-=value; }
 		}
 
 		public event EventHandler<ValueChangedEventArgs> DataContextChanged {
-			add    { m_Owner.UI.EventConnector.DataContextChangedEventHandler+=value; }
-			remove { m_Owner.UI.EventConnector.DataContextChangedEventHandler-=value; }
+			add    { _Owner.UI.EventConnector.DataContextChangedEventHandler+=value; }
+			remove { _Owner.UI.EventConnector.DataContextChangedEventHandler-=value; }
 		}
 
 	}
 
 	public class UIEventConnector {
 
-		private readonly object m_Owner;
+		private readonly object _Owner;
 
 		public UIEventConnector(object owner) {
-			m_Owner = owner;
+			_Owner = owner;
 		}
 		#region PreviewKeyDown
 
-		public void PreviewKeyDown(object sender, KeyEventArgs e) {EventUtil.Raise(PreviewKeyDownEventHandler,m_Owner,e,"{B78F3AB0-F36E-4255-AAF0-9EB05EBE3C76}");}
+		public void PreviewKeyDown(object sender, KeyEventArgs e) {EventUtil.Raise(PreviewKeyDownEventHandler,_Owner,e,"{B78F3AB0-F36E-4255-AAF0-9EB05EBE3C76}");}
 		internal event EventHandler<KeyEventArgs> PreviewKeyDownEventHandler;
 
 		#endregion
@@ -195,7 +195,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		/// <seealso cref="System.Windows.FrameworkElement.DataContextChanged"/>
-		public void DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) { EventUtil.Raise(DataContextChangedEventHandler, m_Owner, new ValueChangedEventArgs(e), "{402B2416-5C5C-4D81-B63F-005270F52137}"); }
+		public void DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) { EventUtil.Raise(DataContextChangedEventHandler, _Owner, new ValueChangedEventArgs(e), "{402B2416-5C5C-4D81-B63F-005270F52137}"); }
 		
 		/// <summary>
 		/// 
@@ -207,7 +207,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		public static void DataContextChanged(object dataContext, object sender, DependencyPropertyChangedEventArgs e) {
 			var vm = (IObjectVM) dataContext; if(vm==null) return;
 			var ec = vm.UI.EventConnector;
-			EventUtil.Raise(ec.DataContextChangedEventHandler, ec.m_Owner, new ValueChangedEventArgs(e), "{402B2416-5C5C-4D81-B63F-005270F52137}");
+			EventUtil.Raise(ec.DataContextChangedEventHandler, ec._Owner, new ValueChangedEventArgs(e), "{402B2416-5C5C-4D81-B63F-005270F52137}");
 		}		
 		internal event EventHandler<ValueChangedEventArgs> DataContextChangedEventHandler;
 

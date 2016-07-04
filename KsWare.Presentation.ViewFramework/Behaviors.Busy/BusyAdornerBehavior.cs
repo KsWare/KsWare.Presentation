@@ -107,43 +107,43 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 	public class BusyAdornerBehaviorData {
 
-		private readonly FrameworkElement m_DependencyObject;
-		private Adorner m_Adorner;
-		private AdornerLayer m_AdornerLayer;
-		private bool m_BindToBusyUserRequest;
-		private ObjectVM m_DataContext;
+		private readonly FrameworkElement _dependencyObject;
+		private Adorner _adorner;
+		private AdornerLayer _adornerLayer;
+		private bool _bindToBusyUserRequest;
+		private ObjectVM _dataContext;
 
 		public BusyAdornerBehaviorData(FrameworkElement dependencyObject) {
-			m_DependencyObject = dependencyObject;
-			m_DependencyObject.Unloaded += AtFrameworkElementUnloaded;
-//			m_AdornerLayer=AdornerLayer.GetAdornerLayer(m_DependencyObject);
-//			if (m_AdornerLayer == null) {
-//				m_DependencyObject.Initialized += InitAdornerLayer; // 1. 
-//				m_DependencyObject.SizeChanged += InitAdornerLayer; // 2. has AdornerLayer
-//				m_DependencyObject.Loaded      += InitAdornerLayer; // 3. ..
+			_dependencyObject = dependencyObject;
+			_dependencyObject.Unloaded += AtFrameworkElementUnloaded;
+//			_AdornerLayer=AdornerLayer.GetAdornerLayer(_DependencyObject);
+//			if (_AdornerLayer == null) {
+//				_DependencyObject.Initialized += InitAdornerLayer; // 1. 
+//				_DependencyObject.SizeChanged += InitAdornerLayer; // 2. has AdornerLayer
+//				_DependencyObject.Loaded      += InitAdornerLayer; // 3. ..
 //			}
 		}
 
 		private void AtDataContextChanged(object sender, DependencyPropertyChangedEventArgs e) { A(); }
 
 		private void InitAdornerLayer(object sender, EventArgs eventArgs) {
-			if(m_AdornerLayer!=null) return;
-			m_AdornerLayer=AdornerLayer.GetAdornerLayer(m_DependencyObject);
-//			if (m_AdornerLayer == null && m_DependencyObject is ContentControl /*Window*/) {
-//				var visual = ((ContentControl) m_DependencyObject).Content as Visual;
+			if(_adornerLayer!=null) return;
+			_adornerLayer=AdornerLayer.GetAdornerLayer(_dependencyObject);
+//			if (_AdornerLayer == null && _DependencyObject is ContentControl /*Window*/) {
+//				var visual = ((ContentControl) _DependencyObject).Content as Visual;
 //				if(visual==null) return;
-//				m_AdornerLayer=AdornerLayer.GetAdornerLayer(visual);
-//				if (m_AdornerLayer == null) {
+//				_AdornerLayer=AdornerLayer.GetAdornerLayer(visual);
+//				if (_AdornerLayer == null) {
 //					var control = visual as FrameworkElement;
 //					if(control==null) return;
 //					if (!control.IsLoaded) control.Loaded += InitAdornerLayer;					
 //				}
 //			}
-			if(m_AdornerLayer==null) return;
-			m_DependencyObject.Loaded      -= InitAdornerLayer;
-			m_DependencyObject.Initialized -= InitAdornerLayer;
-			m_DependencyObject.SizeChanged -= InitAdornerLayer;
-			if (m_Adorner != null) AttachAdorner();
+			if(_adornerLayer==null) return;
+			_dependencyObject.Loaded      -= InitAdornerLayer;
+			_dependencyObject.Initialized -= InitAdornerLayer;
+			_dependencyObject.SizeChanged -= InitAdornerLayer;
+			if (_adorner != null) AttachAdorner();
 		}
 
 		private void AtFrameworkElementUnloaded(object sender, RoutedEventArgs e) {
@@ -151,45 +151,45 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		public Adorner Adorner {
-			get { return m_Adorner; }
+			get { return _adorner; }
 			set {
 				DetachAdorner();
-				m_Adorner = value;
+				_adorner = value;
 				if (value != null) { AttachAdorner(); }
 			}
 		}
 
 		public bool BindToBusyUserRequest {
-			get { return m_BindToBusyUserRequest; }
+			get { return _bindToBusyUserRequest; }
 			set {
-				m_BindToBusyUserRequest = value;
+				_bindToBusyUserRequest = value;
 				if (value) {
 					A();
-					m_DependencyObject.DataContextChanged+=AtDataContextChanged;
+					_dependencyObject.DataContextChanged+=AtDataContextChanged;
 				} else {
-					m_DependencyObject.DataContextChanged-=AtDataContextChanged;
+					_dependencyObject.DataContextChanged-=AtDataContextChanged;
 				}
 			}
 		}
 
 		public ObjectVM DataContext {
-			get { return m_DataContext; }
+			get { return _dataContext; }
 			set {
-				if (m_DataContext != null) {
-					m_DataContext.UserFeedbackRequested-=AtUserFeedbackRequested;
-					m_BindToBusyUserRequest = false;
+				if (_dataContext != null) {
+					_dataContext.UserFeedbackRequested-=AtUserFeedbackRequested;
+					_bindToBusyUserRequest = false;
 				}
-				m_DataContext = value;
-				if (m_DataContext != null) {
-					m_DataContext.UserFeedbackRequested+=AtUserFeedbackRequested;
-					m_BindToBusyUserRequest = true;
+				_dataContext = value;
+				if (_dataContext != null) {
+					_dataContext.UserFeedbackRequested+=AtUserFeedbackRequested;
+					_bindToBusyUserRequest = true;
 				}
 			}
 		}
 
 		private void A() {
-			var vm=m_DependencyObject.DataContext as ObjectVM;
-			if (vm != null && m_BindToBusyUserRequest) {
+			var vm=_dependencyObject.DataContext as ObjectVM;
+			if (vm != null && _bindToBusyUserRequest) {
 //				vm.UserFeedbackRequestedEvent.Register(this,"AtUserFeedbackRequested", AtUserFeedbackRequested);
 				vm.UserFeedbackRequested+=AtUserFeedbackRequested;
 			}
@@ -197,36 +197,36 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		private void AtUserFeedbackRequested(object sender, UserFeedbackEventArgs e) {
 			if (!(e is BusyUserFeedbackEventArgs)) return;
-			BusyAdornerBehavior.SetIsBusy(m_DependencyObject, ((BusyUserFeedbackEventArgs) e).IsBusy);
+			BusyAdornerBehavior.SetIsBusy(_dependencyObject, ((BusyUserFeedbackEventArgs) e).IsBusy);
 			e.Handled = true;
 		}
 
 		private void AttachAdorner() {
-			if (m_Adorner == null) return;
-			if(m_AdornerLayer==null) m_AdornerLayer=AdornerLayer.GetAdornerLayer(m_DependencyObject);
+			if (_adorner == null) return;
+			if(_adornerLayer==null) _adornerLayer=AdornerLayer.GetAdornerLayer(_dependencyObject);
 
-			#region Fallback uses m_DependencyObject.Content
-//			if (m_AdornerLayer == null && m_DependencyObject is ContentControl /*Window*/) {
-//				var visual = ((ContentControl) m_DependencyObject).Content as Visual;
+			#region Fallback uses _DependencyObject.Content
+//			if (_AdornerLayer == null && _DependencyObject is ContentControl /*Window*/) {
+//				var visual = ((ContentControl) _DependencyObject).Content as Visual;
 //				if(visual==null) return;
-//				m_AdornerLayer=AdornerLayer.GetAdornerLayer(visual);
+//				_AdornerLayer=AdornerLayer.GetAdornerLayer(visual);
 //			}
-			// now m_AdornerLayer is not null, but the adorner will not be visible! why ever?
+			// now _AdornerLayer is not null, but the adorner will not be visible! why ever?
 			#endregion
 
-			if (m_AdornerLayer==null) return;
-			m_AdornerLayer.Add(m_Adorner);
+			if (_adornerLayer==null) return;
+			_adornerLayer.Add(_adorner);
 		}
 
 		private void DetachAdorner() {
-			if (m_AdornerLayer != null && m_Adorner != null) { m_AdornerLayer.Remove(m_Adorner); }
+			if (_adornerLayer != null && _adorner != null) { _adornerLayer.Remove(_adorner); }
 		}
 
 	}
 
 	public class BusyAdorner : Adorner {
 
-		private Control m_VisualChild;
+		private Control _visualChild;
 
 		/// <summary> Initializes a new instance of the <see cref="T:System.Windows.Documents.Adorner" /> class.
 		/// </summary>
@@ -255,32 +255,32 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// <param name="index">The zero-based index of the requested child element in the collection.</param>
 		/// <returns>The requested child element. This should not return null; if the provided index is out of range, an exception is thrown.</returns>
 		/// <exception cref="System.ArgumentOutOfRangeException"></exception>
-		protected override Visual GetVisualChild(int index){if (index != 0) throw new ArgumentOutOfRangeException();return m_VisualChild;}
+		protected override Visual GetVisualChild(int index){if (index != 0) throw new ArgumentOutOfRangeException();return _visualChild;}
 
 		/// <summary> Gets or sets the visual child.
 		/// </summary>
 		/// <value>The visual child.</value>
 		public Control VisualChild {
-			get { return m_VisualChild; }
+			get { return _visualChild; }
 			set {
-				if (m_VisualChild != null) { RemoveVisualChild(m_VisualChild); }
-				m_VisualChild = value;
-				if (m_VisualChild != null) { AddVisualChild(m_VisualChild); }
+				if (_visualChild != null) { RemoveVisualChild(_visualChild); }
+				_visualChild = value;
+				if (_visualChild != null) { AddVisualChild(_visualChild); }
 			}
 		}
 
 		protected override Size MeasureOverride(Size constraint) {
-			if (m_VisualChild == null) return base.MeasureOverride(constraint);
-			m_VisualChild.Measure(constraint);
-//			return m_Child.DesiredSize;
+			if (_visualChild == null) return base.MeasureOverride(constraint);
+			_visualChild.Measure(constraint);
+//			return _Child.DesiredSize;
 			return AdornedElement.RenderSize;
 //			return constraint;
 		}
 
 		protected override Size ArrangeOverride(Size finalSize) {
-			if (m_VisualChild == null) return base.ArrangeOverride(finalSize);
-			m_VisualChild.Arrange(new Rect(new Point(0, 0), finalSize));
-			return new Size(m_VisualChild.ActualWidth, m_VisualChild.ActualHeight);
+			if (_visualChild == null) return base.ArrangeOverride(finalSize);
+			_visualChild.Arrange(new Rect(new Point(0, 0), finalSize));
+			return new Size(_visualChild.ActualWidth, _visualChild.ActualHeight);
 		}
 
 		private void AtLoaded(object sender, RoutedEventArgs e) {

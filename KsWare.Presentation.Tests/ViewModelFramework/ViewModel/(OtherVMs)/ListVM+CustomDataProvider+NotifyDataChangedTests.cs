@@ -18,21 +18,21 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 		[TestCleanup]
 		public override void TestCleanup() {base.TestCleanup(); }
 
-		private List<TestData> m_DataList;
+		private List<TestData> _dataList;
 		
 		[TestMethod]
 		public void NotifyDataChangedTest() {
-			m_DataList=new List<TestData> {new TestData()};
+			_dataList=new List<TestData> {new TestData()};
 			var listVM = new ListVM<TestVM> {Metadata = new ListViewModelMetadata {DataProvider = new CustomDataProvider<IEnumerable<TestData>>(GetData, null)}};
 			Assert.AreEqual(1,listVM.Count);
-			m_DataList.Add(new TestData());
+			_dataList.Add(new TestData());
 			Assert.AreEqual(1,listVM.Count);
 			//listVM.DebuggerFlags.Breakpoints.OnDataChanged = true;
 			listVM.Metadata.DataProvider.NotifyDataChanged();
 			Assert.AreEqual(2,listVM.Count);
 		}
 
-		private IEnumerable<TestData> GetData() {return m_DataList;}
+		private IEnumerable<TestData> GetData() {return _dataList;}
 
 		private class TestData{}
 		private class TestVM:DataVM<TestData>{} 

@@ -8,12 +8,12 @@ namespace KsWare.Presentation {
 	[Obsolete("Unknown usage",true)]
 	internal class RuntimeMethodData {
 
-		private readonly List<int> m_ThreadIds=new List<int>();
-		private readonly ThreadLocal<int> m_RecursiveInvokes=new ThreadLocal<int>();
-		private volatile int m_SimultaneousInvokes;
+		private readonly List<int> _ThreadIds=new List<int>();
+		private readonly ThreadLocal<int> _RecursiveInvokes=new ThreadLocal<int>();
+		private volatile int _SimultaneousInvokes;
 
 		public RuntimeMethodData() {
-			ThreadIDs=new ReadOnlyCollection<int>(m_ThreadIds);
+			ThreadIDs=new ReadOnlyCollection<int>(_ThreadIds);
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
@@ -29,13 +29,13 @@ namespace KsWare.Presentation {
 		public ReadOnlyCollection<int> ThreadIDs { get; private set; }
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-		public int SimultaneousInvokes {get { return m_SimultaneousInvokes; }}
+		public int SimultaneousInvokes {get { return _SimultaneousInvokes; }}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 		public int RecursiveInvokes { 
 			get {
-				if (!m_RecursiveInvokes.IsValueCreated) m_RecursiveInvokes.Value = 0;
-				return m_RecursiveInvokes.Value; 
+				if (!_RecursiveInvokes.IsValueCreated) _RecursiveInvokes.Value = 0;
+				return _RecursiveInvokes.Value; 
 			}
 		}
 
@@ -43,38 +43,38 @@ namespace KsWare.Presentation {
 		public void Trigger() {
 			Count++;
 			LastAccess = DateTime.Now;
-			if(EnableThreadObservation && !m_ThreadIds.Contains(Thread.CurrentThread.ManagedThreadId)) m_ThreadIds.Add(Thread.CurrentThread.ManagedThreadId);
+			if(EnableThreadObservation && !_ThreadIds.Contains(Thread.CurrentThread.ManagedThreadId)) _ThreadIds.Add(Thread.CurrentThread.ManagedThreadId);
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 		private void TriggerEnter() {
 			Count++;
-			m_SimultaneousInvokes++; //does mean recursive calls AND multiple thread calls
-			m_RecursiveInvokes.Value++;
+			_SimultaneousInvokes++; //does mean recursive calls AND multiple thread calls
+			_RecursiveInvokes.Value++;
 			LastAccess = DateTime.Now;
-			if(EnableThreadObservation && !m_ThreadIds.Contains(Thread.CurrentThread.ManagedThreadId)) m_ThreadIds.Add(Thread.CurrentThread.ManagedThreadId);
+			if(EnableThreadObservation && !_ThreadIds.Contains(Thread.CurrentThread.ManagedThreadId)) _ThreadIds.Add(Thread.CurrentThread.ManagedThreadId);
 		}
 
 		private void TriggerExit() {
-			m_SimultaneousInvokes--;
-			m_RecursiveInvokes.Value--;
+			_SimultaneousInvokes--;
+			_RecursiveInvokes.Value--;
 		}
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 		public IDisposable Access{get { return new ExitTrigger(this); }}
 
 		private class ExitTrigger:IDisposable  {
-			private RuntimeMethodData m_RuntimeMethodData;
+			private RuntimeMethodData _RuntimeMethodData;
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 			public ExitTrigger(RuntimeMethodData runtimeMethodData) {
-				m_RuntimeMethodData = runtimeMethodData;
-				m_RuntimeMethodData.TriggerEnter();
+				_RuntimeMethodData = runtimeMethodData;
+				_RuntimeMethodData.TriggerEnter();
 			}
 
 			void IDisposable.Dispose() {
-				m_RuntimeMethodData.TriggerExit();
-				m_RuntimeMethodData = null;
+				_RuntimeMethodData.TriggerExit();
+				_RuntimeMethodData = null;
 			}
 		}
 	}

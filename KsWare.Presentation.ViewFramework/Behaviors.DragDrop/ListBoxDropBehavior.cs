@@ -13,8 +13,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 	[PublicAPI]
 	public class ListBoxDropBehavior : Behavior<ItemsControl> {
 
-		private Type m_DataType; //the type of the data that can be dropped into this control
-		private ListBoxAdornerManager m_InsertAdornerManager;
+		private Type _dataType; //the type of the data that can be dropped into this control
+		private ListBoxAdornerManager _insertAdornerManager;
 
 		protected override void OnAttached() {
 			base.OnAttached();
@@ -28,8 +28,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		private void AtDrop(object sender, DragEventArgs e) {
 			//if the data type can be dropped 
-			if (m_DataType != null) {
-				if (e.Data.GetDataPresent(m_DataType)) {
+			if (_dataType != null) {
+				if (e.Data.GetDataPresent(_dataType)) {
 					//first find the UIElement that it was dropped over, then we determine if it's 
 					//dropped above or under the UIElement, then insert at the correct index.
 					var dropContainer = (ItemsControl)sender;
@@ -43,34 +43,34 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 						dropIndex = dropIndex - 1; //we insert at the index above it
 					}
 					//remove the data from the source
-					var source = (IDragable)e.Data.GetData(m_DataType);
-					source.Remove(e.Data.GetData(m_DataType));
+					var source = (IDragable)e.Data.GetData(_dataType);
+					source.Remove(e.Data.GetData(_dataType));
 
 					//drop the data
 					var target = (IDropable)AssociatedObject.DataContext;
-					target.Drop(e.Data.GetData(m_DataType), dropIndex);
+					target.Drop(e.Data.GetData(_dataType), dropIndex);
 				}
 			}
-			if (m_InsertAdornerManager != null)
-				m_InsertAdornerManager.Clear();
+			if (_insertAdornerManager != null)
+				_insertAdornerManager.Clear();
 			e.Handled = true;
 		}
 
 		private void AtDragLeave(object sender, DragEventArgs e) {
-			if (m_InsertAdornerManager != null)
-				m_InsertAdornerManager.Clear();
+			if (_insertAdornerManager != null)
+				_insertAdornerManager.Clear();
 			e.Handled = true;
 		}
 
 		private void AtDragOver(object sender, DragEventArgs e) {
-			if (m_DataType != null) {
-				if (e.Data.GetDataPresent(m_DataType)) {
+			if (_dataType != null) {
+				if (e.Data.GetDataPresent(_dataType)) {
 					SetDragDropEffects(e);
-					if (m_InsertAdornerManager != null) {
+					if (_insertAdornerManager != null) {
 						var dropContainer = (ItemsControl)sender;
 						var droppedOverItem = UIHelper.GetUIElement(dropContainer, e.GetPosition(dropContainer));
 						var isAboveElement = UIHelper.IsPositionAboveElement(droppedOverItem, e.GetPosition(droppedOverItem));
-						m_InsertAdornerManager.Update(droppedOverItem, isAboveElement);
+						_insertAdornerManager.Update(droppedOverItem, isAboveElement);
 					}
 				}
 			}
@@ -78,17 +78,17 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		private void AtDragEnter(object sender, DragEventArgs e) {
-			if (m_DataType == null) {
+			if (_dataType == null) {
 				//if the DataContext implements IDropable, record the data type that can be dropped
 				if (AssociatedObject.DataContext != null) {
 					if (AssociatedObject.DataContext as IDropable != null) {
-						m_DataType = ((IDropable) AssociatedObject.DataContext).DataType;
+						_dataType = ((IDropable) AssociatedObject.DataContext).DataType;
 					}
 				}
 			}
 			//initialize adorner manager with the adorner layer of the itemsControl
-			if (m_InsertAdornerManager == null)
-				m_InsertAdornerManager = new ListBoxAdornerManager(AdornerLayer.GetAdornerLayer((ItemsControl)sender));
+			if (_insertAdornerManager == null)
+				_insertAdornerManager = new ListBoxAdornerManager(AdornerLayer.GetAdornerLayer((ItemsControl)sender));
 
 			e.Handled = true;
 		}
@@ -100,7 +100,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			e.Effects = DragDropEffects.None; //default to None
 
 			//if the data type can be dropped 
-			if (e.Data.GetDataPresent(m_DataType)) {
+			if (e.Data.GetDataPresent(_dataType)) {
 				e.Effects = DragDropEffects.Move;
 			}
 		}

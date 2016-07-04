@@ -7,8 +7,8 @@
 			RegisterChildren(_=>this);
 			Caption = "MemberNameUtil";
 
-			m_Items.Add(new StatisticEntryVM("Number of registered expressions"  ,()=>MemberNameUtil.StatisticsːCount));
-			m_Items.Add(new StatisticEntryVM("Number of 'GetName' invocation"    ,()=>MemberNameUtil.StatisticsːRaiseːGetCount));
+			_Items.Add(new StatisticEntryVM("Number of registered expressions"  ,()=>MemberNameUtil.StatisticsːCount));
+			_Items.Add(new StatisticEntryVM("Number of 'GetName' invocation"    ,()=>MemberNameUtil.StatisticsːRaiseːGetCount));
 		}
 
 	}

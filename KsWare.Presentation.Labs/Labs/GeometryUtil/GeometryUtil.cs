@@ -383,7 +383,7 @@ namespace KsWare.Presentation
 				}
 			}
 			if(segments==null || segments.Count==0) {
-				throw new ArgumentException("Invalid point list!","points");
+				throw new ArgumentException("Invalid point list!",nameof(points));
 			}
 			var pathGeometry = new PathGeometry(new []{new PathFigure(startPoint,segments,true)});
 			return pathGeometry;

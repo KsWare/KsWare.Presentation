@@ -60,15 +60,15 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class ErrorProvider: ViewModelValueProvider, IErrorProvider,IErrorProviderController,IDataErrorInfo {
 
-		private bool   m_HasError;
-		private string m_ErrorMessage;
-		private Dictionary<string,string> m_FieldErrors=new Dictionary<string, string>(); 
+		private bool   _hasError;
+		private string _errorMessage;
+		private Dictionary<string,string> _FieldErrors=new Dictionary<string, string>(); 
 
 		/// <summary> Initializes a new instance of the <see cref="ErrorProvider"/> class.
 		/// </summary>
 		public ErrorProvider() {
- 			m_HasError     = false;
-			m_ErrorMessage = null;
+ 			_hasError     = false;
+			_errorMessage = null;
 		}
 
 		#region Implementation of IViewModelProvider
@@ -88,10 +88,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value><c>true</c> if this instance has error; otherwise, <c>false</c>.</value>
 		/// <remarks></remarks>
 		public virtual bool HasError {
-			get {return this.m_HasError;}
+			get {return this._hasError;}
 			protected set {
-				if (Equals(this.m_HasError, value)) return;
-				this.m_HasError = value;
+				if (Equals(this._hasError, value)) return;
+				this._hasError = value;
 				OnPropertyChanged("HasError");
 			}
 		}
@@ -101,10 +101,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The error message.</value>
 		/// <remarks></remarks>
 		public virtual string ErrorMessage {
-			get {return this.m_ErrorMessage;}
+			get {return this._errorMessage;}
 			protected set {
-				if (Equals(this.m_ErrorMessage, value)) return;
-				this.m_ErrorMessage = value;
+				if (Equals(this._errorMessage, value)) return;
+				this._errorMessage = value;
 				OnPropertyChanged("ErrorMessage");
 			}
 		}
@@ -118,7 +118,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <param name="errorMessage">The error message.</param>
 		/// <remarks></remarks>
 		public void SetError(string errorMessage) {
-			m_ErrorMessage = errorMessage;
+			_errorMessage = errorMessage;
 			HasError = true;
 		}
 
@@ -126,7 +126,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <param name="propertyName"></param>
 		void IErrorProviderController.ResetError(string propertyName) {
-			m_FieldErrors.Remove(propertyName);
+			_FieldErrors.Remove(propertyName);
 		}
 
 		void IErrorProviderController.ResetError<T>(Expression<Func<object, T>> propertyExpression) {
@@ -144,8 +144,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <param name="propertyName"></param>
 		/// <param name="errorMessage"></param>
 		void IErrorProviderController.SetError(string propertyName, string errorMessage) {
-			m_FieldErrors.Remove(propertyName);
-			m_FieldErrors.Add(propertyName,errorMessage);
+			_FieldErrors.Remove(propertyName);
+			_FieldErrors.Add(propertyName,errorMessage);
 		}
 
 		void IErrorProviderController.SetError<T>(Expression<Func<object, T>> propertyExpression, string errorMessage) {
@@ -161,7 +161,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <remarks></remarks>
 		public void ResetError() {
-			m_ErrorMessage = null;
+			_errorMessage = null;
 			HasError = false;
 		}
 
@@ -169,9 +169,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		#region Implementation of IDataErrorInfo
 
-		string IDataErrorInfo.this[string columnName] { get {string value;return m_FieldErrors.TryGetValue(columnName, out value) ? value : null;}}
+		string IDataErrorInfo.this[string columnName] { get {string value;return _FieldErrors.TryGetValue(columnName, out value) ? value : null;}}
 
-		string IDataErrorInfo.Error { get { return m_ErrorMessage; } }
+		string IDataErrorInfo.Error { get { return _errorMessage; } }
 
 		#endregion
 

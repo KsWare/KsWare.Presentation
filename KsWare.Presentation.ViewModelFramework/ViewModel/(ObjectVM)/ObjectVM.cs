@@ -50,10 +50,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		private static readonly List<WeakReference> s_Instances=new List<WeakReference>();
 		private static DateTime s_InstancesLastCheck = DateTime.MinValue;
 #endif
-		private int m_IsDisposed;
-		private string m_PropertyLabel;
-		private readonly List<object> m_EnableObjections = new List<object>();
-		private readonly List<object> m_ReadOnlyObjections = new List<object>();
+		private int _isDisposed;
+		private string _propertyLabel;
+		private readonly List<object> _enableObjections = new List<object>();
+		private readonly List<object> _readOnlyObjections = new List<object>();
 
 		protected int SuppressAnyEvents;
 
@@ -116,7 +116,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="explicitDisposing"><see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release only unmanaged resources.</param>
 		protected virtual void Dispose(bool explicitDisposing) {
 			if (explicitDisposing) {
-				if(Interlocked.Exchange(ref m_IsDisposed, 1)>0) return;
+				if(Interlocked.Exchange(ref _isDisposed, 1)>0) return;
 				Interlocked.Increment(ref StatisticsːMethodInvocationːDisposeːExplicitːCount);
 				EventUtil.RaiseDisposedEvent(Disposed, this);
 				if (LazyWeakEventStore.IsValueCreated) {
@@ -153,10 +153,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		//TODO revise name and location of PropertyLabel
 		[Localizable(true)]
 		public string PropertyLabel { // alias Summary/Title/Caption
-			get {return m_PropertyLabel;}
+			get {return _propertyLabel;}
 			set {
-				if (Equals(m_PropertyLabel, value)) return;
-				m_PropertyLabel = value;
+				if (Equals(_propertyLabel, value)) return;
+				_propertyLabel = value;
 				OnPropertyChanged("PropertyLabel");
 			}
 		}
@@ -180,13 +180,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <returns></returns>
 		/// <remarks></remarks>
 		public bool SetReadOnly(object token, bool value) {
-			bool oldIsReadOnly = m_ReadOnlyObjections.Count==0;
+			bool oldIsReadOnly = _readOnlyObjections.Count==0;
 			if (value==false) {
-				m_ReadOnlyObjections.Add(token);
+				_readOnlyObjections.Add(token);
 			} else {
-				m_ReadOnlyObjections.Remove(token);
+				_readOnlyObjections.Remove(token);
 			}
-			bool newIsReadOnly = m_ReadOnlyObjections.Count==0;
+			bool newIsReadOnly = _readOnlyObjections.Count==0;
 			if(oldIsReadOnly!=newIsReadOnly) {
 				IsReadOnly = newIsReadOnly;
 				OnPropertyChanged("IsReadOnly");
@@ -309,7 +309,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	public class ViewModelPropertyChangedEventArgs:PropertyChangedEventArgs {
 
-		private readonly ViewModelProperty m_Property;
+		private readonly ViewModelProperty _Property;
 
 		/// <summary> Initializes a new instance of the <see cref="ViewModelPropertyChangedEventArgs"/> class.
 		/// </summary>
@@ -319,13 +319,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 			//if (property == null) throw new ArgumentNullException("property");
 			// ^-DISABLED to support OnPropertyChanged("");
 
-			m_Property = property;
+			_Property = property;
 		}
 
 		/// <summary> Gets the property identifier.
 		/// </summary>
 		/// <value>The property identifier.</value>
-		public ViewModelProperty Property {get {return m_Property;}}
+		public ViewModelProperty Property {get {return _Property;}}
 	}
 
 }

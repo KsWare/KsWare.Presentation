@@ -5,7 +5,7 @@ namespace KsWare.Presentation.InternalStatistics {
 
 	public class StatisticEntryVM:SlimObjectVM {
 
-		private object m_Value;
+		private object _value;
 
 		public StatisticEntryVM() {}
 
@@ -19,11 +19,11 @@ namespace KsWare.Presentation.InternalStatistics {
 		public string Description{ get; set; }
 
 		public object Value {
-			get { return m_Value; }
+			get { return _value; }
 			set {
-				if (Equals(value, m_Value)) return;
-				m_Value = value;
-				OnPropertyChanged("Value");
+				if (Equals(value, _value)) return;
+				_value = value;
+				OnPropertyChanged(nameof(Value));
 			}
 		}
 

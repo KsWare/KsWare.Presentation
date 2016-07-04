@@ -90,7 +90,7 @@ namespace KsWare.Presentation.Tests.Core {
 			var c = EventHandle.StatisticsːInstancesˑCurrent;
 			provider = null;
 			ForceGarbageCollection();
-			Assert.That(((EventHandle) listener.m_MyEventHandle).IsAlive,Is.EqualTo(false));
+			Assert.That(((EventHandle) listener._MyEventHandle).IsAlive,Is.EqualTo(false));
 		}
 
 		private void ForceGarbageCollection() {
@@ -120,29 +120,29 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public class MyEventListener {
 
-			internal List<IEventHandle> m_EventHandles=new List<IEventHandle>();
-			internal IEventHandle m_MyEventHandle;
+			internal List<IEventHandle> _EventHandles=new List<IEventHandle>();
+			internal IEventHandle _MyEventHandle;
 			
 				public int EventCount;
 
 			public void RegisterˑMyEvent(MyEventProvider listener) {
-				m_MyEventHandle=listener.MyEvent.RegisterWeak(this,"AtMyEvent",AtMyEvent);
+				_MyEventHandle=listener.MyEvent.RegisterWeak(this,"AtMyEvent",AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, EventArgs eventArgs) { EventCount++; }
 
 			public void ReleaseˑMyEvent() {
-				m_MyEventHandle.Release();
+				_MyEventHandle.Release();
 			}
 
 			public void Dispose() {
-				if(m_MyEventHandle!=null) m_MyEventHandle.Dispose();
-				m_MyEventHandle = null;
-				if (m_EventHandles != null) {
-					foreach (var eventHandle in m_EventHandles) eventHandle.Dispose();
-					m_EventHandles.Clear();
+				if(_MyEventHandle!=null) _MyEventHandle.Dispose();
+				_MyEventHandle = null;
+				if (_EventHandles != null) {
+					foreach (var eventHandle in _EventHandles) eventHandle.Dispose();
+					_EventHandles.Clear();
 				}
-				m_EventHandles = null;
+				_EventHandles = null;
 			}
 
 		}

@@ -8,8 +8,8 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	public class BusinessListMetadata:BusinessMetadata {
 
-		private INewItemProvider m_NewItemProvider;
-		private IListLogicProvider m_LogicProvider;
+		private INewItemProvider _newItemProvider;
+		private IListLogicProvider _logicProvider;
 
 		/// <summary> Initializes a new instance of the <see cref="BusinessListMetadata"/> class.
 		/// </summary>
@@ -20,17 +20,17 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <value>The new item provider.</value>
 		public INewItemProvider NewItemProvider {
 			get {
-				if(this.m_NewItemProvider==null) {
-					if (this.m_NewItemProvider == null) {
+				if(this._newItemProvider==null) {
+					if (this._newItemProvider == null) {
 						//LOG					Debug.WriteLine("=>WARNING: Create default NewItemProvider!");
-						this.m_NewItemProvider = new DefaultNewItemProvider();
+						this._newItemProvider = new DefaultNewItemProvider();
 					}
 				}
-				return this.m_NewItemProvider;
+				return this._newItemProvider;
 			}
 			set {
 				DemandWrite();
-				SetPropertyWithParentPattern.Execute(ref this.m_NewItemProvider, value, this);
+				SetPropertyWithParentPattern.Execute(ref this._newItemProvider, value, this);
 			}
 		}
 
@@ -38,10 +38,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The list logic provider.</value>
 		public IListLogicProvider LogicProvider {
-			get {return this.m_LogicProvider;}
+			get {return this._logicProvider;}
 			set {
 				DemandWrite();
-				SetPropertyWithParentPattern.Execute(ref this.m_LogicProvider, value, this);
+				SetPropertyWithParentPattern.Execute(ref this._logicProvider, value, this);
 			}
 		}
 	}

@@ -10,9 +10,9 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 	/// </summary>
 	public abstract class BehaviorBinding : Freezable {
 
-		private readonly Type m_CommandBehaviorBindingType;
-		DependencyObject m_Owner;
-		private CommandBehaviorBinding m_Behavior;
+		private readonly Type _commandBehaviorBindingType;
+		DependencyObject _owner;
+		private CommandBehaviorBinding _behavior;
 
 		/// <summary> Initializes a new instance of the <see cref="BehaviorBinding"/> class.
 		/// </summary>
@@ -21,26 +21,26 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		protected BehaviorBinding(Type commandBehaviorBindingType) {
 			if(commandBehaviorBindingType == null) throw new ArgumentNullException(nameof(commandBehaviorBindingType));
 			if(!typeof(CommandBehaviorBinding).IsAssignableFrom(commandBehaviorBindingType)) throw new ArgumentOutOfRangeException(nameof(commandBehaviorBindingType));
-			m_CommandBehaviorBindingType = commandBehaviorBindingType;
+			_commandBehaviorBindingType = commandBehaviorBindingType;
 		}
 
 		/// <summary> Stores the Command Behavior Binding
 		/// </summary>
 		internal CommandBehaviorBinding Behavior {
 			get {
-				if (m_Behavior == null) {
-					m_Behavior = (CommandBehaviorBinding) Activator.CreateInstance(m_CommandBehaviorBindingType);
+				if (_behavior == null) {
+					_behavior = (CommandBehaviorBinding) Activator.CreateInstance(_commandBehaviorBindingType);
 				}
-				return m_Behavior;
+				return _behavior;
 			}
 		}
 
 		/// <summary> Gets or sets the Owner of the binding
 		/// </summary>
 		public DependencyObject Owner {
-			get { return m_Owner; }
+			get { return _owner; }
 			set {
-				m_Owner = value;
+				_owner = value;
 				ResetBinding();
 			}
 		}

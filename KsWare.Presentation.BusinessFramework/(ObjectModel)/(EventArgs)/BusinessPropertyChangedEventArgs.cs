@@ -6,14 +6,14 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	public class BusinessPropertyChangedEventArgs: EventArgs
 	{
-		private readonly string m_PropertyName;
+		private readonly string _PropertyName;
 
 		public BusinessPropertyChangedEventArgs(string propertyName) {
-			m_PropertyName = propertyName;
+			_PropertyName = propertyName;
 		}
 
 		public string PropertyName {
-			get { return m_PropertyName; }
+			get { return _PropertyName; }
 		}
 	}
 }

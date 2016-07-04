@@ -19,14 +19,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	internal class ReflectedPropertyInfo {
 
-		private readonly ObjectVM m_ReflectedObjectVM;
+		private readonly ObjectVM _ReflectedObjectVM;
 
 		public ReflectedPropertyInfo(ObjectVM reflectedObjectVM, PropertyInfo propertyInfo) {
 			PropertyInfo = propertyInfo;
-			m_ReflectedObjectVM = reflectedObjectVM;
+			_ReflectedObjectVM = reflectedObjectVM;
 		}
 
-		public ObjectVM ReflectedObject { get { return m_ReflectedObjectVM; } }
+		public ObjectVM ReflectedObject { get { return _ReflectedObjectVM; } }
 
 		public PropertyInfo PropertyInfo { get; set; }
 

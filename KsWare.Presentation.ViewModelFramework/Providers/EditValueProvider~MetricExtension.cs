@@ -42,14 +42,14 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		class MetricExtension : Extension, IEditValueProviderMetricExtension {
 
-			private bool m_StringIsInitialized;
+			private bool _stringIsInitialized;
 
-			private string m_Micro;
-			private string m_Milli;
-			private string m_Centi;
-			private string m_Value;
-			private string m_Deci;
-			private string m_Kilo;
+			private string _micro;
+			private string _milli;
+			private string _centi;
+			private string _value;
+			private string _deci;
+			private string _kilo;
 
 			public MetricExtension(EditValueProvider provider) : base(provider) {}
 
@@ -63,28 +63,28 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks></remarks>
 			public string Micro {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_stringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_stringIsInitialized = UpdateValue(false);
 					}
-					return m_Micro;
+					return _micro;
 				}
 				set {
 	//				if (Equals(this.editValue, m)) return;
-					m_Value = Convert(value, "µm", "m");
-					m_Micro  = value;
-					m_Milli  = Convert(value, "µm", "mm");;
-					m_Centi  = Convert(value, "µm", "cm");
-					m_Deci   = Convert(value, "µm", "dm");
-					m_Kilo   = Convert(value, "µm", "km");
+					_value = Convert(value, "µm", "m");
+					_micro  = value;
+					_milli  = Convert(value, "µm", "mm");;
+					_centi  = Convert(value, "µm", "cm");
+					_deci   = Convert(value, "µm", "dm");
+					_kilo   = Convert(value, "µm", "km");
 				
 				
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 
 					UpdateSource();
 				}
@@ -96,27 +96,27 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks></remarks>
 			public string Milli {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_stringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_stringIsInitialized = UpdateValue(false);
 					}
-					return m_Milli;
+					return _milli;
 				}
 				set {
 	//				if (Equals(this.editValue, m)) return;
-					m_Value = Convert(value, "mm", "m");
-					m_Micro  = Convert(value, "mm", "µm");
-					m_Milli  = value;
-					m_Centi  = Convert(value, "mm", "cm");
-					m_Deci   = Convert(value, "mm", "dm");
-					m_Kilo   = Convert(value, "mm", "km");
+					_value = Convert(value, "mm", "m");
+					_micro  = Convert(value, "mm", "µm");
+					_milli  = value;
+					_centi  = Convert(value, "mm", "cm");
+					_deci   = Convert(value, "mm", "dm");
+					_kilo   = Convert(value, "mm", "km");
 				
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 				
 					UpdateSource();
 				}
@@ -128,28 +128,28 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks></remarks>
 			public string Centi {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_stringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_stringIsInitialized = UpdateValue(false);
 					}
-					return m_Centi;
+					return _centi;
 				}
 				set {
 	//				if (Equals(this.editValue, value)) return;
-					m_Value = Convert(value, "cm", "m");
-					m_Micro  = Convert(value, "cm", "µm");
-					m_Milli  = Convert(value, "cm", "mm");
-					m_Centi  = value;
-					m_Deci   = Convert(value, "cm", "dm");
-					m_Kilo   = Convert(value, "cm", "km");
+					_value = Convert(value, "cm", "m");
+					_micro  = Convert(value, "cm", "µm");
+					_milli  = Convert(value, "cm", "mm");
+					_centi  = value;
+					_deci   = Convert(value, "cm", "dm");
+					_kilo   = Convert(value, "cm", "km");
 				
 
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 				
 					UpdateSource();
 				}
@@ -161,28 +161,28 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks></remarks>
 			public string Value {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_stringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_stringIsInitialized = UpdateValue(false);
 					}
-					return m_Centi;
+					return _centi;
 				}
 				set {
 	//				if (Equals(this.editValue, value)) return;
-					m_Value = Convert(value, "m", "m");
-					m_Micro  = Convert(value, "m", "µm");
-					m_Milli  = Convert(value, "m", "mm");
-					m_Centi  = Convert(value, "m", "cm");
-					m_Deci   = Convert(value, "m", "dm");
-					m_Kilo   = Convert(value, "m", "km");
+					_value = Convert(value, "m", "m");
+					_micro  = Convert(value, "m", "µm");
+					_milli  = Convert(value, "m", "mm");
+					_centi  = Convert(value, "m", "cm");
+					_deci   = Convert(value, "m", "dm");
+					_kilo   = Convert(value, "m", "km");
 				
 
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 				
 					UpdateSource();
 				}
@@ -194,27 +194,27 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks></remarks>
 			public string Deci {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_stringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_stringIsInitialized = UpdateValue(false);
 					}
-					return m_Centi;
+					return _centi;
 				}
 				set {
 	//				if (Equals(this.editValue, value)) return;
-					m_Value = Convert(value, "dm", "m");
-					m_Milli  = Convert(value, "dm", "mm");
-					m_Deci   = value;
-					m_Centi  = Convert(value, "dm", "cm");
-					m_Kilo   = Convert(value, "dm", "km");
-					m_Micro  = Convert(value, "dm", "µm");
+					_value = Convert(value, "dm", "m");
+					_milli  = Convert(value, "dm", "mm");
+					_deci   = value;
+					_centi  = Convert(value, "dm", "cm");
+					_kilo   = Convert(value, "dm", "km");
+					_micro  = Convert(value, "dm", "µm");
 
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 				
 					UpdateSource();
 				}
@@ -226,27 +226,27 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks></remarks>
 			public string Kilo {
 				get {
-					if(!m_StringIsInitialized) {
+					if(!_stringIsInitialized) {
 						UpdateValue(false);
-						m_StringIsInitialized = UpdateValue(false);
+						_stringIsInitialized = UpdateValue(false);
 					}
-					return m_Centi;
+					return _centi;
 				}
 				set {
 	//				if (Equals(this.editValue, value)) return;
-					m_Micro  = Convert(value, "km", "µm");
-					m_Milli  = Convert(value, "km", "mm");
-					m_Value  = Convert(value, "km", "m");
-					m_Centi  = Convert(value, "km", "cm");
-					m_Deci   = Convert(value, "km", "dm");
-					m_Kilo   = value;
+					_micro  = Convert(value, "km", "µm");
+					_milli  = Convert(value, "km", "mm");
+					_value  = Convert(value, "km", "m");
+					_centi  = Convert(value, "km", "cm");
+					_deci   = Convert(value, "km", "dm");
+					_kilo   = value;
 
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 				
 					UpdateSource();
 				}
@@ -262,7 +262,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 				object newValue;
 				try {
-					newValue = Provider.TypeConverter.ConvertTo(m_Value, ViewModel.ValueType); //throws an exception if conversation failed
+					newValue = Provider.TypeConverter.ConvertTo(_value, ViewModel.ValueType); //throws an exception if conversation failed
 				} catch(Exception ex) {
 					((IErrorProviderController)ViewModel.Metadata.ErrorProvider).SetError(ex.Message); //TODO localize message
 					return;
@@ -272,12 +272,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			internal bool UpdateValue(bool raiseEvents) {
-				m_Kilo  = null;
-				m_Deci  = null;
-				m_Value = null;
-				m_Centi = null;
-				m_Milli = null;
-				m_Micro = null;
+				_kilo  = null;
+				_deci  = null;
+				_value = null;
+				_centi = null;
+				_milli = null;
+				_micro = null;
 	
 				if (!ViewModel.HasValue) {
 				
@@ -285,24 +285,24 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 					var value = (double) ViewModel.Value;
 					var s = (string)Provider.TypeConverter.ConvertFrom(value);
 					if (!double.IsNaN(value) && !double.IsInfinity(value)) {
-						m_Kilo  = Convert(s, "m", "km");
-						m_Deci  = Convert(s, "m", "dm");
-						m_Value = s;
-						m_Centi = Convert(s, "m", "cm");
-						m_Milli = Convert(s, "m", "mm");
-						m_Micro = Convert(s, "m", "µm");
+						_kilo  = Convert(s, "m", "km");
+						_deci  = Convert(s, "m", "dm");
+						_value = s;
+						_centi = Convert(s, "m", "cm");
+						_milli = Convert(s, "m", "mm");
+						_micro = Convert(s, "m", "µm");
 					}else {
-						m_Kilo=m_Deci=m_Value=m_Centi=m_Milli=m_Micro = s;
+						_kilo=_deci=_value=_centi=_milli=_micro = s;
 					}
 				} 
 
 				if(raiseEvents) {
-					OnPropertyChanged("Kilo");
-					OnPropertyChanged("Deci");
-					OnPropertyChanged("Value");
-					OnPropertyChanged("Centi");
-					OnPropertyChanged("Milli");
-					OnPropertyChanged("Micro");
+					OnPropertyChanged(nameof(Kilo));
+					OnPropertyChanged(nameof(Deci));
+					OnPropertyChanged(nameof(Value));
+					OnPropertyChanged(nameof(Centi));
+					OnPropertyChanged(nameof(Milli));
+					OnPropertyChanged(nameof(Micro));
 				}
 				return true;
 			}

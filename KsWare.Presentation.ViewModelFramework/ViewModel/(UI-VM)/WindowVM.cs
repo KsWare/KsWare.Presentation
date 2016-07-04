@@ -15,8 +15,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </remarks>
 	public partial class WindowVM:DataVM<Window>,IWindowVM {
 
-		private bool m_Disposed;
-		private bool m_IsClosing;
+		private bool _disposed;
+		private bool _isClosing;
 
 		/// <summary> Initializes a new instance of the <see cref="WindowVM"/> class.
 		/// </summary>
@@ -136,7 +136,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			else this.App.NonAppWindowsInternal.Add(this);
 		}
 
-		internal bool IsDisposed {get { return m_Disposed; }}
+		internal bool IsDisposed {get { return _disposed; }}
 
 		private ApplicationVM App { get { return ApplicationVM.Current; } }
 //		private bool IsInsideApp { get { return Application.Current != null; } }
@@ -144,9 +144,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected override void Dispose(bool explicitDisposing) {
 			if (explicitDisposing) {
-				m_Disposed = true;
+				_disposed = true;
 				UpdateWindowListsOnClose();
-				m_IsClosing = false;
+				_isClosing = false;
 			}
 			base.Dispose(explicitDisposing);
 		}
@@ -185,7 +185,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			public bool HasWindow { get { return Fields.Get<Window>("Window") != null; } }
 
 			internal void AssignWindowInternal(Window window) {
-				if(window==null) throw new ArgumentNullException("window");
+				if(window==null) throw new ArgumentNullException(nameof(window));
 				DemandAssign();
 				Fields.Set("Window", window);
 			}

@@ -6,15 +6,15 @@ namespace KsWare.Presentation.Providers {
 
 	public abstract class Provider:IProvider {
 
-		protected Lazy<EventSourceStore> m_LazyWeakEventStore;
-		private bool? m_IsAutoCreated;
-		private object m_Parent;
+		protected Lazy<EventSourceStore> _LazyWeakEventStore;
+		private bool? _isAutoCreated;
+		private object _parent;
 
 		protected Provider() {
-			m_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
+			_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		public EventSourceStore EventSources{get { return m_LazyWeakEventStore.Value; }}
+		public EventSourceStore EventSources{get { return _LazyWeakEventStore.Value; }}
 
 		public abstract bool IsSupported { get; }
 
@@ -22,10 +22,10 @@ namespace KsWare.Presentation.Providers {
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return m_IsAutoCreated==true; }
+			get { return _isAutoCreated==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{E7279D65-F0FA-42BE-812F-45BA404524C8}");
-				m_IsAutoCreated = value;
+				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{E7279D65-F0FA-42BE-812F-45BA404524C8}");
+				_isAutoCreated = value;
 			}
 		}
 
@@ -38,13 +38,13 @@ namespace KsWare.Presentation.Providers {
 		/// <value>The parent of this instance.</value>
 		/// <remarks></remarks>
 		public object Parent {
-			get {return m_Parent;}
+			get {return _parent;}
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Parent cannot be null!",this,"{DE9F4789-BD94-46A6-8238-F5988092A30C}");
-				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{F02EA960-5BBA-412D-A777-766413010026}");
-				m_Parent = value;
+				MemberAccessUtil.DemandWriteOnce(_parent==null,null,this,nameof(Parent),"{F02EA960-5BBA-412D-A777-766413010026}");
+				_parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{92587EBC-9EF5-4000-A6CE-72E4AF8AF010}");
-				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(_LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace KsWare.Presentation.Providers {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{B410DCA0-779B-4F54-9718-B3651E8E79C7}");
-			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventStore,"PropertyChangedEvent", args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(_LazyWeakEventStore,"PropertyChangedEvent", args);
 		}
 
 		#endregion
@@ -83,7 +83,7 @@ namespace KsWare.Presentation.Providers {
 
 		protected virtual void Dispose(bool explicitDispose) {
 			if (explicitDispose) {
-				if(m_LazyWeakEventStore.IsValueCreated) m_LazyWeakEventStore.Value.Dispose();
+				if(_LazyWeakEventStore.IsValueCreated) _LazyWeakEventStore.Value.Dispose();
 			}
 		}
 

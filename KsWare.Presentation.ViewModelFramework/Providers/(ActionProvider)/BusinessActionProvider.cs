@@ -8,7 +8,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// <remarks></remarks>
 	public class BusinessActionProvider: ActionProvider {
 
-		private ActionBM m_ActionBM;
+		private ActionBM _actionBM;
 
 		/// <summary> Initializes a new instance of the <see cref="BusinessActionProvider"/> class.
 		/// </summary>
@@ -18,15 +18,15 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported{get {return m_ActionBM!=null;}}
+		public override bool IsSupported{get {return _actionBM!=null;}}
 
 		/// <summary> Gets a value whether the action can be executed or not
 		/// </summary>
 		/// <value>The value whether the action can be executed or not</value>
 		public override bool CanExecute {
 			get {
-				if(m_ActionBM==null) return false;
-				return m_ActionBM.CanExecute;
+				if(_actionBM==null) return false;
+				return _actionBM.CanExecute;
 			}
 		}
 
@@ -36,9 +36,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <param name="value">if set to <c>true</c> [value].</param>
 		/// <remarks></remarks>
 		public override void SetCanExecute(object token, bool value) {
-			if(m_ActionBM==null) throw new NotSupportedException("Underlying object not initialized!");
+			if(_actionBM==null) throw new NotSupportedException("Underlying object not initialized!");
 			//throw new NotSupportedException("Action not supported by underlying object! {8FFF5FFA-8E8E-471A-A302-E9DC0F9EAC70}");
-			((BusinessFramework.BusinessActionMetadata) m_ActionBM.Metadata).SetCanExecute(token,value);
+			((BusinessFramework.BusinessActionMetadata) _actionBM.Metadata).SetCanExecute(token,value);
 		}
 
 		/// <summary> Executes the action.
@@ -46,8 +46,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <param name="parameter">The action parameter.</param>
 		/// <remarks></remarks>
 		public override void Execute(object parameter) {
-			if(m_ActionBM==null) throw new NotSupportedException("Underlying object not initialized!");
-			m_ActionBM.Execute(parameter);
+			if(_actionBM==null) throw new NotSupportedException("Underlying object not initialized!");
+			_actionBM.Execute(parameter);
 			//### base.Execute(parameter);
 		}
 
@@ -59,17 +59,17 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <para>NOTE: This property is automatically set by <see cref="ActionVM"/> using DataProvider.Data</para>
 		/// </remarks>
 		public override object BusinessObject { //TODO revise type of BusinessObject, maybe sould be be IObjectBM/IActionBM
-			get {return m_ActionBM;}
+			get {return _actionBM;}
 			set {
 
-				if(m_ActionBM!=null) {
-					m_ActionBM.CanExecuteChanged-=AtActionCanExecuteChanged;
+				if(_actionBM!=null) {
+					_actionBM.CanExecuteChanged-=AtActionCanExecuteChanged;
 				}
 
-				m_ActionBM=(ActionBM) value;
+				_actionBM=(ActionBM) value;
 
-				if(m_ActionBM!=null) {
-					m_ActionBM.CanExecuteChanged+=AtActionCanExecuteChanged;
+				if(_actionBM!=null) {
+					_actionBM.CanExecuteChanged+=AtActionCanExecuteChanged;
 				}
 
 				OnCanExecuteChanged();//TODO: call only when value of CanExecute has been changed

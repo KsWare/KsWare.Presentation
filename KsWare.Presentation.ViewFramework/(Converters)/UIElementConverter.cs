@@ -27,16 +27,16 @@ namespace KsWare.Presentation.ViewFramework
 
 		private static readonly Dictionary<string,Assembly2> CachedAssemblies=new Dictionary<string, Assembly2>(); 
 
-//		private readonly Assembly        m_CachedAssembly;
-//		private readonly ResourceManager m_CachedResourceManager;
-//		private          ResourceSet     m_CachedResourceSet;
-//		private readonly CultureInfo     m_CachedCulture;
+//		private readonly Assembly        _CachedAssembly;
+//		private readonly ResourceManager _CachedResourceManager;
+//		private          ResourceSet     _CachedResourceSet;
+//		private readonly CultureInfo     _CachedCulture;
 
 		public UIElementConverter() {
-//			this.m_CachedAssembly        = Assembly.GetExecutingAssembly();
-//			this.m_CachedResourceManager = new ResourceManager(this.m_CachedAssembly.GetName().Name + ".g", this.m_CachedAssembly);
-//			this.m_CachedCulture         = Thread.CurrentThread.CurrentUICulture;
-//			this.m_CachedResourceSet     = this.m_CachedResourceManager.GetResourceSet(this.m_CachedCulture, true, true);
+//			this._CachedAssembly        = Assembly.GetExecutingAssembly();
+//			this._CachedResourceManager = new ResourceManager(this._CachedAssembly.GetName().Name + ".g", this._CachedAssembly);
+//			this._CachedCulture         = Thread.CurrentThread.CurrentUICulture;
+//			this._CachedResourceSet     = this._CachedResourceManager.GetResourceSet(this._CachedCulture, true, true);
 		}
 
 		/* Usage A
@@ -146,7 +146,7 @@ namespace KsWare.Presentation.ViewFramework
 			if (stream==null) {
 				Debug.WriteLine("=>WARNING: Resource not found! " +
 				"\r\n\t"+"Resource: "+ ressourceName+
-//				"\r\n\t"+"Assembly: "+ m_CachedAssembly.FullName+
+//				"\r\n\t"+"Assembly: "+ _CachedAssembly.FullName+
 				"\r\n\t"+"CallingAssembly: "+Assembly.GetCallingAssembly().FullName+
 				"\r\n\t"+"UniqueID: {536714F7-D844-4093-A595-041E83AFAF51}");
 				return null;
@@ -232,8 +232,8 @@ namespace KsWare.Presentation.ViewFramework
 
 		private class Assembly2
 		{
-			private ResourceManager m_ResourceManager;
-			private readonly Dictionary<CultureInfo,ResourceSet> m_ResourceSets=new Dictionary<CultureInfo, ResourceSet>();
+			private ResourceManager _resourceManager;
+			private readonly Dictionary<CultureInfo,ResourceSet> _resourceSets=new Dictionary<CultureInfo, ResourceSet>();
 
 			public Assembly2(Assembly assembly) {
 				Assembly = assembly;
@@ -247,16 +247,16 @@ namespace KsWare.Presentation.ViewFramework
 			public ResourceSet GetResourceSet(CultureInfo culture) {
 				if(culture==null) culture = Thread.CurrentThread.CurrentUICulture;
 
-				if(m_ResourceManager==null) {
-					m_ResourceManager = new ResourceManager(Assembly.GetName().Name + ".g", Assembly);
+				if(_resourceManager==null) {
+					_resourceManager = new ResourceManager(Assembly.GetName().Name + ".g", Assembly);
 				}
 					
-				if(!m_ResourceSets.ContainsKey(culture)) {
-					var resourceSet     = m_ResourceManager.GetResourceSet(culture, true, true);
-					m_ResourceSets.Add(culture,resourceSet);
+				if(!_resourceSets.ContainsKey(culture)) {
+					var resourceSet     = _resourceManager.GetResourceSet(culture, true, true);
+					_resourceSets.Add(culture,resourceSet);
 					return resourceSet;
 				} else {
-					return m_ResourceSets[culture];
+					return _resourceSets[culture];
 				}	
 			}
 		}

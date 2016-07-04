@@ -8,9 +8,9 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 	/// </summary>
 	public class SolidColorBrushAnimation:ObjectAnimationBase {
 
-		private ColorAnimation m_ColorAnimation=new ColorAnimation();
-		private SolidColorBrush m_From;
-		private SolidColorBrush m_To;
+		private ColorAnimation _colorAnimation=new ColorAnimation();
+		private SolidColorBrush _from;
+		private SolidColorBrush _to;
 
 //		public static readonly DependencyProperty FromProperty = DependencyProperty.Register(
 //			"From", typeof (SolidColorBrush), typeof (SolidColorBrushAnimation), new FrameworkPropertyMetadata(default(SolidColorBrush), (d, e) => ((SolidColorBrushAnimation) d).FromPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(e))));
@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 //		public SolidColorBrush From { get { return (SolidColorBrush) GetValue(FromProperty); } set { SetValue(FromProperty, value); } }
 //
 		private void FromPropertyChanged(ValueChangedEventArgs<SolidColorBrush> e) {
-			m_ColorAnimation.From = e.NewValue !=null ? e.NewValue.Color : (Color?)null;
+			_colorAnimation.From = e.NewValue !=null ? e.NewValue.Color : (Color?)null;
 		}
 //
 //		public static readonly DependencyProperty ToProperty = DependencyProperty.Register(
@@ -27,18 +27,18 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 //		public SolidColorBrush To { get { return (SolidColorBrush) GetValue(ToProperty); } set { SetValue(ToProperty, value); } }
 //
 		private void ToPropertyChanged(ValueChangedEventArgs<SolidColorBrush> e) {
-			m_ColorAnimation.To = e.NewValue !=null ? e.NewValue.Color : (Color?)null;
+			_colorAnimation.To = e.NewValue !=null ? e.NewValue.Color : (Color?)null;
 		}
 
 
 		public SolidColorBrush From {
-			get { return m_From; }
-			set { m_From = value;  FromPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(value));}
+			get { return _from; }
+			set { _from = value;  FromPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(value));}
 		}
 
 		public SolidColorBrush To {
-			get { return m_To; }
-			set { m_To = value;  ToPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(value));}
+			get { return _to; }
+			set { _to = value;  ToPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(value));}
 		}
 		
 		/// <summary> Creates a new instance of the <see cref="SolidColorBrushAnimation"/>. (Overrides Freezable.CreateInstanceCore().)
@@ -59,7 +59,7 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 //		/// <returns>If <paramref name="isChecking" /> is true, this method returns true if this instance can be made read-only, or false if it cannot be made read-only. If <paramref name="isChecking" /> is false, this method returns true if this instance is now read-only, or false if it cannot be made read-only, with the side effect of having begun to change the frozen status of this object.</returns>
 //		protected override bool FreezeCore(bool isChecking) {
 //			var retbase= base.FreezeCore(isChecking);
-////			m_ColorAnimation.Freeze();
+////			_ColorAnimation.Freeze();
 //			return true;
 //		}
 //
@@ -88,9 +88,9 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 //			if(defaultOriginValue is Color)defaultOriginValue_=(Color)defaultOriginValue;
 //			if(defaultDestinationValue is SolidColorBrush) defaultDestinationValue_=((SolidColorBrush)defaultDestinationValue).Color;
 //			if(defaultDestinationValue is Color)defaultDestinationValue_=(Color)defaultDestinationValue;
-//			var color =m_ColorAnimation.GetCurrentValue(defaultOriginValue_,defaultDestinationValue_,animationClock);
+//			var color =_ColorAnimation.GetCurrentValue(defaultOriginValue_,defaultDestinationValue_,animationClock);
 
-			var color =m_ColorAnimation.GetCurrentValue(
+			var color =_colorAnimation.GetCurrentValue(
 				((SolidColorBrush)defaultOriginValue).Color,
 				((SolidColorBrush)defaultDestinationValue??Brushes.Black).Color,
 				animationClock
@@ -100,7 +100,7 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 
 
 		private void CopyCommon(SolidColorBrushAnimation sourceAnimation) {
-			//m_ColorAnimation = sourceAnimation.m_ColorAnimation;
+			//m_ColorAnimation = sourceAnimation._ColorAnimation;
 			To = sourceAnimation.To;
 			From = sourceAnimation.From;
 		}

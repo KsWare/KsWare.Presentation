@@ -35,7 +35,7 @@ namespace KsWare.Presentation.ViewFramework {
 	/// </remarks>
 	public class ViewModelApplication : Application {
 
-		protected readonly IObjectVM m_RootVM ;
+		protected readonly IObjectVM _RootVM ;
 
 		public bool CatchUnhandledExceptions {
 			get { return ExceptionManager.CatchUnhandledExceptions; }
@@ -50,16 +50,16 @@ namespace KsWare.Presentation.ViewFramework {
 			ExceptionManager.UnhandledException+=AtExceptionManagerOnUnhandledException;
 
 			if (typeof (ApplicationVM).IsAssignableFrom(rootVMType)) {
-				m_RootVM=(IObjectVM) Activator.CreateInstance(rootVMType);
+				_RootVM=(IObjectVM) Activator.CreateInstance(rootVMType);
 			} else {
 				var initializeMethod = rootVMType.GetMethod("Initialize", BindingFlags.Public | BindingFlags.Static);
 				if(initializeMethod!=null) initializeMethod.Invoke(null, null);
 				var defaultProperty = rootVMType.GetProperty("Default", BindingFlags.Public | BindingFlags.Static);
-				if (defaultProperty != null) m_RootVM = (IObjectVM) defaultProperty.GetValue(null, null);
+				if (defaultProperty != null) _RootVM = (IObjectVM) defaultProperty.GetValue(null, null);
 			}
 
-			if (m_RootVM != null) {
-				m_RootVM.UserFeedbackRequested+=OnUserFeedbackRequested;
+			if (_RootVM != null) {
+				_RootVM.UserFeedbackRequested+=OnUserFeedbackRequested;
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace KsWare.Presentation.ViewFramework {
 			OnUserFeedbackRequested(this,efea);			
 		}
 
-		public virtual ApplicationVM ViewModel { get { return (ApplicationVM) m_RootVM; } }
+		public virtual ApplicationVM ViewModel { get { return (ApplicationVM) _RootVM; } }
 
 		protected virtual void OnUserFeedbackRequested(object sender, UserFeedbackEventArgs e) {
 			try {
@@ -174,9 +174,9 @@ namespace KsWare.Presentation.ViewFramework {
 		public ViewModelApplication():base(typeof(TRootVM)) {}
 
 		[Obsolete("Use ViewModel property!")]
-		public TRootVM RootVM { get { return (TRootVM)m_RootVM; }}
+		public TRootVM RootVM { get { return (TRootVM)_RootVM; }}
 
-		public new TRootVM ViewModel { get { return (TRootVM) m_RootVM; } }
+		public new TRootVM ViewModel { get { return (TRootVM) _RootVM; } }
 
 	}
 

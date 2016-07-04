@@ -117,20 +117,20 @@ namespace KsWare.Presentation {
 		}
 
 		private class MemoizingMRUCache3<TParam, TVal>:ICache<TParam, TVal> {
-//			private Dictionary<TParam,TVal> m_CacheEntries=new Dictionary<TParam, TVal>();
-			private readonly Func<TParam, object, TVal> m_CalculationFunction;
+//			private Dictionary<TParam,TVal> _CacheEntries=new Dictionary<TParam, TVal>();
+			private readonly Func<TParam, object, TVal> _CalculationFunction;
 
 			public MemoizingMRUCache3(Func<TParam, object, TVal> calculationFunc, int maxSize, Action<TVal> onRelease = null) {
-				m_CalculationFunction=calculationFunc;
+				_CalculationFunction=calculationFunc;
 			}
 
 			public TVal Get(TParam key, object context = null) {
-//				if (m_CacheEntries.ContainsKey(key)) {
-//					var found = m_CacheEntries[key];
+//				if (_CacheEntries.ContainsKey(key)) {
+//					var found = _CacheEntries[key];
 //					return found;
 //				}
-				var result = m_CalculationFunction(key, context);
-//				m_CacheEntries.Add(key,result);
+				var result = _CalculationFunction(key, context);
+//				_CacheEntries.Add(key,result);
 				return result;
 			}
 
@@ -139,11 +139,11 @@ namespace KsWare.Presentation {
 		}
 
 		private class MemoizingMRUCache2b<TParam, TVal>:ICache<TParam, TVal> {
-			private Dictionary<int,TVal> m_CacheEntries=new Dictionary<int, TVal>();
-			private readonly Func<TParam, TVal> m_CalculationFunction;
+			private Dictionary<int,TVal> _CacheEntries=new Dictionary<int, TVal>();
+			private readonly Func<TParam, TVal> _CalculationFunction;
 
 			public MemoizingMRUCache2b(Func<TParam, TVal> calculationFunc, int maxSize, Action<TVal> onRelease = null) {
-				m_CalculationFunction=calculationFunc;
+				_CalculationFunction=calculationFunc;
 			}
 
 			public TVal Get(TParam key, object context = null) {
@@ -151,32 +151,32 @@ namespace KsWare.Presentation {
 //				var hash = key.ToString().GetHashCode(); //DO NOT CALL ToString() because this will call the ToString from current object
 				Debug.WriteLine(String.Format("{0:X8} {1}",hash, ((LambdaExpression)(object)key).Body));
 				TVal result;
-				if (m_CacheEntries.TryGetValue(hash, out result)) return result;
-				result = m_CalculationFunction(key);
-				m_CacheEntries.Add(hash,result);
+				if (_CacheEntries.TryGetValue(hash, out result)) return result;
+				result = _CalculationFunction(key);
+				_CacheEntries.Add(hash,result);
 				return result;
 			}
 
-			public int Count { get { return m_CacheEntries.Count; } }
+			public int Count { get { return _CacheEntries.Count; } }
 		}
 
 		private class MemoizingMRUCache2<TParam, TVal>:ICache<TParam, TVal> {
-			private Dictionary<TParam,TVal> m_CacheEntries=new Dictionary<TParam, TVal>();
-			private readonly Func<TParam, TVal> m_CalculationFunction;
+			private Dictionary<TParam,TVal> _CacheEntries=new Dictionary<TParam, TVal>();
+			private readonly Func<TParam, TVal> _CalculationFunction;
 
 			public MemoizingMRUCache2(Func<TParam, TVal> calculationFunc, int maxSize, Action<TVal> onRelease = null) {
-				m_CalculationFunction=calculationFunc;
+				_CalculationFunction=calculationFunc;
 			}
 
 			public TVal Get(TParam key, object context = null) {
 				TVal result;
-				if (m_CacheEntries.TryGetValue(key, out result)) return result;
-				result = m_CalculationFunction(key);
-				m_CacheEntries.Add(key,result);
+				if (_CacheEntries.TryGetValue(key, out result)) return result;
+				result = _CalculationFunction(key);
+				_CacheEntries.Add(key,result);
 				return result;
 			}
 
-			public int Count { get { return m_CacheEntries.Count; } }
+			public int Count { get { return _CacheEntries.Count; } }
 		}
 
 		// https://github.com/reactiveui/ReactiveUI/blob/master/ReactiveUI/MemoizingMRUCache.cs
@@ -194,12 +194,12 @@ namespace KsWare.Presentation {
 		/// <typeparam name="TVal">The type of the value returned by the calculation
 		/// function.</typeparam>
 		private class MemoizingMRUCache<TParam, TVal> {
-			private readonly Func<TParam, object, TVal> m_CalculationFunction;
-			private readonly Action<TVal> m_ReleaseFunction;
-			private readonly int m_MaxCacheSize;
+			private readonly Func<TParam, object, TVal> _calculationFunction;
+			private readonly Action<TVal> _releaseFunction;
+			private readonly int _maxCacheSize;
 
-			private LinkedList<TParam> m_CacheMRUList;
-			private Dictionary<TParam, Tuple<LinkedListNode<TParam>, TVal>> m_CacheEntries;
+			private LinkedList<TParam> _cacheMruList;
+			private Dictionary<TParam, Tuple<LinkedListNode<TParam>, TVal>> _cacheEntries;
 
 			/// <summary>
 			/// Constructor
@@ -216,9 +216,9 @@ namespace KsWare.Presentation {
 				Contract.Requires(calculationFunc != null);
 				Contract.Requires(maxSize > 0);
 
-				m_CalculationFunction = calculationFunc;
-				m_ReleaseFunction = onRelease;
-				m_MaxCacheSize = maxSize;
+				_calculationFunction = calculationFunc;
+				_releaseFunction = onRelease;
+				_maxCacheSize = maxSize;
 				InvalidateAll();
 			}
 
@@ -233,19 +233,19 @@ namespace KsWare.Presentation {
 			public TVal Get(TParam key, object context = null) {
 				Contract.Requires(key != null);
 
-				if (m_CacheEntries.ContainsKey(key)) {
-					var found = m_CacheEntries[key];
-					m_CacheMRUList.Remove(found.Item1);
-					m_CacheMRUList.AddFirst(found.Item1);
+				if (_cacheEntries.ContainsKey(key)) {
+					var found = _cacheEntries[key];
+					_cacheMruList.Remove(found.Item1);
+					_cacheMruList.AddFirst(found.Item1);
 					return found.Item2;
 				}
 
 //				this.Log().Debug("Cache miss: {0}", key);
-				var result = m_CalculationFunction(key, context);
+				var result = _calculationFunction(key, context);
 
 				var node = new LinkedListNode<TParam>(key);
-				m_CacheMRUList.AddFirst(node);
-				m_CacheEntries[key] = new Tuple<LinkedListNode<TParam>, TVal>(node, result);
+				_cacheMruList.AddFirst(node);
+				_cacheEntries[key] = new Tuple<LinkedListNode<TParam>, TVal>(node, result);
 				maintainCache();
 
 				return result;
@@ -255,10 +255,10 @@ namespace KsWare.Presentation {
 				Contract.Requires(key != null);
 
 				Tuple<LinkedListNode<TParam>, TVal> output;
-				var ret = m_CacheEntries.TryGetValue(key, out output);
+				var ret = _cacheEntries.TryGetValue(key, out output);
 				if (ret && output != null) {
-					m_CacheMRUList.Remove(output.Item1);
-					m_CacheMRUList.AddFirst(output.Item1);
+					_cacheMruList.Remove(output.Item1);
+					_cacheMruList.AddFirst(output.Item1);
 					result = output.Item2;
 				}
 				else {
@@ -275,57 +275,57 @@ namespace KsWare.Presentation {
 			public void Invalidate(TParam key) {
 				Contract.Requires(key != null);
 
-				if (!m_CacheEntries.ContainsKey(key)) return;
+				if (!_cacheEntries.ContainsKey(key)) return;
 
-				var to_remove = m_CacheEntries[key];
-				if (m_ReleaseFunction != null) m_ReleaseFunction(to_remove.Item2);
+				var to_remove = _cacheEntries[key];
+				if (_releaseFunction != null) _releaseFunction(to_remove.Item2);
 
-				m_CacheMRUList.Remove(to_remove.Item1);
-				m_CacheEntries.Remove(key);
+				_cacheMruList.Remove(to_remove.Item1);
+				_cacheEntries.Remove(key);
 			}
 
 			/// <summary>
 			/// Invalidate all items in the cache
 			/// </summary>
 			public void InvalidateAll() {
-				if (m_ReleaseFunction == null || m_CacheEntries == null) {
-					m_CacheMRUList = new LinkedList<TParam>();
-					m_CacheEntries = new Dictionary<TParam, Tuple<LinkedListNode<TParam>, TVal>>();
+				if (_releaseFunction == null || _cacheEntries == null) {
+					_cacheMruList = new LinkedList<TParam>();
+					_cacheEntries = new Dictionary<TParam, Tuple<LinkedListNode<TParam>, TVal>>();
 					return;
 				}
 
-				if (m_CacheEntries.Count == 0) return;
+				if (_cacheEntries.Count == 0) return;
 
 				/* We have to remove them one-by-one to call the release function
 * We ToArray() this so we don't get a "modifying collection while
 * enumerating" exception. */
-				foreach (var v in m_CacheEntries.Keys.ToArray()) { Invalidate(v); }
+				foreach (var v in _cacheEntries.Keys.ToArray()) { Invalidate(v); }
 			}
 
 			/// <summary>
 			/// Returns all values currently in the cache
 			/// </summary>
 			/// <returns></returns>
-			public IEnumerable<TVal> CachedValues() { return m_CacheEntries.Select(x => x.Value.Item2); }
+			public IEnumerable<TVal> CachedValues() { return _cacheEntries.Select(x => x.Value.Item2); }
 
 			private void maintainCache() {
-				while (m_CacheMRUList.Count > m_MaxCacheSize) {
-					var to_remove = m_CacheMRUList.Last.Value;
-					if (m_ReleaseFunction != null) m_ReleaseFunction(m_CacheEntries[to_remove].Item2);
+				while (_cacheMruList.Count > _maxCacheSize) {
+					var to_remove = _cacheMruList.Last.Value;
+					if (_releaseFunction != null) _releaseFunction(_cacheEntries[to_remove].Item2);
 
 //					this.Log().Debug("Evicting {0}", to_remove);
-					m_CacheEntries.Remove(m_CacheMRUList.Last.Value);
-					m_CacheMRUList.RemoveLast();
+					_cacheEntries.Remove(_cacheMruList.Last.Value);
+					_cacheMruList.RemoveLast();
 				}
 			}
 
 			[ContractInvariantMethod]
 			private void Invariants() {
-				Contract.Invariant(m_CacheEntries.Count == m_CacheMRUList.Count);
-				Contract.Invariant(m_CacheEntries.Count <= m_MaxCacheSize);
+				Contract.Invariant(_cacheEntries.Count == _cacheMruList.Count);
+				Contract.Invariant(_cacheEntries.Count <= _maxCacheSize);
 			}
 
-			public int Count { get { return m_CacheEntries.Count; } }
+			public int Count { get { return _cacheEntries.Count; } }
 		}
 		
 //		/// <summary>

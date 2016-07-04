@@ -64,18 +64,18 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// </summary>
 	public partial class ObjectBM : IObjectBM {
 
-		private static bool? s_IsInDesignMode;
+		private static bool? s_isInDesignMode;
 
-		private BusinessMetadata m_Metadata;
-		private readonly List<IDisposable> m_DisposableObjects = new List<IDisposable>();
-		private readonly Lazy<EventSourceStore> m_LazyWeakEventPropertyStore;
-		private int m_IsDisposed;
+		private BusinessMetadata _metadata;
+		private readonly List<IDisposable> _disposableObjects = new List<IDisposable>();
+		private readonly Lazy<EventSourceStore> _lazyWeakEventPropertyStore;
+		private int _isDisposed;
 
 		public ObjectBM() {
 			Interlocked.Increment(ref StatisticsːNumberOfCreatedInstances);
 			Interlocked.Increment(ref StatisticsːNumberOfInstances);
 
-			m_LazyWeakEventPropertyStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
+			_lazyWeakEventPropertyStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 			InitPartHierarchy();
 			InitPartFields();
 			InitPartReflection();
@@ -88,8 +88,8 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		public bool IsSlim { get { return false;} }
 
-		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return m_LazyWeakEventPropertyStore; } }
-		protected EventSourceStore EventSources { get { return m_LazyWeakEventPropertyStore.Value; } }
+		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventPropertyStore; } }
+		protected EventSourceStore EventSources { get { return _lazyWeakEventPropertyStore.Value; } }
 
 		/// <summary> Creates the default metadata for the current type of business object .
 		/// </summary>
@@ -101,23 +101,23 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <value>The business object metadata.</value>
 		public BusinessMetadata Metadata {
 			get {
-			    if (m_Metadata == null) {
+			    if (_metadata == null) {
 			        lock (this) {
-			            if (m_Metadata == null) {
+			            if (_metadata == null) {
 //LOG  						Debug.WriteLine("=>WARNING: Create default metadata! Type='"+this.GetType().NameT()+"', Name='"+this.MemberName+"', ParentType='"+(Parent!=null?Parent.GetType().Name:"")+"'", "ObjectBM");
 			                Metadata = CreateDefaultMetadata();
 			            }
 			        }
 			    }
-			    return m_Metadata;
+			    return _metadata;
 			}
 			set {
 			    //				Debug.WriteLine("=>ObjectBM: INFO: Set Metadata. "+(value==null?"{null}":value.GetType().FullName));
-			    if (m_Metadata != null) throw new InvalidOperationException("Cannot set a metadata property once it is applied to a business value property operation.");
+			    if (_metadata != null) throw new InvalidOperationException("Cannot set a metadata property once it is applied to a business value property operation.");
 			    if (value == null) return;
 			    OnMetadataChanging(value);
-			    m_Metadata = value;
-			    m_Metadata.BusinessObject = this; // Metadata is read-only now
+			    _metadata = value;
+			    _metadata.BusinessObject = this; // Metadata is read-only now
 			    OnMetadataChanged();
 			}
 		}
@@ -135,13 +135,13 @@ namespace KsWare.Presentation.BusinessFramework {
 			// <- Metadata{set;}
 
 			//OPTIONAL: validations
-			if (m_Metadata.DataProvider == null) Debug.WriteLine("=>ObjectBM: WARNING: No data provider specified");
+			if (_metadata.DataProvider == null) Debug.WriteLine("=>ObjectBM: WARNING: No data provider specified");
 
 			//OPTIONAL:	EventUtil.Raise(MetadataChanged,this, EventArgs.Empty,"{24FEDB67-B002-4844-A31A-80E8028D7E7F}");
 			//OPTIONAL:	WeakEventManager.Raise(MetadataChangedEvent, EventArgs.Empty);
 
-			//TODO revise. use: m_Metadata.HasDataProvider / m_Metadata.DataProvider changed
-			if (m_Metadata.DataProvider != null) m_Metadata.DataProvider.DataChanged += (sender, e) => OnDataChanged(e);
+			//TODO revise. use: _Metadata.HasDataProvider / _Metadata.DataProvider changed
+			if (_metadata.DataProvider != null) _metadata.DataProvider.DataChanged += (sender, e) => OnDataChanged(e);
 		}
 
 		/// <summary> Occurs when the Metadata.DataProvider.Data has been changed
@@ -247,12 +247,12 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="explicitDisposing"><see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release only unmanaged resources.</param>
 		protected virtual void Dispose(bool explicitDisposing) {
 			if (explicitDisposing) {
-				if(Interlocked.Exchange(ref m_IsDisposed, 1)>0) return;
+				if(Interlocked.Exchange(ref _isDisposed, 1)>0) return;
 				Interlocked.Increment(ref StatisticsːMethodInvocationːDisposeːCount);
-			    foreach (var child in m_Children) { child.Dispose(); }
-			    foreach (var disposable in m_DisposableObjects) { disposable.Dispose(); }
-			    m_Children.Clear();
-			    m_DisposableObjects.Clear();
+			    foreach (var child in _children) { child.Dispose(); }
+			    foreach (var disposable in _disposableObjects) { disposable.Dispose(); }
+			    _children.Clear();
+			    _disposableObjects.Clear();
 				if (LazyWeakEventStore.IsValueCreated) LazyWeakEventStore.Value.Dispose();
 			    EventUtil.RaiseDisposedEvent(Disposed, this);
 			}
@@ -295,13 +295,13 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		#region IsApplicable
 
-		private readonly List<object> m_IsApplicableObjections = new List<object>();
+		private readonly List<object> _IsApplicableObjections = new List<object>();
 
 		/// <summary> Gets a value indicating whether this instance is enabled.
 		/// </summary>
 		/// <remarks></remarks>
 		[DefaultValue(true)]
-		public bool IsApplicable { get { return this.m_IsApplicableObjections.Count == 0; } }
+		public bool IsApplicable { get { return this._IsApplicableObjections.Count == 0; } }
 
 		/// <summary> Occurs when <see cref="IsApplicable"/>-property has been changed.
 		/// </summary>
@@ -315,19 +315,19 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <returns></returns>
 		/// <remarks></remarks>
 		public bool SetApplicable(object token, bool value) {
-			bool prevValue = this.m_IsApplicableObjections.Count == 0;
+			bool prevValue = this._IsApplicableObjections.Count == 0;
 
 			//Clear is optional not in use at the moment
 			//if(false && token is string && (((string)token=="CLEAR")||((string)token=="RESET"))) {
-			//    this.m_IsApplicableObjections.Clear();
+			//    this._IsApplicableObjections.Clear();
 			//} else 
 			{
 			    // store/remove objections
-			    if (value == false) { if (!this.m_IsApplicableObjections.Contains(token)) m_IsApplicableObjections.Add(token); }
-			    else { this.m_IsApplicableObjections.Remove(token); }
+			    if (value == false) { if (!this._IsApplicableObjections.Contains(token)) _IsApplicableObjections.Add(token); }
+			    else { this._IsApplicableObjections.Remove(token); }
 			}
 
-			bool newValue = this.m_IsApplicableObjections.Count == 0;
+			bool newValue = this._IsApplicableObjections.Count == 0;
 			if (prevValue != newValue) {
 
 			    // set the value for children - this will raise events for the children
@@ -359,9 +359,9 @@ namespace KsWare.Presentation.BusinessFramework {
 //				if(s_IsInDesignMode==null) {
 //					s_IsInDesignMode=DesignerProperties.GetIsInDesignMode(new DependencyObject());
 //				}
-			    return s_IsInDesignMode == true;
+			    return s_isInDesignMode == true;
 			}
-			set { s_IsInDesignMode = value; }
+			set { s_isInDesignMode = value; }
 		}
 
 		#endregion

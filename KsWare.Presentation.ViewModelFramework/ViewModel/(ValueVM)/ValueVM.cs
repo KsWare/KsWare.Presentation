@@ -503,9 +503,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class ValueMetadata: ViewModelMetadata {
 
-		private Type m_ValueType;
+		private Type _valueType;
 
-		protected ValueMetadata(Type valueType) { m_ValueType = valueType; }
+		protected ValueMetadata(Type valueType) { _valueType = valueType; }
 
 		protected override IDataProvider CreateDefaultDataProvider() {
 			if (Reflection != null) {
@@ -522,7 +522,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 
 			if (EnableBusinessModelFeatures) {
-				var provider=(IDataProvider) Activator.CreateInstance(typeof(BusinessValueDataProvider<>).MakeGenericType(m_ValueType));
+				var provider=(IDataProvider) Activator.CreateInstance(typeof(BusinessValueDataProvider<>).MakeGenericType(_valueType));
 				return provider;
 			}
 

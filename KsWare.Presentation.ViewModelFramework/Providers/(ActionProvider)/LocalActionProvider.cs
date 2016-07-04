@@ -7,7 +7,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public class LocalActionProvider: ActionProvider  {
 
-		private readonly ArrayList m_CanExecuteObjections=new ArrayList();
+		private readonly ArrayList _CanExecuteObjections=new ArrayList();
 
 		/// <summary> Initializes a new instance of the <see cref="DisplayValueProvider"/> class.
 		/// </summary>
@@ -29,7 +29,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 					CanExecuteCallback(this, e);
 					if(!e.CanExecute) return false;
 				}
-				return m_CanExecuteObjections.Count==0;
+				return _CanExecuteObjections.Count==0;
 			}
 		}
 
@@ -40,8 +40,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public override void SetCanExecute(object token, bool value) {
 			var canExecute = this.CanExecute;
-			if(value) m_CanExecuteObjections.Remove(token);
-			else if(!m_CanExecuteObjections.Contains(token)) m_CanExecuteObjections.Add(token);
+			if(value) _CanExecuteObjections.Remove(token);
+			else if(!_CanExecuteObjections.Contains(token)) _CanExecuteObjections.Add(token);
 			if(CanExecute != canExecute) OnCanExecuteChanged();
 		}
 

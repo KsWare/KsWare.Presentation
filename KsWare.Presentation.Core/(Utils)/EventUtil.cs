@@ -486,26 +486,26 @@ namespace KsWare.Presentation {
 //		}
 
 		private class EventObject {
-			private readonly WeakReference m_WeakOwner;
-			private readonly string m_Key;
-			private readonly WeakReference m_WeakObject;
+			private readonly WeakReference _WeakOwner;
+			private readonly string _Key;
+			private readonly WeakReference _WeakObject;
 
 			public EventObject(object owner, string key, object obj) {
-				m_WeakOwner  = new WeakReference(owner);
-				m_Key    = key;
-				m_WeakObject = new WeakReference(obj);
+				_WeakOwner  = new WeakReference(owner);
+				_Key    = key;
+				_WeakObject = new WeakReference(obj);
 			}
 
 			public WeakReference OwnerRef {
-				get { return m_WeakOwner; }
+				get { return _WeakOwner; }
 			}
 
 			public string Key {
-				get { return m_Key; }
+				get { return _Key; }
 			}
 
 			public WeakReference ObjectRef {
-				get { return m_WeakObject; }
+				get { return _WeakObject; }
 			}
 		}
 	}

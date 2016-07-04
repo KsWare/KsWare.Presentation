@@ -57,7 +57,7 @@ namespace KsWare.Presentation.ViewModelFramework
 				set {
 					if (_isExpanded == value) return;
 					_isExpanded = value;
-					OnPropertyChanged("IsExpanded");
+					OnPropertyChanged(nameof(IsExpanded));
 				}
 			}
 
@@ -71,17 +71,17 @@ namespace KsWare.Presentation.ViewModelFramework
 
 			public bool HasNoHeader {
 				get { return _hasNoHeader; }
-				set { _hasNoHeader = value; OnPropertyChanged("HasNoHeader");}
+				set { _hasNoHeader = value; OnPropertyChanged(nameof(HasNoHeader));}
 			}
 
 			public bool HasNoExpander {
 				get { return _hasNoExpander; }
-				set { _hasNoExpander = value; OnPropertyChanged("HasNoExpander");}
+				set { _hasNoExpander = value; OnPropertyChanged(nameof(HasNoExpander));}
 			}
 
 			public bool IsLast {
 				get { return _isLast; }
-				set { _isLast = value; OnPropertyChanged("IsLast");}
+				set { _isLast = value; OnPropertyChanged(nameof(IsLast));}
 			}
 
 			public IList Nodes {

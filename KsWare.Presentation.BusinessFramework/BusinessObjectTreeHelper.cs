@@ -186,12 +186,12 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		private class StopTreeChangedEventsTransaction: IDisposable {
 
-			bool m_Busy = true;
+			bool _Busy = true;
 
 			void IDisposable.Dispose() {
-				if (!m_Busy) return;
+				if (!_Busy) return;
 				ContinueTreeChangeEvents(true);
-				m_Busy = false;
+				_Busy = false;
 				GC.SuppressFinalize(this);
 			}
 		}
@@ -200,12 +200,12 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		private class PauseTreeChangedEventsTransaction: IDisposable {
 
-			bool m_Busy = true;
+			bool _Busy = true;
 
 			void IDisposable.Dispose() {
-				if (!m_Busy) return;
+				if (!_Busy) return;
 				ContinueTreeChangeEvents(false);
-				m_Busy = false;
+				_Busy = false;
 				GC.SuppressFinalize(this);
 			}
 		}

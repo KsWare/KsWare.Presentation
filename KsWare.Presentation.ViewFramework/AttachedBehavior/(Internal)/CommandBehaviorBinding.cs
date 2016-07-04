@@ -57,11 +57,11 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 //		/// <summary> Gets or sets the Method
 //		/// </summary>
 //		public MethodInfo Method {
-//			get { return m_Method; }
+//			get { return _Method; }
 //			set {
-//				m_Method = value;
+//				_Method = value;
 //				// set the execution strategy to execute the action
-//				m_Strategy = new MethodInvokeExecutionStrategy { Behavior = this };
+//				_Strategy = new MethodInvokeExecutionStrategy { Behavior = this };
 //			}
 //		}
 
@@ -105,10 +105,10 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 //		/// Unregisters the EventHandler from the Event
 //		/// </summary>
 //		public void Dispose() {
-//			if (!m_Disposed) {
+//			if (!_Disposed) {
 ////				Event.RemoveEventHandler(Owner, EventHandler);
 //				((UIElement) Owner).InputBindings.Remove(InputBinding);
-//				m_Disposed = true;
+//				_Disposed = true;
 //			}
 //		}
 		public abstract void Dispose();

@@ -15,9 +15,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			
 		}
 
-		private PropertyChangedEventHandler m_INotifyPropertyChangedPropertyChanged;
-		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{m_INotifyPropertyChangedPropertyChanged+=value;}remove {m_INotifyPropertyChangedPropertyChanged-=value;}}
-		private List<PropertyChangedHandlerEntry> m_PropertyChangedEventHandlersByName = new List<PropertyChangedHandlerEntry>(); 
+		private PropertyChangedEventHandler _INotifyPropertyChangedPropertyChanged;
+		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{_INotifyPropertyChangedPropertyChanged+=value;}remove {_INotifyPropertyChangedPropertyChanged-=value;}}
+		private List<PropertyChangedHandlerEntry> _PropertyChangedEventHandlersByName = new List<PropertyChangedHandlerEntry>(); 
 
 		/// <summary> Occurs when a property has been changed.
 		/// </summary>
@@ -63,18 +63,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			//INotifyPropertyChanged.PropertyChanged
 			//INFO: use propertyName if available because "Item[]"
-			EventUtil.Raise(m_INotifyPropertyChangedPropertyChanged, this, new PropertyChangedEventArgs(propertyName ?? viewModelProperty.Name), "{2E8D6B35-3ED2-4E56-A5FA-398AA02FBACB}");
+			EventUtil.Raise(_INotifyPropertyChangedPropertyChanged, this, new PropertyChangedEventArgs(propertyName ?? viewModelProperty.Name), "{2E8D6B35-3ED2-4E56-A5FA-398AA02FBACB}");
 			EventManager.Raise<EventHandler<ViewModelPropertyChangedEventArgs>,ViewModelPropertyChangedEventArgs>(LazyWeakEventStore,"PropertyChangedEvent", new ViewModelPropertyChangedEventArgs(viewModelProperty));
 
 			//PropertyChangedEventHandlers
-			foreach (var item in m_PropertyChangedEventHandlers) {
+			foreach (var item in _PropertyChangedEventHandlers) {
 				if (item.Item1 == viewModelProperty) {
 					EventUtil.Raise(item.Item2, this, EventArgs.Empty, "{8BADE8AD-6CE3-4AD0-A8F6-02667B42CEA0}");
 				}
 			}
 
 			//filtered
-			foreach (var tuple in m_PropertyChangedEventHandlersByName) {
+			foreach (var tuple in _PropertyChangedEventHandlersByName) {
 				if ((propertyName ?? viewModelProperty.Name) == tuple.PropertyName) {
 					tuple.EventHandler.Invoke(this,EventArgs.Empty);
 				}
@@ -84,14 +84,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected void AddPropertyChangedHandler(Expression<Func<object, object>> propertyExpression, EventHandler eventHandler) {
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
 			var d=new PropertyChangedHandlerEntry(this, memberName, eventHandler);
-			m_PropertyChangedEventHandlersByName.Add(d);
+			_PropertyChangedEventHandlersByName.Add(d);
 		}
 
 		private class PropertyChangedHandlerEntry : IDisposable {
-			private readonly WeakReference m_VM;
+			private readonly WeakReference _VM;
 
 			public PropertyChangedHandlerEntry(ObjectVM vm, string propertyName, EventHandler eventHandler) {
-				m_VM = new WeakReference(vm);
+				_VM = new WeakReference(vm);
 				PropertyName = propertyName;
 				EventHandler = eventHandler;
 			}
@@ -101,9 +101,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			public void Dispose() {
 				EventHandler = null;
-				if (m_VM.IsAlive) {
-					((ObjectVM) m_VM.Target).m_PropertyChangedEventHandlersByName.Remove(this);
-					m_VM.Target = null;
+				if (_VM.IsAlive) {
+					((ObjectVM) _VM.Target)._PropertyChangedEventHandlersByName.Remove(this);
+					_VM.Target = null;
 				}
 			}
 		}

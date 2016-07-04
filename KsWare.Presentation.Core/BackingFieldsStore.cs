@@ -12,22 +12,22 @@ namespace KsWare.Presentation {
 
 		private static readonly Dictionary<Type,Dictionary<string, Type>> s_TypesDic = new Dictionary<Type,Dictionary<string, Type>>();
 
-		private int m_IsDisposed;
-		private object m_Owner;
-		private Action<string> m_PropertyChangedCallback;
-		private Dictionary<string, BackingFieldInfo> m_Fields = new Dictionary<string, BackingFieldInfo>();
-		private bool m_ReadOnlyCollection = false;
+		private int _isDisposed;
+		private object _owner;
+		private Action<string> _propertyChangedCallback;
+		private Dictionary<string, BackingFieldInfo> _fields = new Dictionary<string, BackingFieldInfo>();
+		private bool _readOnlyCollection = false;
 
 		public BackingFieldsStore([NotNull] object owner, Action<string> propertyChangedCallback) {
-			if(owner==null) throw new ArgumentNullException("owner");
+			if(owner==null) throw new ArgumentNullException(nameof(owner));
 
-			m_Owner = owner;
-			m_PropertyChangedCallback = propertyChangedCallback;
+			_owner = owner;
+			_propertyChangedCallback = propertyChangedCallback;
 
-			var ownerType = m_Owner.GetType();
+			var ownerType = _owner.GetType();
 
 			if (!s_TypesDic.ContainsKey(owner.GetType())) {
-				var propertyInfos = m_Owner.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic );
+				var propertyInfos = _owner.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic );
 				var typeDic = new Dictionary<string, Type>();
 				foreach (var propertyInfo in propertyInfos) {
 					if(propertyInfo.GetIndexParameters().Length>0) continue; //exclude indexer
@@ -48,7 +48,7 @@ namespace KsWare.Presentation {
 					var name = entry.Key;
 					var type = entry.Value;
 					var value = type.IsValueType ? Activator.CreateInstance(type) : null;
-					m_Fields.Add(name, new BackingFieldInfo {
+					_fields.Add(name, new BackingFieldInfo {
 						Value = value,
 						Type = type,
 					});
@@ -56,18 +56,18 @@ namespace KsWare.Presentation {
 			}
 		}
 
-		public object Owner { get { return m_Owner; } }
+		public object Owner { get { return _owner; } }
 
 		public BackingFieldInfo this[Expression<Func<object, object>> memberExpression] {
-			get { return m_Fields[MemberNameUtil.GetPropertyName(memberExpression)]; }
+			get { return _fields[MemberNameUtil.GetPropertyName(memberExpression)]; }
 		}
 
 		public BackingFieldInfo this[Expression<Func<object>> memberExpression] {
-			get { return m_Fields[MemberNameUtil.GetPropertyName(memberExpression)]; }
+			get { return _fields[MemberNameUtil.GetPropertyName(memberExpression)]; }
 		}
 
 		public BackingFieldInfo this[string name] {
-			get { return m_Fields[name]; }
+			get { return _fields[name]; }
 		}
 
 		public void Add<T>(string name, T value=default(T)) { AddCore<T>(name); }
@@ -80,9 +80,9 @@ namespace KsWare.Presentation {
 		}
 
 		private void AddCore<T>(string name, T value = default(T)) {
-			if(m_ReadOnlyCollection) throw new InvalidOperationException("The BackingFieldStore is read-only!");
-			if(m_Fields.ContainsKey(name)) throw new InvalidOperationException("The BackingFieldStore already contains a item with name'"+name+"'!");
-			m_Fields.Add(name, new BackingFieldInfo{Value = value,Type = typeof(T)});
+			if(_readOnlyCollection) throw new InvalidOperationException("The BackingFieldStore is read-only!");
+			if(_fields.ContainsKey(name)) throw new InvalidOperationException("The BackingFieldStore already contains a item with name'"+name+"'!");
+			_fields.Add(name, new BackingFieldInfo{Value = value,Type = typeof(T)});
 			OnPropertyChanged(name,default(T),value);
 		}
 
@@ -112,14 +112,14 @@ namespace KsWare.Presentation {
 
 		private bool SetInternal<T>(string name, T value) {
 			const bool bChanged=true;const bool bNotChanged = false;
-			if (!m_Fields.ContainsKey(name)) {
-				m_Fields.Add(name, new BackingFieldInfo{Value = value,Type = typeof(T)});
+			if (!_fields.ContainsKey(name)) {
+				_fields.Add(name, new BackingFieldInfo{Value = value,Type = typeof(T)});
 				OnPropertyChanged(name,default(T),value);
 				return bChanged;
 			} 
-			if (Equals(m_Fields[name].Value, value)) return bNotChanged;
-			var prev = m_Fields[name].Value;
-			m_Fields[name].Value = value;
+			if (Equals(_fields[name].Value, value)) return bNotChanged;
+			var prev = _fields[name].Value;
+			_fields[name].Value = value;
 			OnPropertyChanged(name,prev,value);
 			return bChanged;
 		}
@@ -158,27 +158,27 @@ namespace KsWare.Presentation {
 //		}
 
 		private TRet GetInternal<TRet>(string name, TRet defaultValue) {
-			if (!m_Fields.ContainsKey(name)) {
-				if (m_ReadOnlyCollection) throw new KeyNotFoundException();
+			if (!_fields.ContainsKey(name)) {
+				if (_readOnlyCollection) throw new KeyNotFoundException();
 				return defaultValue;
 			}
-			return (TRet)m_Fields[name].Value;			
+			return (TRet)_fields[name].Value;			
 		}
 
-//		public bool Exists(string name) { return m_Fields.ContainsKey(name); }
+//		public bool Exists(string name) { return _Fields.ContainsKey(name); }
 //
 //		public bool Remove(string name) {
-//			if (!m_Fields.ContainsKey(name)) return false;
-//			return m_Fields.Remove(name);
+//			if (!_Fields.ContainsKey(name)) return false;
+//			return _Fields.Remove(name);
 //		}
 
 		private void OnPropertyChanged(string propertyName, object oldValue, object newValue) {
-			m_PropertyChangedCallback(propertyName);
+			_propertyChangedCallback(propertyName);
 
-			var fieldInfo = m_Fields[propertyName];
+			var fieldInfo = _fields[propertyName];
 			var eventHandlerInfos = fieldInfo.EventHandlers;
 			var ea=new ValueChangedEventArgs(oldValue,newValue);
-			foreach (var eventHandlerInfo in eventHandlerInfos) { eventHandlerInfo.PropertyChangedEventHandler(m_Owner, ea); }
+			foreach (var eventHandlerInfo in eventHandlerInfos) { eventHandlerInfo.PropertyChangedEventHandler(_owner, ea); }
 			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(fieldInfo.LazyWeakEventProperties,"ValueChangedEvent",ea);
 		}
 		
@@ -191,8 +191,8 @@ namespace KsWare.Presentation {
 //		[Obsolete("Use indexer",true)]
 //		public IDisposable RegisterPropertyChangedHandler(string name, EventHandler<ValueChangedEventArgs> propertyChangedEventHandler) {
 //			BackingFieldInfo fieldInfo;
-//			if(!m_Fields.TryGetValue(name,out fieldInfo)){
-//				if (m_ReadOnlyCollection) throw new KeyNotFoundException();
+//			if(!_Fields.TryGetValue(name,out fieldInfo)){
+//				if (_ReadOnlyCollection) throw new KeyNotFoundException();
 //				throw new KeyNotFoundException();
 //			}
 //			var item = new EventHandlerInfo(fieldInfo, propertyChangedEventHandler);
@@ -210,21 +210,21 @@ namespace KsWare.Presentation {
 //
 //		[Obsolete("Use indexer",true)]
 //		public void ReleasePropertyChangedHandler(string name, EventHandler<ValueChangedEventArgs> propertyChangedEventHandler) {
-//			if (!m_Fields.ContainsKey(name)) {
+//			if (!_Fields.ContainsKey(name)) {
 //				throw new KeyNotFoundException();
 //			}
-//			var item = m_Fields[name].EventHandlers.First(x=>x.PropertyChangedEventHandler==propertyChangedEventHandler);
+//			var item = _Fields[name].EventHandlers.First(x=>x.PropertyChangedEventHandler==propertyChangedEventHandler);
 //			item.Dispose();
 //		}
 
 
 		private void Dispose(bool explicitDispose ) {
 			if (explicitDispose) {
-				if(Interlocked.Exchange(ref m_IsDisposed,1)!=0) return;
-				foreach (var field in m_Fields.Values) field.Dispose();
-				m_Fields = null;
-				m_PropertyChangedCallback = null;
-				m_Owner = null;				
+				if(Interlocked.Exchange(ref _isDisposed,1)!=0) return;
+				foreach (var field in _fields.Values) field.Dispose();
+				_fields = null;
+				_propertyChangedCallback = null;
+				_owner = null;				
 			}
 
 		}
@@ -268,20 +268,20 @@ namespace KsWare.Presentation {
 
 		internal class EventHandlerInfo:IDisposable {
 
-			private BackingFieldInfo m_FieldInfo;
+			private BackingFieldInfo _fieldInfo;
 
 			public EventHandlerInfo(BackingFieldInfo fieldInfo, EventHandler<ValueChangedEventArgs> propertyChangedEventHandler) {
-				m_FieldInfo = fieldInfo;
+				_fieldInfo = fieldInfo;
 				PropertyChangedEventHandler = propertyChangedEventHandler;
 			}
 
 			public EventHandler<ValueChangedEventArgs> PropertyChangedEventHandler { get; private set; }
 
 			public void Dispose() {
-				lock (m_FieldInfo.EventHandlers) {
-					m_FieldInfo.EventHandlers.Remove(this);
+				lock (_fieldInfo.EventHandlers) {
+					_fieldInfo.EventHandlers.Remove(this);
 				}
-				m_FieldInfo = null;
+				_fieldInfo = null;
 			}
 		}
 	}
@@ -326,15 +326,15 @@ namespace KsWare.Presentation {
 		/// <returns>The value</returns>
 		/// <exception cref="System.Collections.Generic.KeyNotFoundException"></exception>
 		public TRet Get<TRet>([NotNull]Expression<Func<object,TRet>> propertyExpression, [NotNull]Func<TRet> valueFactory) {
-			if (valueFactory == null) throw new ArgumentNullException("valueFactory");
+			if (valueFactory == null) throw new ArgumentNullException(nameof(valueFactory));
 			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			if (!m_Fields.ContainsKey(name)) {
-				if (m_ReadOnlyCollection) throw new KeyNotFoundException();
+			if (!_fields.ContainsKey(name)) {
+				if (_readOnlyCollection) throw new KeyNotFoundException();
 				var value = valueFactory();
 				AddCore(name,value);
 				if(Equals(value,default(TRet))) OnPropertyChanged(name,default(TRet),value);
 			}
-			return (TRet)m_Fields[name].Value;	
+			return (TRet)_fields[name].Value;	
 		}
 
 		/// <summary> Gets the specified property. When lazy initialization occurs, the specified initialization function is used.
@@ -345,15 +345,15 @@ namespace KsWare.Presentation {
 		/// <returns>The value</returns>
 		/// <exception cref="System.Collections.Generic.KeyNotFoundException"></exception>
 		public TRet Get<TRet>([NotNull]Expression<Func<TRet>> propertyExpression, [NotNull]Func<TRet> valueFactory) {
-			if (valueFactory == null) throw new ArgumentNullException("valueFactory");
+			if (valueFactory == null) throw new ArgumentNullException(nameof(valueFactory));
 			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			if (!m_Fields.ContainsKey(name)) {
-				if (m_ReadOnlyCollection) throw new KeyNotFoundException();
+			if (!_fields.ContainsKey(name)) {
+				if (_readOnlyCollection) throw new KeyNotFoundException();
 				var value = valueFactory();
 				AddCore(name,value);
 				if(Equals(value,default(TRet))) OnPropertyChanged(name,default(TRet),value);
 			}
-			return (TRet)m_Fields[name].Value;	
+			return (TRet)_fields[name].Value;	
 		}
 
 

@@ -5,36 +5,36 @@ namespace KsWare.Presentation.DataVirtualization {
 
 	public class WeakAsyncDataRef<TId, TData> : DataRefBase<TData> where TData : class {
 
-		private readonly TId m_Id;
-		private int m_Loading;
+		private readonly TId _id;
+		private int _loading;
 		private readonly Func<TId, TData> Load;
-		private readonly WeakReference m_Data = new WeakReference(null);
+		private readonly WeakReference _data = new WeakReference(null);
 
 		public WeakAsyncDataRef(TId id, Func<TId, TData> load) {
-			m_Id = id;
+			_id = id;
 			Load = load;
 		}
 
 		public override TData Data {
 			get {
-				TData data = (TData) m_Data.Target;
+				TData data = (TData) _data.Target;
 				if (data != null) return data;
-				if (Interlocked.Increment(ref m_Loading) == 1) {
-					data = (TData) m_Data.Target;
+				if (Interlocked.Increment(ref _loading) == 1) {
+					data = (TData) _data.Target;
 					if (data != null) {
-						Interlocked.Decrement(ref m_Loading);
+						Interlocked.Decrement(ref _loading);
 						return data;
 					}
-					Load.BeginInvoke(m_Id, AsyncLoadCallback, null);
-				} else Interlocked.Decrement(ref m_Loading);
+					Load.BeginInvoke(_id, AsyncLoadCallback, null);
+				} else Interlocked.Decrement(ref _loading);
 				return data;
 			}
 		}
 
 
 		private void AsyncLoadCallback(IAsyncResult ar) {
-			m_Data.Target = Load.EndInvoke(ar);
-			Interlocked.Decrement(ref m_Loading);
+			_data.Target = Load.EndInvoke(ar);
+			Interlocked.Decrement(ref _loading);
 			NotifyAllPropertiesChanged();
 		}
 

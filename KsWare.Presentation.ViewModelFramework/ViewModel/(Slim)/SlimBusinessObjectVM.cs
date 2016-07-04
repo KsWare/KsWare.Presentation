@@ -15,19 +15,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected static readonly Dictionary<Type,List<string>> PropertyNameCache=new Dictionary<Type, List<string>>(); 
 
-		private TBusinessObject m_BusinessObject;
+		private TBusinessObject _businessObject;
 
 		public SlimBusinessObjectVM() {}
-		public SlimBusinessObjectVM(TBusinessObject BusinessObject) { m_BusinessObject = BusinessObject; }
+		public SlimBusinessObjectVM(TBusinessObject BusinessObject) { _businessObject = BusinessObject; }
 
 		public TBusinessObject BusinessObject {
-			get { return m_BusinessObject; }
+			get { return _businessObject; }
 			set {
-				if(Equals(m_BusinessObject,value)) return;
-				var prev = m_BusinessObject;
-				m_BusinessObject = value;
-				OnBusinessObjectChanged(prev, m_BusinessObject);
-				OnPropertyChanged("BusinessObject");
+				if(Equals(_businessObject,value)) return;
+				var prev = _businessObject;
+				_businessObject = value;
+				OnBusinessObjectChanged(prev, _businessObject);
+				OnPropertyChanged(nameof(BusinessObject));
 			}
 		}
 		object ISlimBusinessObjectVM.BusinessObject { get { return BusinessObject; } set { BusinessObject = (TBusinessObject) value; } }

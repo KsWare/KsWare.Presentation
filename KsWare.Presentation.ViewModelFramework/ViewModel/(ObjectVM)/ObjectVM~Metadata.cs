@@ -45,8 +45,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public partial class ObjectVM /*Part: Metadata*/ {
 
-		private ViewModelMetadata m_Metadata;
-		private object m_PreviousData=DBNull.Value;
+		private ViewModelMetadata _metadata;
+		private object _previousData=DBNull.Value;
 
 		private void InitPartMetadata() {
 			
@@ -57,7 +57,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>
 		/// <c>true</c> if this instance has metadata; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasMetadata { get { return m_Metadata != null; }}
+		public bool HasMetadata { get { return _metadata != null; }}
 
 		/// <summary> Gets or sets the metadata.
 		/// </summary>
@@ -69,23 +69,23 @@ namespace KsWare.Presentation.ViewModelFramework {
 			[NotNull]
 			get {
 				if(DebuggerFlags.Breakpoints.MetadataGet)DebuggerːBreak(this,"DebuggerFlags.Breakpoints.MetadataGet");
-				if (m_Metadata == null) {
+				if (_metadata == null) {
 					if(DebuggerFlags.Breakpoints.MetadataSet)DebuggerːBreak(this,"DebuggerFlags.Breakpoints.MetadataSet");
-					m_Metadata = CreateMetadata();
-					m_Metadata.Parent = this;
-					OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(null,m_Metadata));
+					_metadata = CreateMetadata();
+					_metadata.Parent = this;
+					OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(null,_metadata));
 				}
-				return m_Metadata;
+				return _metadata;
 			}
 			[NotNull]
 			set {
 				if(DebuggerFlags.Breakpoints.MetadataGet)DebuggerːBreak(this,"DebuggerFlags.Breakpoints.MetadataSet");
 				MemberAccessUtil.DemandNotNull(value,null,this,"Metadata","{3EAD4816-D4B5-4B68-B157-218C610E3553}");
-				MemberAccessUtil.DemandWriteOnce(m_Metadata==null,"Cannot set a metadata property once it is applied to a view model object operation.",this,"Metadata","{16E8F3EE-2629-4244-9D62-F7FD2AD40592}");
-				var oldMetadata = m_Metadata;
-				m_Metadata = value;
-				m_Metadata.Parent = this;
-				OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(oldMetadata,m_Metadata));
+				MemberAccessUtil.DemandWriteOnce(_metadata==null,"Cannot set a metadata property once it is applied to a view model object operation.",this,nameof(Metadata),"{16E8F3EE-2629-4244-9D62-F7FD2AD40592}");
+				var oldMetadata = _metadata;
+				_metadata = value;
+				_metadata.Parent = this;
+				OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(oldMetadata,_metadata));
 			}
 		}
 
@@ -144,21 +144,21 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			Exception exception;
 			var data = dataProvider.TryGetData(out exception);
-			if (exception == null && !Equals(m_PreviousData, data) && (m_PreviousData!=null || data!=null)) {
-				var prev = m_PreviousData;
-				m_PreviousData = data;
+			if (exception == null && !Equals(_previousData, data) && (_previousData!=null || data!=null)) {
+				var prev = _previousData;
+				_previousData = data;
 				OnDataChanged(new DataChangedEventArgs(prev,data){Cause = "ObjectVM.OnDataProviderChanged"});
 			}
-			if (exception != null && m_PreviousData != DBNull.Value) {
-				var prev = m_PreviousData;
-				m_PreviousData = DBNull.Value;
+			if (exception != null && _previousData != DBNull.Value) {
+				var prev = _previousData;
+				_previousData = DBNull.Value;
 				OnDataChanged(new DataChangedEventArgs(prev,DBNull.Value){Cause = "ObjectVM.OnDataProviderChanged"});
 			}
 		}
 
 		private void AtDataChanged(object sender, DataChangedEventArgs e) {
-			//DO THIS NOT!: if (Equals(e.NewData, m_PreviousData)) return;
-			m_PreviousData = e.NewData;
+			//DO THIS NOT!: if (Equals(e.NewData, _PreviousData)) return;
+			_previousData = e.NewData;
 			e.Cause += "\n"+"ObjectVM.AtDataChanged";
 			OnDataChanged(e);
 		}

@@ -48,7 +48,7 @@ namespace KsWare.Presentation.BusinessFramework {
 	/// <typeparam name="TRef">The type of the reference</typeparam>
 	public class RefBM<TRef>:ObjectBM,IRefBM<TRef>,IRefBM where TRef:class,IObjectBM {
 
-		private TRef m_Target;
+		private TRef _target;
 
 		public RefBM() {
 			
@@ -58,26 +58,26 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		public TRef Target {
 			get {
-// 				if(m_Target==null && Metadata.DataProvider.Data!=null) {
+// 				if(_Target==null && Metadata.DataProvider.Data!=null) {
 //					//m_Target=new TRef(){Metadata = {DataProvider = {Data = Metadata.DataProvider.Data}}};
 // 					//Metadata.NewItemProvider
-// 					m_Target=(TRef) Activator.CreateInstance(typeof (TRef));
-// 					m_Target.Metadata.DataProvider.Data = Metadata.DataProvider.Data;
+// 					_Target=(TRef) Activator.CreateInstance(typeof (TRef));
+// 					_Target.Metadata.DataProvider.Data = Metadata.DataProvider.Data;
 // 				}
 				if(Metadata.DataProvider.Data!=null) throw new NotImplementedException("Metadata.DataProvider.Data is not null!");
-				return m_Target; 
+				return _target; 
 			}
 			set {
-				if (m_Target == value) return;
-				var old = m_Target;
-				m_Target = value;
+				if (_target == value) return;
+				var old = _target;
+				_target = value;
 
-//				if (m_Target != null) {
-//					Metadata.DataProvider.Data=m_Target.Metadata.DataProvider.Data; //???
+//				if (_Target != null) {
+//					Metadata.DataProvider.Data=_Target.Metadata.DataProvider.Data; //???
 //				}
 				if(Metadata.DataProvider.Data!=null) throw new NotImplementedException("Metadata.DataProvider.Data is not null!");
 
-				var e=new ValueChangedEventArgs<TRef>(old,m_Target);
+				var e=new ValueChangedEventArgs<TRef>(old,_target);
 				EventUtil.Raise(TargetChanged,this,e,"{0524E629-61C7-4517-BB1F-3B46BE3FD5C8}");
 				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent",e);
 				OnBusinessPropertyChanged(new BusinessPropertyChangedEventArgs("Target"));

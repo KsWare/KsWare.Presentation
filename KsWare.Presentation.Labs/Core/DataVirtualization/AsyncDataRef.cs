@@ -5,31 +5,31 @@ namespace KsWare.Presentation.DataVirtualization {
 
 	public class AsyncDataRef<TId, T> : DataRefBase<T> where T : class {
 
-		private readonly TId m_Id;
-		private int m_Loading;
-		private readonly Func<TId, T> Load;
-		private volatile T m_Data;
+		private readonly TId _id;
+		private int _loading;
+		private readonly Func<TId, T> _loadFunc;
+		private volatile T _data;
 
-		public AsyncDataRef(TId id, Func<TId, T> load) {
-			m_Id = id;
-			Load = load;
+		public AsyncDataRef(TId id, Func<TId, T> loadFunc) {
+			_id = id;
+			_loadFunc = loadFunc;
 		}
 
 		public override T Data {
 			get {
-				if (m_Data != null) return m_Data;
-				if (Interlocked.Increment(ref m_Loading) == 1)
-					if (m_Data == null) Load.BeginInvoke(m_Id, AsyncLoadCallback, null);
-					else Interlocked.Decrement(ref m_Loading);
-				else Interlocked.Decrement(ref m_Loading);
-				return m_Data;
+				if (_data != null) return _data;
+				if (Interlocked.Increment(ref _loading) == 1)
+					if (_data == null) _loadFunc.BeginInvoke(_id, AsyncLoadCallback, null);
+					else Interlocked.Decrement(ref _loading);
+				else Interlocked.Decrement(ref _loading);
+				return _data;
 			}
 		}
 
 
 		private void AsyncLoadCallback(IAsyncResult ar) {
-			m_Data = Load.EndInvoke(ar);
-			Interlocked.Decrement(ref m_Loading);
+			_data = _loadFunc.EndInvoke(ar);
+			Interlocked.Decrement(ref _loading);
 			// when the object is loaded, signal that all the properties have changed
 			NotifyAllPropertiesChanged();
 		}

@@ -35,15 +35,15 @@ namespace KsWare.Presentation.BusinessFramework {
 		private static string NotAvailable="Not available in slim objects";
 		private static ICollection<IObjectBM> s_EmptyChildrenCollection=new List<IObjectBM>().AsReadOnly();
 
-		private readonly Lazy<BackingFieldsStore> m_LazyFields;
-		private IObjectBM m_Parent;
-		private EventSourceStore m_EventSourceStore;
+		private readonly Lazy<BackingFieldsStore> _lazyFields;
+		private IObjectBM _parent;
+		private EventSourceStore _eventSourceStore;
 
 		public ObjectSlimBM() {
-			m_LazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
+			_lazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
 		}
 
-		public BackingFieldsStore Fields { get { return m_LazyFields.Value; } }
+		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {
@@ -68,24 +68,24 @@ namespace KsWare.Presentation.BusinessFramework {
 		public event EventHandler Disposed;
 
 		public IObjectBM Parent {
-			get { return m_Parent; }
+			get { return _parent; }
 			set {
-				if (Equals(value, m_Parent)) return;
-				m_Parent = value;
-				OnPropertyChanged("Parent");
+				if (Equals(value, _parent)) return;
+				_parent = value;
+				OnPropertyChanged(nameof(Parent));
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{D8F0EBFB-94B8-4431-A272-4F76D854A600}");
 
 				// raises the event (w/o side effects which would create the store or the event source)
-				if(m_EventSourceStore!=null && m_EventSourceStore.Has("ParentChangedEvent"))
+				if(_eventSourceStore!=null && _eventSourceStore.Has("ParentChangedEvent"))
 					EventManager.Raise<EventHandler,EventArgs>(ParentChangedEvent,EventArgs.Empty);
 			}
 		}
 
 		private EventSourceStore EventSources {
 			get {
-				if (m_EventSourceStore == null) 
-					m_EventSourceStore = new EventSourceStore(this);
-				return m_EventSourceStore;
+				if (_eventSourceStore == null) 
+					_eventSourceStore = new EventSourceStore(this);
+				return _eventSourceStore;
 			}
 		}
 

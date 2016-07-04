@@ -86,7 +86,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 		private class GroupData {
 			public GroupData(FrameworkElement frameworkElement) {
-				if (frameworkElement == null) throw new ArgumentNullException("frameworkElement");
+				if (frameworkElement == null) throw new ArgumentNullException(nameof(frameworkElement));
 				FrameworkElements= new List<FrameworkElement>(new []{frameworkElement});
 			}
 			public List<FrameworkElement> FrameworkElements{get;set;}

@@ -8,12 +8,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 	partial class ListVM<TItem> {
 		#region IBindingList
 
-//		private TItem m_NewItem;
-//		private bool m_IsSorted;
-//		private ListChangedEventHandler m_ListChanged;
-//		private PropertyDescriptor m_SortProperty=new DependencyPropertyDescriptor();
+//		private TItem _NewItem;
+//		private bool _IsSorted;
+//		private ListChangedEventHandler _ListChanged;
+//		private PropertyDescriptor _SortProperty=new DependencyPropertyDescriptor();
 //
-//		object IBindingList.AddNew() { m_NewItem=new TItem(); this.Add(m_NewItem); return m_NewItem; }
+//		object IBindingList.AddNew() { _NewItem=new TItem(); this.Add(_NewItem); return _NewItem; }
 //
 //		void IBindingList.AddIndex(PropertyDescriptor property) { throw new NotImplementedException(); }
 //
@@ -37,13 +37,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 //
 //		bool IBindingList.SupportsSorting { get { return true; } }
 //
-//		bool IBindingList.IsSorted { get { return m_IsSorted; } }
+//		bool IBindingList.IsSorted { get { return _IsSorted; } }
 //
-//		PropertyDescriptor IBindingList.SortProperty { get { return m_SortProperty; } }
+//		PropertyDescriptor IBindingList.SortProperty { get { return _SortProperty; } }
 //
 //		ListSortDirection IBindingList.SortDirection { get { throw new NotImplementedException(); } }
 //
-//		event ListChangedEventHandler IBindingList.ListChanged { add { m_ListChanged += value; } remove { m_ListChanged -= value; } }
+//		event ListChangedEventHandler IBindingList.ListChanged { add { _ListChanged += value; } remove { _ListChanged -= value; } }
 
 		#endregion
 	}

@@ -18,8 +18,8 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 	[TemplatePart(Name="PART_ExitFullscreen"  ,Type=typeof(Button))]
 	public partial class WindowChrome:ContentControl {
 
-		private Window m_Window;
-		private decimal m_LastF11Timestamp;
+		private Window _window;
+		private decimal _lastF11Timestamp;
 
 		// ReSharper disable InconsistentNaming
 		private Panel PART_TitleBar;
@@ -33,7 +33,7 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 		private Button PART_ExitFullscreen;
 		// ReSharper restore InconsistentNaming
 
-		WindowChromeBehavior m_WindowChromeBehavior;
+		WindowChromeBehavior _WindowChromeBehavior;
 
 		const Key FullscreenHotkey = Key.F11;
 
@@ -41,7 +41,7 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 			DependencyProperty.Register("IsFullscreen", typeof (bool), typeof (WindowChrome), new PropertyMetadata(false, (o, e) => ((WindowChrome)o).AtIsFullscreenChanged(o, e)));
 
 		private void AtIsFullscreenChanged(object sender, DependencyPropertyChangedEventArgs e) {
-			m_WindowChromeBehavior.IsFullscreen = (bool)e.NewValue;
+			_WindowChromeBehavior.IsFullscreen = (bool)e.NewValue;
 		}
 
 		public bool IsFullscreen {
@@ -66,9 +66,9 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 			PART_Close          = PART_WindowButtons.PART_Close;
 			PART_ExitFullscreen = (Button)Template.FindName("PART_ExitFullscreen", this);
 
-			m_Window = Window;
-			if(!DesignerProperties.GetIsInDesignMode(this) && m_Window!=null) {
-				m_WindowChromeBehavior = new WindowChromeBehavior {
+			_window = Window;
+			if(!DesignerProperties.GetIsInDesignMode(this) && _window!=null) {
+				_WindowChromeBehavior = new WindowChromeBehavior {
 					ResizeBorderWidth    = 3, 
 					TitleBar             = PART_TitleBar, 
 					Border               = PART_Border,
@@ -80,8 +80,8 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 					ExitFullScreenButton = PART_ExitFullscreen,
 					VirtualCaptionHeight = 50
 				};
-				m_WindowChromeBehavior.IsFullscreenChanged+= (s,e) => IsFullscreen = m_WindowChromeBehavior.IsFullscreen;
-				Interaction.GetBehaviors(Window).Add(m_WindowChromeBehavior);
+				_WindowChromeBehavior.IsFullscreenChanged+= (s,e) => IsFullscreen = _WindowChromeBehavior.IsFullscreen;
+				Interaction.GetBehaviors(Window).Add(_WindowChromeBehavior);
 			}
 		}
 
@@ -89,13 +89,13 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 		private Window Window {
 			get {
 				if (DesignerProperties.GetIsInDesignMode(this)) return null;
-				if(m_Window!=null) return m_Window;
+				if(_window!=null) return _window;
 
 				DependencyObject e = this;
 				while (e!=null) {
 					if(e is Window) {
-						m_Window =  (Window)e;
-						return m_Window;
+						_window =  (Window)e;
+						return _window;
 					}
 					e=VisualTreeHelper.GetParent(e);
 				}

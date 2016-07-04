@@ -56,8 +56,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	public class ListViewModelMetadata:ViewModelMetadata,IListViewModelMetadata {
 
-		private INewItemProvider m_NewItemProvider;
-		private IExternalListControllerProvider m_ExternalControlProvider;
+		private INewItemProvider _newItemProvider;
+		private IExternalListControllerProvider _externalControlProvider;
 
 		/// <summary> Gets or sets the ExternalControlProvider.
 		/// </summary>
@@ -66,11 +66,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// The ExternalControlProvider allows to change the logic of this ListVM w/o to write a new ListVM.
 		/// </remarks>
 		public IExternalListControllerProvider ExternalControlProvider {
-			get {return m_ExternalControlProvider;}
+			get {return _externalControlProvider;}
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_ExternalControlProvider==null,null,this,"ExternalControlProvider","{91AD3CA1-DDE5-47A4-A441-D19CD62CA690}");
-				m_ExternalControlProvider = value;
-				m_ExternalControlProvider.Parent = this;
+				MemberAccessUtil.DemandWriteOnce(_externalControlProvider==null,null,this,nameof(ExternalControlProvider),"{91AD3CA1-DDE5-47A4-A441-D19CD62CA690}");
+				_externalControlProvider = value;
+				_externalControlProvider.Parent = this;
 			}
 		}
 
@@ -101,16 +101,16 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		public INewItemProvider NewItemProvider {
 			get {
-				if(m_NewItemProvider==null) {
-					m_NewItemProvider = CreateDefaultNewItemProvider();
-					m_NewItemProvider.Parent = this;
+				if(_newItemProvider==null) {
+					_newItemProvider = CreateDefaultNewItemProvider();
+					_newItemProvider.Parent = this;
 				}
-				return m_NewItemProvider;
+				return _newItemProvider;
 			}
 			set {
 				DemandPropertySet();
-				m_NewItemProvider = value;
-				m_NewItemProvider.Parent = this;
+				_newItemProvider = value;
+				_newItemProvider.Parent = this;
 			}
 		}
 
@@ -137,8 +137,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class ListMetadataAttribute : ViewModelMetadataAttribute {
 
-		private Type m_NewItemProvider;
-		private Type m_ExternalControlProvider;
+		private Type _newItemProvider;
+		private Type _externalControlProvider;
 
 		/// <summary> Gets or sets the type of external control provider. 
 		/// The external control provider must implement <see cref="IExternalListControllerProvider"/>
@@ -146,10 +146,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of external control provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IExternalListControllerProvider"/>!</exception>
 		public Type ExternalControlProvider {
-			get { return m_ExternalControlProvider; }
+			get { return _externalControlProvider; }
 			set {
-				if (!typeof (IExternalListControllerProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IExternalListControllerProvider!");
-				m_ExternalControlProvider = value;
+				if (!typeof (IExternalListControllerProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IExternalListControllerProvider!");
+				_externalControlProvider = value;
 			}
 		}
 
@@ -159,10 +159,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of new item provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="INewItemProvider"/>!</exception>
 		public Type NewItemProvider {
-			get { return m_NewItemProvider; }
+			get { return _newItemProvider; }
 			set {
-				if (!typeof (INewItemProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement INewItemProvider!");
-				m_NewItemProvider = value;
+				if (!typeof (INewItemProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement INewItemProvider!");
+				_newItemProvider = value;
 			}
 		}
 

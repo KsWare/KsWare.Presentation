@@ -5,7 +5,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 	public class UIWorker {
 
-		private Thread m_Thread;
+		private Thread _thread;
 
 		public Action OnInit { get; set; }
 		public Action OnAction { get; set; }
@@ -16,11 +16,11 @@ namespace KsWare.Presentation.ViewFramework {
 
 		public void Start() {
 			if (Dispatcher == null) Dispatcher = ApplicationDispatcher.CurrentDispatcher;
-			m_Thread=new Thread(Proc) {
+			_thread=new Thread(Proc) {
 				Name = "UIWorker",
 				IsBackground = true
 			};	
-			m_Thread.Start();
+			_thread.Start();
 		}
 
 		private void Proc() { 

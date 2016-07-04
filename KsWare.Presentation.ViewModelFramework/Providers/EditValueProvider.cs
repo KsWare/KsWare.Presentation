@@ -41,26 +41,26 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// </summary>
 	public sealed partial class EditValueProvider:ViewModelValueProvider,IEditValueProvider,INotifyPropertyChanged {
 
-		private TypeConverter m_TypeConverter      = new ValueProviderStringConverter();
+		private TypeConverter _typeConverter      = new ValueProviderStringConverter();
 
-		private Lazy<StringExtension      > m_LazyString;
-		private Lazy<HexNumberExtension   > m_LazyHexNumber;
-		private Lazy<QuantizationExtension> m_LazyQuantization;
-		private Lazy<TimeSpanExtension    > m_LazyTimeSpan;
-		private Lazy<DateTimeExtension    > m_LazyDateTime;
-		private Lazy<MetricExtension      > m_LazyMetric;
-		private Lazy<NullableBoolExtension> m_LazyNullableBool;
+		private Lazy<StringExtension      > _lazyString;
+		private Lazy<HexNumberExtension   > _lazyHexNumber;
+		private Lazy<QuantizationExtension> _lazyQuantization;
+		private Lazy<TimeSpanExtension    > _lazyTimeSpan;
+		private Lazy<DateTimeExtension    > _lazyDateTime;
+		private Lazy<MetricExtension      > _lazyMetric;
+		private Lazy<NullableBoolExtension> _lazyNullableBool;
 
 		/// <summary> Initializes a new instance of the <see cref="EditValueProvider"/> class.
 		/// </summary>
 		public EditValueProvider() {
-			m_LazyString       = new Lazy<StringExtension      >(()=>new StringExtension      (this));
-			m_LazyDateTime     = new Lazy<DateTimeExtension    >(()=>new DateTimeExtension    (this));
-			m_LazyTimeSpan     = new Lazy<TimeSpanExtension    >(()=>new TimeSpanExtension    (this));
-			m_LazyHexNumber    = new Lazy<HexNumberExtension   >(()=>new HexNumberExtension   (this));
-			m_LazyQuantization = new Lazy<QuantizationExtension>(()=>new QuantizationExtension(this));
-			m_LazyMetric       = new Lazy<MetricExtension      >(()=>new MetricExtension      (this));
-			m_LazyNullableBool = new Lazy<NullableBoolExtension>(()=>new NullableBoolExtension(this));
+			_lazyString       = new Lazy<StringExtension      >(()=>new StringExtension      (this));
+			_lazyDateTime     = new Lazy<DateTimeExtension    >(()=>new DateTimeExtension    (this));
+			_lazyTimeSpan     = new Lazy<TimeSpanExtension    >(()=>new TimeSpanExtension    (this));
+			_lazyHexNumber    = new Lazy<HexNumberExtension   >(()=>new HexNumberExtension   (this));
+			_lazyQuantization = new Lazy<QuantizationExtension>(()=>new QuantizationExtension(this));
+			_lazyMetric       = new Lazy<MetricExtension      >(()=>new MetricExtension      (this));
+			_lazyNullableBool = new Lazy<NullableBoolExtension>(()=>new NullableBoolExtension(this));
 		}
 
 		/// <summary> Gets a value indicating whether this instance is supported.
@@ -74,26 +74,26 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The type converter.</value>
 		/// <seealso cref="ValueProviderStringConverter"/>
-		public TypeConverter TypeConverter{get{return m_TypeConverter;} private set{m_TypeConverter = value;}}
+		public TypeConverter TypeConverter{get{return _typeConverter;} private set{_typeConverter = value;}}
 
 		/// <summary> Gets or sets the editable value as string.
 		/// </summary>
 		/// <value>The editable value.</value>
-		public string String {get { return m_LazyString.Value.Value; } set { m_LazyString.Value.Value=value; }}
+		public string String {get { return _lazyString.Value.Value; } set { _lazyString.Value.Value=value; }}
 
 		/// <summary> Gets or sets the editable value as <see cref="Nullable{Boolean}"/>.
 		/// </summary>
 		/// <value>The editable value.</value>
 		/// <remarks>Use <see cref="BoolNullable"/> to bind e.g. <see cref="CheckBox.IsChecked"/> property</remarks>
-		public bool? BoolNullable {get { return m_LazyNullableBool.Value.Value; }set { m_LazyNullableBool.Value.Value = value; }}
+		public bool? BoolNullable {get { return _lazyNullableBool.Value.Value; }set { _lazyNullableBool.Value.Value = value; }}
 
-		public IEditValueProviderStringExtension StringExt { get { return m_LazyString.Value; } }
-		public IEditValueProviderNullableBoolExtension BoolNullableExt { get { return m_LazyNullableBool.Value; } }
-		public IEditValueProviderHexNumberExtension HexNumber { get { return m_LazyHexNumber.Value; } }
-		public IEditValueProviderTimeSpanExtension TimeSpan { get { return m_LazyTimeSpan.Value; } }
-		public IEditValueProviderDateTimeExtension DateTime { get { return m_LazyDateTime.Value; } }
-		public IEditValueProviderMetricExtension Metric { get { return m_LazyMetric.Value; }}
-		public IEditValueProviderQuantizationExtension Quantization { get { return m_LazyQuantization.Value; } }
+		public IEditValueProviderStringExtension StringExt { get { return _lazyString.Value; } }
+		public IEditValueProviderNullableBoolExtension BoolNullableExt { get { return _lazyNullableBool.Value; } }
+		public IEditValueProviderHexNumberExtension HexNumber { get { return _lazyHexNumber.Value; } }
+		public IEditValueProviderTimeSpanExtension TimeSpan { get { return _lazyTimeSpan.Value; } }
+		public IEditValueProviderDateTimeExtension DateTime { get { return _lazyDateTime.Value; } }
+		public IEditValueProviderMetricExtension Metric { get { return _lazyMetric.Value; }}
+		public IEditValueProviderQuantizationExtension Quantization { get { return _lazyQuantization.Value; } }
 
 		/// <summary> Called if ValueVM.Value has been changed
 		/// </summary>
@@ -110,13 +110,13 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		private void UpdateValue(bool raiseEvents) {
 			if(ViewModel==null) return;
 
-			if(m_LazyString      .IsValueCreated) if(((StringExtension      ) StringExt      ).UpdateValue(raiseEvents)) OnPropertyChanged(()=>String      );
-			if(m_LazyNullableBool.IsValueCreated) if(((NullableBoolExtension) BoolNullableExt).UpdateValue(raiseEvents)) OnPropertyChanged(()=>BoolNullable);
-			if(m_LazyMetric      .IsValueCreated)    ((MetricExtension      ) Metric         ).UpdateValue(raiseEvents);
-			if(m_LazyQuantization.IsValueCreated)    ((QuantizationExtension) Quantization   ).UpdateValue(raiseEvents);
-			if(m_LazyHexNumber   .IsValueCreated)    ((HexNumberExtension   ) HexNumber      ).UpdateValue(raiseEvents);
-			if(m_LazyDateTime    .IsValueCreated)    ((DateTimeExtension    ) DateTime       ).UpdateValue(raiseEvents);
-			if(m_LazyTimeSpan    .IsValueCreated)    ((TimeSpanExtension    ) TimeSpan       ).UpdateValue(raiseEvents);
+			if(_lazyString      .IsValueCreated) if(((StringExtension      ) StringExt      ).UpdateValue(raiseEvents)) OnPropertyChanged(()=>String      );
+			if(_lazyNullableBool.IsValueCreated) if(((NullableBoolExtension) BoolNullableExt).UpdateValue(raiseEvents)) OnPropertyChanged(()=>BoolNullable);
+			if(_lazyMetric      .IsValueCreated)    ((MetricExtension      ) Metric         ).UpdateValue(raiseEvents);
+			if(_lazyQuantization.IsValueCreated)    ((QuantizationExtension) Quantization   ).UpdateValue(raiseEvents);
+			if(_lazyHexNumber   .IsValueCreated)    ((HexNumberExtension   ) HexNumber      ).UpdateValue(raiseEvents);
+			if(_lazyDateTime    .IsValueCreated)    ((DateTimeExtension    ) DateTime       ).UpdateValue(raiseEvents);
+			if(_lazyTimeSpan    .IsValueCreated)    ((TimeSpanExtension    ) TimeSpan       ).UpdateValue(raiseEvents);
 		}
 
 		/// <summary> Updates the source.
@@ -203,14 +203,14 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 	partial class EditValueProvider {
 
-		private string m_StringOnGotFocus;
+		private string _stringOnGotFocus;
 
 		public void NotifyGotFocus() {
-			m_StringOnGotFocus = String;
+			_stringOnGotFocus = String;
 		}
 
 		public void NotifyLostFocus() {
-			this.DoNothing(m_StringOnGotFocus);
+			this.DoNothing(_stringOnGotFocus);
 		}
 
 		public void NotifyKeyDown(KeyEventArgs e, string textPreview) {

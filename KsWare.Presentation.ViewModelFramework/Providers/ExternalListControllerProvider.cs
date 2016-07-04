@@ -23,8 +23,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 	/// <remarks></remarks>
 	public class ExternalListControllerProvider:ViewModelProvider, IExternalListControllerProvider {
 
-		private NotifyCollectionChangedEventHandler m_CollectionChangedCallback;
-		private NotifyCollectionChangedEventHandler m_CollectionChangingCallback;
+		private NotifyCollectionChangedEventHandler _collectionChangedCallback;
+		private NotifyCollectionChangedEventHandler _collectionChangingCallback;
 
 		/// <summary> Gets a value indicating whether this instance is supported.
 		/// </summary>
@@ -36,10 +36,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The collection changing callback.</value>
 		/// <remarks></remarks>
 		public NotifyCollectionChangedEventHandler CollectionChangingCallback {
-			get {return this.m_CollectionChangedCallback;}
+			get {return this._collectionChangedCallback;}
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_CollectionChangedCallback==null,null,this,"CollectionChangingCallback","{FD9170EF-4342-4C1E-A42C-E8EBFBC06471}");
-				this.m_CollectionChangedCallback = value;
+				MemberAccessUtil.DemandWriteOnce(_collectionChangedCallback==null,null,this,nameof(CollectionChangingCallback),"{FD9170EF-4342-4C1E-A42C-E8EBFBC06471}");
+				this._collectionChangedCallback = value;
 			}
 		}
 
@@ -48,10 +48,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The collection changed callback.</value>
 		/// <remarks></remarks>
 		public NotifyCollectionChangedEventHandler CollectionChangedCallback {
-			get {return this.m_CollectionChangingCallback;}
+			get {return this._collectionChangingCallback;}
 			set {
-				MemberAccessUtil.DemandWriteOnce(m_CollectionChangedCallback==null,null,this,"CollectionChangedCallback","{D3C97757-06BF-4E66-A0A7-96685EE7D14B}");
-				this.m_CollectionChangingCallback = value;
+				MemberAccessUtil.DemandWriteOnce(_collectionChangedCallback==null,null,this,nameof(CollectionChangedCallback),"{D3C97757-06BF-4E66-A0A7-96685EE7D14B}");
+				this._collectionChangingCallback = value;
 			}
 		}
 

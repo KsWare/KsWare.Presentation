@@ -210,7 +210,7 @@ namespace KsWare.Presentation {
 	[Serializable]
 	public class RoutedUnhandledExceptionEventArgs : EventArgs {
 
-		private bool m_IsHandled;
+		private bool _isHandled;
 
 		public RoutedUnhandledExceptionEventArgs(DispatcherUnhandledExceptionEventArgs ea) {
 			SourceEventArgs = ea;
@@ -261,11 +261,11 @@ namespace KsWare.Presentation {
 		public bool IsTerminating { get; private set; }
 
 		public bool IsHandled {
-			get { return m_IsHandled; }
+			get { return _isHandled; }
 			set {
-				if(m_IsHandled && value==false) throw new InvalidOperationException("Can not set Handled to false!");
-				if(m_IsHandled==value) return;
-				m_IsHandled = true;
+				if(_isHandled && value==false) throw new InvalidOperationException("Can not set Handled to false!");
+				if(_isHandled==value) return;
+				_isHandled = true;
 
 				//REVISE
 				if (SourceEventArgs is DispatcherUnhandledExceptionEventArgs) {

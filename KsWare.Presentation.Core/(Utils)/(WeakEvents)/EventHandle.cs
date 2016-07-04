@@ -19,15 +19,15 @@ namespace KsWare.Presentation {
 		internal static long StatisticsːRaiseːInvocationCount;
 		#endif
 
-		private WeakReference m_WeakDestination;
-		private Delegate m_Handler;
-		private string m_DestinationUid;
-		private WeakReference m_WeakSourceObject;
-		private WeakReference m_WeakEventSource;
-		private string m_EventName;
-		private int m_IsDisposed;
-		private string m_DebugString;
-		private bool m_DoNotCallReleased;
+		private WeakReference _weakDestination;
+		private Delegate _handler;
+		private string _destinationUid;
+		private WeakReference _weakSourceObject;
+		private WeakReference _weakEventSource;
+		private string _eventName;
+		private int _isDisposed;
+		private string _debugString;
+		private bool _doNotCallReleased;
 
 		protected EventHandle() {
 			#region Statistics (conditional)
@@ -44,12 +44,12 @@ namespace KsWare.Presentation {
 			// if(handler==null) throw new ArgumentNullException("handler");
 	
 
-			m_WeakDestination  = destination==null?null:new WeakReference(destination);
-			m_DestinationUid   = destinationUid;
-			m_WeakSourceObject = new WeakReference(source);
-			m_WeakEventSource  = new WeakReference(eventSource);
-			m_EventName        = eventName;
-			m_Handler          = handler;  
+			_weakDestination  = destination==null?null:new WeakReference(destination);
+			_destinationUid   = destinationUid;
+			_weakSourceObject = new WeakReference(source);
+			_weakEventSource  = new WeakReference(eventSource);
+			_eventName        = eventName;
+			_handler          = handler;  
 		}
 
 
@@ -69,23 +69,23 @@ namespace KsWare.Presentation {
 		}
 
 		internal void ReleaseBySource() {
-			m_DoNotCallReleased = true;
+			_doNotCallReleased = true;
 			Release();
 		}
 
 		protected virtual bool Dispose(bool explicitDispose) {
 			if (explicitDispose) {
-				if (Interlocked.Exchange(ref m_IsDisposed, 1) > 0) return false;
-				if (!m_DoNotCallReleased) {
-					var eventsource = (IEventSourceInternal)(IEventSource)m_WeakEventSource.Target;
+				if (Interlocked.Exchange(ref _isDisposed, 1) > 0) return false;
+				if (!_doNotCallReleased) {
+					var eventsource = (IEventSourceInternal)(IEventSource)_weakEventSource.Target;
 					if (eventsource != null) { eventsource.Released(this); }					
 				}
-				m_WeakDestination  = null;
-				m_Handler          = null;
-				m_DestinationUid   = null;
-				m_WeakSourceObject = null;
-				m_WeakEventSource  = null;
-				m_EventName        = null;
+				_weakDestination  = null;
+				_handler          = null;
+				_destinationUid   = null;
+				_weakSourceObject = null;
+				_weakEventSource  = null;
+				_eventName        = null;
 			}
 			return true;
 		}
@@ -94,28 +94,28 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value>The destination object or <c>null</c> when destination is not alive</value>
 		[CanBeNull]
-		public object Destination {get {if (!m_WeakDestination.IsAlive) return null;try{return m_WeakDestination.Target;}catch(InvalidOperationException){return null;}}}
+		public object Destination {get {if (!_weakDestination.IsAlive) return null;try{return _weakDestination.Target;}catch(InvalidOperationException){return null;}}}
 
 //		[CanBeNull]
-//		public Delegate Handler{get {if (!m_Handler.IsAlive) return null;try{return (Delegate) m_Handler.Target;}catch(InvalidOperationException){return null;}}}
+//		public Delegate Handler{get {if (!_Handler.IsAlive) return null;try{return (Delegate) _Handler.Target;}catch(InvalidOperationException){return null;}}}
 
-//		public Delegate Handler { get { return m_Handler; } }
+//		public Delegate Handler { get { return _Handler; } }
 
 
 		[CanBeNull]
-		public string DestinationUid{get { return m_DestinationUid; }}
+		public string DestinationUid{get { return _destinationUid; }}
 
 		/// <summary> Gets the source object.
 		/// </summary>
 		/// <value>The source object or <c>null</c> when source is not alive</value>
 		[CanBeNull]
-		public object Source{get {if (!m_WeakSourceObject.IsAlive) return null;try{return m_WeakSourceObject.Target;}catch(InvalidOperationException){return null;}}}
+		public object Source{get {if (!_weakSourceObject.IsAlive) return null;try{return _weakSourceObject.Target;}catch(InvalidOperationException){return null;}}}
 				
 		/// <summary> Gets the name of the event.
 		/// </summary>
 		/// <value>The name of the event.</value>
 		[CanBeNull]
-		public string EventName{get { return m_EventName; }}
+		public string EventName{get { return _eventName; }}
 
 		/// <summary> Gets a value indicating whether this instance is alive.
 		/// </summary>
@@ -123,16 +123,16 @@ namespace KsWare.Presentation {
 		/// <remarks>This instance is alive when both Destination and Source are alive</remarks>
 		public bool IsAlive {
 			get {
-				if(!m_WeakSourceObject.IsAlive) return false;
-				if (m_WeakDestination == null) {
-					return Handler != null; // !use Handler and not m_Handler
+				if(!_weakSourceObject.IsAlive) return false;
+				if (_weakDestination == null) {
+					return Handler != null; // !use Handler and not _Handler
 				} else {
-					return m_WeakDestination.IsAlive;
+					return _weakDestination.IsAlive;
 				}
 			}
 		}
 
-		public virtual Delegate Handler { get { return m_Handler; } }
+		public virtual Delegate Handler { get { return _handler; } }
 
 		/// <summary> Raises the event with the specified arguments.
 		/// </summary>
@@ -140,16 +140,16 @@ namespace KsWare.Presentation {
 		internal virtual void Raise(object[] args) {
 
 #if(false) // reflection stuff
-			if (m_DelegateMethod != null) {
-				var target=m_DelegateTarget.Target;
+			if (_DelegateMethod != null) {
+				var target=_DelegateTarget.Target;
 				if(target==null) {Release(); return;}
-				var bf = m_DelegateMethod.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
-				m_DelegateMethod.Invoke(target, bf | BindingFlags.NonPublic | BindingFlags.Public, null, args, null);
+				var bf = _DelegateMethod.IsStatic ? BindingFlags.Static : BindingFlags.Instance;
+				_DelegateMethod.Invoke(target, bf | BindingFlags.NonPublic | BindingFlags.Public, null, args, null);
 				return;
 			}
 #endif
 
-			var handler = m_Handler;
+			var handler = _handler;
 			if (handler == null) { Release(); return; }
 			
 			EventUtil.Invoke(handler,args[0],(EventArgs)args[1],null);
@@ -170,7 +170,7 @@ namespace KsWare.Presentation {
 		public EventHandle4Universal([NotNull] IEventSource eventSource, object destination, Delegate handler, string destinationUid, object source, string eventName)
 			:base(eventSource,destination,handler,destinationUid,source,eventName){
 
-			if(handler==null) throw new ArgumentNullException("handler");
+			if(handler==null) throw new ArgumentNullException(nameof(handler));
 		}
 	}
 
@@ -181,7 +181,7 @@ namespace KsWare.Presentation {
 	/// </summary>
 	internal class EventHandle4SystemEventHandler : EventHandle<EventArgs> {
 
-		private System.EventHandler m_Handler;
+		private System.EventHandler _Handler;
 
 		public EventHandle4SystemEventHandler(
 			[NotNull] IEventSource eventSource, 
@@ -198,19 +198,19 @@ namespace KsWare.Presentation {
 			source        : source,
 			eventName     : eventName
 		) {
-			m_Handler = handler;
+			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return m_Handler; } }
+		public override Delegate Handler { get { return _Handler; } }
 
 		internal override void Raise(object[] args) {
-			m_Handler(args[0], (EventArgs) args[1]); 
+			_Handler(args[0], (EventArgs) args[1]); 
 		}
 
 		protected override bool Dispose(bool explicitDispose) {
 			if(!base.Dispose(explicitDispose)) return false;
 			if (explicitDispose) {
-				m_Handler = null;
+				_Handler = null;
 			}
 			return true;
 		}
@@ -220,7 +220,7 @@ namespace KsWare.Presentation {
 	/// </summary>
 	internal class EventHandle4PropertyChangedEventHandler : EventHandle<System.Collections.Specialized.NotifyCollectionChangedEventArgs> {
 
-		private System.ComponentModel.PropertyChangedEventHandler m_Handler;
+		private System.ComponentModel.PropertyChangedEventHandler _Handler;
 
 		public EventHandle4PropertyChangedEventHandler(
 			[NotNull] IEventSource eventSource, 
@@ -237,19 +237,19 @@ namespace KsWare.Presentation {
 			source        : source,
 			eventName     : eventName
 		) {
-			m_Handler = handler;
+			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return m_Handler; } }
+		public override Delegate Handler { get { return _Handler; } }
 
 		internal override void Raise(object[] args) {
-			m_Handler(args[0], (PropertyChangedEventArgs) args[1]); 
+			_Handler(args[0], (PropertyChangedEventArgs) args[1]); 
 		}
 
 		protected override bool Dispose(bool explicitDispose) {
 			if(!base.Dispose(explicitDispose)) return false;
 			if (explicitDispose) {
-				m_Handler = null;
+				_Handler = null;
 			}
 			return true;
 		}
@@ -259,7 +259,7 @@ namespace KsWare.Presentation {
 	/// </summary>
 	internal class EventHandle4NotifyCollectionChangedEventHandler : EventHandle<System.Collections.Specialized.NotifyCollectionChangedEventArgs> {
 
-		private System.Collections.Specialized.NotifyCollectionChangedEventHandler m_Handler;
+		private System.Collections.Specialized.NotifyCollectionChangedEventHandler _Handler;
 
 		public EventHandle4NotifyCollectionChangedEventHandler(
 			[NotNull] IEventSource eventSource, 
@@ -276,19 +276,19 @@ namespace KsWare.Presentation {
 			source        : source,
 			eventName     : eventName
 		) {
-			m_Handler = handler;
+			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return m_Handler; } }
+		public override Delegate Handler { get { return _Handler; } }
 
 		internal override void Raise(object[] args) {
-			m_Handler(args[0], (System.Collections.Specialized.NotifyCollectionChangedEventArgs) args[1]); 
+			_Handler(args[0], (System.Collections.Specialized.NotifyCollectionChangedEventArgs) args[1]); 
 		}
 
 		protected override bool Dispose(bool explicitDispose) {
 			if(!base.Dispose(explicitDispose)) return false;
 			if (explicitDispose) {
-				m_Handler = null;
+				_Handler = null;
 			}
 			return true;
 		}
@@ -298,23 +298,23 @@ namespace KsWare.Presentation {
 	/// </summary>
 	internal class EventHandle4EventHandlerGeneric<TEventArgs> : EventHandle<TEventArgs> where TEventArgs:EventArgs{
 
-		private System.EventHandler<TEventArgs> m_Handler;
+		private System.EventHandler<TEventArgs> _Handler;
 
 		public EventHandle4EventHandlerGeneric([NotNull] IEventSource eventSource, object destination, System.EventHandler<TEventArgs> handler, string destinationUid, object source, string eventName)
 			: base(eventSource, destination, handler, destinationUid, source, eventName) {
-			m_Handler = handler;
+			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return m_Handler; } }
+		public override Delegate Handler { get { return _Handler; } }
 
 		internal override void Raise(object[] args) {
-			m_Handler(args[0], (TEventArgs)args[1]); 
+			_Handler(args[0], (TEventArgs)args[1]); 
 		}
 
 		protected override bool Dispose(bool explicitDispose) {
 			if(!base.Dispose(explicitDispose)) return false;
 			if (explicitDispose) {
-				m_Handler = null;
+				_Handler = null;
 			}
 			return true;
 		}

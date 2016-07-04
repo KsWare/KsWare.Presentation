@@ -55,8 +55,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </example>	
 	public class BusyManager:Singleton<BusyManager> {
 
-//		private BusyToken m_Busy;
-		Dictionary<IObjectVM,BusyToken> m_Tokens=new Dictionary<IObjectVM, BusyToken>();
+		Dictionary<IObjectVM,BusyToken> _tokens=new Dictionary<IObjectVM, BusyToken>();
 
 		/// <summary> Creates a busy context
 		/// </summary>
@@ -65,11 +64,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <example><code>using (BusyManager.Instance.Context(this)) { ... } </code></example>
 		public BusyToken Context(IObjectVM sender) {
 			BusyToken token;
-			m_Tokens.TryGetValue(sender, out token);
+			_tokens.TryGetValue(sender, out token);
 			if (token == null) {
 				token = new BusyToken(sender);
-				m_Tokens.Add(sender,token);
-				token.Finished += (s, e) => m_Tokens.Remove(((BusyToken)s).Sender);
+				_tokens.Add(sender,token);
+				token.Finished += (s, e) => _tokens.Remove(((BusyToken)s).Sender);
 				token.Start();
 			} else { token.ContinuedAsync(); }
 			return token;
@@ -77,13 +76,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public void ContinueAsync(IObjectVM sender) {
 			BusyToken token;
-			m_Tokens.TryGetValue(sender, out token);
+			_tokens.TryGetValue(sender, out token);
 			token.ContinueAsync();
 		}
 
 		public void EndAsync(IObjectVM sender) {
 			BusyToken token;
-			m_Tokens.TryGetValue(sender, out token);
+			_tokens.TryGetValue(sender, out token);
 			if(token!=null) token.Done();
 		}
 
@@ -91,38 +90,38 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public sealed class BusyToken : IDisposable {
 
-			private volatile bool m_IsDisposed;
-			private IObjectVM m_Sender;
-			private volatile bool m_SuppressDispose;
+			private volatile bool _isDisposed;
+			private IObjectVM _sender;
+			private volatile bool _suppressDispose;
 
 			internal BusyToken(IObjectVM sender) {
-				m_Sender = sender;
+				_sender = sender;
 			}
 
 			internal void Start() {
-				m_Sender.RequestUserFeedback(new BusyUserFeedbackEventArgs(true));
+				_sender.RequestUserFeedback(new BusyUserFeedbackEventArgs(true));
 			}
 
-			internal IObjectVM Sender { get { return m_Sender; } }
+			internal IObjectVM Sender { get { return _sender; } }
 
 			void IDisposable.Dispose() {
-				if (m_SuppressDispose) { m_SuppressDispose = false; return;}
-				if(m_IsDisposed) return; m_IsDisposed = true;
-				m_Sender.RequestUserFeedback(new BusyUserFeedbackEventArgs(false));
+				if (_suppressDispose) { _suppressDispose = false; return;}
+				if(_isDisposed) return; _isDisposed = true;
+				_sender.RequestUserFeedback(new BusyUserFeedbackEventArgs(false));
 				if (Finished != null) Finished(this, EventArgs.Empty);
-				m_Sender = null;
+				_sender = null;
 			}
 
 			public void ContinueAsync() {
-				m_SuppressDispose = true;
+				_suppressDispose = true;
 			}
 
 			public void ContinuedAsync() {
-				m_SuppressDispose = false;
+				_suppressDispose = false;
 			}
 
 			public void Done() {
-				m_SuppressDispose = false;
+				_suppressDispose = false;
 				((IDisposable)this).Dispose();
 			}
 

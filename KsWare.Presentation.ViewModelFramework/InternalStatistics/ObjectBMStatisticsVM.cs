@@ -9,10 +9,10 @@ namespace KsWare.Presentation.InternalStatistics {
 			RegisterChildren(_=>this);
 			Caption = "ObjectBM";
 
-			m_Items.Add(new StatisticEntryVM("Number of created instances"    ,()=>ObjectBM.StatisticsːNumberOfCreatedInstances));
-			m_Items.Add(new StatisticEntryVM("Number of living instances"     ,()=>ObjectBM.StatisticsːNumberOfInstances));
-			m_Items.Add(new StatisticEntryVM("Number of Dispose() invokations",()=>ObjectBM.StatisticsːMethodInvocationːDisposeːCount));
-			m_Items.Add(new StatisticEntryVM("Number of Destructor invocations",()=>ObjectBM.StatisticsːMethodInvocationːDestructorːCount));
+			_Items.Add(new StatisticEntryVM("Number of created instances"    ,()=>ObjectBM.StatisticsːNumberOfCreatedInstances));
+			_Items.Add(new StatisticEntryVM("Number of living instances"     ,()=>ObjectBM.StatisticsːNumberOfInstances));
+			_Items.Add(new StatisticEntryVM("Number of Dispose() invokations",()=>ObjectBM.StatisticsːMethodInvocationːDisposeːCount));
+			_Items.Add(new StatisticEntryVM("Number of Destructor invocations",()=>ObjectBM.StatisticsːMethodInvocationːDestructorːCount));
 		}
 
 	}

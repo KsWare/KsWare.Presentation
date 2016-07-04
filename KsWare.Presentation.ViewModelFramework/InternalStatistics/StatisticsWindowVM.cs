@@ -7,15 +7,15 @@ namespace KsWare.Presentation.InternalStatistics {
 
 	public class StatisticsWindowVM:WindowVM {
 
-		private static StatisticsWindowVM s_Instance;
-		private DispatcherTimer m_Timer;
+		private static StatisticsWindowVM s_instance;
+		private DispatcherTimer _timer;
 
 		public static StatisticsWindowVM Instance {
 			get {
-				if (s_Instance == null) {
-					s_Instance = new StatisticsWindowVM();
+				if (s_instance == null) {
+					s_instance = new StatisticsWindowVM();
 				}
-				return s_Instance;
+				return s_instance;
 			}
 		}
 
@@ -29,7 +29,7 @@ namespace KsWare.Presentation.InternalStatistics {
 			Modules.Add(new ObjectBMStatisticsVM());
 
 			if(Application.Current==null) return;
-			m_Timer=new DispatcherTimer(TimeSpan.FromMilliseconds(1000), DispatcherPriority.Send, AtTimerTick, Application.Current.Dispatcher);
+			_timer=new DispatcherTimer(TimeSpan.FromMilliseconds(1000), DispatcherPriority.Send, AtTimerTick, Application.Current.Dispatcher);
 		}
 
 		private void AtTimerTick(object sender, EventArgs e) {

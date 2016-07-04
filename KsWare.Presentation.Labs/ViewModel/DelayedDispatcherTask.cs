@@ -10,41 +10,41 @@ namespace KsWare.Presentation {
 	/// </summary>
 	public class DelayedDispatcherTask:IDisposable,IAsyncResult {
 
-		private readonly IDispatcher m_Dispatcher;
-		private readonly TimeSpan m_Delay;
-		private readonly Action m_Action;
+		private readonly IDispatcher _dispatcher;
+		private readonly TimeSpan _delay;
+		private readonly Action _action;
 		private static long s_BeginInvokeDelayCount;
 
-		private object m_AsyncState;
-		private WeakReference m_VMRef;
-		private Thread m_Thread;
-		private WaitHandle m_AsyncWaitHandle;
-		private DispatcherOperation m_DispatcherOperation;
-		private object m_DispatcherOperationLock=new object();
+		private object _asyncState;
+		private WeakReference _vmRef;
+		private Thread _thread;
+		private WaitHandle _asyncWaitHandle;
+		private DispatcherOperation _dispatcherOperation;
+		private readonly object _dispatcherOperationLock=new object();
 
 
 		public DelayedDispatcherTask(IObjectVM vm, TimeSpan delay, Action action) {
-			m_Delay      = delay;
-			m_Action     = action;
-			m_VMRef      = vm==null?null:new WeakReference(vm);
-			m_Dispatcher = ApplicationVM.Current.Dispatcher;
+			_delay      = delay;
+			_action     = action;
+			_vmRef      = vm==null?null:new WeakReference(vm);
+			_dispatcher = ApplicationVM.Current.Dispatcher;
 
 			var ts = new ThreadStart(Run);
-			m_Thread = new Thread(ts){
+			_thread = new Thread(ts){
 				IsBackground = true,
 				Name = "BeginInvokeDelay#"+(++s_BeginInvokeDelayCount)
 			};
 
 			//m_AsyncWaitHandle=new ManualResetEvent(false);
-			m_Thread.Start();
+			_thread.Start();
 		}
 
 		private void Run() {
 			try {
-				Thread.Sleep(m_Delay);
+				Thread.Sleep(_delay);
 
 				if (Application.Current == null) return;
-				lock (m_DispatcherOperationLock) m_DispatcherOperation = m_Dispatcher.BeginInvoke(m_Action);
+				lock (_dispatcherOperationLock) _dispatcherOperation = _dispatcher.BeginInvoke(_action);
 			}
 			catch (ThreadAbortException ex) {
 				Exception = ex;
@@ -58,7 +58,7 @@ namespace KsWare.Presentation {
 			finally {
 				lock (this) {
 					IsCompleted = true;
-					if(m_AsyncWaitHandle!=null) ((ManualResetEvent) m_AsyncWaitHandle).Set();					
+					if(_asyncWaitHandle!=null) ((ManualResetEvent) _asyncWaitHandle).Set();					
 				}
 			}
 		}
@@ -66,14 +66,14 @@ namespace KsWare.Presentation {
 		void IDisposable.Dispose() {
 			if (!IsCompleted) {
 				IsCanceled = true;
-				m_Thread.Abort("DisposeRequest");
+				_thread.Abort("DisposeRequest");
 			}
 		}
 
 		public void Cancel() {
 			if (!IsCompleted) {
 				IsCanceled = true;
-				m_Thread.Abort("CancelRequest");
+				_thread.Abort("CancelRequest");
 			}
 		}
 
@@ -83,24 +83,24 @@ namespace KsWare.Presentation {
 
 		public WaitHandle AsyncWaitHandle {
 			get {
-				if (m_AsyncWaitHandle == null) {
+				if (_asyncWaitHandle == null) {
 					lock (this) {
 						if(IsCompleted) return new ManualResetEvent(true);
-						m_AsyncWaitHandle=new ManualResetEvent(false);						
+						_asyncWaitHandle=new ManualResetEvent(false);						
 					}
 				}
-				return m_AsyncWaitHandle;
+				return _asyncWaitHandle;
 			} 
 		}
 
-		object IAsyncResult.AsyncState { get { return m_AsyncState; } }
+		object IAsyncResult.AsyncState { get { return _asyncState; } }
 
 		bool IAsyncResult.CompletedSynchronously { get { return false; } }
 
-		public DispatcherOperation DispatcherOperation { get { lock (m_DispatcherOperationLock) return m_DispatcherOperation; } }
+		public DispatcherOperation DispatcherOperation { get { lock (_dispatcherOperationLock) return _dispatcherOperation; } }
 
 		public DispatcherOperationStatus Status {
-			get { lock (m_DispatcherOperationLock) return m_DispatcherOperation == null ? DispatcherOperationStatus.Pending : m_DispatcherOperation.Status; }
+			get { lock (_dispatcherOperationLock) return _dispatcherOperation == null ? DispatcherOperationStatus.Pending : _dispatcherOperation.Status; }
 		}
 
 	}

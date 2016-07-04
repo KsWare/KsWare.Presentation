@@ -8,7 +8,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	//
 	partial class ObjectVM:ISelectable {
 
-		private bool m_IsSelected;
+		private bool _isSelected;
 
 		/// <summary> Gets or sets a value indicating whether this object is selected.
 		/// </summary>
@@ -18,12 +18,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public bool IsSelected {
 			get {
 				DebuggerːBreak(DebuggerFlags.Breakpoints.IsSelectedGet);
-				return m_IsSelected;
+				return _isSelected;
 			}
 			set {
 				DebuggerːBreak(DebuggerFlags.Breakpoints.IsSelectedSet);
-				if (m_IsSelected == value) return;
-				m_IsSelected = value;
+				if (_isSelected == value) return;
+				_isSelected = value;
 				OnPropertyChanged("IsSelected");
 				if (SuppressAnyEvents==0) {
 					EventUtil.Raise(IsSelectedChanged,this,EventArgs.Empty,"{800B0C9A-92AA-4FC6-9C25-135AE3197665}");

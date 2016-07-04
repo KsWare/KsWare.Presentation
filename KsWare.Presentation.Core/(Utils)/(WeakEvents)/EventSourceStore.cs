@@ -7,24 +7,24 @@ namespace KsWare.Presentation {
 	/// </summary>
 	/// <example>Usage: <code>
 	/// public class MyClass {
-	///		private readonly Lazy&lt;WeakEventSourceStore&gt; m_LazyWeakEventStore;
-	///		private object m_MyProperty;
+	///		private readonly Lazy&lt;WeakEventSourceStore&gt; _LazyWeakEventStore;
+	///		private object _myProperty;
 	/// 
 	///		public MyClass() {
-	///			m_LazyWeakEventStore = new Lazy&lt;WeakEventSourceStore&gt;(() => new WeakEventSourceStore(this));
+	///			_LazyWeakEventStore = new Lazy&lt;WeakEventSourceStore&gt;(() => new WeakEventSourceStore(this));
 	///		}
 	/// 
 	///		public object MyProperty {
-	///			get { return m_MyProperty; }
+	///			get { return _myProperty; }
 	///			set {
-	///				if(Equals(m_MyProperty,value)) return;
-	///				m_MyProperty = value;
+	///				if(Equals(_myProperty,value)) return;
+	///				_MyProperty = value;
 	///				OnMyPropertyChanged();
 	///			}
 	///		}
 	/// 
 	///		protected virtual void OnMyPropertyChanged() { 
-	///			WeakEventManager.Raise&lt;EventHandler,EventArgs>(m_LazyWeakEventProperties, "MyPropertyChangedEvent", EventArgs.Empty);
+	///			WeakEventManager.Raise&lt;EventHandler,EventArgs>(_lazyWeakEventProperties, "MyPropertyChangedEvent", EventArgs.Empty);
 	///		}
 	/// 
 	///		public IWeakEventSource&lt;EventHandler&gt; MyPropertyChangedEvent { get { return WeakEventProperties.Get&lt;EventHandler&gt;("MyPropertyChangedEvent"); } }
@@ -32,48 +32,48 @@ namespace KsWare.Presentation {
 	/// </code></example>
 	public class EventSourceStore {
 
-		private readonly WeakReference m_WeakSourceObject;
-		private readonly Dictionary<string,IEventSource> m_EventSources=new Dictionary<string, IEventSource>();
+		private readonly WeakReference _WeakSourceObject;
+		private readonly Dictionary<string,IEventSource> _EventSources=new Dictionary<string, IEventSource>();
 
 		/// <summary> Initializes a new instance of the <see cref="EventSourceStore"/> for the specifiecified source object.
 		/// </summary>
 		/// <param name="sourceObject">The source object.</param>
 		public EventSourceStore(object sourceObject) {
-			m_WeakSourceObject = new WeakReference(sourceObject);
+			_WeakSourceObject = new WeakReference(sourceObject);
 		}
 
 		/// <summary> Gets the number of initialized weak event sources
 		/// </summary>
-		public int Count { get { return m_EventSources.Count; } }
+		public int Count { get { return _EventSources.Count; } }
 
-//		/// <summary> Gets a weak event source (IWeakEventSource)
-//		/// </summary>
-//		/// <typeparam name="TEventHandler">The type of the event handler</typeparam>
-//		/// <param name="eventPropertyExpression">(e.g. <c>_=>MyPropertyChangedEvent</c>)</param>
-//		/// <returns>The weak event source</returns>
-//		[Obsolete("Slow!",true)]
-//		public IWeakEventSource<TEventHandler> Get<TEventHandler>(Expression<Func<object, IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
-//			var name =GetName(eventPropertyExpression);
-//			return Get<TEventHandler>(name);
-//		}
+        //		/// <summary> Gets a weak event source (IWeakEventSource)
+        //		/// </summary>
+        //		/// <typeparam name="TEventHandler">The type of the event handler</typeparam>
+        //		/// <param name="eventPropertyExpression">(e.g. <c>_=>MyPropertyChangedEvent</c>)</param>
+        //		/// <returns>The weak event source</returns>
+        //		[Obsolete("Slow!",true)]
+        //		public IWeakEventSource<TEventHandler> Get<TEventHandler>(Expression<Func<object, IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
+        //			var name =GetName(eventPropertyExpression);
+        //			return Get<TEventHandler>(name);
+        //		}
 
-//		[Obsolete("Slow!",true)]
-//		public IWeakEventSource<TEventHandler> Get<TEventHandler>(Expression<Func<IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
-//			var name =GetName(eventPropertyExpression);
-//			return Get<TEventHandler>(name);
-//		}
+        //		[Obsolete("Slow!",true)]
+        //		public IWeakEventSource<TEventHandler> Get<TEventHandler>(Expression<Func<IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
+        //			var name =GetName(eventPropertyExpression);
+        //			return Get<TEventHandler>(name);
+        //		}
 
-		/// <summary> Gets a weak event source (IWeakEventSource)
-		/// </summary>
-		/// <typeparam name="TEventHandler">The type of the event handler.</typeparam>
-		/// <param name="eventName">The event name.</param>
-		/// <returns>The weak event source</returns>
-		public IEventSource<TEventHandler> Get<TEventHandler>(string eventName) {
+        /// <summary> Gets a weak event source (IWeakEventSource)
+        /// </summary>
+        /// <typeparam name="TEventHandler">The type of the event handler.</typeparam>
+        /// <param name="eventName">The event name.</param>
+        /// <returns>The weak event source</returns>
+        public IEventSource<TEventHandler> Get<TEventHandler>(string eventName) {
 			IEventSource eventSource;
-			if (!m_EventSources.TryGetValue(eventName, out eventSource)) {
-				var sourceObject = m_WeakSourceObject.Target;
+			if (!_EventSources.TryGetValue(eventName, out eventSource)) {
+				var sourceObject = _WeakSourceObject.Target;
 				eventSource=EventManager.RegisterSource4Store<TEventHandler>(this, sourceObject, eventName);
-				m_EventSources.Add(eventName,eventSource);
+				_EventSources.Add(eventName,eventSource);
 			}
 			return (IEventSource<TEventHandler>) eventSource;
 		}
@@ -86,7 +86,7 @@ namespace KsWare.Presentation {
 //		[Obsolete("Slow!",true)]
 //		public bool Has<TEventHandler>(Expression<Func<object, IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
 //			var propertyName = GetName(eventPropertyExpression);
-//			var b = m_EventProperties.ContainsKey(propertyName);
+//			var b = _EventProperties.ContainsKey(propertyName);
 //			return b;
 //		}
 
@@ -98,7 +98,7 @@ namespace KsWare.Presentation {
 //		[Obsolete("Slow!",true)]
 //		public bool Has<TEventHandler>(Expression<Func<IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
 //			var propertyName = GetName(eventPropertyExpression);
-//			var b = m_EventProperties.ContainsKey(propertyName);
+//			var b = _EventProperties.ContainsKey(propertyName);
 //			return b;
 //		}
 
@@ -107,13 +107,13 @@ namespace KsWare.Presentation {
 		/// <param name="property">The event property name.</param>
 		/// <returns><c>true</c> if the store contains the property; otherwise, <c>false</c>.</returns>
 		public bool Has(string property) {
-			var b = m_EventSources.ContainsKey(property);
+			var b = _EventSources.ContainsKey(property);
 			return b;
 		}
 
 		public IEventSource<TEventHandler> TryGet<TEventHandler>(string eventName) {
 			IEventSource eventSource;
-			if (!m_EventSources.TryGetValue(eventName, out eventSource)) return null;
+			if (!_EventSources.TryGetValue(eventName, out eventSource)) return null;
 			return (IEventSource<TEventHandler>) eventSource;
 		}
 
@@ -122,7 +122,7 @@ namespace KsWare.Presentation {
 //		public IWeakEventSource<TEventHandler> TryGet<TEventHandler>(Expression<Func<object, IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
 //			var name = GetName(eventPropertyExpression);
 //			IWeakEventSource eventSource;
-//			if (!m_EventProperties.TryGetValue(name, out eventSource)) return null;
+//			if (!_EventProperties.TryGetValue(name, out eventSource)) return null;
 //			return (IWeakEventSource<TEventHandler>) eventSource;
 //		}
 
@@ -131,7 +131,7 @@ namespace KsWare.Presentation {
 //		public IWeakEventSource<TEventHandler> TryGet<TEventHandler>(Expression<Func<IWeakEventSource<TEventHandler>>> eventPropertyExpression) {
 //			var name = GetName(eventPropertyExpression);
 //			IWeakEventSource eventSource;
-//			if (!m_EventProperties.TryGetValue(name, out eventSource)) return null;
+//			if (!_EventProperties.TryGetValue(name, out eventSource)) return null;
 //			return (IWeakEventSource<TEventHandler>) eventSource;
 //		}
 
@@ -157,10 +157,10 @@ namespace KsWare.Presentation {
 
 		private void Dispose(bool explicitDispose) {
 			if (explicitDispose) {
-				foreach (var p in m_EventSources) p.Value.Dispose();
-				m_EventSources.Clear();
-//				m_EventProperties = null;
-//				m_WeakSourceObject=null;
+				foreach (var p in _EventSources) p.Value.Dispose();
+				_EventSources.Clear();
+//				_EventProperties = null;
+//				_WeakSourceObject=null;
 							
 			}
 		}

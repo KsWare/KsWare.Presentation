@@ -11,7 +11,7 @@ namespace KsWare.Presentation.ViewModelFramework
 
 	public partial class ObjectVM 
 	{
-		private readonly List<Tuple<ViewModelProperty,EventHandler>> m_PropertyChangedEventHandlers=new List<Tuple<ViewModelProperty, EventHandler>>();
+		private readonly List<Tuple<ViewModelProperty,EventHandler>> _PropertyChangedEventHandlers=new List<Tuple<ViewModelProperty, EventHandler>>();
 		private readonly List<Tuple<string,EventHandler>> _propertyChangedEventHandlers2=new List<Tuple<string, EventHandler>>();
 		private readonly Dictionary<object,object> _propertyValues=new Dictionary<object, object>();
 
@@ -69,10 +69,10 @@ namespace KsWare.Presentation.ViewModelFramework
 		/// <param name="viewModelProperty">The view model property.</param>
 		/// <param name="propertyChangedEventHandler">The property changed event handler.</param>
 		public void RegisterPropertyChangedHandler(ViewModelProperty viewModelProperty, EventHandler propertyChangedEventHandler) {
-			if(m_PropertyChangedEventHandlers.Any(tuple => tuple.Item1 == viewModelProperty && tuple.Item2 == propertyChangedEventHandler))
+			if(_PropertyChangedEventHandlers.Any(tuple => tuple.Item1 == viewModelProperty && tuple.Item2 == propertyChangedEventHandler))
 				throw new InvalidOperationException("Eventhandler already registered!"+
 				"\r\n\tEventHandler: "+propertyChangedEventHandler.Method.GetFullSignatur());
-			m_PropertyChangedEventHandlers.Add(new Tuple<ViewModelProperty, EventHandler>(viewModelProperty, propertyChangedEventHandler));
+			_PropertyChangedEventHandlers.Add(new Tuple<ViewModelProperty, EventHandler>(viewModelProperty, propertyChangedEventHandler));
 		}
 
 
@@ -81,7 +81,7 @@ namespace KsWare.Presentation.ViewModelFramework
 		/// <param name="viewModelProperty">The view model property.</param>
 		/// <param name="propertyChangedEventHandler">The property changed event handler.</param>
 		public void ReleasePropertyChangedHandler(ViewModelProperty viewModelProperty, EventHandler propertyChangedEventHandler) {
-			m_PropertyChangedEventHandlers.RemoveAll(tuple => tuple.Item1 == viewModelProperty && tuple.Item2 == propertyChangedEventHandler);
+			_PropertyChangedEventHandlers.RemoveAll(tuple => tuple.Item1 == viewModelProperty && tuple.Item2 == propertyChangedEventHandler);
 		}
 
 

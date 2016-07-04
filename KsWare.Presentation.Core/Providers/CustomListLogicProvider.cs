@@ -36,40 +36,40 @@ namespace KsWare.Presentation.Core.Providers {
 	[PublicAPI]
 	public class NoListLogicProvider:IListLogicProvider {
 
-		private IMetadata m_Parent;
-		EventHandler m_ParentChanged;
-		private Lazy<EventSourceStore> m_LazyWeakEventProperties;
+		private IMetadata _parent;
+		EventHandler _parentChanged;
+		private Lazy<EventSourceStore> _lazyWeakEventProperties;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="NoListLogicProvider"/> class.
 		/// </summary>
 		public NoListLogicProvider() {
-			m_LazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
+			_lazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public EventSourceStore EventSources{get { return m_LazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources{get { return _lazyWeakEventProperties.Value; }}
 
 		/// <summary> Gets the metadata which holds this provider.
 		/// </summary>
 		/// <value>The metadata.</value>
-		public IMetadata Metadata {get {return (IMetadata) m_Parent;}}
+		public IMetadata Metadata {get {return (IMetadata) _parent;}}
 
 		/// <summary> Gets or sets the parent of this instance.
 		/// </summary>
 		/// <value>The parent of this instance.</value>
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
 		object IParentSupport.Parent {
-			get {return m_Parent;}
+			get {return _parent;}
 			set {
-				m_Parent = (IMetadata) value;
-				EventUtil.Raise(m_ParentChanged,this,EventArgs.Empty,"{202C8927-F9CF-49A3-A07B-6B37837B724B}");
-				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
+				_parent = (IMetadata) value;
+				EventUtil.Raise(_parentChanged,this,EventArgs.Empty,"{202C8927-F9CF-49A3-A07B-6B37837B724B}");
+				EventManager.Raise<EventHandler,EventArgs>(_lazyWeakEventProperties,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
 		/// <summary> Occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
 		/// <remarks></remarks>
-		event EventHandler IParentSupport.ParentChanged {add { m_ParentChanged += value; }remove { m_ParentChanged -= value; }}
+		event EventHandler IParentSupport.ParentChanged {add { _parentChanged += value; }remove { _parentChanged -= value; }}
 
 		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
@@ -99,7 +99,7 @@ namespace KsWare.Presentation.Core.Providers {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{A0E5F06F-2946-48D7-8C19-A85477A7F9E7}");
-			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventProperties,"PropertyChangedEvent",args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(_lazyWeakEventProperties,"PropertyChangedEvent",args);
 		}
 
 		public void Dispose() {Dispose(true); }
@@ -112,16 +112,16 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </summary>
 	public class CustomListLogicProvider:Provider,IListLogicProvider {
 
-		private NotifyCollectionChangedEventHandler m_CollectionChangingCallback;
-		private NotifyCollectionChangedEventHandler m_CollectionChangedCallback;
+		private NotifyCollectionChangedEventHandler _collectionChangingCallback;
+		private NotifyCollectionChangedEventHandler _collectionChangedCallback;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomListLogicProvider"/> class.
 		/// </summary>
 		/// <param name="collectionChangingCallback">The collection changing callback.</param>
 		/// <param name="collectionChangedCallback">The collection changed callback.</param>
 		public CustomListLogicProvider(NotifyCollectionChangedEventHandler collectionChangingCallback, NotifyCollectionChangedEventHandler collectionChangedCallback) {
-			m_CollectionChangingCallback = collectionChangingCallback;
-			m_CollectionChangedCallback = collectionChangedCallback;
+			_collectionChangingCallback = collectionChangingCallback;
+			_collectionChangedCallback = collectionChangedCallback;
 		}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
@@ -139,10 +139,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The collection changing callback.</value>
 		public NotifyCollectionChangedEventHandler CollectionChangingCallback {
-			get {return this.m_CollectionChangingCallback;}
+			get {return this._collectionChangingCallback;}
 			set {
-				MemberAccessUtil.DemandWrite(Parent==null,null,this,"CollectionChangingCallback","{B51E7C51-F3B0-4D28-972B-65789E5EF9B8}");
-				m_CollectionChangingCallback = value;
+				MemberAccessUtil.DemandWrite(Parent==null,null,this,nameof(CollectionChangingCallback),"{B51E7C51-F3B0-4D28-972B-65789E5EF9B8}");
+				_collectionChangingCallback = value;
 			}
 		}
 
@@ -150,10 +150,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The collection changed callback.</value>
 		public NotifyCollectionChangedEventHandler CollectionChangedCallback {
-			get {return m_CollectionChangedCallback;}
+			get {return _collectionChangedCallback;}
 			set {
-				MemberAccessUtil.DemandWrite(Parent==null,null,this,"CollectionChangingCallback","{2BB7B891-3DB6-46BF-A82F-3037C299B037}");
-				m_CollectionChangedCallback = value;
+				MemberAccessUtil.DemandWrite(Parent==null,null,this,nameof(CollectionChangingCallback),"{2BB7B891-3DB6-46BF-A82F-3037C299B037}");
+				_collectionChangedCallback = value;
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public void CollectionChanging(NotifyCollectionChangedEventArgs e) {
 			if(Metadata==null) throw new InvalidOperationException("Provider not initialized! Metadata not specified!");
 			if(Metadata.Parent==null) throw new InvalidOperationException("Provider not initialized! Metadata.Parent not specified!");
-			if(m_CollectionChangingCallback!=null) m_CollectionChangingCallback(Metadata.Parent, e);
+			if(_collectionChangingCallback!=null) _collectionChangingCallback(Metadata.Parent, e);
 		}
 
 		/// <summary> Called after the collections is changed.
@@ -172,7 +172,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public void CollectionChanged(NotifyCollectionChangedEventArgs e) {
 			if(Metadata==null) throw new InvalidOperationException("Provider not initialized! Metadata not specified!");
 			if(Metadata.Parent==null) throw new InvalidOperationException("Provider not initialized! Metadata.Parent not specified!");
-			if(m_CollectionChangedCallback!=null) m_CollectionChangedCallback(Metadata.Parent, e);
+			if(_collectionChangedCallback!=null) _collectionChangedCallback(Metadata.Parent, e);
 		}
 
 

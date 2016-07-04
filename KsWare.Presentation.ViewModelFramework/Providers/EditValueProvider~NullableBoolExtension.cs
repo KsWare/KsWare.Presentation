@@ -11,8 +11,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		class NullableBoolExtension : Extension, IEditValueProviderNullableBoolExtension {
 
-			private bool? m_Value;
-			private bool m_ValueIsInitialized;
+			private bool? _value;
+			private bool _valueIsInitialized;
 
 			public NullableBoolExtension(EditValueProvider provider) : base(provider) {}
 
@@ -22,21 +22,21 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <remarks>Use <see cref="BoolNullable"/> to bind e.g. <see cref="CheckBox.IsChecked"/> property</remarks>
 			public bool? Value {
 				get {
-					if (!m_ValueIsInitialized) {UpdateValue(false);m_ValueIsInitialized=true;}
-					return m_Value;
+					if (!_valueIsInitialized) {UpdateValue(false);_valueIsInitialized=true;}
+					return _value;
 				}
 				set {
-					if(Equals(m_Value,value)) return;
-					m_Value = value;
-					m_ValueIsInitialized = true;
+					if(Equals(_value,value)) return;
+					_value = value;
+					_valueIsInitialized = true;
 					UpdateSource();
 				}
 			}
 
 			private void UpdateSource() {
 				if (ViewModel.ValueType==typeof(bool)) {
-					if (m_Value == null) UpdateSource(false);
-					else UpdateSource(m_Value);
+					if (_value == null) UpdateSource(false);
+					else UpdateSource(_value);
 				} else {
 					throw new InvalidOperationException("NullableBool is not supported for this view model! ErrorID:{9410E750-C087-46FD-B06A-2C0F45DFC33F}");
 				}
@@ -60,9 +60,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 					throw new InvalidOperationException("NullableBool is not supported for this view model! ErrorID:{C8B4B237-5E97-40FC-A8A1-58A495F9A83E}");
 				}
 				
-				if (Equals(m_Value, newValue)) return false;
-				m_Value = newValue;
-				if (raiseEvents) OnPropertyChanged("Value"); 
+				if (Equals(_value, newValue)) return false;
+				_value = newValue;
+				if (raiseEvents) OnPropertyChanged(nameof(Value)); 
 				return true;
 			}
 

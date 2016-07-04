@@ -7,12 +7,12 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 
 	public class FrameworkElementAdorner : Adorner {
 
-		private AdornerLayer m_AdornerLayer;
+		private AdornerLayer _adornerLayer;
 
 		public FrameworkElementAdorner(UIElement adornedElement) : base(adornedElement) {
 			IsHitTestVisible = false;
-			m_AdornerLayer = AdornerLayer.GetAdornerLayer(AdornedElement);
-			m_AdornerLayer.Add(this);
+			_adornerLayer = AdornerLayer.GetAdornerLayer(AdornedElement);
+			_adornerLayer.Add(this);
 		}
 
 		public DropPosition Position { get; set; }
@@ -20,7 +20,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 		public DragDropEffects DropEffect { get; set; }
 
 		internal void Update() {
-			m_AdornerLayer.Update(AdornedElement);
+			_adornerLayer.Update(AdornedElement);
 			Visibility = Visibility.Visible;
 		}
 

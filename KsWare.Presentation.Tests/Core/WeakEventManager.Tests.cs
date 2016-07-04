@@ -202,7 +202,7 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public class MyEventListener {
 
-			private IEventHandle m_MyEventHolder;
+			private IEventHandle _MyEventHolder;
 			public int Count;
 
 			public MyEventListener() {
@@ -210,7 +210,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 
 			public void Listen(MyEventProvider provider) {
-				m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+				_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, EventArgs eventArgs) { Count++; }
@@ -239,7 +239,7 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public class MyEventListener1EventHandler<TEventArgs> where TEventArgs:EventArgs {
 
-			private IEventHandle m_MyEventHolder;
+			private IEventHandle _MyEventHolder;
 			public int Count;
 
 			public MyEventListener1EventHandler() {
@@ -247,7 +247,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 
 			public void Listen(MyEventProvider1EventHandler<TEventArgs> provider) {
-				m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+				_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, TEventArgs eventArgs) { Count++; }
@@ -273,7 +273,7 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public class MyEventListener2 {
 
-			private IEventHandle m_MyEventHolder;
+			private IEventHandle _MyEventHolder;
 			public int Count;
 
 			public MyEventListener2() {
@@ -281,7 +281,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 
 			public void Listen(MyEventProvider2 provider) {
-				m_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
+				_MyEventHolder=provider.MyEvent.RegisterWeak(AtMyEvent);
 			}
 
 			private void AtMyEvent(object sender, EventArgs eventArgs) { Count++; }

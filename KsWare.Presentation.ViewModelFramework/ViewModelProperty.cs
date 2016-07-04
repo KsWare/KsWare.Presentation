@@ -80,13 +80,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 			return key;
 		}
 
-		private readonly string m_Name;
-		private readonly Type m_PropertyType;
-		private readonly Type m_OwnerType;
-		private readonly ValidateValueCallback m_ValidateValueCallback;
-		private readonly ViewModelMetadata m_DefaultMetadata;
-		private readonly bool m_ReadOnly;
-		private readonly int m_GlobalIndex=++__lastGlobalIndex;
+		private readonly string _Name;
+		private readonly Type _PropertyType;
+		private readonly Type _OwnerType;
+		private readonly ValidateValueCallback _ValidateValueCallback;
+		private readonly ViewModelMetadata _DefaultMetadata;
+		private readonly bool _ReadOnly;
+		private readonly int _GlobalIndex=++__lastGlobalIndex;
 
 		/// <summary> Initializes a new instance of the <see cref="ViewModelProperty"/> class.
 		/// </summary>
@@ -98,48 +98,48 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="readOnly">if set to <c>true</c> [read only].</param>
 		/// <remarks></remarks>
 		protected ViewModelProperty (string name, Type propertyType, Type ownerType, ViewModelMetadata typeMetadata, ValidateValueCallback validateValueCallback, bool readOnly) {
-			this.m_Name                  = name                 ;
-			this.m_PropertyType          = propertyType         ;
-			this.m_OwnerType             = ownerType            ;
-			this.m_DefaultMetadata       = typeMetadata         ;
-			this.m_ValidateValueCallback = validateValueCallback;
-			this.m_ReadOnly              = readOnly             ;
+			_Name                  = name                 ;
+			_PropertyType          = propertyType         ;
+			_OwnerType             = ownerType            ;
+			_DefaultMetadata       = typeMetadata         ;
+			_ValidateValueCallback = validateValueCallback;
+			_ReadOnly              = readOnly             ;
 		}
 
 		/// <summary> Gets the name of the dependency property. 
 		/// </summary>
 		/// <value>The name of the property.</value>
-		public string Name {get {return this.m_Name;}}
+		public string Name {get {return this._Name;}}
 
 		/// <summary> Gets the type that the dependency property uses for its value.
 		/// </summary>
 		/// <value>The <see cref="Type"/> of the property value.</value>
-		public Type PropertyType {get {return this.m_PropertyType;}}
+		public Type PropertyType {get {return this._PropertyType;}}
 
 		/// <summary> Gets the type of the object that registered the property with the property system, or added itself as owner of the property. 
 		/// </summary>
 		/// <value>The type of the object that registered the property or added itself as owner of the property.</value>
-		public Type OwnerType {get {return this.m_OwnerType;}}
+		public Type OwnerType {get {return this._OwnerType;}}
 
 		/// <summary> Gets the value validation callback for the dependency property.
 		/// </summary>
 		/// <value>The value validation callback for this property, as provided for the validateValueCallback parameter in the original property registration.</value>
-		public ValidateValueCallback ValidateValueCallback {get {return this.m_ValidateValueCallback;}}
+		public ValidateValueCallback ValidateValueCallback {get {return this._ValidateValueCallback;}}
 
 		/// <summary> Gets a value that indicates whether the property identified by this <see cref="ViewModelProperty"/> instance is a read-only property.
 		/// </summary>
 		/// <value>true if the dependency property is read-only; otherwise, false.</value>
-		public bool ReadOnly { get {return m_ReadOnly;} }
+		public bool ReadOnly { get {return _ReadOnly;} }
 
 		/// <summary> Gets an internally generated value that uniquely identifies the property.
 		/// </summary>
 		/// <value>A unique numeric identifier.</value>
-		public int GlobalIndex { get {return m_GlobalIndex;} }
+		public int GlobalIndex { get {return _GlobalIndex;} }
 
 		/// <summary> Gets the default metadata of the property. 
 		/// </summary>
 		/// <value>The default metadata of the property.</value>
-		public ViewModelMetadata DefaultMetadata {get {return m_DefaultMetadata;}}
+		public ViewModelMetadata DefaultMetadata {get {return _DefaultMetadata;}}
 
 		/// <summary> [NOT IMPLEMENTED] Adds the owner for this property
 		/// </summary>
@@ -204,8 +204,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			private static PropertyInfo GetProperty([NotNull] string name, [NotNull] Type ownerType) {
 				#region parameter verification
-				if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-				if(ownerType==null) throw new ArgumentNullException("ownerType");
+				if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+				if(ownerType==null) throw new ArgumentNullException(nameof(ownerType));
 				#endregion
 
 				var n=GetPropertyName(name, ownerType);
@@ -232,7 +232,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 			#endregion
 
-			readonly PropertyInfo m_PropertyInfo;
+			readonly PropertyInfo _PropertyInfo;
 
 			/// <summary> Initializes a new instance of the <see cref="ViewModelProperty.RuntimeProperty"/> class.
 			/// </summary>
@@ -244,7 +244,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			/// <param name="readOnly"></param>
 			internal RuntimeProperty(string name, Type propertyType, Type ownerType, ViewModelMetadata typeMetadata, ValidateValueCallback validateValueCallback, bool readOnly): 
 				base(name, propertyType, ownerType, typeMetadata, validateValueCallback, readOnly) {
-				m_PropertyInfo = GetProperty(name,ownerType);
+				_PropertyInfo = GetProperty(name,ownerType);
 			}
 
 			/// <summary> Initializes a new instance of the <see cref="ViewModelProperty.RuntimeProperty"/> class.
@@ -257,7 +257,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
 			public PropertyInfo PropertyInfo {
-				get {return m_PropertyInfo;}
+				get {return _PropertyInfo;}
 			}
 		}
 

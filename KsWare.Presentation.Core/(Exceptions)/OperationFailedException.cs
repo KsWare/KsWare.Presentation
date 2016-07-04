@@ -9,7 +9,7 @@ namespace KsWare.Presentation {
 	/// </summary>
 	public class OperationFailedException : InvalidOperationException {
 
-		private string m_StackTrace;
+		private string _stackTrace;
 
 		public OperationFailedException() {}
 
@@ -18,7 +18,7 @@ namespace KsWare.Presentation {
 
 		public OperationFailedException(string message, StackTrace stackTrace) 
 			: base(message) {
-			m_StackTrace = stackTrace.ToString();
+			_stackTrace = stackTrace.ToString();
 		}
 
 		public OperationFailedException(string message, StackTrace stackTrace, Exception innerException) 
@@ -31,17 +31,17 @@ namespace KsWare.Presentation {
 
 		public OperationFailedException(Exception innerException, StackTrace stackTrace) 
 			: base("Operation failed.", innerException) {
-			m_StackTrace = stackTrace.ToString();
+			_stackTrace = stackTrace.ToString();
 		}
 
 		protected OperationFailedException([NotNull] SerializationInfo info, StreamingContext context) 
 			: base(info, context) {}
 
 		public OperationFailedException(string message, Exception innerException, StackTrace stackTrace) : base(message, innerException) {
-			m_StackTrace = stackTrace.ToString();
+			_stackTrace = stackTrace.ToString();
 		}
 
-		public override string StackTrace { get { return m_StackTrace?? base.StackTrace; } }
+		public override string StackTrace { get { return _stackTrace?? base.StackTrace; } }
 
 	}
 }

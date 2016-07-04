@@ -20,7 +20,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <param name="methodInvoker">The object where the method resides</param>
 		/// <returns>Returns a delegate with the same signature as eventHandlerType that calls the methodToInvoke inside</returns>
 		public static Delegate CreateDelegate(Type eventHandlerType, MethodInfo methodToInvoke, object methodInvoker) {
-			if(eventHandlerType==null) throw new ArgumentNullException("eventHandlerType");
+			if(eventHandlerType==null) throw new ArgumentNullException(nameof(eventHandlerType));
 
 			//Get the eventHandlerType signature
 			var eventHandlerInfo = eventHandlerType.GetMethod("Invoke");

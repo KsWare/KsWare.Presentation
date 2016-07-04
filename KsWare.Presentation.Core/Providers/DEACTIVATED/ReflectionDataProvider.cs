@@ -11,9 +11,9 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </remarks>
 	public class ReflectionDataProvider<TData> : DataProvider<TData>, IDataProvider {
 
-		private readonly Func<object> m_GetObject;
-		private readonly string m_Path;
-		private readonly object m_Obj;
+		private readonly Func<object> _GetObject;
+		private readonly string _Path;
+		private readonly object _Obj;
 
 		/// <summary> Initializes a new instance of the <see cref="ReflectionDataProvider{TData}"/> class.
 		/// </summary>
@@ -23,8 +23,8 @@ namespace KsWare.Presentation.Core.Providers {
 			if (getObjectFunc == null) throw new ArgumentNullException("getObjectFunc");
 			if (path == null) throw new ArgumentNullException("path");
 
-			m_GetObject = getObjectFunc;
-			m_Path      = path;
+			_GetObject = getObjectFunc;
+			_Path      = path;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="ReflectionDataProvider{TData}"/> class.
@@ -35,9 +35,9 @@ namespace KsWare.Presentation.Core.Providers {
 			if (obj == null) throw new ArgumentNullException("obj");
 			if (path == null) throw new ArgumentNullException("path");
 
-			m_Obj       = obj;
-			m_GetObject = () => m_Obj;
-			m_Path      = path;
+			_Obj       = obj;
+			_GetObject = () => _Obj;
+			_Path      = path;
 		}
 
 		/// <summary> Initializes a new instance of the <see cref="ReflectionDataProvider{TData}"/> class.
@@ -46,8 +46,8 @@ namespace KsWare.Presentation.Core.Providers {
 		public ReflectionDataProvider(string path){
 			if (path == null) throw new ArgumentNullException("path");
 
-			m_GetObject = () => ((IParentSupport)this.Parent).Parent; // we assume ValueVM.Metadata.Dataprovider structure
-			m_Path      = path;
+			_GetObject = () => ((IParentSupport)this.Parent).Parent; // we assume ValueVM.Metadata.Dataprovider structure
+			_Path      = path;
 		}
 		public override bool IsSupported {get {	return true;}		}
 
@@ -56,10 +56,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The provided data.</value>
 		public override TData Data {
 			get {
-				var obj=this.m_GetObject();
+				var obj=this._GetObject();
 				if(obj==null) throw new NullReferenceException("{14942C32-C47A-48A9-A8D9-FA455244F2B4}");//TODO
 //				var t = obj.GetType();
-//				var prop = t.GetProperty(m_Path);
+//				var prop = t.GetProperty(_Path);
 //				var value = prop.GetValue(obj, null);
 				
 				var value=new Json(obj, false, true)[m_Path].NativeValue;
@@ -70,9 +70,9 @@ namespace KsWare.Presentation.Core.Providers {
 				if(Equals(value,PreviousData)) return;
 				Validate(value);
 
-				var obj=this.m_GetObject();
+				var obj=this._GetObject();
 //				var t = obj.GetType();
-//				var prop = t.GetProperty(m_Path);
+//				var prop = t.GetProperty(_Path);
 //				prop.SetValue(obj,value,null);
 
 				new Json(obj, false, false)[m_Path] = new Json(value,false,true);

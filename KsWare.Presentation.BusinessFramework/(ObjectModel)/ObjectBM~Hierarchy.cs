@@ -15,8 +15,8 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		static readonly Dictionary<Type,List<BusinessPropertyInfo>>  RegisterChildren_PropertyInfos=new Dictionary<Type, List<BusinessPropertyInfo>>();
 		
-		private IObjectBM m_Parent;
-		private readonly List<IObjectBM> m_Children = new List<IObjectBM>();
+		private IObjectBM _parent;
+		private readonly List<IObjectBM> _children = new List<IObjectBM>();
 
 		private void InitPartHierarchy() {
 			
@@ -31,11 +31,11 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// Only the parent object itself can set this property!
 		/// </remarks>
 		public virtual IObjectBM Parent {
-			get { return m_Parent; }
+			get { return _parent; }
 			set {
-				if (Equals(m_Parent,value)) return;
-				var prev = m_Parent;
-				SetParentPattern.Execute(ref m_Parent, value, "Parent");
+				if (Equals(_parent,value)) return;
+				var prev = _parent;
+				SetParentPattern.Execute(ref _parent, value, "Parent");
 				OnParentChanged(prev,value);
 			}
 		}
@@ -66,7 +66,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the children.
 		/// </summary>
 		/// <value>The children.</value>
-		public ICollection<IObjectBM> Children { get { return m_Children.AsReadOnly(); } }
+		public ICollection<IObjectBM> Children { get { return _children.AsReadOnly(); } }
 
 		ICollection<IObjectBM> IHierarchical<IObjectBM>.Children { get { return this.Children; } }
 
@@ -117,7 +117,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			        "\n\t" + "Property: " + childHierarchical.MemberName +
 			        "\n\t" + "UniqueID: {377D83B5-E045-49D6-80DB-9CD41E8BC918}");
 
-			m_Children.Add(child);
+			_children.Add(child);
 			childHierarchical.Parent = this;
 			return child;
 		}
@@ -128,7 +128,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <remarks>
 		/// When this instance is disposed <see cref="IDisposable.Dispose"/> will be called for each registered object.
 		/// </remarks>
-		protected void RegisterDispose(IDisposable disposable) { m_DisposableObjects.Add(disposable); }
+		protected void RegisterDispose(IDisposable disposable) { _disposableObjects.Add(disposable); }
 
 		/// <summary> Gets the member path.
 		/// </summary>

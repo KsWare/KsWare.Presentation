@@ -87,9 +87,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		#endregion
 
-		private readonly Application m_Application;
-		private Type m_StartupUri;
-		private bool m_AppIsShutdown;
+		private readonly Application _application;
+		private Type _startupUri;
+		private bool _appIsShutdown;
 
 
 		/// <summary> Initializes a new instance of the <see cref="ApplicationVM"/> class.
@@ -112,17 +112,17 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 
 			if(application==null) Debug.WriteLine("WARNING: Initialize new ApplicationVM without an Application instance!"+"\n\t"+"ID:{4709307E-02BA-4478-9324-40772FCD6C1B}");
-			m_Application = application;
+			_application = application;
 
 			WindowsInternal       = RegisterChild(() => WindowsInternal, new WindowVMCollection());
 			NonAppWindowsInternal = RegisterChild(() => NonAppWindowsInternal, new WindowVMCollection());
 			RegisterChildren(_=>this);
 
-			if (m_Application != null) { //for UnitTest the application can be null
-				m_Application.Startup     += AtStartup;                             //=> Occurs when the Run method of the Application object is called.
-				m_Application.Activated   += (s, e) => OnApplicationActivated();
-				m_Application.Deactivated += (s, e) => OnApplicationDeactivated();
-				m_Application.Exit        += AtExit;                                // => Occurs just before an application shuts down, and cannot be canceled.
+			if (_application != null) { //for UnitTest the application can be null
+				_application.Startup     += AtStartup;                             //=> Occurs when the Run method of the Application object is called.
+				_application.Activated   += (s, e) => OnApplicationActivated();
+				_application.Deactivated += (s, e) => OnApplicationDeactivated();
+				_application.Exit        += AtExit;                                // => Occurs just before an application shuts down, and cannot be canceled.
 				//m_Application.SessionEnding	=> Occurs when the user ends the Windows session by logging off or shutting down the operating system.
 				//Navigation: FragmentNavigation, LoadCompleted, Navigated, Navigating, NavigationProgress, NavigationStopped, NavigationFailed, SetCookie, GetCookie.
 				Dispatcher = ApplicationDispatcher.CurrentDispatcher;
@@ -145,7 +145,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			};	
 
 			#region Unit test only
-			if (m_Application == null) {
+			if (_application == null) {
 				//Dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(() => {
 					OnStartup(null);
 					DoStartup(null, explicitStartup: true);
@@ -157,10 +157,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets or sets a UI that is automatically shown when an application starts.
 		/// </summary>
 		public Type StartupUri {
-			get { return m_StartupUri; }
+			get { return _startupUri; }
 			set {
 //				if(!typeof(IObjectVM).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","Type of IObjectVM expected!");
-				if(!typeof(WindowVM).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","Type of WindowVM expected!");
+				if(!typeof(WindowVM).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"Type of WindowVM expected!");
 				//TODO support standard startup UI resources
 				/*  Type				Window				Application type
 					--------------------------------------------------------------------------------------
@@ -171,7 +171,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				?	FlowDocument		NavigationWindow	Standalone/browser-hosted
 				?	PageFunction<T>		NavigationWindow	Standalone/browser-hosted
 				*/
-				m_StartupUri = value;
+				_startupUri = value;
 			}
 		}
 
@@ -267,9 +267,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public void Shutdown(int exitCode=0) {
 			if (IsShuttingDown) return;
-			if (m_Application != null) {
+			if (_application != null) {
 				IsShuttingDown = true;
-				m_Application.Shutdown(exitCode);// → CriticalShutdown ↷ ShutdownCallback → ShutdownImpl → DoShutdown → OnExit
+				_application.Shutdown(exitCode);// → CriticalShutdown ↷ ShutdownCallback → ShutdownImpl → DoShutdown → OnExit
 				// → AtExit → DoShutdown → OnExit
 			} else {
 				IsShuttingDown = true;
@@ -305,7 +305,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 //				if (this._events != null) this._events.Dispose();
 //				PreloadedPackages.Clear();
 //				AppSecurityManager.ClearSecurityManager();
-				m_AppIsShutdown = true;
+				_appIsShutdown = true;
 			}
 		}
 

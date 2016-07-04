@@ -96,15 +96,15 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </summary>
 	public abstract class DataProvider:IDataProvider {
 
-		private object m_Parent;
-		private bool? m_IsAutoCreated;
-		private Lazy<EventSourceStore> m_LazyWeakEventStore;
+		private object _Parent;
+		private bool? _IsAutoCreated;
+		private Lazy<EventSourceStore> _LazyWeakEventStore;
 
 		protected DataProvider() {
-			m_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
+			_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		public EventSourceStore EventSources{get { return m_LazyWeakEventStore.Value; }}
+		public EventSourceStore EventSources{get { return _LazyWeakEventStore.Value; }}
 
 		#region Implementation of IProvider
 
@@ -117,10 +117,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return m_IsAutoCreated==true; }
+			get { return _IsAutoCreated==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{E7279D65-F0FA-42BE-812F-45BA404524C8}");
-				m_IsAutoCreated = value;
+				MemberAccessUtil.DemandWriteOnce(!_IsAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{E7279D65-F0FA-42BE-812F-45BA404524C8}");
+				_IsAutoCreated = value;
 			}
 		}
 
@@ -131,14 +131,14 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The parent of this provider.</value>
 		public object Parent {
 			[CanBeNull]
-			get {return m_Parent;}
+			get {return _Parent;}
 			[NotNull]
 			set {
 				if(value==null) throw new InvalidOperationException("Parent cannot be null!");
-				MemberAccessUtil.DemandWriteOnce(this.m_Parent==null,null,this,"Parent","{B673604D-F920-4C88-80C7-416EDC0EB027}");
-				this.m_Parent = value;
+				MemberAccessUtil.DemandWriteOnce(this._Parent==null,null,this,nameof(Parent),"{B673604D-F920-4C88-80C7-416EDC0EB027}");
+				this._Parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{DE125E06-06F1-4A38-93A0-216E3ED97CE0}");
-				EventManager.Raise<EventHandler,EventArgs>(m_LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
+				EventManager.Raise<EventHandler,EventArgs>(_LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 			}
 		}
 
@@ -182,7 +182,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <param name="newData">The new data.</param>
 		protected void OnDataChanged(object previousData, object newData) {
 			EventUtil.Raise(DataChanged,this,new DataChangedEventArgs(previousData,newData),"{C1098BD7-DB9F-472F-87FE-15AD7538E886}");
-			EventManager.Raise<EventHandler<DataChangedEventArgs>,DataChangedEventArgs>(m_LazyWeakEventStore, "DataChangedEvent", new DataChangedEventArgs(previousData,newData));
+			EventManager.Raise<EventHandler<DataChangedEventArgs>,DataChangedEventArgs>(_LazyWeakEventStore, "DataChangedEvent", new DataChangedEventArgs(previousData,newData));
 		}
 
 		/// <summary> Tries to get data.
@@ -249,7 +249,7 @@ namespace KsWare.Presentation.Core.Providers {
 		protected virtual void OnPropertyChanged(string propertyName) {
 			var args = new PropertyChangedEventArgs(propertyName);
 			EventUtil.Raise(PropertyChanged,this,args,"{B82994F3-CE86-4C05-8F34-8CED8399CDAC}");
-			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(m_LazyWeakEventStore,"PropertyChangedEvent", args);
+			EventManager.Raise<PropertyChangedEventHandler,PropertyChangedEventArgs>(_LazyWeakEventStore,"PropertyChangedEvent", args);
 		}
 
 		public void Dispose() {Dispose(true); }
@@ -263,19 +263,19 @@ namespace KsWare.Presentation.Core.Providers {
 	/// </summary>
 	public abstract class DataProvider<T>:IDataProvider<T>,IDataProvider {
 
-		private bool m_IsDisposed;
-		private object m_Parent;
-		private bool? m_IsAutoCreated;
-		protected Lazy<EventSourceStore> m_LazyWeakEventStore;
+		private bool _isDisposed;
+		private object _parent;
+		private bool? _isAutoCreated;
+		protected Lazy<EventSourceStore> _LazyWeakEventStore;
 
 		/// <summary> Initializes a new instance of the <see cref="DataProvider{T}" /> class.
 		/// </summary>
 		protected DataProvider() {
-			m_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
+			_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		protected EventSourceStore EventStore{get { return m_LazyWeakEventStore.Value; }}
-		protected Lazy<EventSourceStore> LazyWeakEventStore{get { return m_LazyWeakEventStore; }}
+		protected EventSourceStore EventStore{get { return _LazyWeakEventStore.Value; }}
+		protected Lazy<EventSourceStore> LazyWeakEventStore{get { return _LazyWeakEventStore; }}
 
 		#region Implementation of IProvider
 
@@ -289,12 +289,12 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <value>The parent of this provider.</value>
 		public object Parent {
 			[CanBeNull]
-			get {return m_Parent;}
+			get {return _parent;}
 			[NotNull]
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Parent cannot be null!",this,"{28F3510D-FB94-44ED-BE16-B6A16B9F0C91}");
-				MemberAccessUtil.DemandWriteOnce(m_Parent==null,null,this,"Parent","{65A545AD-0209-4F59-9593-10B97243E955}");
-				m_Parent = value;
+				MemberAccessUtil.DemandWriteOnce(_parent==null,null,this,nameof(Parent),"{65A545AD-0209-4F59-9593-10B97243E955}");
+				_parent = value;
 				EventUtil.Raise(ParentChanged,this,EventArgs.Empty,"{05300EF3-E6DA-42C6-9592-D374725E8913}");
 				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
 			}
@@ -311,10 +311,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return m_IsAutoCreated==true; }
+			get { return _isAutoCreated==true; }
 			set {
-				MemberAccessUtil.DemandWriteOnce(!m_IsAutoCreated.HasValue,"The property can only be written once!",this,"IsAutoCreated","{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
-				m_IsAutoCreated = value;
+				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
+				_isAutoCreated = value;
 			}
 		}
 
@@ -437,10 +437,10 @@ namespace KsWare.Presentation.Core.Providers {
 
 		protected virtual void Dispose(bool explicitDispose) {
 			//TODO implement Dispose
-			if(m_IsDisposed)return;m_IsDisposed=true;
-			if (m_LazyWeakEventStore.IsValueCreated) m_LazyWeakEventStore.Value.Dispose();
-			m_LazyWeakEventStore = null;
-			m_Parent = null;
+			if(_isDisposed)return;_isDisposed=true;
+			if (_LazyWeakEventStore.IsValueCreated) _LazyWeakEventStore.Value.Dispose();
+			_LazyWeakEventStore = null;
+			_parent = null;
 		}
 	}
 

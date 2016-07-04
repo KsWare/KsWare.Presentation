@@ -21,32 +21,32 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class DisposablesCollection {
 
-		private List<object> m_InternalList=new List<object>();
+		private List<object> _internalList=new List<object>();
 
 		public T Add<T>(T disposableObject) where T : class {
-			if(m_InternalList==null) return disposableObject;
-			m_InternalList.Add(disposableObject);
+			if(_internalList==null) return disposableObject;
+			_internalList.Add(disposableObject);
 			return disposableObject;
 		}
 
 		public void Add<T>(params T[] disposableObjects) where T:class {
-			if(m_InternalList==null) return;
-			if(disposableObjects!=null) m_InternalList.AddRange(disposableObjects);
+			if(_internalList==null) return;
+			if(disposableObjects!=null) _internalList.AddRange(disposableObjects);
 		}
 
-		public void Remove<T>(T obj) where T:class { m_InternalList.Remove(obj); }
+		public void Remove<T>(T obj) where T:class { _internalList.Remove(obj); }
 
 		public void Dispose() {
-			foreach (var o in m_InternalList) {
+			foreach (var o in _internalList) {
 				var d = (IDisposable) o;
 				if(d!=null) d.Dispose();
 			}
-			m_InternalList.Clear();
-			m_InternalList = null;
+			_internalList.Clear();
+			_internalList = null;
 		}
 
 		public T RegisterEventHandler<T>( T eventHandler) {
-//			m_InternalList.Add(new Disposable(eventHandler));
+//			_InternalList.Add(new Disposable(eventHandler));
 			return eventHandler;
 		}
 

@@ -14,9 +14,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	partial class ObjectVM /*: IHierarchical<IObjectVM> */ {
 
-		private readonly List<IObjectVM> m_Children = new List<IObjectVM>();
-		private IObjectVM m_Parent;
-		private string m_MemberName;
+		private readonly List<IObjectVM> _children = new List<IObjectVM>();
+		private IObjectVM _parent;
+		private string _memberName;
 
 		private void InitPartHierarchy() {
 			
@@ -30,12 +30,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		[Localizable(false)]
 		public string MemberName {
-			get {return m_MemberName;}
+			get {return _memberName;}
 			set {
 				//TODO validations
 				//MemberAccessUtil.DemandNotNull(value,null,this,"PropertyName","{162F86E9-3E41-41B6-A6BA-6D3165487771}");
 				//MemberAccessUtil.DemandWriteOnce(this.memberName==null,null,this,"PropertyName","{A026C8CD-5974-4C67-B1DF-52CA9FA6A87B}");
-				m_MemberName = value;
+				_memberName = value;
 			}
 		}
 
@@ -46,11 +46,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// In default case the <see cref="Parent"/> should be set only by the parent itself!
 		/// </remarks>
 		public IObjectVM Parent {
-			get {return m_Parent;}
+			get {return _parent;}
 			set {
-				if(value==m_Parent) return;
-				var oldParent = m_Parent;
-				SetParentPattern.Execute(ref m_Parent, value,"Parent");
+				if(value==_parent) return;
+				var oldParent = _parent;
+				SetParentPattern.Execute(ref _parent, value,"Parent");
 				OnParentChanged(oldParent, value);
 				OnPropertyChanged("Parent");
 			}
@@ -84,7 +84,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The children.</value>
 		/// <remarks></remarks>
-		public ICollection<IObjectVM> Children {get{return this.m_Children.AsReadOnly();}}
+		public ICollection<IObjectVM> Children {get{return this._children.AsReadOnly();}}
 		
 		ICollection<IObjectVM> IHierarchical<IObjectVM>.Children {get {return Children;}}
 
@@ -110,15 +110,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 //				throw new InvalidOperationException(msg);
 //			}
 //#endif
-//			m_Children.Add(child);
+//			_Children.Add(child);
 //			SetParent(child, this);
 //			return child;
-			return ːːInterfaceHelperːRegisterChild(child, m_Children, this);
+			return ːːInterfaceHelperːRegisterChild(child, _children, this);
 		}
 
 		// [PREPARED]
-		private static TChild ːːInterfaceHelperːRegisterChild<TChild>([NotNull] TChild child, List<IObjectVM> m_Children,IObjectVM @this) where TChild : class, IObjectVM {
-			if (child == null) throw new ArgumentNullException("child");
+		private static TChild ːːInterfaceHelperːRegisterChild<TChild>([NotNull] TChild child, List<IObjectVM> _Children,IObjectVM @this) where TChild : class, IObjectVM {
+			if (child == null) throw new ArgumentNullException(nameof(child));
 			var childHierarchical = (IHierarchical<IObjectVM>) child;
 			if (childHierarchical.Parent!=null) throw new InvalidOperationException("Child is already in a hierarchy!");
 
@@ -135,7 +135,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				throw new InvalidOperationException(msg);
 			}
 #endif
-			m_Children.Add(child);
+			_Children.Add(child);
 			SetParent(child, @this);
 			return child;
 		}
@@ -207,12 +207,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private TChild RegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child,bool replaceExisting = false) where TChild : class, IObjectVM {
-			return ːːInterfaceHelperːRegisterChildInternal(propertyName, child,replaceExisting, m_Children, this);
+			return ːːInterfaceHelperːRegisterChildInternal(propertyName, child,replaceExisting, _children, this);
 		}
 
 		// [PREPARED]
-		private static TChild ːːInterfaceHelperːRegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child, bool replaceExisting, List<IObjectVM> m_Children,IObjectVM @this) where TChild : class, IObjectVM {
-			if (child == null) throw new ArgumentNullException("child");
+		private static TChild ːːInterfaceHelperːRegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child, bool replaceExisting, List<IObjectVM> _Children,IObjectVM @this) where TChild : class, IObjectVM {
+			if (child == null) throw new ArgumentNullException(nameof(child));
 //			if(!(child is IHierarchical) throw new ArgumentException("Type of children not supported!");
 
 			var hvm = (IHierarchical<IObjectVM>)child;
@@ -251,14 +251,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 				"\n\t"+"ErrorID: {377D83B5-E045-49D6-80DB-9CD41E8BC918}");
 
 			if (replaceExisting) {
-				var index = m_Children.FindIndex(x=>x.MemberName==propertyName);
+				var index = _Children.FindIndex(x=>x.MemberName==propertyName);
 				if (index >= 0) {
-					//??? m_Children[index].Dispose();
-					//??? m_Children[index].Parent = null;
-					m_Children[index] = child;
-				} else { m_Children.Add(child);}
+					//??? _Children[index].Dispose();
+					//??? _Children[index].Parent = null;
+					_Children[index] = child;
+				} else { _Children.Add(child);}
 			} else {
-				m_Children.Add(child);
+				_Children.Add(child);
 			}
 			SetParent(child, @this);
 
@@ -358,7 +358,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		private static void SetParent([NotNull] IObjectVM child, IObjectVM parent) {
 			// MemberAccessUtil.Demand.Parameter(child, "child").Not.Null;
-			if (child == null) throw new ArgumentNullException("child");
+			if (child == null) throw new ArgumentNullException(nameof(child));
 			//if(child is ObjectVM) ((ObjectVM) child).Parent = this;
 			child.Parent = parent;
 //			if (child is IHierarchical<IObjectVM>) ((IHierarchical<IObjectVM>)child).Parent = parent;

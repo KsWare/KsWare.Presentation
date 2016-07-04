@@ -37,13 +37,13 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		public bool EnableTrace { get { return (bool) GetValue(EnableTraceProperty); } set { SetValue(EnableTraceProperty, value); } }
 		#endregion EnableTrace
 
-		private bool m_IsLeftButtonDown;
-		private DraggedAdorner m_DraggedAdorner;
-		private Window m_TopWindow;
-		private Point m_InitialMousePosition;
-		private Vector m_InitialMouseOffset;
-		private bool m_IsDragging;
-		private DraggedAdorner m_DragCursorAdorner;
+		private bool _isLeftButtonDown;
+		private DraggedAdorner _draggedAdorner;
+		private Window _topWindow;
+		private Point _initialMousePosition;
+		private Vector _initialMouseOffset;
+		private bool _isDragging;
+		private DraggedAdorner _dragCursorAdorner;
 
 		protected override void OnAttached() {
 			base.OnAttached();
@@ -54,9 +54,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		private void AtMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-			m_IsLeftButtonDown = true;
-			m_TopWindow = FindWindow();
-			m_InitialMousePosition = e.GetPosition(m_TopWindow);
+			_isLeftButtonDown = true;
+			_topWindow = FindWindow();
+			_initialMousePosition = e.GetPosition(_topWindow);
 		}
 
 		private Window FindWindow() {
@@ -72,17 +72,17 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		private void AtMouseMove(object sender, MouseEventArgs e) {
 			if(e.LeftButton!=MouseButtonState.Pressed) return;
-			if(m_IsDragging) {Debug.WriteLine(e.GetPosition(m_TopWindow)); return;} 
-			if (!IsMovementBigEnough(m_InitialMousePosition, e.GetPosition(m_TopWindow))) return;
+			if(_isDragging) {Debug.WriteLine(e.GetPosition(_topWindow)); return;} 
+			if (!IsMovementBigEnough(_initialMousePosition, e.GetPosition(_topWindow))) return;
 			OnPreviewBeginDrag(e);
 		}
 
 		private void AtMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-			m_IsLeftButtonDown = false;
+			_isLeftButtonDown = false;
 		}
 
 		private void AtMouseLeave(object sender, MouseEventArgs e) {
-			if (!m_IsLeftButtonDown) return;
+			if (!_isLeftButtonDown) return;
 			OnPreviewBeginDrag(e);
 		}
 
@@ -107,24 +107,24 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			var allowedEffects=DragDropEffects.Move;
 			dragObject.OnDrag();  
 			
-			m_InitialMouseOffset = m_InitialMousePosition - AssociatedObject.TranslatePoint(new Point(0, 0), m_TopWindow);
+			_initialMouseOffset = _initialMousePosition - AssociatedObject.TranslatePoint(new Point(0, 0), _topWindow);
 			
 			// Adding events to the window to make sure dragged adorner comes up when mouse is not over a drop target.
-			bool previousAllowDrop = m_TopWindow.AllowDrop;
+			bool previousAllowDrop = _topWindow.AllowDrop;
 			CheckTopWindowBehavior();
-			m_TopWindow.AllowDrop = true;
-			m_TopWindow.PreviewDragEnter         += TopWindow_DragEnter;
-			m_TopWindow.PreviewDragOver          += TopWindow_DragOver;
-			m_TopWindow.PreviewDragLeave         += TopWindow_DragLeave;
-			m_TopWindow.PreviewQueryContinueDrag += TopWindow_QueryContinueDrag;
-			m_TopWindow.QueryCursor              += TopWindow_QueryCursor;
-			m_TopWindow.PreviewGiveFeedback      += TopWindow_GiveFeedback;
+			_topWindow.AllowDrop = true;
+			_topWindow.PreviewDragEnter         += TopWindow_DragEnter;
+			_topWindow.PreviewDragOver          += TopWindow_DragOver;
+			_topWindow.PreviewDragLeave         += TopWindow_DragLeave;
+			_topWindow.PreviewQueryContinueDrag += TopWindow_QueryContinueDrag;
+			_topWindow.QueryCursor              += TopWindow_QueryCursor;
+			_topWindow.PreviewGiveFeedback      += TopWindow_GiveFeedback;
 
-			ShowDraggedAdorner(e.GetPosition(m_TopWindow));
+			ShowDraggedAdorner(e.GetPosition(_topWindow));
 			var data = new DataObject();
 			data.SetData(dragObject.DataType, AssociatedObject.DataContext);
 
-			m_IsDragging = true;
+			_isDragging = true;
 			var dragDropEffects = System.Windows.DragDrop.DoDragDrop(AssociatedObject, data, allowedEffects);
 
 			// Without this call, there would be a bug in the following scenario: Click on a data item, and drag
@@ -136,23 +136,23 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 			Mouse.SetCursor(Cursors.Arrow); //TODO Cursors.Arrow??
 
-			m_TopWindow.AllowDrop = previousAllowDrop;
-			m_TopWindow.PreviewDragEnter         -= TopWindow_DragEnter;
-			m_TopWindow.PreviewDragOver          -= TopWindow_DragOver;
-			m_TopWindow.PreviewDragLeave         -= TopWindow_DragLeave;
-			m_TopWindow.PreviewQueryContinueDrag -= TopWindow_QueryContinueDrag;
-			m_TopWindow.QueryCursor              -= TopWindow_QueryCursor;
-			m_TopWindow.PreviewGiveFeedback      -= TopWindow_GiveFeedback;
+			_topWindow.AllowDrop = previousAllowDrop;
+			_topWindow.PreviewDragEnter         -= TopWindow_DragEnter;
+			_topWindow.PreviewDragOver          -= TopWindow_DragOver;
+			_topWindow.PreviewDragLeave         -= TopWindow_DragLeave;
+			_topWindow.PreviewQueryContinueDrag -= TopWindow_QueryContinueDrag;
+			_topWindow.QueryCursor              -= TopWindow_QueryCursor;
+			_topWindow.PreviewGiveFeedback      -= TopWindow_GiveFeedback;
 
 //			this.draggedData = null;
-			m_IsDragging = false;
+			_isDragging = false;
 
 			dragObject.OnDrop(dragDropEffects);
 		}
 
 		private void CheckTopWindowBehavior() {
-			var allowDrop = m_TopWindow.AllowDrop;
-			var dropBehavior=Interaction.GetBehaviors(m_TopWindow).OfType<FrameworkElementDropBehavior>().FirstOrDefault();
+			var allowDrop = _topWindow.AllowDrop;
+			var dropBehavior=Interaction.GetBehaviors(_topWindow).OfType<FrameworkElementDropBehavior>().FirstOrDefault();
 		}
 
 		private void TopWindow_QueryCursor(object sender, QueryCursorEventArgs e) {
@@ -170,13 +170,13 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 
 		private void TopWindow_DragEnter(object sender, DragEventArgs e) {
-			ShowDraggedAdorner(e.GetPosition(m_TopWindow));
+			ShowDraggedAdorner(e.GetPosition(_topWindow));
 			e.Effects = DragDropEffects.None;
 			//e.Handled = true;
 		}
 
 		private void TopWindow_DragOver(object sender, DragEventArgs e) {
-			ShowDraggedAdorner(e.GetPosition(m_TopWindow));
+			ShowDraggedAdorner(e.GetPosition(_topWindow));
 			e.Effects = DragDropEffects.None;
 			//e.Handled = true;
 		}
@@ -199,20 +199,20 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		private void ShowDraggedAdorner(Point currentPosition) {
 
 			if (DragCursor != null) {
-				if (m_DragCursorAdorner == null) {
+				if (_dragCursorAdorner == null) {
 					//var adornerLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
-					var adornerLayer = AdornerLayer.GetAdornerLayer((Visual) m_TopWindow.Content);
+					var adornerLayer = AdornerLayer.GetAdornerLayer((Visual) _topWindow.Content);
 					if (adornerLayer == null) { throw new InvalidOperationException("AdornerLayer not found! ErrorID:{BD0E7004-B8AA-4DE3-87E0-367050336E9C}");}
-					m_DragCursorAdorner = new DraggedAdorner(AssociatedObject.DataContext, DragCursor, AssociatedObject, adornerLayer);
+					_dragCursorAdorner = new DraggedAdorner(AssociatedObject.DataContext, DragCursor, AssociatedObject, adornerLayer);
 				}
-				m_DragCursorAdorner.SetPosition(currentPosition.X - m_InitialMousePosition.X + m_InitialMouseOffset.X, currentPosition.Y - m_InitialMousePosition.Y + m_InitialMouseOffset.Y);
+				_dragCursorAdorner.SetPosition(currentPosition.X - _initialMousePosition.X + _initialMouseOffset.X, currentPosition.Y - _initialMousePosition.Y + _initialMouseOffset.Y);
 			}
 
-//			if (m_DraggedAdorner == null) {
+//			if (_DraggedAdorner == null) {
 //				var adornerLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
-//				m_DraggedAdorner = new DraggedAdorner(AssociatedObject.DataContext, GetDragDropTemplate(), AssociatedObject, adornerLayer);
+//				_DraggedAdorner = new DraggedAdorner(AssociatedObject.DataContext, GetDragDropTemplate(), AssociatedObject, adornerLayer);
 //			}
-//			m_DraggedAdorner.SetPosition(currentPosition.X - this.m_InitialMousePosition.X + this.m_InitialMouseOffset.X, currentPosition.Y - this.m_InitialMousePosition.Y + this.m_InitialMouseOffset.Y);
+//			_DraggedAdorner.SetPosition(currentPosition.X - this._InitialMousePosition.X + this._InitialMouseOffset.X, currentPosition.Y - this._InitialMousePosition.Y + this._InitialMouseOffset.Y);
 		}
 
 
@@ -239,14 +239,14 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		private void RemoveDraggedAdorner() {
 
-			if (m_DragCursorAdorner != null) {
-				m_DragCursorAdorner.Detach();
-				m_DragCursorAdorner = null;
+			if (_dragCursorAdorner != null) {
+				_dragCursorAdorner.Detach();
+				_dragCursorAdorner = null;
 			}
 
-			if (m_DraggedAdorner != null) {
-				m_DraggedAdorner.Detach();
-				m_DraggedAdorner = null;
+			if (_draggedAdorner != null) {
+				_draggedAdorner.Detach();
+				_draggedAdorner = null;
 			}
 		}
 

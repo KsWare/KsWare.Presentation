@@ -17,12 +17,12 @@ namespace KsWare.Presentation {
 
 		private static readonly TargetInvocationException SampleTargetInvocationException=new TargetInvocationException(new Exception("dummy")); 
 		
-		private readonly List<Exception> m_Exceptions=new List<Exception>();
+		private readonly List<Exception> _Exceptions=new List<Exception>();
 
 		/// <summary> Initializes a new instance of the <see cref="MultiTargetInvocationException"/> class.
 		/// </summary>
 		public MultiTargetInvocationException(IEnumerable<Exception> exceptions) : base(SampleTargetInvocationException.Message) {
-			m_Exceptions.AddRange(exceptions);
+			_Exceptions.AddRange(exceptions);
 		}
 
 		/// <summary>
@@ -32,9 +32,9 @@ namespace KsWare.Presentation {
 		/// <param name="exceptions">The exceptions.</param>
 		public MultiTargetInvocationException(string message,[NotNull] IEnumerable<TargetInvocationException> exceptions): base(message) {
 			if (exceptions == null) 
-				throw new ArgumentNullException("exceptions");
+				throw new ArgumentNullException(nameof(exceptions));
 			
-			m_Exceptions.AddRange(exceptions);
+			_Exceptions.AddRange(exceptions);
 		}
 
 //		/// <summary> Initializes a new instance of the <see cref="MultiTargetInvocationException"/> class.
@@ -71,7 +71,7 @@ namespace KsWare.Presentation {
 		/// <value>The exceptions.</value>
 		public ReadOnlyCollection<Exception> Exceptions {
 			get {
-				return m_Exceptions.AsReadOnly();
+				return _Exceptions.AsReadOnly();
 			}
 		}
 

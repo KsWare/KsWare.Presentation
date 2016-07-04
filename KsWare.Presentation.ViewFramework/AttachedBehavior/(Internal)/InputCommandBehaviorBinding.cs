@@ -63,7 +63,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 
 		//Creates an EventHandler on runtime and registers that handler to the Event specified
 		public override void Bind(DependencyObject owner) {
-			if (owner == null) throw new ArgumentNullException("owner");
+			if (owner == null) throw new ArgumentNullException(nameof(owner));
 			Owner = owner;
 			InputBinding = new System.Windows.Input.MouseBinding {
 				MouseAction      = MouseAction, 

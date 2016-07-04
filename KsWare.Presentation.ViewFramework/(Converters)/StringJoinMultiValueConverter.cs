@@ -20,7 +20,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
 			if (targetType == null || targetType==typeof(Object)) targetType = typeof (string);
-			if(targetType != typeof(string)) throw new ArgumentOutOfRangeException("targetType", "StringJoinMultiValueConverter does not support conversion to "+targetType.FullName+".");
+			if(targetType != typeof(string)) throw new ArgumentOutOfRangeException(nameof(targetType), "StringJoinMultiValueConverter does not support conversion to "+targetType.FullName+".");
 			if(values==null) return null;
 			var separator = parameter == null ? "" : parameter.ToString();
 

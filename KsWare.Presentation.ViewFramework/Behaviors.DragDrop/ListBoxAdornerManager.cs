@@ -5,24 +5,24 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 
 	public class ListBoxAdornerManager {
 
-		private AdornerLayer m_AdornerLayer;
-		private ListBoxAdorner m_Adorner;
+		private AdornerLayer _adornerLayer;
+		private ListBoxAdorner _adorner;
 
-		private bool m_ShouldCreateNewAdorner = false;
+		private bool _shouldCreateNewAdorner = false;
 
-		internal ListBoxAdornerManager(AdornerLayer layer) { m_AdornerLayer = layer; }
+		internal ListBoxAdornerManager(AdornerLayer layer) { _adornerLayer = layer; }
 
 		internal void Update(UIElement adornedElement, bool isAboveElement) {
-			if (m_Adorner != null && !m_ShouldCreateNewAdorner) {
+			if (_adorner != null && !_shouldCreateNewAdorner) {
 				//exit if nothing changed
-				if (m_Adorner.AdornedElement == adornedElement && m_Adorner.IsAboveElement == isAboveElement) return;
+				if (_adorner.AdornedElement == adornedElement && _adorner.IsAboveElement == isAboveElement) return;
 			}
 			Clear();
 			//draw new adorner
-			m_Adorner = new ListBoxAdorner(adornedElement, m_AdornerLayer);
-			m_Adorner.IsAboveElement = isAboveElement;
-			m_Adorner.Update();
-			m_ShouldCreateNewAdorner = false;
+			_adorner = new ListBoxAdorner(adornedElement, _adornerLayer);
+			_adorner.IsAboveElement = isAboveElement;
+			_adorner.Update();
+			_shouldCreateNewAdorner = false;
 		}
 
 
@@ -30,9 +30,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 		/// Remove the adorner 
 		/// </summary>
 		internal void Clear() {
-			if (m_Adorner != null) {
-				m_Adorner.Remove();
-				m_ShouldCreateNewAdorner = true;
+			if (_adorner != null) {
+				_adorner.Remove();
+				_shouldCreateNewAdorner = true;
 			}
 		}
 

@@ -84,13 +84,13 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 	/// </summary>
 	public class CustomNewItemProvider:Provider,INewItemProvider {
 
-		private CreateNewItemCallbackHandler m_CreateNewItemCallback;
+		private CreateNewItemCallbackHandler _createNewItemCallback;
 
 		/// <summary> Initializes a new instance of the <see cref="CustomNewItemProvider"/> class.
 		/// </summary>
 		/// <param name="createNewItemCallback">The create new item callback.</param>
 		public CustomNewItemProvider(CreateNewItemCallbackHandler createNewItemCallback) {
-			m_CreateNewItemCallback = createNewItemCallback;
+			_createNewItemCallback = createNewItemCallback;
 		}
 
 		/// <summary> Gets a value indicating whether the provider is supported.
@@ -102,10 +102,10 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		/// </summary>
 		/// <value>The create new item callback.</value>
 		public CreateNewItemCallbackHandler CreateNewItemCallback {
-			get {return m_CreateNewItemCallback;}
+			get {return _createNewItemCallback;}
 			set {
-				if(m_CreateNewItemCallback!=null) throw new InvalidOperationException("CreateNewItemCallback already specified!");
-				m_CreateNewItemCallback=value;
+				if(_createNewItemCallback!=null) throw new InvalidOperationException("CreateNewItemCallback already specified!");
+				_createNewItemCallback=value;
 			}
 		}
 
@@ -116,8 +116,8 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		/// <returns>The new item</returns>
 		[SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
 		public TItem CreateItem<TItem>(object data) /*where TItem:IObjectBM*/  { 
-			if(m_CreateNewItemCallback==null) throw new InvalidOperationException("CreateNewItemCallback not specified!");
-			return (TItem) m_CreateNewItemCallback(data);
+			if(_createNewItemCallback==null) throw new InvalidOperationException("CreateNewItemCallback not specified!");
+			return (TItem) _createNewItemCallback(data);
 		}
 
 	}

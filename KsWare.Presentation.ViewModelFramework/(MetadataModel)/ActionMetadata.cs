@@ -10,7 +10,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <remarks></remarks>
 	public class ActionMetadata:ViewModelMetadata {
 
-		private IActionProvider m_ActionProvider;
+		private IActionProvider _actionProvider;
 
 		/// <summary> Initializes a new instance of the <see cref="ActionMetadata"/> class.
 		/// </summary>
@@ -45,22 +45,22 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public IActionProvider ActionProvider {
 			get {
 				// lazy initialization
-				if(m_ActionProvider==null) {
-					m_ActionProvider = CreateDefaultActionProvider();
-					m_ActionProvider.Parent = this;
-					OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(null,m_ActionProvider));
+				if(_actionProvider==null) {
+					_actionProvider = CreateDefaultActionProvider();
+					_actionProvider.Parent = this;
+					OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(null,_actionProvider));
 					OnPropertyChanged("HasActionProvider");
 				}
-				return m_ActionProvider;
+				return _actionProvider;
 			}
 			set {
 				var oldHasActionProvider = HasActionProvider;
-				var oldActionProvider = m_ActionProvider;
+				var oldActionProvider = _actionProvider;
 				if(value==null) throw new InvalidOperationException("ActionProvider must not be null!");
-				if(m_ActionProvider!=null) DemandPropertySet();
-				m_ActionProvider = value;
-				m_ActionProvider.Parent = this;
-				OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldActionProvider,m_ActionProvider));
+				if(_actionProvider!=null) DemandPropertySet();
+				_actionProvider = value;
+				_actionProvider.Parent = this;
+				OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldActionProvider,_actionProvider));
 				if(HasActionProvider!=oldHasActionProvider) OnPropertyChanged("HasActionProvider");
 			}
 		}
@@ -70,7 +70,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>
 		/// <c>true</c> if this instance has action provider; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasActionProvider { get { return m_ActionProvider != null; } }
+		public bool HasActionProvider { get { return _actionProvider != null; } }
 
 		protected virtual void OnActionProviderChanged(ValueChangedEventArgs<IActionProvider> e) {
 			//OnPropertyChanged("ActionProvider");
@@ -83,13 +83,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public void ChangeActionProvider(IActionProvider actionProvider) {
 			DemandNotNull(actionProvider);
-			if(Equals(m_ActionProvider,actionProvider)) return;
+			if(Equals(_actionProvider,actionProvider)) return;
 
-			var oldProvider = m_ActionProvider;
+			var oldProvider = _actionProvider;
 //			if(oldProvider!=null && oldProvider.Data!=null) throw new InvalidOperationException("DataProvider is in use! ErrorID: {3F43DE4B-737C-4D62-B764-A5B23957D813}");
 
-			m_ActionProvider = actionProvider;
-			m_ActionProvider.Parent = this;
+			_actionProvider = actionProvider;
+			_actionProvider.Parent = this;
 			OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldProvider,actionProvider));
 			OnPropertyChanged("HasDataProvider");
 
@@ -119,7 +119,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class ActionMetadataAttribute : ViewModelMetadataAttribute {
 
-		private Type m_ActionProvider;
+		private Type _actionProvider;
 
 		/// <summary> Gets or sets the type of action provider. 
 		/// The action provider must implement <see cref="IActionProvider"/>
@@ -127,10 +127,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of action provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IActionProvider"/>!</exception>
 		public Type ActionProvider {
-			get { return m_ActionProvider; }
+			get { return _actionProvider; }
 			set {
-				if (!typeof (IActionProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","The type does not implement IActionProvider!");
-				m_ActionProvider = value;
+				if (!typeof (IActionProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IActionProvider!");
+				_actionProvider = value;
 			}
 		}
 	}

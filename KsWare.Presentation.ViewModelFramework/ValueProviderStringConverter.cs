@@ -40,9 +40,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public static ValueProviderStringConverter Default=new ValueProviderStringConverter();
 
-		private Lazy<ConversionOptions> m_LazyOptions=new Lazy<ConversionOptions>(()=>new ConversionOptions());
+		private Lazy<ConversionOptions> _lazyOptions=new Lazy<ConversionOptions>(()=>new ConversionOptions());
 
-		public ConversionOptions Options { get { return m_LazyOptions.Value; } }
+		public ConversionOptions Options { get { return _lazyOptions.Value; } }
 
 		/// <summary> Returns whether this converter can convert an object of the given type to the type of this converter, using the specified context.
 		/// </summary>

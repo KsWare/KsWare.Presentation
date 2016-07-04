@@ -6,8 +6,8 @@ namespace KsWare.Presentation {
 	/// </summary>
 	internal sealed class EventContainer {
 
-		private EventHandle m_EventHandle;
-		private WeakReference m_WeakEventHandleWeakRef;
+		private EventHandle _eventHandle;
+		private WeakReference _weakEventHandleWeakRef;
 
 		/// <summary> Initializes a new instance of the <see cref="EventContainer"/> class.
 		/// </summary>
@@ -15,9 +15,9 @@ namespace KsWare.Presentation {
 		/// <param name="keepAlive">if set to <c>true</c> the <see cref="EventHandle"/> is kept alive.</param>
 		public EventContainer(EventHandle eventHandle, bool keepAlive) {
 			if (keepAlive) {
-				m_EventHandle = eventHandle;
+				_eventHandle = eventHandle;
 			} else {
-				m_WeakEventHandleWeakRef = new WeakReference(eventHandle);
+				_weakEventHandleWeakRef = new WeakReference(eventHandle);
 			}
 			KeepAlive = keepAlive;
 		}
@@ -25,7 +25,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the weak event handle.
 		/// </summary>
 		/// <value>a reference to <see cref="EventHandle"/> or <c>null</c> if the <see cref="EventHandle"/> has been garbage collected or container disposed.</value>
-		public EventHandle EventHandle { get { return  (m_EventHandle ?? (m_WeakEventHandleWeakRef!=null ? (EventHandle) m_WeakEventHandleWeakRef.Target : null ) ); } }
+		public EventHandle EventHandle { get { return  (_eventHandle ?? (_weakEventHandleWeakRef!=null ? (EventHandle) _weakEventHandleWeakRef.Target : null ) ); } }
 
 		/// <summary> Gets a value indicating whether the <see cref="EventHandle"/> is kept alive.
 		/// </summary>
@@ -36,8 +36,8 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <remarks>Does not dispose the stored <see cref="EventHandle"/>. Only the reference to it is removed.</remarks>
 		public void Dispose() {
-			m_EventHandle = null;
-			m_WeakEventHandleWeakRef = null;
+			_eventHandle = null;
+			_weakEventHandleWeakRef = null;
 		}
 
 	}
