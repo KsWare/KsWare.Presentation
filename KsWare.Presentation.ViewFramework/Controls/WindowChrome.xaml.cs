@@ -18,8 +18,11 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 	[TemplatePart(Name="PART_ExitFullscreen"  ,Type=typeof(Button))]
 	public partial class WindowChrome:ContentControl {
 
+		const Key FullscreenHotkey = Key.F11;
+
 		private Window _window;
 		private decimal _lastF11Timestamp;
+		WindowChromeBehavior _windowChromeBehavior;
 
 		// ReSharper disable InconsistentNaming
 		private Panel PART_TitleBar;
@@ -33,15 +36,11 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 		private Button PART_ExitFullscreen;
 		// ReSharper restore InconsistentNaming
 
-		WindowChromeBehavior _WindowChromeBehavior;
-
-		const Key FullscreenHotkey = Key.F11;
-
 		public static readonly DependencyProperty IsFullscreenProperty =
 			DependencyProperty.Register("IsFullscreen", typeof (bool), typeof (WindowChrome), new PropertyMetadata(false, (o, e) => ((WindowChrome)o).AtIsFullscreenChanged(o, e)));
 
 		private void AtIsFullscreenChanged(object sender, DependencyPropertyChangedEventArgs e) {
-			_WindowChromeBehavior.IsFullscreen = (bool)e.NewValue;
+			_windowChromeBehavior.IsFullscreen = (bool)e.NewValue;
 		}
 
 		public bool IsFullscreen {
@@ -68,7 +67,7 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 
 			_window = Window;
 			if(!DesignerProperties.GetIsInDesignMode(this) && _window!=null) {
-				_WindowChromeBehavior = new WindowChromeBehavior {
+				_windowChromeBehavior = new WindowChromeBehavior {
 					ResizeBorderWidth    = 3, 
 					TitleBar             = PART_TitleBar, 
 					Border               = PART_Border,
@@ -80,8 +79,8 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 					ExitFullScreenButton = PART_ExitFullscreen,
 					VirtualCaptionHeight = 50
 				};
-				_WindowChromeBehavior.IsFullscreenChanged+= (s,e) => IsFullscreen = _WindowChromeBehavior.IsFullscreen;
-				Interaction.GetBehaviors(Window).Add(_WindowChromeBehavior);
+				_windowChromeBehavior.IsFullscreenChanged+= (s,e) => IsFullscreen = _windowChromeBehavior.IsFullscreen;
+				Interaction.GetBehaviors(Window).Add(_windowChromeBehavior);
 			}
 		}
 

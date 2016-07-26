@@ -173,7 +173,7 @@
     <Resource Include="AttachedBehavior\#docu\info.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Behaviors.Busy\Hourglass.xaml">
+    <Page Include="Behaviors.Busy\HourglassViewbox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

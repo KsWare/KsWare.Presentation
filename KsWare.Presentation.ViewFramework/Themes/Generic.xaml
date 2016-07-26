@@ -6,8 +6,9 @@
 	mc:Ignorable="d" 
 >
 	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="/KsWare.Presentation;component/Themes/Styles/BusyAdornerVisual.xaml"/>
-		<ResourceDictionary Source="/KsWare.Presentation;component/ViewFramework/Controls/WindowChrome.xaml"/>
+		<ResourceDictionary Source="/KsWare.Presentation.ViewFramework;component/Themes/Styles/BusyAdornerVisual.xaml"/>
+		<ResourceDictionary Source="/KsWare.Presentation.ViewFramework;component/Controls/WindowChrome.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
-    
+
+	<Style x:Key="WorkaroundDontRemoveThisDummyStyle" />
 </ResourceDictionary>

@@ -93,7 +93,7 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
-	<Style TargetType="controls:WindowChrome">
+	<Style TargetType="{x:Type controls:WindowChrome}">
 		<Setter Property="Template" Value="{StaticResource WindowChrome.ControlTemplate}" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"/>

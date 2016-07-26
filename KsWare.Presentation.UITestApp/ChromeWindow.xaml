@@ -1,0 +1,25 @@
+﻿<Window 
+	x:Class="KsWare.Presentation.UITestApp.ChromeWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
+    xmlns:controls="clr-namespace:KsWare.Presentation.ViewFramework.Controls;assembly=KsWare.Presentation.ViewFramework"
+    mc:Ignorable="d"
+    Title="ChromeWindow" Height="300" Width="300"
+>
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+<!--				<ResourceDictionary Source="/KsWare.Presentation.ViewFramework;component/Themes/Generic.xaml"/>-->
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+	<controls:WindowChrome BorderThickness="1" >
+<!--	<controls:WindowChrome BorderThickness="1" >-->
+		<Grid>
+			<TextBox Text="Eine TextBox"/>
+		</Grid>
+	</controls:WindowChrome>
+</Window>

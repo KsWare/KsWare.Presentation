@@ -4,7 +4,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors"
-	xmlns:viewFramework="clr-namespace:KsWare.Presentation.ViewFramework"
+	xmlns:vf="clr-namespace:KsWare.Presentation.ViewFramework"
 	mc:Ignorable="d" 
 >
 	<Style TargetType="{x:Type behaviors:BusyAdornerVisual}">
@@ -23,7 +23,7 @@
 					<Grid 
 						Background="{TemplateBinding Background}"	
 					>
-						<viewFramework:HourglassViewbox RenderTransformOrigin="0.5, 0.5" Height="50" Width="50">
+						<vf:HourglassViewbox RenderTransformOrigin="0.5, 0.5" Height="50" Width="50">
 							<UIElement.RenderTransform>
 								<RotateTransform/>
 							</UIElement.RenderTransform>
@@ -36,7 +36,7 @@
 									</BeginStoryboard>
 								</EventTrigger>
 							</FrameworkElement.Triggers>
-						</viewFramework:HourglassViewbox>
+						</vf:HourglassViewbox>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

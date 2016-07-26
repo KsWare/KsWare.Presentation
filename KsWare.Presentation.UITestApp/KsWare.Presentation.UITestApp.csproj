@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ChromeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CommandVisibilityBindingTests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,6 +76,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ChromeWindow.xaml.cs">
+      <DependentUpon>ChromeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommandVisibilityBindingTests.xaml.cs">
       <DependentUpon>CommandVisibilityBindingTests.xaml</DependentUpon>

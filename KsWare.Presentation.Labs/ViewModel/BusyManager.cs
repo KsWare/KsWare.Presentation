@@ -50,7 +50,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	///	    &lt;/Style>
 	/// &lt;/ResourceDictionary>
 	/// </code>
-	/// default style: /KsWare.Presentation;component/Themes/Styles/BusyAdornerVisual.xaml
+	/// default style: /KsWare.Presentation.ViewFramework;component/Themes/Styles/BusyAdornerVisual.xaml
 	/// </para> 
 	/// </example>	
 	public class BusyManager:Singleton<BusyManager> {
