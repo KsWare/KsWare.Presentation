@@ -36,15 +36,15 @@ namespace KsWare.Presentation.BusinessFramework {
 				if (Equals(_parent,value)) return;
 				var prev = _parent;
 				SetParentPattern.Execute(ref _parent, value, "Parent");
-				OnParentChanged(prev,value);
+				OnParentChanged(new ValueChangedEventArgs(prev,value));
 			}
 		}
 
 		/// <summary> Raises the <see cref="ParentChanged"/> event.
 		/// </summary>
-		protected virtual void OnParentChanged(object previousParent, object newParent) {
-			EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{351F875B-5BC8-491F-B783-EA2B0D204F74}");
-			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
+		protected virtual void OnParentChanged(ValueChangedEventArgs e) {
+			EventUtil.Raise(ParentChanged, this, e, "{351F875B-5BC8-491F-B783-EA2B0D204F74}");
+			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", e);
 		}
 
 		/// <summary> Occurs when the <see cref="Parent"/> property has been changed.

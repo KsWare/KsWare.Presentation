@@ -107,14 +107,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 			EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"CanExecuteChangedEvent",EventArgs.Empty);
 		}
 
-		protected override void OnParentChanged(object oldParent, object newParent) {
-			base.OnParentChanged(oldParent, newParent);
-			if (newParent != null) {
+		protected override void OnParentChanged(ValueChangedEventArgs e) {
+			base.OnParentChanged(e);
+			RegisterActionMethod(e);
+		}
+
+		private void RegisterActionMethod(ValueChangedEventArgs e) {
+			if (e.NewValue != null) {
 				// MemberName: "EditAction" or "Edit"
 				// MethodName: "DoEdit"
 				var name = MemberName.EndsWith("Action") ? MemberName.Substring(0, MemberName.Length - 6) : MemberName;
 				string methodName= "Do"+name;
-				var methods=newParent.GetType().GetMembers(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic)
+				var methods=e.NewValue.GetType().GetMembers(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic)
 					.Where(m=>m.Name==methodName && m.MemberType==MemberTypes.Method)
 					.OfType<MethodInfo>()
 					.ToArray();
@@ -122,12 +126,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 				else if (methods.Length == 1) {
 					var parameters = methods[0].GetParameters();
 					if (parameters.Length == 0) {
-						var body   = Expression.Call(Expression.Constant(newParent), methods[0]);
+						var body   = Expression.Call(Expression.Constant(e.NewValue), methods[0]);
 						var lambda = Expression.Lambda<Action>(body);
 						MːDoAction = lambda.Compile();
 					} else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(object)) {
 						var param   = Expression.Parameter(parameters[0].ParameterType);
-						var body    = Expression.Call(Expression.Constant(newParent), methods[0],param);
+						var body    = Expression.Call(Expression.Constant(e.NewValue), methods[0],param);
 						var lambda  = Expression.Lambda<Action<object>>(body, param);
 						MːDoActionP = lambda.Compile();
 					}

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using JetBrains.Annotations;
 using KsWare.Presentation.Core.Providers;
 
@@ -33,7 +36,6 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// Called before the Metadata-property is changed.
 		/// </summary>
 		/// <param name="newMetadata">The metadata.</param>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "KsWare.Presentation.MemberAccessUtil.Demand(System.Boolean,System.String,System.Object,System.String)")]
 		protected override void OnMetadataChanging(BusinessMetadata newMetadata) {
 			MemberAccessUtil.Demand(newMetadata is BusinessActionMetadata, "Invalid type of Metadata! Type of BusinessActionMetadata expected.",this,"{F84C7FD2-E8B6-45F5-8C12-29F490CBA569}");
 			if(newMetadata.DataProvider==null) newMetadata.DataProvider = new NoDataProvider();
@@ -43,7 +45,6 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary>
 		/// Called after the Metadata-property has been changed.
 		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "KsWare.Presentation.MemberAccessUtil.Demand(System.Boolean,System.String,System.Object,System.String)")]
 		protected override void OnMetadataChanged() {
 			MemberAccessUtil.Demand(base.Metadata is BusinessActionMetadata, "Invalid type of Metadata! Type of BusinessActionMetadata expected.",this,"{67FB63AE-0DB4-4F28-832E-9E75B7C979BD}");
 			base.OnMetadataChanged();
@@ -56,6 +57,41 @@ namespace KsWare.Presentation.BusinessFramework {
 			OnTreeChanged();
 		}
 
+		protected override void OnParentChanged(ValueChangedEventArgs e) {
+			base.OnParentChanged(e);
+			RegisterActionMethod(e);
+		}
+
+		private void RegisterActionMethod(ValueChangedEventArgs e) {
+			if (e.NewValue != null) {
+				// MemberName: "EditAction" or "Edit"
+				// MethodName: "DoEdit"
+				var name = MemberName.EndsWith("Action") ? MemberName.Substring(0, MemberName.Length - 6) : MemberName;
+				string methodName= "Do"+name;
+				var methods=e.NewValue.GetType().GetMembers(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic)
+					.Where(m=>m.Name==methodName && m.MemberType==MemberTypes.Method)
+					.OfType<MethodInfo>()
+					.ToArray();
+				if (methods.Length == 0) { /*TODO LOG: No method {methodName} found. */}
+				else if (methods.Length == 1) {
+					var parameters = methods[0].GetParameters();
+					if (parameters.Length == 0) {
+						var body   = Expression.Call(Expression.Constant(e.NewValue), methods[0]);
+						var lambda = Expression.Lambda<Action>(body);
+						MːDoAction = lambda.Compile();
+					} else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(object)) {
+						var param   = Expression.Parameter(parameters[0].ParameterType);
+						var body    = Expression.Call(Expression.Constant(e.NewValue), methods[0],param);
+						var lambda  = Expression.Lambda<Action<object>>(body, param);
+						MːDoActionP = lambda.Compile();
+					}
+					else {
+						 /*TODO LOG: No method {methodName} with matching signature found. */
+						 // see http://stackoverflow.com/questions/2933221/can-you-get-a-funct-or-similar-from-a-methodinfo-object
+					}
+				}
+			}
+		}
 		/// <summary> Executes the action.
 		/// </summary>
 		/// <param name="parameter">The action parameter.</param>
@@ -78,6 +114,13 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value></value>
 		public Action MːDoAction{set { Metadata.ExecuteCallback = (s,e)=>value(); }}
+
+		/// <summary> [DRAFT] sets the Metadata.ActionProvider.ExecutedCallback
+		/// </summary>
+		/// <value></value>
+		public Action<object> MːDoActionP {
+			set { Metadata.ExecuteCallback = (s, e) => value(e.Parameter); }
+		}
 
 		/// <summary> [DRAFT 2014-05-06] sets the Metadata.ActionProvider.ExecutedCallback
 		/// </summary>

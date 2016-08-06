@@ -51,7 +51,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(value==_parent) return;
 				var oldParent = _parent;
 				SetParentPattern.Execute(ref _parent, value,"Parent");
-				OnParentChanged(oldParent, value);
+				OnParentChanged(new ValueChangedEventArgs(oldParent, value));
 				OnPropertyChanged("Parent");
 			}
 		}
@@ -67,14 +67,24 @@ namespace KsWare.Presentation.ViewModelFramework {
 			get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }
 		}
 
+//		/// <summary> Raises the <see cref="ParentChanged"/> event.
+//		/// </summary>
+//		/// <param name="oldParent"></param>
+//		/// <param name="newParent"></param>
+//		protected virtual void OnParentChanged(object oldParent, object newParent) {
+//			if (SuppressAnyEvents == 0) {
+//				EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{F53C5FB8-A3F6-4EA1-B51A-1B5481C22E1E}");
+//				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
+//			}
+//		}
+
 		/// <summary> Raises the <see cref="ParentChanged"/> event.
 		/// </summary>
-		/// <param name="oldParent"></param>
-		/// <param name="newParent"></param>
-		protected virtual void OnParentChanged(object oldParent, object newParent) {
+		/// <param name="e"></param>
+		protected virtual void OnParentChanged(ValueChangedEventArgs e) {
 			if (SuppressAnyEvents == 0) {
-				EventUtil.Raise(ParentChanged, this, EventArgs.Empty, "{F53C5FB8-A3F6-4EA1-B51A-1B5481C22E1E}");
-				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", EventArgs.Empty);
+				EventUtil.Raise(ParentChanged, this, e, "{F53C5FB8-A3F6-4EA1-B51A-1B5481C22E1E}");
+				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", e);
 			}
 		}
 
