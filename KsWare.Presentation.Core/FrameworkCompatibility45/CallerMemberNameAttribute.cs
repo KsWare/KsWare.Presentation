@@ -1,4 +1,4 @@
-﻿#if(NET40)
+﻿
 
 using System;
 using System.Collections.Generic;
@@ -45,4 +45,4 @@ namespace System.Runtime.CompilerServices {
 	}
 }
 
-#endif
+

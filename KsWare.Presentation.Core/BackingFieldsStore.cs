@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using JetBrains.Annotations;
 
@@ -87,7 +88,14 @@ namespace KsWare.Presentation {
 		}
 
 		public void Set<T>(string name, T value) { SetInternal(name,value); }
-//		public void Set<T>(T value,[CallerMemberName] string name=null ) { SetInternal(name,value); }
+
+		/// <summary>
+		/// [DRAFT] using CallerMemberName
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="value"></param>
+		/// <param name="name"></param>
+		public void Set2<T>(T value, [CallerMemberName] string name=null) { SetInternal(name,value); }
 
 //		Search:		Fields\.Set\((\(\)|_)\s*=>\s*(\w+),
 //		Replace:	Fields.Set("$2",
@@ -131,8 +139,15 @@ namespace KsWare.Presentation {
 		/// <param name="name">The name of the property.</param>
 		/// <returns>The value</returns>
 		public TRet Get<TRet>(string name) {return GetInternal(name, default(TRet)); }
-		//TODO logic to use CallerMemberName
-//		public TRet Get<TRet>([CallerMemberName] string name=null) { return GetInternal<TRet>(name,default(TRet)); }
+
+
+		/// <summary>
+		/// [DRAFT] using CallerMemberName
+		/// </summary>
+		/// <typeparam name="TRet"></typeparam>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public TRet Get2<TRet>([CallerMemberName] string name=null) { return GetInternal<TRet>(name,default(TRet)); }
 
 		/// <summary> Gets the value for the property with the specified name.
 		/// </summary>
