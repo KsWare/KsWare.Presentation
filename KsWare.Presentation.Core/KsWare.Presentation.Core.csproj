@@ -142,7 +142,6 @@
     <None Include="Documentation\WeakEvents.dgml">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="FrameworkCompatibility45\CallerMemberNameAttribute.cs" />
     <Compile Include="Logging\Flow.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\LogFilter.cs" />
@@ -162,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Diagnostics\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KsWare.Presentation.Compatibility40\KsWare.Presentation.Compatibility40.csproj">
+      <Project>{ca107315-e7f3-495d-a06e-97a8e831b744}</Project>
+      <Name>KsWare.Presentation.Compatibility40</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

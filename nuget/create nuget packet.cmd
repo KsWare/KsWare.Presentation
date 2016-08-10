@@ -76,6 +76,10 @@ xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.dll lib\n
 if errorlevel 1 set hasCopyError=true
 xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.dll lib\net40\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.xml lib\net40\ %options%
+if errorlevel 1 set hasCopyError=true
 
 :: net45
 ::xcopy ..\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net45\ %options%
@@ -99,6 +103,11 @@ if errorlevel 1 set hasCopyError=true
 xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
 xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.xml lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.dll lib\net45\ %options%
+if errorlevel 1 set hasCopyError=true
+xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
 
 
