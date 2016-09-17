@@ -130,7 +130,7 @@ namespace KsWare.Presentation {
 			lock (_EventHandleContainers) {
 				foreach (var container in _EventHandleContainers) {
 					var handle = container.EventHandle;
-					if (handle != null) handle.ReleaseBySource(); // does not call Released(..)
+					handle?.ReleaseBySource(); // does not call Released(..)
 					container.Dispose();
 				}
 				_EventHandleContainers.Clear();
@@ -156,7 +156,8 @@ namespace KsWare.Presentation {
 		/// private void AtPropertyChanged(object sender, EventArgs e) {/*do anyting*/}
 		/// </code></example>
 		public TEvent add { set { Register(value); } }
-//			public TEvent remove { set { Release(value); } }
+
+		public TEvent remove { set { Release(value,null); } }
 
 		/// <summary> Adds an event handler.
 		/// </summary>

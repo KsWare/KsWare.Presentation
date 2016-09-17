@@ -6,7 +6,20 @@ using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
-	[Obsolete(@"Requieres System.Windows.Interactivity.dll (Microsoft SDKs\Expression\Blend\.NETFramework\v4.0)")]
+	/// <summary>
+	/// Class BindableSelectedItemBehaviorV40.
+	/// </summary>
+	/// <example>
+	/// <remarks> Requires NuGet System.Windows.Interactivity.WPF 2.0.20525 </remarks>
+	/// <code>
+	///		xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity"
+	/// 
+	///		&lt;e:Interaction.Behaviors&gt;
+	///		&lt;behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedAction.Target, Mode=TwoWay}" /&gt;
+	///		&lt;/e:Interaction.Behaviors&gt;
+	/// </code>
+	/// </example>
+//	[Obsolete(@"Requieres System.Windows.Interactivity.dll (Microsoft SDKs\Expression\Blend\.NETFramework\v4.0)")]
 	public class BindableSelectedItemBehaviorV40 : Behavior<TreeView> {
 		/*
 			Reference: System.Windows.Interactivity (C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.0\Libraries\System.Windows.Interactivity.dll)
@@ -18,25 +31,22 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 		#region SelectedItem Property
 
-		public object SelectedItem {
-			get { return (object) GetValue(SelectedItemProperty); }
-			set { SetValue(SelectedItemProperty, value); }
-		}
-
 		public static readonly DependencyProperty SelectedItemProperty =
 			DependencyProperty.Register("SelectedItem", typeof (object), typeof (BindableSelectedItemBehaviorV40), new UIPropertyMetadata(null, AtSelectedItemChanged));
 
+		public object SelectedItem {get { return (object) GetValue(SelectedItemProperty); }set { SetValue(SelectedItemProperty, value); }}
+
 		private static void AtSelectedItemChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
+			var b = (BindableSelectedItemBehaviorV40) sender;
 			if (e.NewValue is TreeViewItem) {
 				var treeViewItem = (TreeViewItem) e.NewValue;
 				treeViewItem.SetValue(TreeViewItem.IsSelectedProperty, true);
-			} else if (e.NewValue is ISelectable) {
-				var selectable = (ISelectable) e.NewValue;
-				selectable.IsSelected = true;
+//			} else if (e.NewValue is ISelectable) {
+//				var selectable = (ISelectable) e.NewValue;
+//				selectable.IsSelected = true;
 			} else {
-				// The solution for this problem isn't trivial. 
-//				var treeViewItem = FindTtreeViewItem(e.NewValue);
-//				treeViewItem.SetValue(TreeViewItem.IsSelectedProperty, true);
+				var treeViewItem = BindableSelectedItemBehavior.GetTreeViewItem(b.AssociatedObject, e.NewValue);
+				treeViewItem?.SetValue(TreeViewItem.IsSelectedProperty, true);
 			}
 		}
 

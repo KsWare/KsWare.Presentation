@@ -88,9 +88,29 @@ namespace KsWare.Presentation {
 		/// </code></example>
 		TEventHandler ː { set; }
 
-//		TEvent remove { set; }
-//
-//		TEvent ｰ { set; }
+//		/// <summary> Releases an event handler.
+//		/// </summary>
+//		/// <value>The event handler</value>
+//		/// <remarks>
+//		/// This is an alternate (event remove like <c>-=</c> ) syntax to the <see cref="Release(object,string)"/> method
+//		/// </remarks>
+//		/// <example>removing a lambda:<code>MyModel.PropertyChangedEvent.remove=(s,e) => {/*do anyting*/};</code></example>
+//		/// <example>removing a method:<code>MyModel.PropertyChangedEvent.remove=AtPropertyChanged;
+//		/// private void AtPropertyChanged(object sender, EventArgs e) {/*do anyting*/}
+//		/// </code></example>
+//		TEventHandler remove { set; }
+
+//		/// <summary> Releases an event handler.
+//		/// </summary>
+//		/// <value>The event handler</value>
+//		/// <remarks>
+//		/// This is an alternate (event remove like <c>-=</c> ) syntax to the <see cref="Release(object,string)"/> method
+//		/// </remarks>
+//		/// <example>removing a lambda:<code>MyModel.PropertyChangedEvent.ｰ=(s,e) => {/*do anyting*/};</code></example>
+//		/// <example>removing a method:<code>MyModel.PropertyChangedEvent.ｰ=AtPropertyChanged;
+//		/// private void AtPropertyChanged(object sender, EventArgs e) {/*do anyting*/}
+//		/// </code></example>
+//		TEventHandler ｰ { set; }
 
 	}
 

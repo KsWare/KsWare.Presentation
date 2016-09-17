@@ -85,6 +85,7 @@
     <Compile Include="AttachedBehavior\%28Internal%29\InputCommandBehaviorBinding.cs" />
     <Compile Include="AttachedBehavior\%28Internal%29\SimpleCommand.cs" />
     <Compile Include="AttachedBehavior\Behavior.cs" />
+    <Compile Include="AttachedBehavior\BehaviorBase.cs" />
     <Compile Include="AttachedBehavior\BehaviorBindingCollection.cs" />
     <Compile Include="AttachedBehavior\EventBehavior.cs" />
     <Compile Include="AttachedBehavior\EventBinding.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="AttachedBehavior\InputBinding.cs" />
     <Compile Include="AttachedBehavior\SharedWidth.cs" />
     <Compile Include="AttachedBehavior\TreeView.cs" />
+    <Compile Include="AttachedBehavior\TreeViewVirtualizingStackPanel.cs" />
     <Compile Include="Behaviors.Busy\BusyAdornerBehavior.cs" />
     <Compile Include="Behaviors.Busy\BusyAdornerVisual.cs" />
     <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
