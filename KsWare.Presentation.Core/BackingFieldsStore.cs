@@ -188,7 +188,7 @@ namespace KsWare.Presentation {
 //		}
 
 		private void OnPropertyChanged(string propertyName, object oldValue, object newValue) {
-			_propertyChangedCallback(propertyName);
+			_propertyChangedCallback?.Invoke(propertyName);
 
 			var fieldInfo = _fields[propertyName];
 			var eventHandlerInfos = fieldInfo.EventHandlers;
