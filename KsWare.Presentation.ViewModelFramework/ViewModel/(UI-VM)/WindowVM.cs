@@ -42,13 +42,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the title view model.
 		/// </summary>
 		/// <value> The view model for title.</value>
-		public StringVM Title { get; private set; }
+		public StringVM Title { get; [UsedImplicitly] private set; }
 
-		public ActionVM MinimizeAction { get; private set; }
-		public ActionVM MaximizeAction { get; private set; }
-		public ActionVM RestoreAction { get; private set; }
-		public ActionVM FullscreenAction { get; private set; }
-		public ActionVM CloseAction { get; private set; }
+		public ActionVM MinimizeAction { get; [UsedImplicitly] private set; }
+		public ActionVM MaximizeAction { get;[UsedImplicitly]  private set; }
+		public ActionVM RestoreAction { get; [UsedImplicitly] private set; }
+		public ActionVM FullscreenAction { get; [UsedImplicitly] private set; }
+		public ActionVM CloseAction { get; [UsedImplicitly] private set; }
 
 		/// <summary> Shows the view.
 		/// </summary>
@@ -247,26 +247,37 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			#endregion
 
-			
-
 		}
 	}
 
-	public class DialogWindowVM : WindowVM {
+	public class DialogWindowVM : WindowVM,IDialogWindowVM {
 
 		/// <summary> Opens a window and returns only when the newly opened window is closed.
 		/// </summary>
 		/// <returns>A Nullable{T} value of type Boolean that specifies whether the activity was accepted (true) or canceled (false). The return value is the value of the DialogResult property before a window closes.</returns>
 		/// <seealso cref="Window.ShowDialog"/>
-		public bool? ShowDialog() { return UIAccess.Window.ShowDialog(); }
+		public bool? ShowDialog() {
+			if (!UIAccess.HasWindow) return ApplicationVM.Current.WindowsInternal.ShowDialog(this);
+			else return UIAccess.Window.ShowDialog();
+		}
+
+		/// <summary>
+		/// Gets or sets the dialog result value, which is the value that is returned from the <see cref="ShowDialog"/> method.
+		/// </summary>
+		/// <value>A System.Nullable value of type System.Boolean. The default is false.</value>
+		public bool? DialogResult { get { return UIAccess.Window.DialogResult; } set { UIAccess.Window.DialogResult = value; } }
+
 	}
 
 	/// <summary> IWindowVM
 	/// </summary>
 	/// <see cref="System.Windows.Window"/>
 	public interface IWindowVM {
+
 		ActionVM CloseAction { get; }
+
 		void Show();
+
 //		void Close();
 	}
 
@@ -274,8 +285,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </summary>
 	/// <see cref="System.Windows.DialogWindow"/>
 	public interface IDialogWindowVM {
+
 		ActionVM CloseAction { get; }
+
 //		ActionVM HelpAction { get; } //???
+
+		/// <summary>
+		/// Gets or sets the dialog result value, which is the value that is returned from the System.Windows.Window.ShowDialog method.
+		/// </summary>
+		/// <value>A System.Nullable value of type System.Boolean. The default is false. </value>
 		bool? DialogResult { get; set; }
 	}
 

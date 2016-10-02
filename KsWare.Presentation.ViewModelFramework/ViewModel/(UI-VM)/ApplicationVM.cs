@@ -339,6 +339,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 			window.Show();
 		}
 
+		internal bool? ShowDialog(WindowVM windowVM) {
+			var tWin = FindView(windowVM.GetType());
+			var window = (Window)Activator.CreateInstance(tWin);
+			window.DataContext = windowVM;
+			windowVM.UIAccess.AssignWindowInternal(window);
+			return window.ShowDialog();
+		}
+
 		private Type FindView(Type viewModelType) {
 			// if the logic is changed, update the description in WindowVM.Show()
 

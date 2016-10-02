@@ -1,0 +1,27 @@
+﻿<Window 
+	x:Class="KsWare.Presentation.UITestApp.SampleDialogWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
+	mc:Ignorable="d"
+	Title="{Binding Title.Value}" Height="127.211" Width="193.878"
+>
+	<d:DesignProperties.DataContext>
+		<local:SampleDialogWindowVM />
+	</d:DesignProperties.DataContext>
+	<DockPanel>
+		<UniformGrid Rows="1" DockPanel.Dock="Bottom">
+			<FrameworkElement.Resources>
+				<Style TargetType="Button">
+					<Setter Property="Margin" Value="4"/>
+					<Setter Property="MinWidth" Value="80" />
+				</Style>
+			</FrameworkElement.Resources>
+			<Button Content="OK" Command="{Binding OkAction}"/>
+			<Button Content="Cancel" Command="{Binding CancelAction}"/>
+		</UniformGrid>
+		<TextBlock Text="SampleDialogWindow"/>
+	</DockPanel>
+</Window>

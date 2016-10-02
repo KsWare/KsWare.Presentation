@@ -1,9 +1,21 @@
 ﻿using System.Windows;
+using KsWare.Presentation.ViewFramework;
+using KsWare.Presentation.ViewModelFramework;
+
 
 namespace KsWare.Presentation.UITestApp {
+
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : Application {
+	public partial class App {}
+
+	public class AppVM : ApplicationVM {
+
+		public AppVM() {
+			RegisterChildren(()=>this);
+			StartupUri = typeof(MainWindowVM);
+		}
+
 	}
 }

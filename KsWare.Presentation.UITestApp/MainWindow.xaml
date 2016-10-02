@@ -6,8 +6,22 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
 	mc:Ignorable="d"
-	Title="MainWindow" Height="350" Width="525">
-	<Grid>
-		<local:CommandVisibilityBindingTests/>
-	</Grid>
+	Title="MainWindow" Height="350" Width="525"
+>
+	<d:DesignProperties.DataContext>
+		<local:MainWindowVM />
+	</d:DesignProperties.DataContext>
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_Exit" Command="{Binding ExitAction}"/>
+			</MenuItem>
+			<MenuItem Header="_View">
+				<MenuItem Header="Dialog Window" Command="{Binding ShowDialogAction}"/>
+			</MenuItem>
+		</Menu>
+		<Grid>
+			
+		</Grid>
+	</DockPanel>
 </Window>
