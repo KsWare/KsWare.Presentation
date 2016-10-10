@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 
 namespace KsWare.Presentation.ViewModelFramework {
@@ -61,6 +62,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 				return newIsEnabled;
 			}
 		}
+
+		public string DebugːEnabledObjections {
+			get {
+				lock (_enableObjections) {
+					return string.Join(" + ", _enableObjections.Select(d => d.ToString()).ToArray());
+				}				
+			}
+		}
+
 	}
 
 }

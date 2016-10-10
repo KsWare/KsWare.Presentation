@@ -20,7 +20,7 @@ namespace KsWare.Presentation.Core.CLR452.Tests {
 			RegisterChildren(()=>this);
 		}
 
-		public int Int32 { get { return Fields.Get2<int>(); } set { Fields.Set2(value); } }
+		public int Int32 { get { return Fields.GetValue<int>(); } set { Fields.SetValue(value); } }
 
 		public string GetCallerName([System.Runtime.CompilerServices.CallerMemberName] string name =null) { return name; }
 	}
