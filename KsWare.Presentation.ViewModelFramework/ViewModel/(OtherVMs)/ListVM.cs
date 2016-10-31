@@ -878,6 +878,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<NotifyCollectionChangedEventHandler> CollectionChangedEvent {
 			get { return EventSources.Get<NotifyCollectionChangedEventHandler>("CollectionChangedEvent"); }
 		}

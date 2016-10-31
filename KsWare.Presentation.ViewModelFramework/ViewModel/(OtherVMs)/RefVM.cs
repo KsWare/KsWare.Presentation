@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.ViewModelFramework.Providers;
@@ -37,6 +38,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when <see cref="Target"/> changed.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent { get; }
 	}
 
@@ -160,6 +162,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when <see cref="Target"/> changed.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
 			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
 		}

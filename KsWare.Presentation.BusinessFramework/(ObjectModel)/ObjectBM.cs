@@ -25,6 +25,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The user feedback requested event.</value>
 		/// <remarks>Not available in <see cref="ObjectSlimBM"> slim objects.</see> </remarks>
+		/// [DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get; }
 
 		/// <summary> Occurs when a business property has been changed.
@@ -216,6 +217,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the event source for the event which occurs when an user feedback is requested.
 		/// </summary>
 		/// <value>The user feedback requested event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
 			get { return EventSources.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
 		}
@@ -224,6 +226,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		public event EventHandler<BusinessPropertyChangedEventArgs> BusinessPropertyChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<BusinessPropertyChangedEventArgs>> PropertyChangedEvent {
 			get { return EventSources.Get<EventHandler<BusinessPropertyChangedEventArgs>>("PropertyChangedEvent"); }
 		}

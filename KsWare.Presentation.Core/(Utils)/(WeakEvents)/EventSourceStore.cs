@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation {
 
@@ -68,7 +70,7 @@ namespace KsWare.Presentation {
         /// <typeparam name="TEventHandler">The type of the event handler.</typeparam>
         /// <param name="eventName">The event name.</param>
         /// <returns>The weak event source</returns>
-        public IEventSource<TEventHandler> Get<TEventHandler>(string eventName) {
+		 public IEventSource<TEventHandler> Get<TEventHandler>(string eventName) {
 			IEventSource eventSource;
 			if (!_EventSources.TryGetValue(eventName, out eventSource)) {
 				var sourceObject = _WeakSourceObject.Target;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using KsWare.Presentation.Core.Providers;
 
@@ -40,6 +41,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		event EventHandler<ValueChangedEventArgs<ViewModelMetadata>> MetadataChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>>  MetadataChangedEvent { get;}
 	}
 
@@ -109,6 +111,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets the event source for the event which occurs when Metadata-Property has been changed.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent {
 			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>>("MetadataChangedEvent"); }
 		}

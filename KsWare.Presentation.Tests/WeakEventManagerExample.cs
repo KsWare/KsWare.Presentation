@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation.WeakEventManagerExamples {
 
@@ -11,7 +13,9 @@ namespace KsWare.Presentation.WeakEventManagerExamples {
 			LazyWeakEventProperties = new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 		}
 		
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<EventArgs>> MyEvent { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent"); } }
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<EventArgs>> MyEvent2 { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent2"); } }
 		
 		private void OnMyEvent() {

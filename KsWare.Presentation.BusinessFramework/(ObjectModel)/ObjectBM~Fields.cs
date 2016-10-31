@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using JetBrains.Annotations;
 
 namespace KsWare.Presentation.BusinessFramework {
@@ -21,7 +22,9 @@ namespace KsWare.Presentation.BusinessFramework {
 			EventUtil.Raise(_propertyChanged,this,new PropertyChangedEventArgs(propertyName),"{5AF425CD-76F1-44D3-A3AE-D00B7811504D}");
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
+		public BackingFieldsStore FieldsːDebug { get { return _lazyFields.IsValueCreated ? _lazyFields.Value : null; } }
 
 
 		/// <summary> Occurs when a property value changes. (Implements INotifyPropertyChanged.PropertyChanged)

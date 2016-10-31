@@ -52,6 +52,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		
 		event EventHandler IParentSupport.ParentChanged {add { _parentChanged += value; }remove { _parentChanged -= value; }}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		event EventHandler IParentSupport<IObjectBM>.ParentChanged {add { _parentChanged += value; }remove { _parentChanged -= value; }}

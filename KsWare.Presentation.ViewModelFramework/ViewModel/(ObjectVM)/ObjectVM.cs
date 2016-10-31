@@ -28,6 +28,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		new event EventHandler<ViewModelPropertyChangedEventArgs> PropertyChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>>  PropertyChangedEvent { get;}
 
 	}

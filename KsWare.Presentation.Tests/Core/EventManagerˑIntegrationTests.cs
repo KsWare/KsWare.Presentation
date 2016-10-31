@@ -110,6 +110,7 @@ namespace KsWare.Presentation.Tests.Core {
 			protected EventSourceStore EventSources { get { return LazyEventSources.Value; }}
 
 
+			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 			public IEventSource<EventHandler> MyEvent { get { return EventSources.Get<EventHandler>("MyEvent"); } }
 
 			public void RaiseˑMyEvent() {

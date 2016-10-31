@@ -24,6 +24,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		event EventHandler<DataChangedEventArgs> DataChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<DataChangedEventArgs>>  DataChangedEvent { get; }
 			
 		/// <summary> Gets or sets the data validation callback.
@@ -150,6 +151,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		#endregion
@@ -164,6 +166,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the event source for the event which occurs when the <see cref="Data"/> property has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent { get { return EventSources.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent"); } }
 
 		/// <summary> Gets or sets the data validation callback.
@@ -241,6 +244,7 @@ namespace KsWare.Presentation.Core.Providers {
 
 		/// <summary> Gets the event source for the event which occurs when a property value changes.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
 			get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
 		}
@@ -305,6 +309,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent { get { return EventStore.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Gets or sets a value indicating whether this instance is auto created.
@@ -334,6 +339,7 @@ namespace KsWare.Presentation.Core.Providers {
 		[SuppressMessage("Microsoft.Design", "CA1044:PropertiesShouldNotBeWriteOnly")]
 		public EventHandler<DataChangedEventArgs> DataChangedHandler {set {this.DataChanged += value;}}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent { get { return EventStore.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent"); } }
 
 		/// <summary> Gets or sets the data validating callback.
@@ -416,6 +422,7 @@ namespace KsWare.Presentation.Core.Providers {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
 			get { return EventStore.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
 		}

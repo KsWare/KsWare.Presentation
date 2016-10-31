@@ -50,7 +50,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			set {
 				if(value==_parent) return;
 				var oldParent = _parent;
-				SetParentPattern.Execute(ref _parent, value,"Parent");
+				SetParentPattern.Execute(ref _parent, value,nameof(Parent));
 				OnParentChanged(new ValueChangedEventArgs(oldParent, value));
 				OnPropertyChanged("Parent");
 			}
@@ -63,8 +63,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		public event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent {
-			get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }
+			get { return EventSources.Get<EventHandler>(nameof(ParentChangedEvent)); }
 		}
 
 //		/// <summary> Raises the <see cref="ParentChanged"/> event.
@@ -84,7 +85,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void OnParentChanged(ValueChangedEventArgs e) {
 			if (SuppressAnyEvents == 0) {
 				EventUtil.Raise(ParentChanged, this, e, "{F53C5FB8-A3F6-4EA1-B51A-1B5481C22E1E}");
-				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,"ParentChangedEvent", e);
+				EventManager.Raise<EventHandler,EventArgs>(LazyWeakEventStore,nameof(ParentChangedEvent), e);
 			}
 		}
 

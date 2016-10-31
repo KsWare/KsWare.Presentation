@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -161,6 +162,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		public event EventHandler<ValueChangedEventArgs> SourceUpdated;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ValueChangedEventArgs>> SourceUpdatedEvent { get { return EventStore.Get<EventHandler<ValueChangedEventArgs>>("SourceUpdatedEvent"); } }
 
 

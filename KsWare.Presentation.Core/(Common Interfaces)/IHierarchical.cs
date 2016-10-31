@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation {
 
@@ -17,6 +19,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler>  ParentChangedEvent { get;}
 
 		/// <summary> Gets the children.

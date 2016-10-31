@@ -6,6 +6,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
@@ -52,6 +53,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		internal ReflectedPropertyInfo Reflection { get; set; }
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		protected EventSourceStore EventStore { get { return _lazyWeakEventProperties.Value; }}
 		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventProperties; }}
 
@@ -186,8 +188,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Obsolete("Use DataProviderChangedEvent")]
 		public event EventHandler<ValueChangedEventArgs<IDataProvider>>  DataProviderChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ValueChangedEventArgs<IDataProvider>>> DataProviderChangedEvent {
-			get { return EventStore.Get<EventHandler<ValueChangedEventArgs<IDataProvider>>>("DataProviderChangedEvent"); }
+			get { return EventStore.Get<EventHandler<ValueChangedEventArgs<IDataProvider>>>(nameof(DataProviderChangedEvent)); }
 		}
 
 		/// <summary> Creates the default data provider.
@@ -474,6 +477,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<PropertyChangedEventHandler>  PropertyChangedEvent { get { return EventStore.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); } }
 
 		protected void OnPropertyChanged(string propertyName) {

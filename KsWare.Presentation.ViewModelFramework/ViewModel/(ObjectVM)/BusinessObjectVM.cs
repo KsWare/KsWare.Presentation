@@ -42,6 +42,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The business object.</value>
 		[Bindable(true,BindingDirection.TwoWay)]
 		public TBusinessObject BusinessObject { get { return (TBusinessObject)Metadata.DataProvider.Data; } set { Metadata.DataProvider.Data = value; } }
+
 		IObjectBM IBusinessObjectVM.BusinessObject { get { return BusinessObject; } set { BusinessObject = (TBusinessObject) value; } }
 
 		/// <summary> Creates the default metadata (<see cref="BusinessObjectMetadata{TBusinessObject}"/>).

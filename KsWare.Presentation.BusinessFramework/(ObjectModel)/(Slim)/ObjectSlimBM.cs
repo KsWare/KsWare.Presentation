@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using JetBrains.Annotations;
 
 namespace KsWare.Presentation.BusinessFramework {
@@ -22,6 +23,8 @@ namespace KsWare.Presentation.BusinessFramework {
 // D	void Dispose();
 		IObjectBM Parent { get; set; }
 		event EventHandler ParentChanged;
+
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler> ParentChangedEvent { get; }
 
 	}
@@ -43,13 +46,12 @@ namespace KsWare.Presentation.BusinessFramework {
 			_lazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
+		public BackingFieldsStore FieldsːDebug { get { return _lazyFields.IsValueCreated ? _lazyFields.Value : null; } }
 
 		[NotifyPropertyChangedInvocator]
-		protected virtual void OnPropertyChanged(string propertyName) {
-			var handler = PropertyChanged;
-			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-		}
+		protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -93,6 +95,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		public event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent {get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }}
 
 		[Obsolete("Not available in slim objects. Always returning empty collection.")]
@@ -110,7 +113,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		[Obsolete("Not available in slim objects",true)]
 		public event EventHandler<UserFeedbackEventArgs> UserFeedbackRequested;
 
-		[Obsolete("Not available in slim objects",true)]
+		[Obsolete("Not available in slim objects",true)][DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get { throw new NotImplementedException();} }
 			
 		[Obsolete("Not available in slim objects",true)]

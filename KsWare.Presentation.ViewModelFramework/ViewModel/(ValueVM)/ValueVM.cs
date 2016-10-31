@@ -48,6 +48,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the event source for the event which occurs when <see cref="Value"/> changed.
 		/// </summary>
 		/// <value>The value changed event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent { get; }
 
 		/// <summary> Gets the display value provider.

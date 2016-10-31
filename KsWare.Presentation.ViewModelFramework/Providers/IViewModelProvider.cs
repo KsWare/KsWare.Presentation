@@ -73,6 +73,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent { get { return EventStore.Get<EventHandler>("ParentChangedEvent"); }}
 
 		/// <summary> Gets parent metadata (<see cref="IViewModelMetadata"/>) of this instance.

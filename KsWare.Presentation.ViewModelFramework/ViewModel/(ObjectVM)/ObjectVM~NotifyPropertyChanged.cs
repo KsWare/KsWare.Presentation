@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 
@@ -23,8 +24,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public event EventHandler<ViewModelPropertyChangedEventArgs> PropertyChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent {
-			get { return EventSources.Get<EventHandler<ViewModelPropertyChangedEventArgs>>("PropertyChangedEvent"); }
+			get { return EventSources.Get<EventHandler<ViewModelPropertyChangedEventArgs>>(nameof(PropertyChangedEvent)); }
 		}
 
 		/// <summary> Called when a property has been changed.

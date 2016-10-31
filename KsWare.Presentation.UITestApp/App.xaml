@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
     xmlns:viewFramework="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation.ViewFramework"
-    StartupUri="BindableSelectedItemBehaviorTest.xaml"
 >
     <Application.Resources>
 		<Style x:Key="WorkaroundDontRemoveThisDummyStyle" />

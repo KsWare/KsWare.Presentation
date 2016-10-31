@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using KsWare.Presentation.ViewModelFramework.Providers;
 
@@ -79,6 +80,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		public event ValueChangedEventHandler<IActionProvider> ActionProviderChanged;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<ValueChangedEventHandler<IActionProvider>> ActionProviderChangedEvent { get { return EventStore.Get<ValueChangedEventHandler<IActionProvider>>("ActionProviderChangedEvent"); }}
 
 		public void ChangeActionProvider(IActionProvider actionProvider) {

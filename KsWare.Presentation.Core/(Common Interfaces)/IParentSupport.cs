@@ -7,6 +7,8 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation 
 {
@@ -27,6 +29,7 @@ namespace KsWare.Presentation
 		/// <remarks></remarks>
 		event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler> ParentChangedEvent { get; }
 	}
 
@@ -45,6 +48,7 @@ namespace KsWare.Presentation
 		/// <remarks></remarks>
 		event EventHandler ParentChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler> ParentChangedEvent { get; }
 	}
 }

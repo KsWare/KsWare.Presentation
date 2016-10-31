@@ -63,6 +63,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		public event EventHandler<UserFeedbackEventArgs> UserFeedbackRequested;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
 			get { return EventSources.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
 		}

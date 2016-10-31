@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation.ViewModelFramework {
 
@@ -37,7 +39,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		public event EventHandler IsSelectedChanged;
 
-		public IEventSource<EventHandler> IsSelectedChangedEvent { get { return EventSources.Get<EventHandler>("IsSelectedChangedEvent"); } }
+		[DebuggerBrowsable(DebuggerBrowsableState.Never),DebuggerHidden]
+		public IEventSource<EventHandler> IsSelectedChangedEvent => EventSources.Get<EventHandler>(nameof(IsSelectedChangedEvent));
 
 //		IObservable<bool> IsSelectedObservable { get; }
 	}
@@ -54,6 +57,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		event EventHandler IsSelectedChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler> IsSelectedChangedEvent { get; }
 
 //		IObservable<bool> IsSelectedObservable { get; }

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -68,6 +69,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the event source for the event which occurs when the <see cref="Data"/> property has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent { get { return EventSources.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent"); } }
 
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
@@ -88,6 +90,7 @@ namespace KsWare.Presentation.Core.Providers {
 
 		/// <summary> Get the event source for the event which occurs when a property value changes.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
 			get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
 		}

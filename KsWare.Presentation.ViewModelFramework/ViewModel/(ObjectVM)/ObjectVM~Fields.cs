@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation.ViewModelFramework {
 
@@ -10,8 +12,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			_lazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
-
+		public BackingFieldsStore FieldsːDebug { get { return _lazyFields.IsValueCreated ? _lazyFields.Value : null; } }
 	}
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -170,6 +171,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the event source for the event which occurs when <see cref="CanExecute"/> has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> CanExecuteChangedEvent { get { return EventSources.Get<EventHandler>("CanExecuteChangedEvent"); }}
 
 		public IObservable<bool> CanExecuteObservable {get {return Metadata.ActionProvider.CanExecuteObservable;}}

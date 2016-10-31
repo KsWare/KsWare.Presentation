@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using JetBrains.Annotations;
 
 namespace KsWare.Presentation.Providers {
@@ -56,6 +57,7 @@ namespace KsWare.Presentation.Providers {
 		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		#endregion
@@ -64,6 +66,7 @@ namespace KsWare.Presentation.Providers {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent { get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); } }
 
 		[NotifyPropertyChangedInvocator]

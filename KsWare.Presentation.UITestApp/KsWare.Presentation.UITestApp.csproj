@@ -69,6 +69,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BusinessObjectDataTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChromeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +99,9 @@
     </Compile>
     <Compile Include="BindableSelectedItemBehaviorTest.xaml.cs">
       <DependentUpon>BindableSelectedItemBehaviorTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjectDataTest.xaml.cs">
+      <DependentUpon>BusinessObjectDataTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChromeWindow.xaml.cs">
       <DependentUpon>ChromeWindow.xaml</DependentUpon>

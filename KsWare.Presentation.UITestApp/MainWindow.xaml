@@ -21,7 +21,7 @@
 			</MenuItem>
 		</Menu>
 		<Grid>
-			
+			<local:BusinessObjectDataTest/>
 		</Grid>
 	</DockPanel>
 </Window>

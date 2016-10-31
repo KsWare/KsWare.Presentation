@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -272,6 +273,7 @@ namespace KsWare.Presentation {
 				remove {lock (EventHandlers) {var item = EventHandlers.First(x=>x.PropertyChangedEventHandler==value);item.Dispose();}}
 			}
 
+			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 			public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
 				get { return LazyWeakEventProperties.Value.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
 			}

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using KsWare.Presentation.Testing;
@@ -175,6 +176,8 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			
 			event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{_notifyPropertyChangedPropertyChanged+=value;}remove {_notifyPropertyChangedPropertyChanged-=value;}}
+
+			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 			public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent { get; private set; }
 			public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent { get; private set; }
 			public bool IsEnabled { get; private set; }

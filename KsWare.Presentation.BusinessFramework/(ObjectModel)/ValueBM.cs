@@ -113,6 +113,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
 			get { return EventSources.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
 		}

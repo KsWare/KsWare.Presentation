@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
 
 namespace KsWare.Presentation.BusinessFramework {
 	
@@ -39,6 +41,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Event source for the event which occurs when the <see cref="Target"/> property changes.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent { get; }
 
 	}
@@ -100,6 +103,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Event source for the event which occurs when the <see cref="Target"/> property changes.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
 			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
 		}

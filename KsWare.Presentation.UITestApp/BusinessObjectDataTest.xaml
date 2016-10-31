@@ -1,0 +1,42 @@
+﻿<UserControl 
+	x:Class="KsWare.Presentation.UITestApp.BusinessObjectDataTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
+    xmlns:viewFramework="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation.ViewFramework"
+    mc:Ignorable="d" 
+>
+	<d:DesignProperties.DataContext>
+		<local:BusinessObjectDataTestVM />
+	</d:DesignProperties.DataContext>
+	<StackPanel>
+        <DockPanel>
+			<TextBlock Text="String" Width="200"/>
+			<TextBox Text="{Binding .String.EditValueProvider.String, UpdateSourceTrigger=PropertyChanged}" />
+		</DockPanel>
+		<DockPanel>
+			<TextBlock Text="String.MːBusinessObject.MːData" Width="200"/>
+			<TextBox Text="{Binding String.MːBusinessObject.MːData, Converter={x:Static viewFramework:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+		</DockPanel>
+		<DockPanel>
+			<TextBlock Text="String.MːBusinessObject.MːData" Width="200"/>
+			<TextBox Text="{Binding String.MːBusinessObject.MːData, Mode=OneWay}" IsReadOnly="True" />
+		</DockPanel>
+		<DockPanel>
+			<TextBlock Text="String.MːBusinessObject" Width="200"/>
+			<TextBox Text="{Binding String.MːBusinessObject, Converter={x:Static viewFramework:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+		</DockPanel>
+		<DockPanel>
+			<TextBlock Text="String.MːBusinessObjectːData" Width="200"/>
+			<TextBox Text="{Binding String.MːBusinessObjectːData, Converter={x:Static viewFramework:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+		</DockPanel>
+		<DockPanel>
+			<TextBlock Text="DataContext" Width="200"/>
+			<TextBox Text="{Binding ., Converter={x:Static viewFramework:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+		</DockPanel>
+		<Button Content="Refresh" Command="{Binding RefreshAction}"/>
+    </StackPanel>
+</UserControl>
+

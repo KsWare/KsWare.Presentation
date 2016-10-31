@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using KsWare.Presentation.Providers;
@@ -74,6 +75,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
 
 		/// <summary> Gets a value indicating whether the provider is supported.
@@ -93,6 +95,7 @@ namespace KsWare.Presentation.Core.Providers {
 		void IListLogicProvider.CollectionChanged(NotifyCollectionChangedEventArgs e) { throw new NotSupportedException("{E04009F8-C47B-45C3-BA84-F79DF786BC38}"); }
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
 
 		[NotifyPropertyChangedInvocator]

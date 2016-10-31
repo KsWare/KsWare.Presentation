@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -30,6 +31,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// All properties are implemented as "only property" w/o further logic.
 		/// <code>public object Icon {get { return GetValue&lt;object>("Icon"); }set { SetValue("Icon",value);}}</code>
 		/// </remarks>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public UIPropertiesRoot UI { get { return _ui.Value; } }
 	}
 }
