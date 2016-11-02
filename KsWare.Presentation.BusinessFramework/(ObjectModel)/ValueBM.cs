@@ -155,7 +155,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the value settings.
 		/// </summary>
 		/// <value>The value settings.</value>
-		public IValueSettings<TValue> Settings {get {return (IValueSettings<TValue>) Metadata.Settings;}}
+		public IValueSettings<TValue> Settings => (IValueSettings<TValue>) Metadata.Settings;
 
 		private object GetValueHelper() {
 			object baseValue = this.Metadata.DataProvider.Data;
