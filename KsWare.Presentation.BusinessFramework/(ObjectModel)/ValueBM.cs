@@ -114,9 +114,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
-			get { return EventSources.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
-		}
+		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent => EventSources.Get<EventHandler<ValueChangedEventArgs>>(nameof(ValueChangedEvent));
 
 		/// <summary> Occurs when <see cref="Settings"/> or a Settings property has been changed.
 		/// </summary>
@@ -250,6 +248,8 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>							
 		protected virtual void OnValueChanged(ValueChangedEventArgs e) {
 			EventUtil.Raise(ValueChanged,this,e,"{22C6594D-CEF4-4502-8A35-8B30A2E37BBB}");
+			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,nameof(ValueChangedEvent), e);
+
 			OnPropertyChanged(nameof(Value));
 			OnTreeChanged();
 			//REVISE ??? Metadata.DataProvider.NotifyDataChanged();
@@ -267,7 +267,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="KsWare.Presentation.BusinessFramework.ValueSettingsChangedEventArgs"/> instance containing the event data.</param>
 		protected virtual void AtPropertyChanged(object sender, ValueSettingsChangedEventArgs e) {
-			if (SettingsChanged != null) SettingsChanged(this, e);
+			SettingsChanged?.Invoke(this, e);
 
 			//revalidate
 //            try {

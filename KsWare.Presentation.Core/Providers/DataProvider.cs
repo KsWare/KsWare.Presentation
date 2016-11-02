@@ -278,7 +278,9 @@ namespace KsWare.Presentation.Core.Providers {
 			_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		protected EventSourceStore EventStore{get { return _LazyWeakEventStore.Value; }}
+
 		protected Lazy<EventSourceStore> LazyWeakEventStore{get { return _LazyWeakEventStore; }}
 
 		#region Implementation of IProvider

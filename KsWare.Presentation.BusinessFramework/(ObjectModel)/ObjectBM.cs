@@ -379,7 +379,8 @@ namespace KsWare.Presentation.BusinessFramework {
 			IsInitialized = true;
 		}
 		
-		public bool IsInitialized { get { return Fields.Get<bool>("IsInitialized"); } set { Fields.Set("IsInitialized", value); } }
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public bool IsInitialized { get { return  _lazyFields.IsValueCreated ? Fields.GetValue<bool>() : false; } set { Fields.SetValue(value); } }
 
 		public void DoWhenInitialized(Action action) {
 			if (IsInitialized) action();

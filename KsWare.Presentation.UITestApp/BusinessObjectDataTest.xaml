@@ -17,6 +17,14 @@
 			<TextBox Text="{Binding .String.EditValueProvider.String, UpdateSourceTrigger=PropertyChanged}" />
 		</DockPanel>
 		<DockPanel>
+			<TextBlock Text="BusinessObject.String.Value" Width="200"/>
+			<TextBox Text="{Binding BusinessObject.String.Value, UpdateSourceTrigger=PropertyChanged}" />
+		</DockPanel>
+		<DockPanel>
+			<TextBlock Text="BusinessObject.Data.String" Width="200"/>
+			<TextBox Text="{Binding BusinessObject.Data.String, UpdateSourceTrigger=PropertyChanged}" />
+		</DockPanel>
+		<DockPanel>
 			<TextBlock Text="String.MːBusinessObject.MːData" Width="200"/>
 			<TextBox Text="{Binding String.MːBusinessObject.MːData, Converter={x:Static viewFramework:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
 		</DockPanel>

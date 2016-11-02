@@ -66,8 +66,8 @@ namespace KsWare.Presentation.UITestApp {
 
 		public BusinessObjectDataTestBM() {
 			RegisterChildren(()=>this);
-			String.ValueChangedEvent.add = (s, e) => { Debug.WriteLine($"BusinessObjectDataTestBM: String.ValueChanged {String.Value}"); };
 			String.ValueChangedEvent.add = (s, e2) => {if(Data!=null)  Data.String = String.Value;};
+			String.ValueChangedEvent.add = (s, e) => { Debug.WriteLine($"BusinessObjectDataTestBM: String.ValueChanged {String.Value}"); };
 		}
 
 		public StringBM String { get; [UsedImplicitly] private set; }
