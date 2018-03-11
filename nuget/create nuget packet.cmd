@@ -25,13 +25,13 @@ CHOICE /C YN /T 5 /D Y /M "Compile? "
 if %ERRORLEVEL% equ 2 goto compile.end
 :compile.start
 echo Building Release...
-%Devenv% "..\KsWare.Presentation.Solution\KsWare.Presentation.sln" /build Release
+%Devenv% "..\src\KsWare.Presentation.Solution\KsWare.Presentation.sln" /build Release
 if %ERRORLEVEL% neq 0 (
 	echo exitcode: %ERRORLEVEL%
 	goto PAUSEEXIT
 )
 echo Building Release_40...
-%Devenv% "..\KsWare.Presentation.Solution\KsWare.Presentation.sln" /build Release_40
+%Devenv% "..\src\KsWare.Presentation.Solution\KsWare.Presentation.sln" /build Release_40
 if %ERRORLEVEL% neq 0 (
 	echo exitcode: %ERRORLEVEL%
 	goto PAUSEEXIT
@@ -54,65 +54,65 @@ mkdir archive>nul
 echo copy files...
 set options=/Y /D
 
-xcopy ..\KsWare.Presentation.Solution\History.txt lib\ %options%
+xcopy ..\src\KsWare.Presentation.Solution\History.txt lib\ %options%
 if errorlevel 1 set hasCopyError=true
 
 ::net40
 
-::xcopy ..\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net40\ %options%
+::xcopy ..\src\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net40\ %options%
 ::if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Core\bin\Release_40\KsWare.Presentation.Core.dll lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.Core\bin\Release_40\KsWare.Presentation.Core.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Core\bin\Release_40\KsWare.Presentation.Core.xml lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.Core\bin\Release_40\KsWare.Presentation.Core.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.dll lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.xml lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.dll lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.xml lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.dll lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.xml lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.dll lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.xml lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.dll lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.dll lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.xml lib\net40\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.xml lib\net40\ %options%
 if errorlevel 1 set hasCopyError=true
 
 :: net45
-::xcopy ..\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net45\ %options%
+::xcopy ..\src\KsWare.Presentation\bin\Release\KsWare.JsonFx.dll lib\net45\ %options%
 ::if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Core\bin\Release\KsWare.Presentation.Core.dll lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.Core\bin\Release\KsWare.Presentation.Core.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Core\bin\Release\KsWare.Presentation.Core.xml lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.Core\bin\Release\KsWare.Presentation.Core.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.dll lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.xml lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.BusinessFramework\bin\Release\KsWare.Presentation.BusinessFramework.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.dll lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.xml lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.ViewModelFramework\bin\Release\KsWare.Presentation.ViewModelFramework.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.dll lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.xml lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.ViewFramework\bin\Release\KsWare.Presentation.ViewFramework.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.dll lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.xml lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Labs.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.dll lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.dll lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
-xcopy ..\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.xml lib\net45\ %options%
+xcopy ..\src\KsWare.Presentation.Labs\bin\Release\KsWare.Presentation.Compatibility40.xml lib\net45\ %options%
 if errorlevel 1 set hasCopyError=true
 
 
