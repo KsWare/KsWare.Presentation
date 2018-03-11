@@ -1,0 +1,5 @@
+[2017-07-18]
+UPD WindowVM action for Close, Minimize, Maximize
+ADD WindowVM IsOpenProperty
+BETA WindowVM IsFullScreen, 
+UPD SpecialBooleanConverter default instances for compare operations

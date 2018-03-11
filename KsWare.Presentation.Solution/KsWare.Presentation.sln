@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		compatibility.txt = compatibility.txt
 		..\nuget\create nuget packet.cmd = ..\nuget\create nuget packet.cmd
+		History.txt = History.txt
 		packages.txt = packages.txt
 		..\README.md = ..\README.md
 	EndProjectSection

@@ -17,11 +17,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		private bool _disposed;
 		private bool _isClosing;
+		private WindowProperties _fullscreenRestore;
 
 		/// <summary> Initializes a new instance of the <see cref="WindowVM"/> class.
 		/// </summary>
 		public WindowVM() {//
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 
 			UIAccess = new UIAccessClass();
 			UIAccess.WindowChanged += AtWindowChanged;
@@ -32,6 +33,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			MaximizeAction.MːDoAction = DoMaximize;
 			RestoreAction.MːDoAction = DoRestore;
 			FullscreenAction.MːDoAction = DoFullscreen;
+
+			Fields[nameof(IsFullScreen)].ValueChangedEvent.add = AtIsFullScreenChanged;
+
 			Initialize();
 		}
 
@@ -75,6 +79,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				UIAccess.Window.Activated   += AtWindowActivated;
 				UIAccess.Window.Deactivated += AtWindowDeactivated;				
 			}
+			OnPropertyChanged(nameof(IsOpen));
 		}
 
 		private void AtWindowDeactivated(object sender, EventArgs e) {IsActivated = false;}
@@ -83,7 +88,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether the window is the foreground window.
 		/// </summary>
 		/// <value><c>true</c> the window is the foreground window; otherwise, <c>false</c>.</value>
-		public bool IsActivated { get { return Fields.Get<bool>("IsActivated"); } private set { Fields.Set("IsActivated", value); } }
+		public bool IsActivated { get { return Fields.GetValue<bool>(); } private set { Fields.SetValue(value); } }
 
 		private void AtWindowClosed(object sender, EventArgs e) {
 			UIAccess.Window.DataContext = null;
@@ -97,15 +102,59 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		private void DoMinimize() {  }
+		protected virtual void DoMinimize() {
+			if (!UIAccess.HasWindow) return;
+			if (_fullscreenRestore != null)
+				_fullscreenRestore.RestoreFromFullScreen(UIAccess.Window, WindowState.Minimized);
+			else
+				UIAccess.Window.WindowState=WindowState.Minimized;
+		}
 
-		private void DoMaximize() { }
+		protected virtual void DoMaximize() {
+			if (!UIAccess.HasWindow) return;
+			if (_fullscreenRestore != null)
+				_fullscreenRestore.RestoreFromFullScreen(UIAccess.Window, WindowState.Maximized);
+			else
+			UIAccess.Window.WindowState=WindowState.Maximized;
+		}
 
-		private void DoRestore() {  }
+		protected virtual void DoRestore() {
+			if (!UIAccess.HasWindow) return;
+			if (_fullscreenRestore != null)
+				_fullscreenRestore.RestoreFromFullScreen(UIAccess.Window, WindowState.Normal);
+			else
+			UIAccess.Window.WindowState=WindowState.Normal;
+		}
 
-		private void DoFullscreen() {  }
+		protected virtual void DoFullscreen() {IsFullScreen = true;}
 
-		private void DoClose() {  }
+		public bool IsFullScreen { get { return Fields.GetValue<bool>(); } set { Fields.SetValue(value); } }
+
+		private void AtIsFullScreenChanged(object sender, ValueChangedEventArgs e) {
+			if (IsFullScreen) {
+				_fullscreenRestore=WindowProperties.PrepareFullScreenRestore(UIAccess.Window);
+				UIAccess.Window.WindowStyle=WindowStyle.None;
+				UIAccess.Window.WindowState=WindowState.Maximized;				
+			}
+			else {
+				_fullscreenRestore.RestoreFromFullScreen(UIAccess.Window);
+				_fullscreenRestore = null;
+			}
+
+		}
+
+		protected virtual void DoClose() {  Close();}
+
+		public bool IsOpen {
+			get { return UIAccess.HasWindow; }
+			set {
+				if (value) {
+					if(!UIAccess.HasWindow) Show();
+				} else {
+					if(UIAccess.HasWindow) Close();
+				}
+			}
+		}
 
 		// Type: System.Windows.Window
 		// Assembly: PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
@@ -302,5 +351,34 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <see cref="System.Windows.Controls.Primitives.Popup"/>
 	public interface IOverlayWindowVM {
 		
+	}
+
+	public class WindowProperties {
+		public ResizeMode ResizeMode { get; set; }
+		public WindowState WindowState { get; set; }
+		public WindowStyle WindowStyle { get; set; }
+		public bool IsFullScreen { get; set; }
+
+		public void RestoreFromFullScreen(Window window, WindowState newState) {
+			window.ResizeMode=ResizeMode;
+			window.WindowStyle=WindowStyle;
+			window.WindowState=newState;
+		}
+
+		internal void RestoreFromFullScreen(Window window) {
+			window.ResizeMode=ResizeMode;
+			window.WindowStyle=WindowStyle;
+			window.WindowState=WindowState;
+		}
+
+		public static WindowProperties PrepareFullScreenRestore(Window window) {
+			return new WindowProperties {
+				IsFullScreen=false,
+				ResizeMode =window.ResizeMode,
+				WindowStyle=window.WindowStyle,
+				WindowState=window.WindowState
+			};
+		}
+
 	}
 }

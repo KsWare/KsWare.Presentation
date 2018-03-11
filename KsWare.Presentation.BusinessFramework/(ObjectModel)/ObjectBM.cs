@@ -89,8 +89,10 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		public bool IsSlim { get { return false;} }
 
-		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventPropertyStore; } }
-		protected EventSourceStore EventSources { get { return _lazyWeakEventPropertyStore.Value; } }
+		protected Lazy<EventSourceStore> LazyWeakEventStore => _lazyWeakEventPropertyStore;
+
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		protected EventSourceStore EventSources => _lazyWeakEventPropertyStore.Value;
 
 		/// <summary> Creates the default metadata for the current type of business object .
 		/// </summary>

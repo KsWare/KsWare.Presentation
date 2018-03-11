@@ -21,7 +21,8 @@
 			</MenuItem>
 		</Menu>
 		<Grid>
-			<local:BusinessObjectDataTest/>
+			<local:StringViewModelChangeBusinessObject/>
+<!--			<local:BusinessObjectDataTest/>-->
 		</Grid>
 	</DockPanel>
 </Window>

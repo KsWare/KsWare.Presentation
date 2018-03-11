@@ -1,0 +1,31 @@
+﻿<UserControl 
+	x:Class="KsWare.Presentation.UITestApp.StringViewModelChangeBusinessObject"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="300"
+	DataContext="{Binding RelativeSource={RelativeSource Self}}"
+>
+    <StackPanel>
+		<DockPanel LastChildFill="False">
+			<Button Content="Set Null" Click="SetNull"/>
+			<Button Content="Set A" Click="SetA" Margin="4 0 0 0"/>
+			<Button Content="Set B" Click="SetB" Margin="4 0 0 0"/>
+		</DockPanel>
+		
+		<TextBlock Text="StringVM.EditValueProvider.String" Margin="0 4 0 0"/>
+	    <TextBox Text="{Binding StringVM.EditValueProvider.String, UpdateSourceTrigger=PropertyChanged}"/>
+		
+		<TextBlock Text="StringVM.Value" Margin="0 4 0 0"/>
+		<TextBox Text="{Binding StringVM.Value, UpdateSourceTrigger=PropertyChanged}"/>
+		
+		<TextBlock Text="StringABM.Value" Margin="0 4 0 0"/>
+		<TextBox Text="{Binding StringABM.Value, UpdateSourceTrigger=PropertyChanged}"/>
+
+		<TextBlock Text="StringBBM.Value" Margin="0 4 0 0"/>
+		<TextBox Text="{Binding StringBBM.Value, UpdateSourceTrigger=PropertyChanged}"/>
+	</StackPanel>
+</UserControl>

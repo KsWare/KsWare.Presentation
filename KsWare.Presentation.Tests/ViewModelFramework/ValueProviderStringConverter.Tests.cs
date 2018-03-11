@@ -134,6 +134,11 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 		}
 
 		[TestMethod]
+		public void ConvertTo_ByteArray_StringEmpty() {
+			CollectionAssert.AreEqual(new Byte   [] {},(Byte   [])TestSubject.ConvertTo("",typeof(Byte   [])));
+		}
+
+		[TestMethod]
 		public void ConvertTo_Double_Invariant() {
 			TestSubject.Options.Culture=CultureInfo.InvariantCulture;
 			Assert.AreEqual((Double ) 1.1, (Double )TestSubject.ConvertTo("1.1",typeof(Double )));

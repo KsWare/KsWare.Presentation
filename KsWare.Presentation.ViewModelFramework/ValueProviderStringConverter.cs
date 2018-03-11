@@ -149,7 +149,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			var elementType = targetType.GetElementType();
 			var elementTypeCode = Type.GetTypeCode(elementType);
 			if (elementTypeCode == TypeCode.Char) return value.ToCharArray();
-			var sItems=value.Split(new char[] {' '});
+
+			var sItems=string.IsNullOrEmpty(value) ? new string[0] :  value.Split(' ');
 			var array = Array.CreateInstance(elementType, sItems.Length);
 			for (int i = 0; i < sItems.Length; i++) {
 				var s = sItems[i];

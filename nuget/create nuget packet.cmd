@@ -1,6 +1,8 @@
 @echo off
+SETLOCAL
 ::set name=KsWare.F35FEB77-A8AA-4634-AA21-012EB75BA3C1
-set name=KsWare.F35FEB78
+::set name=KsWare.F35FEB78
+set name=KsWare.Presentation
 set Devenv="C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe"
 
 :checkNuGet
@@ -51,6 +53,9 @@ mkdir archive>nul
 
 echo copy files...
 set options=/Y /D
+
+xcopy ..\KsWare.Presentation.Solution\History.txt lib\ %options%
+if errorlevel 1 set hasCopyError=true
 
 ::net40
 
@@ -126,11 +131,28 @@ if %ERRORLEVEL% geq 1 (
 	echo ERROR %ERRORLEVEL%
 	goto PAUSEEXIT
 )
+
+:provide
+if "%USERNAME%" -ne "KayS" (
+	echo WARNING: publish nuget only at owners machine!
+	echo It is NOT ALLOWED to publish own builds with "KsWare." in the name of nuget package.
+	echo publishing skipped...
+	goto PAUSEEXIT
+)
 echo.
 echo Provide the package? 
 pause>nul
+:: C:\Users\%USERNAME%\AppData\Local
+if exist %LOCALAPPDATA%\.nuget\SetApiKey.cmd (
+	call %LOCALAPPDATA%\.nuget\SetApiKey.cmd
+) 
+if "%KsWare_NuGet_API_Key%" -eq "" (
+	echo ERROR API Key not configured.
+	echo notepad.exe %LOCALAPPDATA%\.nuget\SetApiKey.cmd
+	goto provide
+)
 echo provide...
-nuget setApiKey 5dbc1fca-4a7b-4916-80cc-8d9d44626456
+nuget setApiKey %KsWare_NuGet_API_Key%
 if %ERRORLEVEL% geq 1 (
 	echo ERROR %ERRORLEVEL%
 	goto PAUSEEXIT
@@ -148,3 +170,4 @@ FOR %%f IN (*.nupkg) DO (
 :PAUSEEXIT
 pause
 :EXIT
+ENDLOCAL
