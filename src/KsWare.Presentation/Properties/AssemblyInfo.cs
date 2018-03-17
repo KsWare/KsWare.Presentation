@@ -52,9 +52,9 @@ using System.Windows.Markup;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+// [assembly: AssemblyVersion("0.18.0")]
+[assembly: AssemblyVersion("0.18.0")]
+[assembly: AssemblyFileVersion("0.18.0")]
 
 [assembly: InternalsVisibleTo("KsWare.Presentation.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100d3a0b493bda975526f908712b964179df870a583523eb8470b1aa09d97f61b665d1f96d4f495751c3f0d6ff08dc49bf4b22731be741e1c8861af28f7453b1de06bbfd4b5ebaf5f3bf928480ebe8a47877ee1c3e48ba4f906729ec9234934e5affb8e7e46b7451ffb0ff1298dc09bdea2dd0c1b1dcae7c409c1b8868c5af2a1ba")]
 
