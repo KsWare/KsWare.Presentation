@@ -32,12 +32,12 @@ namespace KsWare.Presentation.ViewFramework { // System.Windows.Media.Animation 
 
 
 		public SolidColorBrush From {
-			get { return _from; }
+			get => _from;
 			set { _from = value;  FromPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(value));}
 		}
 
 		public SolidColorBrush To {
-			get { return _to; }
+			get => _to;
 			set { _to = value;  ToPropertyChanged(new ValueChangedEventArgs<SolidColorBrush>(value));}
 		}
 		

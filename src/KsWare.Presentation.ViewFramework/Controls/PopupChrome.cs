@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewFramework.Controls
 	{
 		private static readonly IValueConverter __borderThickness2StrokeThicknessConverter=new MyBorderThickness2StrokeThicknessConverter();
 
-		public static IValueConverter BorderThickness2StrokeThicknessConverter {get { return __borderThickness2StrokeThicknessConverter; }}
+		public static IValueConverter BorderThickness2StrokeThicknessConverter => __borderThickness2StrokeThicknessConverter;
 
 		#region ArrowOffset
 
@@ -26,8 +26,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			DependencyProperty.Register("ArrowOffset", typeof(Double), typeof(PopupChrome), new PropertyMetadata(default(Double)));
 
 		public Double ArrowOffset {
-			get { return (Double)GetValue(ArrowOffsetProperty); }
-			set { SetValue(ArrowOffsetProperty, value); }
+			get => (Double)GetValue(ArrowOffsetProperty);
+			set => SetValue(ArrowOffsetProperty, value);
 		}
 		#endregion
 
@@ -36,8 +36,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			DependencyProperty.Register("PopupPlacement", typeof(PlacementMode), typeof(PopupChrome), new PropertyMetadata(default(PlacementMode)));
 
 		public PlacementMode PopupPlacement {
-			get { return (PlacementMode)GetValue(PopupPlacementProperty); }
-			set { SetValue(PopupPlacementProperty, value); }
+			get => (PlacementMode)GetValue(PopupPlacementProperty);
+			set => SetValue(PopupPlacementProperty, value);
 		}
 		#endregion
 
@@ -46,8 +46,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			DependencyProperty.Register("PlacementTarget", typeof(UIElement), typeof(PopupChrome), new PropertyMetadata(default(UIElement)));
 
 		public UIElement PlacementTarget {
-			get { return (UIElement)GetValue(PlacementTargetProperty); }
-			set { SetValue(PlacementTargetProperty, value); }
+			get => (UIElement)GetValue(PlacementTargetProperty);
+			set => SetValue(PlacementTargetProperty, value);
 		}
 		#endregion
 

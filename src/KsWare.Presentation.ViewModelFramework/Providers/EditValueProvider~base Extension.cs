@@ -25,12 +25,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			/// <summary> Gets the associated provider.
 			/// </summary>
 			/// <value>The associated provider.</value>
-			protected EditValueProvider Provider { get { return _provider; } }
+			protected EditValueProvider Provider => _provider;
 
 			/// <summary> Gets the associated view model.
 			/// </summary>
 			/// <value>The associated view model.</value>
-			protected IValueVM ViewModel { get { return _provider.ViewModel; } }
+			protected IValueVM ViewModel => _provider.ViewModel;
 
 			/// <summary> Gets the associated metadata. 
 			/// </summary>
@@ -61,7 +61,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				else _errorInfos.Add(property,message);
 			}
 
-			protected bool HasError { get { return !string.IsNullOrEmpty(_errorInfo) || _errorInfos.Count > 0; } }
+			protected bool HasError => !string.IsNullOrEmpty(_errorInfo) || _errorInfos.Count > 0;
 
 			string IDataErrorInfo.this[string columnName] {
 				get {

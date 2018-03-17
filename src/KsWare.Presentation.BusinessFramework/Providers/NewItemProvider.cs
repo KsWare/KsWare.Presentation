@@ -39,7 +39,7 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
 		/// <value>	<see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>. </value>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Creates a new item.
 		/// </summary>
@@ -96,13 +96,13 @@ namespace KsWare.Presentation.BusinessFramework.Providers {
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>. </value>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets or sets the create new item callback.
 		/// </summary>
 		/// <value>The create new item callback.</value>
 		public CreateNewItemCallbackHandler CreateNewItemCallback {
-			get {return _createNewItemCallback;}
+			get => _createNewItemCallback;
 			set {
 				if(_createNewItemCallback!=null) throw new InvalidOperationException("CreateNewItemCallback already specified!");
 				_createNewItemCallback=value;

@@ -36,7 +36,7 @@ namespace KsWare.Presentation.UITestApp {
 
 		public ListVM<ItemVM> Items { get; [UsedImplicitly] private set; }
 
-		public ItemVM SelectedItem { get { return Fields.GetValue<ItemVM>(); } set { Fields.SetValue(value); } }
+		public ItemVM SelectedItem { get => Fields.GetValue<ItemVM>(); set => Fields.SetValue(value); }
 
 	}
 
@@ -46,7 +46,7 @@ namespace KsWare.Presentation.UITestApp {
 			RegisterChildren(()=>this);
 
 		}
-		public string DisplayName { get { return Fields.GetValue<string>(); } set { Fields.SetValue(value); } }
+		public string DisplayName { get => Fields.GetValue<string>(); set => Fields.SetValue(value); }
 	}
 
 }

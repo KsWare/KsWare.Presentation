@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported{get {return _actionBM!=null;}}
+		public override bool IsSupported => _actionBM !=null;
 
 		/// <summary> Gets a value whether the action can be executed or not
 		/// </summary>
@@ -59,7 +59,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <para>NOTE: This property is automatically set by <see cref="ActionVM"/> using DataProvider.Data</para>
 		/// </remarks>
 		public override object BusinessObject { //TODO revise type of BusinessObject, maybe sould be be IObjectBM/IActionBM
-			get {return _actionBM;}
+			get => _actionBM;
 			set {
 
 				if(_actionBM!=null) {

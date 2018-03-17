@@ -23,7 +23,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets or sets the business object metadata.
 		/// </summary>
 		/// <value>The business object metadata.</value>
-		public new BusinessActionMetadata Metadata{get{return (BusinessActionMetadata) base.Metadata;} set {base.Metadata = value;}}
+		public new BusinessActionMetadata Metadata{get => (BusinessActionMetadata) base.Metadata; set => base.Metadata = value; }
 
 		/// <summary> Creates the default metadata for the current type of business object .
 		/// </summary>
@@ -108,7 +108,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if this action can be executed; otherwise, <see langword="false"/>.</value>
 		[UsedImplicitly]
-		public bool CanExecute {get {return ((BusinessActionMetadata)Metadata).CanExecute;}}
+		public bool CanExecute => ((BusinessActionMetadata)Metadata).CanExecute;
 
 		/// <summary> [DRAFT] sets the Metadata.ActionProvider.ExecutedCallback
 		/// </summary>

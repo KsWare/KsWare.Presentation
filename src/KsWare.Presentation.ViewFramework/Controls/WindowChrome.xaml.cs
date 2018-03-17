@@ -44,8 +44,8 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 		}
 
 		public bool IsFullscreen {
-			get { return (bool) GetValue(IsFullscreenProperty); }
-			set { SetValue(IsFullscreenProperty, value); }
+			get => (bool) GetValue(IsFullscreenProperty);
+			set => SetValue(IsFullscreenProperty, value);
 		}
 
 		public WindowChrome() {

@@ -15,7 +15,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary>
 		/// Stores the object in the disposables collection (<see cref="Disposables"/>). Always use <c>D+=myObjectInstance</c>
 		/// </summary>
-		protected DisposablesCollection D {get { return Disposables; }set {}}
+		protected DisposablesCollection D {get => Disposables; set {}}
 
 	}
 

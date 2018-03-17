@@ -77,7 +77,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported{get {return true;}}
+		public override bool IsSupported => true;
 
 		#endregion
 
@@ -88,7 +88,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value><c>true</c> if this instance has error; otherwise, <c>false</c>.</value>
 		/// <remarks></remarks>
 		public virtual bool HasError {
-			get {return this._hasError;}
+			get => this._hasError;
 			protected set {
 				if (Equals(this._hasError, value)) return;
 				this._hasError = value;
@@ -101,7 +101,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The error message.</value>
 		/// <remarks></remarks>
 		public virtual string ErrorMessage {
-			get {return this._errorMessage;}
+			get => this._errorMessage;
 			protected set {
 				if (Equals(this._errorMessage, value)) return;
 				this._errorMessage = value;
@@ -171,7 +171,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		string IDataErrorInfo.this[string columnName] { get {string value;return _FieldErrors.TryGetValue(columnName, out value) ? value : null;}}
 
-		string IDataErrorInfo.Error { get { return _errorMessage; } }
+		string IDataErrorInfo.Error => _errorMessage;
 
 		#endregion
 

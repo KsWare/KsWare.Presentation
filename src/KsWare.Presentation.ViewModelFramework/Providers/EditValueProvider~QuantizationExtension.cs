@@ -45,10 +45,10 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			public object MaxValue { get; private set; }
 
 			[Bindable(BindableSupport.Yes,BindingDirection.OneWay),PublicAPI]
-			public int MinStep { get { return 0; } }
+			public int MinStep => 0;
 
 			[Bindable(BindableSupport.Yes,BindingDirection.OneWay),PublicAPI]
-			public int MaxStep { get { return _maxStep; } }
+			public int MaxStep => _maxStep;
 
 			[Bindable(BindableSupport.Yes,BindingDirection.TwoWay),PublicAPI]
 			public int Step {

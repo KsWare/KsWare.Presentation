@@ -38,7 +38,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// <summary> Gets or sets the Owner of the binding
 		/// </summary>
 		public DependencyObject Owner {
-			get { return _owner; }
+			get => _owner;
 			set {
 				_owner = value;
 				ResetBinding();
@@ -59,8 +59,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// Gets or sets the Command property.  
 		/// </summary>
 		public ICommand Command {
-			get { return (ICommand)GetValue(CommandProperty); }
-			set { SetValue(CommandProperty, value); }
+			get => (ICommand)GetValue(CommandProperty);
+			set => SetValue(CommandProperty, value);
 		}
 
 		/// <summary>
@@ -92,8 +92,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// Gets or sets the Action property. 
 		/// </summary>
 		public Action<object> Action {
-			get { return (Action<object>)GetValue(ActionProperty); }
-			set { SetValue(ActionProperty, value); }
+			get => (Action<object>)GetValue(ActionProperty);
+			set => SetValue(ActionProperty, value);
 		}
 
 		/// <summary>
@@ -124,8 +124,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// Gets or sets the InvokeMethod property. 
 		/// </summary>
 		public string InvokeMethod {
-			get { return (string)GetValue(InvokeMethodProperty); }
-			set { SetValue(InvokeMethodProperty, value); }
+			get => (string)GetValue(InvokeMethodProperty);
+			set => SetValue(InvokeMethodProperty, value);
 		}
 
 		/// <summary> Handles changes to the InvokeMethod property.
@@ -152,8 +152,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// Gets or sets the InvokeObject property. 
 		/// </summary>
 		public object InvokeObject {
-			get { return (object)GetValue(InvokeMethodProperty); }
-			set { SetValue(InvokeMethodProperty, value); }
+			get => (object)GetValue(InvokeMethodProperty);
+			set => SetValue(InvokeMethodProperty, value);
 		}
 
 		/// <summary> Handles changes to the InvokeObject property.
@@ -184,8 +184,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// Gets or sets the CommandParameter property.  
 		/// </summary>
 		public object CommandParameter {
-			get { return (object)GetValue(CommandParameterProperty); }
-			set { SetValue(CommandParameterProperty, value); }
+			get => (object)GetValue(CommandParameterProperty);
+			set => SetValue(CommandParameterProperty, value);
 		}
 
 		/// <summary>

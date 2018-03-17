@@ -24,7 +24,7 @@ namespace KsWare.Presentation.ViewModelFramework
 				if (_treeViewItem == null) _treeViewItem = new TreeViewItemSupport(this);
 				return _treeViewItem;
 			}
-			protected set { _treeViewItem = value; }
+			protected set => _treeViewItem = value;
 		}
 
 		public interface ITreeViewItemSupport
@@ -53,7 +53,7 @@ namespace KsWare.Presentation.ViewModelFramework
 			/// <value><c>true</c> if this object is expanded; otherwise, <c>false</c>.</value>
 			/// <remarks></remarks>
 			public bool IsExpanded {
-				get {return _isExpanded;}
+				get => _isExpanded;
 				set {
 					if (_isExpanded == value) return;
 					_isExpanded = value;
@@ -70,25 +70,23 @@ namespace KsWare.Presentation.ViewModelFramework
 			}
 
 			public bool HasNoHeader {
-				get { return _hasNoHeader; }
+				get => _hasNoHeader;
 				set { _hasNoHeader = value; OnPropertyChanged(nameof(HasNoHeader));}
 			}
 
 			public bool HasNoExpander {
-				get { return _hasNoExpander; }
+				get => _hasNoExpander;
 				set { _hasNoExpander = value; OnPropertyChanged(nameof(HasNoExpander));}
 			}
 
 			public bool IsLast {
-				get { return _isLast; }
+				get => _isLast;
 				set { _isLast = value; OnPropertyChanged(nameof(IsLast));}
 			}
 
 			public IList Nodes {
-				get { return _nodes; }
-				set {
-					_nodes = value;
-				}
+				get => _nodes;
+				set => _nodes = value;
 			}
 		}
 	}

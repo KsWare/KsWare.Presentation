@@ -19,7 +19,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 
 		/// <summary> Stores the Command Behavior Binding
 		/// </summary>
-		internal new EventCommandBehaviorBinding Behavior {get {return (EventCommandBehaviorBinding) base.Behavior;}}
+		internal new EventCommandBehaviorBinding Behavior => (EventCommandBehaviorBinding) base.Behavior;
 
 		#region Event
 
@@ -34,8 +34,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// </summary>
 		[UsedImplicitly]
 		public string Event {
-			get { return (string)GetValue(EventProperty); }
-			set { SetValue(EventProperty, value); }
+			get => (string)GetValue(EventProperty);
+			set => SetValue(EventProperty, value);
 		}
 
 		/// <summary> Handles changes to the Event property.

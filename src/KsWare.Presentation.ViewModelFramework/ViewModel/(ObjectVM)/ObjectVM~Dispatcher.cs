@@ -11,7 +11,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the <see cref="ApplicationDispatcher"/> this object is associated with.
 		/// </summary> 
 		/// <seealso cref="DispatcherObject.Dispatcher"/>
-		public IDispatcher Dispatcher { get { return ApplicationDispatcher.Instance; } }
+		public IDispatcher Dispatcher => ApplicationDispatcher.Instance;
 
 //		/// <summary> Determines whether the calling thread has access to this DispatcherObject.
 //		/// </summary>

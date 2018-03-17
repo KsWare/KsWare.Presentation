@@ -47,8 +47,9 @@ namespace KsWare.Presentation.BusinessFramework {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
-		public BackingFieldsStore FieldsːDebug { get { return _lazyFields.IsValueCreated ? _lazyFields.Value : null; } }
+		public BackingFieldsStore Fields => _lazyFields.Value;
+
+		public BackingFieldsStore FieldsːDebug => _lazyFields.IsValueCreated ? _lazyFields.Value : null;
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
@@ -70,7 +71,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		public event EventHandler Disposed;
 
 		public IObjectBM Parent {
-			get { return _parent; }
+			get => _parent;
 			set {
 				if (Equals(value, _parent)) return;
 				_parent = value;
@@ -91,31 +92,31 @@ namespace KsWare.Presentation.BusinessFramework {
 			}
 		}
 
-		public bool IsSlim { get { return true;} }
+		public bool IsSlim => true;
 
 		public event EventHandler ParentChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent {get { return EventSources.Get<EventHandler>("ParentChangedEvent"); }}
+		public IEventSource<EventHandler> ParentChangedEvent => EventSources.Get<EventHandler>("ParentChangedEvent");
 
 		[Obsolete("Not available in slim objects. Always returning empty collection.")]
-		public ICollection<IObjectBM> Children { get{return s_EmptyChildrenCollection;} }
+		public ICollection<IObjectBM> Children => s_EmptyChildrenCollection;
 
 		[Obsolete("Not available in slim objects",true)]
-		public string MemberName { get { return "?"; } set{throw new NotSupportedException(NotAvailable);} }
+		public string MemberName { get => "?"; set => throw new NotSupportedException(NotAvailable); }
 
 		[Obsolete("Not available in slim objects",true)]
-		public string MemberPath { get { return "?"; } set{throw new NotSupportedException(NotAvailable);} }
+		public string MemberPath { get => "?"; set => throw new NotSupportedException(NotAvailable); }
 
 		[Obsolete("Not available in slim objects",true)]
-		public BusinessMetadata Metadata { get{throw new NotSupportedException(NotAvailable);} set { throw new NotSupportedException(NotAvailable); } }
+		public BusinessMetadata Metadata { get => throw new NotSupportedException(NotAvailable); set => throw new NotSupportedException(NotAvailable); }
 		
 		[Obsolete("Not available in slim objects",true)]
 		public event EventHandler<UserFeedbackEventArgs> UserFeedbackRequested;
 
 		[Obsolete("Not available in slim objects",true)][DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent { get { throw new NotImplementedException();} }
-			
+		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent => throw new NotImplementedException();
+
 		[Obsolete("Not available in slim objects",true)]
 		public event EventHandler<BusinessPropertyChangedEventArgs> BusinessPropertyChanged;
 		
@@ -126,8 +127,8 @@ namespace KsWare.Presentation.BusinessFramework {
 		public void RequestUserFeedback(UserFeedbackEventArgs args) { throw new NotSupportedException(NotAvailable); }
 		
 		[Obsolete("Not available in slim objects. Always returning true.")]
-		public bool IsApplicable { get{return true;} }
-		
+		public bool IsApplicable => true;
+
 		[Obsolete("Not available in slim objects",true)]
 		public event EventHandler IsApplicableChanged;
 

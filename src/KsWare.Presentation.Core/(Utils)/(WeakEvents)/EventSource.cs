@@ -30,12 +30,12 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the name of the event.
 		/// </summary>
 		/// <value>The name of the event.</value>
-		public string EventName { get { return _EventName; } }
+		public string EventName => _EventName;
 
 		/// <summary> Gets the source object.
 		/// </summary>
 		/// <value>The source.</value>
-		public object Source {get { return _WeakSource.Target; }}
+		public object Source => _WeakSource.Target;
 
 		internal List<EventContainer> GetContainers() { return _EventHandleContainers; }
 	}
@@ -155,9 +155,9 @@ namespace KsWare.Presentation {
 		/// <example>Adding a method:<code>MyModel.PropertyChangedEvent.add=AtPropertyChanged;
 		/// private void AtPropertyChanged(object sender, EventArgs e) {/*do anyting*/}
 		/// </code></example>
-		public TEvent add { set { Register(value); } }
+		public TEvent add { set => Register(value); }
 
-		public TEvent remove { set { Release(value,null); } }
+		public TEvent remove { set => Release(value, null); }
 
 		/// <summary> Adds an event handler.
 		/// </summary>
@@ -169,7 +169,7 @@ namespace KsWare.Presentation {
 		/// <example>Adding a method:<code>MyModel.PropertyChangedEvent.ː=AtPropertyChanged;
 		/// private void AtPropertyChanged(object sender, EventArgs e) {/*do anyting*/}
 		/// </code></example>
-		public TEvent ː { set { Register(value); } }
+		public TEvent ː { set => Register(value); }
 
 		/// <summary> Raises the event with specified arguments.
 		/// </summary>

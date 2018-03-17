@@ -128,7 +128,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets or sets the business object metadata.
 		/// </summary>
 		/// <value>The business object metadata.</value>
-		public new BusinessValueMetadata Metadata {get {return (BusinessValueMetadata) base.Metadata;}set {base.Metadata = value;}}
+		public new BusinessValueMetadata Metadata {get => (BusinessValueMetadata) base.Metadata; set => base.Metadata = value; }
 
 		/// <summary> Called before the <see cref="Metadata"/>-property is changed.
 		/// </summary>
@@ -283,12 +283,12 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		#region IValueBM (explicit implementation for invariant compatibility)
 
-		object IValueBM.Value{get {return this.Value;}set {this.Value = (TValue) value;}}
+		object IValueBM.Value{get => this.Value; set => this.Value = (TValue) value; }
 		
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		Type IValueBM.ValueType{get {return typeof(TValue);}}
+		Type IValueBM.ValueType => typeof(TValue);
 
-		IValueSettings IValueBM.Settings{get {return (IValueSettings) this.Settings;}}
+		IValueSettings IValueBM.Settings => (IValueSettings) this.Settings;
 
 		Exception IValueBM.Validate(object value, bool throwOnInvalid) { return this.Validate((TValue) value, throwOnInvalid); }
 

@@ -38,10 +38,6 @@ namespace KsWare.Presentation.Core.Logging {
 		/// Gets the none.
 		/// </summary>
 		/// <value>The none.</value>
-		public static LogFilter None {
-			get {
-				return new LogFilter{IsNone = true};
-			}
-		}
+		public static LogFilter None => new LogFilter{IsNone = true};
 	}
 }

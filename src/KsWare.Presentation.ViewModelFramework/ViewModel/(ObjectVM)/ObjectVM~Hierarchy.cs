@@ -30,13 +30,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </remarks>
 		[Localizable(false)]
 		public string MemberName {
-			get {return _memberName;}
-			set {
-				//TODO validations
-				//MemberAccessUtil.DemandNotNull(value,null,this,"PropertyName","{162F86E9-3E41-41B6-A6BA-6D3165487771}");
-				//MemberAccessUtil.DemandWriteOnce(this.memberName==null,null,this,"PropertyName","{A026C8CD-5974-4C67-B1DF-52CA9FA6A87B}");
-				_memberName = value;
-			}
+			get => _memberName;
+			set => _memberName = value;
 		}
 
 		/// <summary> Gets the parent of this object.
@@ -46,7 +41,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// In default case the <see cref="Parent"/> should be set only by the parent itself!
 		/// </remarks>
 		public IObjectVM Parent {
-			get {return _parent;}
+			get => _parent;
 			set {
 				if(value==_parent) return;
 				var oldParent = _parent;
@@ -64,9 +59,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public event EventHandler ParentChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent {
-			get { return EventSources.Get<EventHandler>(nameof(ParentChangedEvent)); }
-		}
+		public IEventSource<EventHandler> ParentChangedEvent => EventSources.Get<EventHandler>(nameof(ParentChangedEvent));
 
 //		/// <summary> Raises the <see cref="ParentChanged"/> event.
 //		/// </summary>
@@ -89,15 +82,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		IObjectVM IHierarchical<IObjectVM>.Parent { get { return Parent; } set { Parent = (IObjectVM)value; } }
+		IObjectVM IHierarchical<IObjectVM>.Parent { get => Parent; set => Parent = (IObjectVM)value; }
 
 		/// <summary> Gets the children (IObjectVMs which are registered als children).
 		/// </summary>
 		/// <value>The children.</value>
 		/// <remarks></remarks>
-		public ICollection<IObjectVM> Children {get{return this._children.AsReadOnly();}}
-		
-		ICollection<IObjectVM> IHierarchical<IObjectVM>.Children {get {return Children;}}
+		public ICollection<IObjectVM> Children => this._children.AsReadOnly();
+
+		ICollection<IObjectVM> IHierarchical<IObjectVM>.Children => Children;
 
 		/// <summary> Registers a child view model
 		/// </summary>

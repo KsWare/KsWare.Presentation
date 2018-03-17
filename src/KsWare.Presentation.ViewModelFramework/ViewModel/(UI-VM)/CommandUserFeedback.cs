@@ -26,7 +26,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			CommandParameter = commandParameter;
 		}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.Command;} }
+		public override FeedbackType FeedbackType => FeedbackType.Command;
 
 		/// <summary> Gets or sets the command.
 		/// </summary>

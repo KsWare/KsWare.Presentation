@@ -34,7 +34,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		public static readonly DependencyProperty SelectedItemProperty =
 			DependencyProperty.Register("SelectedItem", typeof (object), typeof (BindableSelectedItemBehaviorV40), new UIPropertyMetadata(null, AtSelectedItemChanged));
 
-		public object SelectedItem {get { return (object) GetValue(SelectedItemProperty); }set { SetValue(SelectedItemProperty, value); }}
+		public object SelectedItem {get => (object) GetValue(SelectedItemProperty); set => SetValue(SelectedItemProperty, value); }
 
 		private static void AtSelectedItemChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
 			var b = (BindableSelectedItemBehaviorV40) sender;

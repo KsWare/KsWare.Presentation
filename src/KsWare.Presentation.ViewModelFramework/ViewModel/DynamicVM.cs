@@ -8,7 +8,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <remarks></remarks>
 	public class DynamicVM:ValueVM<object>,IValueVM {
 
-		public Type ValueType { get { return Fields.Get<Type>("ValueType"); } set { Fields.Set("ValueType", value); } }
+		public Type ValueType { get => Fields.GetValue<Type>(); set => Fields.SetValue(value); }
 
 		protected override void OnBusinessObjectChanged(ValueChangedEventArgs<IObjectBM> e) {
 			base.OnBusinessObjectChanged(e);
@@ -29,7 +29,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			#endregion
 		}
 
-		Type IValueVM.ValueType{get {return ValueType;}}
+		Type IValueVM.ValueType => ValueType;
 	}	
 
 }

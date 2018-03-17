@@ -43,16 +43,16 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether this instance has error.
 		/// </summary>
 		/// <value><c>true</c> if this instance has error; otherwise, <c>false</c>.</value>
-		public bool HasError{get {return _HasError;}}
-		
+		public bool HasError => _HasError;
+
 		/// <summary> Gets the error message.
 		/// </summary>
 		/// <value>The error message.</value>
-		public string ErrorMessage{get {return _ErrorMessage;}}
+		public string ErrorMessage => _ErrorMessage;
 
 		/// <summary> Gets the exception.
 		/// </summary>
 		/// <value>The exception.</value>
-		public Exception Exception{get {return _Exception;}}
+		public Exception Exception => _Exception;
 	}
 }

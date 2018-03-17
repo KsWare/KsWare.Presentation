@@ -43,14 +43,14 @@ namespace KsWare.Presentation.ViewFramework {
 		}
 		
 
-		public string Prefix { get { return (string) _binding1.Source; } set { _binding1.Source = value; }}
+		public string Prefix { get => (string) _binding1.Source; set => _binding1.Source = value; }
 
 		/// <summary> Gets or sets the path to the binding source property.
 		/// </summary>
 		/// <value>The path to the binding source. The default is null.</value>
-		public PropertyPath Path { get { return MainBinding.Path; } set { MainBinding.Path = value; }}
+		public PropertyPath Path { get => MainBinding.Path; set => MainBinding.Path = value; }
 
-		public string Suffix { get { return (string) _binding3.Source; } set { _binding3.Source = value; }}
+		public string Suffix { get => (string) _binding3.Source; set => _binding3.Source = value; }
 
 		/// <summary>  Gets or sets a string that specifies how to format the binding if it displays the bound value as a string.
 		/// </summary> 
@@ -58,7 +58,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// A string that specifies how to format the binding if it displays the bound value as a string.
 		/// </returns>
 		[DefaultValue(null)]
-		public new string StringFormat { get { return _converter.StringFormat[1]; } set { _converter.StringFormat[1] = value; } }
+		public new string StringFormat { get => _converter.StringFormat[1]; set => _converter.StringFormat[1] = value; }
 	}
 
 	/// <summary> Binding with prefix.

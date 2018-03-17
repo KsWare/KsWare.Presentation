@@ -3,8 +3,9 @@ using KsWare.Presentation.BusinessFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KsWare.Presentation.Core.CLR452.Tests {
+
 	[TestClass]
-	public class UnitTest1 {
+	public class CallerNameTests {
 
 		[TestMethod]
 		public void TestMethod1() {
@@ -20,7 +21,7 @@ namespace KsWare.Presentation.Core.CLR452.Tests {
 			RegisterChildren(()=>this);
 		}
 
-		public int Int32 { get { return Fields.GetValue<int>(); } set { Fields.SetValue(value); } }
+		public int Int32 { get => Fields.GetValue<int>(); set => Fields.SetValue(value); }
 
 		public string GetCallerName([System.Runtime.CompilerServices.CallerMemberName] string name =null) { return name; }
 	}

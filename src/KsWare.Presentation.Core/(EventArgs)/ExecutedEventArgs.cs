@@ -16,9 +16,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the action _Parameter.
 		/// </summary>
 		/// <value>The action _Parameter.</value>
-		public object Parameter {
-			get {return _Parameter;}
-		}
+		public object Parameter => _Parameter;
 	}
 
 }

@@ -13,7 +13,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected EventSourceStore EventSources { get { return LazyWeakEventStore.Value; }}
+		protected EventSourceStore EventSources => LazyWeakEventStore.Value;
 	}
 
 }

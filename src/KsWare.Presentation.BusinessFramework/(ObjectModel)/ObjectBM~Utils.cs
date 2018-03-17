@@ -14,11 +14,11 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> ALIAS for <c>Metadata.DataProvider.Data</c> </summary>
 		[EditorBrowsable(EditorBrowsableState.Never),Browsable(false)]
 		//[Obsolete("Use Data or Metadata.DataProvider.Data",true)]/*enable this to find data accessor/for debug)
-		public virtual object MːData {get { return Metadata.DataProvider.Data; }set {  Metadata.DataProvider.Data=value; }}
+		public virtual object MːData {get => Metadata.DataProvider.Data; set => Metadata.DataProvider.Data=value; }
 
-		public string DebugːGetTypeːName{get { return DebugUtil.FormatTypeName(this); }}
-		
-		public string DebugːGetTypeːFullName{get { return this.GetType().FullName; }}
+		public string DebugːGetTypeːName => DebugUtil.FormatTypeName(this);
+
+		public string DebugːGetTypeːFullName => this.GetType().FullName;
 	}
 
 

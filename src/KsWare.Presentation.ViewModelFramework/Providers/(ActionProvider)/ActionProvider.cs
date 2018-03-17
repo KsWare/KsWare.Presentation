@@ -97,7 +97,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <remarks></remarks>
 		public event EventHandler CanExecuteChanged;
 
-		public IObservable<bool> CanExecuteObservable { get { return _lazyCanExecuteObservable.Value; }} 
+		public IObservable<bool> CanExecuteObservable => _lazyCanExecuteObservable.Value;
 
 		public void NotifyCanExecuteChanged() {OnCanExecuteChanged();}
 
@@ -111,7 +111,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		[Bindable(false)]
 		public bool Async {
-			get { return _useAsync==true; }
+			get => _useAsync ==true;
 			set {
 				MemberAccessUtil.DemandWriteOnce(_useAsync==null,null,this,nameof(Async),"{50EA3CCF-2609-44F9-B023-1E450350E774}");
 				_useAsync = value;

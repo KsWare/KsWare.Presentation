@@ -62,8 +62,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		/// <summary> Gets an error message indicating what is wrong with this object.
 		/// </summary>
-		string IDataErrorInfo.Error { get { return ErrorMessage;  } }	
-	
+		string IDataErrorInfo.Error => ErrorMessage;
+
 		private object GetPropertyValue(string propertyName) {
 			const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
 			var propertyInfo = this.GetType().GetProperty(propertyName, bindingFlags);
@@ -71,7 +71,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			return value;
 		}
 
-		public override bool HasError { get { return base.HasError; } protected set { base.HasError = value; } }
+		public override bool HasError { get => base.HasError; protected set => base.HasError = value; }
 
 	}
 }

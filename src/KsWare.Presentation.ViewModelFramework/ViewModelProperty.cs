@@ -109,37 +109,37 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the name of the dependency property. 
 		/// </summary>
 		/// <value>The name of the property.</value>
-		public string Name {get {return this._Name;}}
+		public string Name => this._Name;
 
 		/// <summary> Gets the type that the dependency property uses for its value.
 		/// </summary>
 		/// <value>The <see cref="Type"/> of the property value.</value>
-		public Type PropertyType {get {return this._PropertyType;}}
+		public Type PropertyType => this._PropertyType;
 
 		/// <summary> Gets the type of the object that registered the property with the property system, or added itself as owner of the property. 
 		/// </summary>
 		/// <value>The type of the object that registered the property or added itself as owner of the property.</value>
-		public Type OwnerType {get {return this._OwnerType;}}
+		public Type OwnerType => this._OwnerType;
 
 		/// <summary> Gets the value validation callback for the dependency property.
 		/// </summary>
 		/// <value>The value validation callback for this property, as provided for the validateValueCallback parameter in the original property registration.</value>
-		public ValidateValueCallback ValidateValueCallback {get {return this._ValidateValueCallback;}}
+		public ValidateValueCallback ValidateValueCallback => this._ValidateValueCallback;
 
 		/// <summary> Gets a value that indicates whether the property identified by this <see cref="ViewModelProperty"/> instance is a read-only property.
 		/// </summary>
 		/// <value>true if the dependency property is read-only; otherwise, false.</value>
-		public bool ReadOnly { get {return _ReadOnly;} }
+		public bool ReadOnly => _ReadOnly;
 
 		/// <summary> Gets an internally generated value that uniquely identifies the property.
 		/// </summary>
 		/// <value>A unique numeric identifier.</value>
-		public int GlobalIndex { get {return _GlobalIndex;} }
+		public int GlobalIndex => _GlobalIndex;
 
 		/// <summary> Gets the default metadata of the property. 
 		/// </summary>
 		/// <value>The default metadata of the property.</value>
-		public ViewModelMetadata DefaultMetadata {get {return _DefaultMetadata;}}
+		public ViewModelMetadata DefaultMetadata => _DefaultMetadata;
 
 		/// <summary> [NOT IMPLEMENTED] Adds the owner for this property
 		/// </summary>
@@ -256,9 +256,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-			public PropertyInfo PropertyInfo {
-				get {return _PropertyInfo;}
-			}
+			public PropertyInfo PropertyInfo => _PropertyInfo;
 		}
 
 	}
@@ -281,8 +279,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the view model property identifier associated with this specialized read-only view model property identifier.
 		/// </summary>
 		/// <remarks></remarks>
-		public ViewModelProperty ViewModelProperty {
-			get {return viewModelProperty;}
-		}
+		public ViewModelProperty ViewModelProperty => viewModelProperty;
 	}
 }

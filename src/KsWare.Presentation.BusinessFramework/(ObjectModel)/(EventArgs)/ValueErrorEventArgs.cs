@@ -25,16 +25,16 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the exception.
 		/// </summary>
 		/// <value>The exception.</value>
-		public BusinessModelException Exception{get {return this._exception;}}
-		
+		public BusinessModelException Exception => this._exception;
+
 		/// <summary> Gets the business object.
 		/// </summary>
 		/// <value>The business object.</value>
-		public IObjectBM BusinessObject{get {return this._exception.BusinessObject;}}
-		
+		public IObjectBM BusinessObject => this._exception.BusinessObject;
+
 		/// <summary> Gets the error number.
 		/// </summary>
 		/// <value>The error number.</value>
-		public BusinessModelError ErrorNumber{get {return this._exception.ErrorNumber;}}
+		public BusinessModelError ErrorNumber => this._exception.ErrorNumber;
 	}
 }

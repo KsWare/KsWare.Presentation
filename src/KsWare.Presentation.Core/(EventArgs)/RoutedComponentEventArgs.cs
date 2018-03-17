@@ -16,7 +16,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the original source of the event.
 		/// </summary>
 		/// <value>The original source.</value>
-		public object OriginalSource { get { return this._OriginalSource; } }
+		public object OriginalSource => this._OriginalSource;
 
 	}
 

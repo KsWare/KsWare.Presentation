@@ -11,7 +11,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		public SaveFileFeedbackEventArgs() {}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.SaveFile;} }
+		public override FeedbackType FeedbackType => FeedbackType.SaveFile;
 
 
 		/// <seealso cref="SaveFileDialog.CreatePrompt"/>

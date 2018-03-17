@@ -19,7 +19,7 @@ namespace KsWare.Presentation {
 			DetailMessage=detailMessage;
 		}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.DetailMessage;} }
+		public override FeedbackType FeedbackType => FeedbackType.DetailMessage;
 
 		/// <summary> Gets or sets the message detail text.
 		/// </summary>

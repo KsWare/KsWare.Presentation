@@ -35,7 +35,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Gets a value indicating whether this instance is supported.
 		/// </summary>
 		/// <remarks></remarks>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		#endregion
 
@@ -87,7 +87,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The underlying <see cref="IValueBM"/>.</value>
 		public IValueBM<T> BusinessValue {
-			get {return _businessValue;}
+			get => _businessValue;
 			set {
 				var previousBusinessValue = _businessValue;
 				var previousData = BusinessValue == null || !BusinessValue.HasValue ? default(T) : BusinessValue.Value;
@@ -136,7 +136,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			ParentVM.SetEnabled("BusinessObject is not applicable", isApplicable);
 		}
 
-		IValueBM IBusinessValueDataProvider.BusinessValue {get {return (IValueBM) BusinessValue;}set {BusinessValue=(IValueBM<T>) value;}}
+		IValueBM IBusinessValueDataProvider.BusinessValue {get => (IValueBM) BusinessValue; set => BusinessValue=(IValueBM<T>) value; }
 
 		/// <summary> Occurs when the <see cref="BusinessValue"/>-property has been changed.
 		/// </summary>

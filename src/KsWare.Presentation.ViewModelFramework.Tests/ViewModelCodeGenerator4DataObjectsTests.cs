@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace KsWare.Presentation.ViewModelFramework.Tests {
 
 	[TestClass]
-	public class ViewModelCodeGenerator4DataObjectsTest {
+	public class ViewModelCodeGenerator4DataObjectsTests {
 
 
 		[TestMethod]

@@ -24,7 +24,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[EditorBrowsable(EditorBrowsableState.Never),Browsable(false)]
 		//[Obsolete("Use Data or Metadata.DataProvider.Data",true)]/*enable this to find data accessor/for debug)
 		[Bindable(BindableSupport.No)]
-		public virtual object MːData {get { return Metadata.DataProvider.Data; }set {  Metadata.DataProvider.Data=value; }}
+		public virtual object MːData {get => Metadata.DataProvider.Data; set => Metadata.DataProvider.Data=value; }
 
 		/// <summary> [EXPERIMENTAL] Gets or sets the data of the underlying business object </summary>
 		/// <remarks>
@@ -37,7 +37,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if (IsInDesignMode) return null; // WORKAROUND because NullReferenceException in designer
 				// return ((IObjectBM)MːData).Metadata.DataProvider.Data;
 				return (MːData as IObjectBM)?.Metadata?.DataProvider?.Data;
-			} set {  ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
+			} set => ((IObjectBM)MːData).Metadata.DataProvider.Data=value;
 		}
 
 		/// <summary> [EXPERIMENTAL] Gets or sets the data of the underlying business object.
@@ -53,7 +53,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				// return ((IBusinessObjectVM)Metadata.DataProvider.Data).Metadata.DataProvider.Data;
 				return (Metadata.DataProvider.Data as IBusinessObjectVM)?.Metadata?.DataProvider?.Data;
 			}
-			set { ((IObjectBM)MːData).Metadata.DataProvider.Data=value; }
+			set => ((IObjectBM)MːData).Metadata.DataProvider.Data=value;
 		}
 
 		/// <summary> Gets or set the underlying business object (if any)

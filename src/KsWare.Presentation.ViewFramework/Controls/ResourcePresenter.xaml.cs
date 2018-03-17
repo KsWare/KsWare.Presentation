@@ -26,8 +26,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		/// Source="pack://application:,,,/Resources/AFolder/AFile.xaml"/>
 		/// </example>
 		public Uri Source {
-			get {return (Uri) GetValue(SourceProperty);}
-			set {SetValue(SourceProperty, value);}
+			get => (Uri) GetValue(SourceProperty);
+			set => SetValue(SourceProperty, value);
 		}
 
 		public static readonly DependencyProperty SourceFormatProperty =
@@ -39,8 +39,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		#region SourceFormat Property
 
 		public Uri SourceFormat {
-			get { return (Uri)GetValue(SourceFormatProperty); }
-			set { SetValue(SourceFormatProperty, value); }
+			get => (Uri)GetValue(SourceFormatProperty);
+			set => SetValue(SourceFormatProperty, value);
 		}
 
 		public static readonly DependencyProperty SourceParameter0Property =
@@ -48,8 +48,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			(d, e) => ((ResourcePresenter) d).UpdateSource()));
 
 		public string SourceParameter0 {
-			get { return (string)GetValue(SourceParameter0Property); }
-			set { SetValue(SourceParameter0Property, value); }
+			get => (string)GetValue(SourceParameter0Property);
+			set => SetValue(SourceParameter0Property, value);
 		}
 
 		public static readonly DependencyProperty SourceParameter1Property =
@@ -57,8 +57,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			(d, e) => ((ResourcePresenter) d).UpdateSource()));
 
 		public string SourceParameter1 {
-			get { return (string)GetValue(SourceParameter1Property); }
-			set { SetValue(SourceParameter1Property, value); }
+			get => (string)GetValue(SourceParameter1Property);
+			set => SetValue(SourceParameter1Property, value);
 		}
 
 		public static readonly DependencyProperty SourceParameter2Property =
@@ -66,8 +66,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			(d, e) => ((ResourcePresenter) d).UpdateSource()));
 
 		public string SourceParameter2 {
-			get { return (string)GetValue(SourceParameter2Property); }
-			set { SetValue(SourceParameter2Property, value); }
+			get => (string)GetValue(SourceParameter2Property);
+			set => SetValue(SourceParameter2Property, value);
 		}
 
 		private void UpdateSource() {UpdateSource(SourceFormat, new []{SourceParameter0,SourceParameter1,SourceParameter2});}

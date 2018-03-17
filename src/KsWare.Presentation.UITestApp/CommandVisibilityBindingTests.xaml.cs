@@ -38,7 +38,7 @@ namespace KsWare.Presentation.UITestApp {
 			CommandManager.InvalidateRequerySuggested();
 		}
 
-		public bool MockCanExecute { get { return (bool) GetValue(MockCanExecuteProperty); } set { SetValue(MockCanExecuteProperty, value); } }
+		public bool MockCanExecute { get => (bool) GetValue(MockCanExecuteProperty); set => SetValue(MockCanExecuteProperty, value); }
 
 		public void Execute(object parameter) {  }
 		public bool CanExecute(object parameter) { return MockCanExecute; }

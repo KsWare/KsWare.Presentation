@@ -26,7 +26,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			_ReflectedObjectVM = reflectedObjectVM;
 		}
 
-		public ObjectVM ReflectedObject { get { return _ReflectedObjectVM; } }
+		public ObjectVM ReflectedObject => _ReflectedObjectVM;
 
 		public PropertyInfo PropertyInfo { get; set; }
 

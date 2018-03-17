@@ -44,7 +44,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors.DragDrop {
 
 		protected override Visual GetVisualChild(int index) { return _contentPresenter; }
 
-		protected override int VisualChildrenCount { get { return 1; } }
+		protected override int VisualChildrenCount => 1;
 
 		public override GeneralTransform GetDesiredTransform(GeneralTransform transform) {
 			var result = new GeneralTransformGroup();

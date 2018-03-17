@@ -151,7 +151,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		public Adorner Adorner {
-			get { return _adorner; }
+			get => _adorner;
 			set {
 				DetachAdorner();
 				_adorner = value;
@@ -160,7 +160,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		public bool BindToBusyUserRequest {
-			get { return _bindToBusyUserRequest; }
+			get => _bindToBusyUserRequest;
 			set {
 				_bindToBusyUserRequest = value;
 				if (value) {
@@ -173,7 +173,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		public ObjectVM DataContext {
-			get { return _dataContext; }
+			get => _dataContext;
 			set {
 				if (_dataContext != null) {
 					_dataContext.UserFeedbackRequested-=AtUserFeedbackRequested;
@@ -248,7 +248,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// <summary> Gets the number of visual child elements within this element. Overrides <see cref="M:System.Windows.Media.Visual.VisualChildrenCount" />
 		/// </summary>
 		/// <value>The visual children count.</value>
-		protected override int VisualChildrenCount{get{return 1;}}
+		protected override int VisualChildrenCount => 1;
 
 		/// <summary> Returns a child at the specified index from a collection of child elements. Overrides <see cref="M:System.Windows.Media.Visual.GetVisualChild(System.Int32)" />
 		/// </summary>
@@ -261,7 +261,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <value>The visual child.</value>
 		public Control VisualChild {
-			get { return _visualChild; }
+			get => _visualChild;
 			set {
 				if (_visualChild != null) { RemoveVisualChild(_visualChild); }
 				_visualChild = value;

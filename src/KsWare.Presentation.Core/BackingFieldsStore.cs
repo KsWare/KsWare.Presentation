@@ -58,19 +58,13 @@ namespace KsWare.Presentation {
 			}
 		}
 
-		public object Owner { get { return _owner; } }
+		public object Owner => _owner;
 
-		public BackingFieldInfo this[Expression<Func<object, object>> memberExpression] {
-			get { return _fields[MemberNameUtil.GetPropertyName(memberExpression)]; }
-		}
+		public BackingFieldInfo this[Expression<Func<object, object>> memberExpression] => _fields[MemberNameUtil.GetPropertyName(memberExpression)];
 
-		public BackingFieldInfo this[Expression<Func<object>> memberExpression] {
-			get { return _fields[MemberNameUtil.GetPropertyName(memberExpression)]; }
-		}
+		public BackingFieldInfo this[Expression<Func<object>> memberExpression] => _fields[MemberNameUtil.GetPropertyName(memberExpression)];
 
-		public BackingFieldInfo this[string name] {
-			get { return _fields[name]; }
-		}
+		public BackingFieldInfo this[string name] => _fields[name];
 
 		public void Add<T>(string name, T value=default(T)) { AddCore<T>(name); }
 
@@ -88,15 +82,16 @@ namespace KsWare.Presentation {
 			OnPropertyChanged(name,default(T),value);
 		}
 
-		[Obsolete("Use SetValue")]
+		[Obsolete("Use SetValue", true)]
 		public void Set<T>(string name, T value) { SetInternal(name,value); }
 
+
 		/// <summary>
-		/// [DRAFT] using CallerMemberName
+		/// Sets the value.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="value"></param>
-		/// <param name="name"></param>
+		/// <typeparam name="T">The type of the field</typeparam>
+		/// <param name="value">The value.</param>
+		/// <param name="name">The field name.</param>
 		public void SetValue<T>(T value, [CallerMemberName] string name=null) { SetInternal(name,value); }
 
 //		Search:		Fields\.Set\((\(\)|_)\s*=>\s*(\w+),
@@ -140,16 +135,15 @@ namespace KsWare.Presentation {
 		/// <typeparam name="TRet">The type of the value.</typeparam>
 		/// <param name="name">The name of the property.</param>
 		/// <returns>The value</returns>
-		[Obsolete("Use GetValue")]
+		[Obsolete("Use GetValue",true)]
 		public TRet Get<TRet>(string name) {return GetInternal(name, default(TRet)); }
 
-
 		/// <summary>
-		/// [DRAFT] using CallerMemberName
+		/// Gets the value.
 		/// </summary>
-		/// <typeparam name="TRet"></typeparam>
-		/// <param name="name"></param>
-		/// <returns></returns>
+		/// <typeparam name="TRet">The type of the field.</typeparam>
+		/// <param name="name">The field name.</param>
+		/// <returns>The value.</returns>
 		public TRet GetValue<TRet>([CallerMemberName] string name=null) { return GetInternal<TRet>(name,default(TRet)); }
 
 		/// <summary> Gets the value for the property with the specified name.
@@ -158,7 +152,7 @@ namespace KsWare.Presentation {
 		/// <param name="name">The name of the property.</param>
 		/// <param name="defaultValue">The default value </param>
 		/// <returns>The value</returns>
-		[Obsolete("Use GetValue")]
+		[Obsolete("Use GetValue",true)]
 		public TRet Get<TRet>(string name, TRet defaultValue) { return GetInternal(name, defaultValue); }
 		//TODO logic to use CallerMemberName
 //		public TRet Get<TRet>(TRet defaultValue, [CallerMemberName] string name=null) { return GetInternal<TRet>(name,defaultValue); }
@@ -274,9 +268,7 @@ namespace KsWare.Presentation {
 			}
 
 			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-			public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
-				get { return LazyWeakEventProperties.Value.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
-			}
+			public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent => LazyWeakEventProperties.Value.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent");
 
 			public void Dispose() {
 				foreach (var eventHandlerInfo in EventHandlers) eventHandlerInfo.Dispose();

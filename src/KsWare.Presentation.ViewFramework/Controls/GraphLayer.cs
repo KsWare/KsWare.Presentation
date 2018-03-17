@@ -12,8 +12,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			DependencyProperty.Register("LogicalBounds", typeof(Rect), typeof(GraphLayer), new FrameworkPropertyMetadata(default(Rect)){AffectsRender = true});
 
 		public Rect LogicalBounds {
-			get { return (Rect)GetValue(LogicalBoundsProperty); }
-			set { SetValue(LogicalBoundsProperty, value); }
+			get => (Rect)GetValue(LogicalBoundsProperty);
+			set => SetValue(LogicalBoundsProperty, value);
 		}
 
 		private static readonly DependencyPropertyKey __actualLogicalBoundsPropertyKey =
@@ -22,8 +22,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		public static readonly DependencyProperty ActualLogicalBoundsProperty = __actualLogicalBoundsPropertyKey.DependencyProperty;
 
 		public Rect ActualLogicalBounds {
-			get { return (Rect)GetValue(__actualLogicalBoundsPropertyKey.DependencyProperty); }
-			protected set { SetValue(__actualLogicalBoundsPropertyKey, value); }
+			get => (Rect)GetValue(__actualLogicalBoundsPropertyKey.DependencyProperty);
+			protected set => SetValue(__actualLogicalBoundsPropertyKey, value);
 		}
 
 		protected GraphLayer() {}

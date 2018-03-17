@@ -24,7 +24,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> Gets or sets a CommandParameter
 		/// </summary>
 		public object CommandParameter {
-			get {return _commandParameter;}
+			get => _commandParameter;
 			set {
 				if(_commandParameter==value) return;
 				_commandParameter = value;
@@ -36,7 +36,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> The command to execute when the specified event is raised
 		/// </summary>
 		public ICommand Command {
-			get { return _command; }
+			get => _command;
 			set {
 				_command = value;
 				_strategy = new CommandExecutionStrategy { Behavior = this };
@@ -46,7 +46,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> Gets or sets the Action
 		/// </summary>
 		public Action<object> Action {
-			get { return _action; }
+			get => _action;
 			set {
 				_action = value;
 				// set the execution strategy to execute the action
@@ -68,7 +68,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> Gets or sets the name of the method to invoke.
 		/// </summary>
 		public string InvokeMethodName {
-			get { return _invokeMethodName; }
+			get => _invokeMethodName;
 			set {
 				_invokeMethodName = value;
 				// set the execution strategy to execute the action
@@ -79,7 +79,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// <summary> Gets or sets the object or <see cref="Type"/> for method invoke
 		/// </summary>
 		public object InvokeObject {
-			get { return _invokeObject; }
+			get => _invokeObject;
 			set {
 				_invokeObject = value;
 				// set the execution strategy to execute the action

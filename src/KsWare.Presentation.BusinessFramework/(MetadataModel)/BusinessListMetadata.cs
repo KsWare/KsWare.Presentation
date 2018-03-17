@@ -38,7 +38,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The list logic provider.</value>
 		public IListLogicProvider LogicProvider {
-			get {return this._logicProvider;}
+			get => this._logicProvider;
 			set {
 				DemandWrite();
 				SetPropertyWithParentPattern.Execute(ref this._logicProvider, value, this);

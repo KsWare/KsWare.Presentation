@@ -29,8 +29,8 @@ namespace KsWare.Presentation {
 		[Bindable(true)]
 		[PublicAPI]
 		public object Value {
-			get { return GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
+			get => GetValue(ValueProperty);
+			set => SetValue(ValueProperty, value);
 		}
 
 		private void AtPropertyChanged(DependencyPropertyChangedEventArgs e) {

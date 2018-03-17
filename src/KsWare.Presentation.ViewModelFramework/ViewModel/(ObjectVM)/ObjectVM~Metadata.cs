@@ -59,7 +59,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>
 		/// <c>true</c> if this instance has metadata; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasMetadata { get { return _metadata != null; }}
+		public bool HasMetadata => _metadata != null;
 
 		/// <summary> Gets or sets the metadata.
 		/// </summary>
@@ -112,9 +112,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the event source for the event which occurs when Metadata-Property has been changed.
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent {
-			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>>("MetadataChangedEvent"); }
-		}
+		public IEventSource<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>> MetadataChangedEvent => EventSources.Get<EventHandler<ValueChangedEventArgs<ViewModelMetadata>>>("MetadataChangedEvent");
 
 		/// <summary> Raises the MetadataChanged-event.<br/>
 		/// For derived classes: Called when <see cref="Metadata"/> property changes. 

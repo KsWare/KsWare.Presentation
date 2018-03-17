@@ -21,13 +21,13 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		public ICommand Command {
-			get { return (ICommand) GetValue(CommandProperty); }
-			set { SetValue(CommandProperty, value); }
+			get => (ICommand) GetValue(CommandProperty);
+			set => SetValue(CommandProperty, value);
 		}
 
 		public object CommandParameter {
-			get { return (object) GetValue(CommandParameterProperty); }
-			set { SetValue(CommandParameterProperty, value); }
+			get => (object) GetValue(CommandParameterProperty);
+			set => SetValue(CommandParameterProperty, value);
 		}
 	}
 }

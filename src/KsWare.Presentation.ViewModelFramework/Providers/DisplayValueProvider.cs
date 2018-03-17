@@ -64,7 +64,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The type converter.</value>
 		/// <remarks></remarks>
 		public virtual TypeConverter TypeConverter {
-			get { return _typeConverter; }
+			get => _typeConverter;
 			set {
 				MemberAccessUtil.DemandNotNull(value, null, this, "TypeConverter", "{431F8775-4ACD-42C5-AD23-F5963BBB162F}");
 				MemberAccessUtil.DemandWriteOnce(Parent == null, null, this, nameof(TypeConverter), "{A6A9D618-7ED4-454E-B7B1-D9153DE2AD52}");
@@ -91,9 +91,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		///     <see langword="true" /> if this instance is supported; otherwise, <see langword="false" />.
 		/// </value>
 		/// <remarks></remarks>
-		public override bool IsSupported {
-			get { return true; }
-		}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets the display value
 		/// </summary>
@@ -322,39 +320,39 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>
 		///     <see langword="true" /> if this instance is supported; otherwise, <see langword="false" />.
 		/// </value>
-		public override bool IsSupported {get { return true; }}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets the display value
 		/// </summary>
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
-		public string Value {get { return _displayValue; }}
+		public string Value => _displayValue;
 
 		/// <summary> Gets the value as string
 		/// </summary>
 		/// <remarks></remarks>
-		public string String {get { return _displayValue; /*TODO implement use of IsEnabled*/ }}
+		public string String => _displayValue;
 
 		/// <summary> Returns allways <see langword="null" />
 		/// </summary>
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
-		public object AsEnum {get { return null; }}
+		public object AsEnum => null;
 
 		/// <summary> Returns allways <see langword="null" />
 		/// </summary>
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
-		public bool? AsBooleanNull {get { return null; }}
+		public bool? AsBooleanNull => null;
 
 		/// <summary> Gets a value indicating the value is equal to 'True'
 		/// </summary>
 		/// <remarks></remarks>
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
-		public bool IsTrue {get { return false; }}
+		public bool IsTrue => false;
 
 		/// <summary> Gets a value indicating the value is equal to 'False'
 		/// </summary>
 		/// <remarks></remarks>
 		[Obsolete("Obsolete [xgksc 2013-03-07]",true)]
-		public bool IsFalse {get { return false; }}
+		public bool IsFalse => false;
 
 		/// <summary> Sets the display value manually
 		/// </summary>

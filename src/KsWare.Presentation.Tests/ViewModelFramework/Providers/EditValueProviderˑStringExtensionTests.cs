@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 
 	[TestClass]
-	public class EditValueProvider_StringExtensionTests {
+	public class EditValueProviderˑStringExtensionTests {
 
 		[TestMethod]
 		public void Int32VM_EditValueProvider_String() {

@@ -21,7 +21,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public SlimBusinessObjectVM(TBusinessObject BusinessObject) { _businessObject = BusinessObject; }
 
 		public TBusinessObject BusinessObject {
-			get { return _businessObject; }
+			get => _businessObject;
 			set {
 				if(Equals(_businessObject,value)) return;
 				var prev = _businessObject;
@@ -30,7 +30,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				OnPropertyChanged(nameof(BusinessObject));
 			}
 		}
-		object ISlimBusinessObjectVM.BusinessObject { get { return BusinessObject; } set { BusinessObject = (TBusinessObject) value; } }
+		object ISlimBusinessObjectVM.BusinessObject { get => BusinessObject; set => BusinessObject = (TBusinessObject) value; }
 
 		protected virtual void OnBusinessObjectChanged(TBusinessObject previousBusinessObject, TBusinessObject newBusinessObject) {
 			List<string> properties;

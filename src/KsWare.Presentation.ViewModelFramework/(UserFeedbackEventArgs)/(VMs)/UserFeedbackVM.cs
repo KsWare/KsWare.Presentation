@@ -25,6 +25,6 @@
 		}
 
 		public ActionVM CloseAction { get; private set; }
-		public bool IsOpen { get { return Fields.Get<bool>("IsOpen"); } set { Fields.Set("IsOpen", value); } }
+		public bool IsOpen { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 	}
 }

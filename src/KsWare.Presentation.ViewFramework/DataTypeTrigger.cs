@@ -15,7 +15,7 @@ namespace KsWare.Presentation.ViewFramework {
 		}
 
 		public Type Type {
-			get { return _type; }
+			get => _type;
 			set {
 				_type = value;
 				Value = DataTypeConverter.GetString(_type);
@@ -26,7 +26,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// </summary>
 		/// <value>The setter from style.</value>
 		public Style SetterFromStyle {
-			get { return _style; }
+			get => _style;
 			set {
 				_style = value;
 				foreach (var setter in _style.Setters) Setters.Add(setter);

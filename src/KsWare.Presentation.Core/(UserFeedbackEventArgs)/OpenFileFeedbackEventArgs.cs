@@ -11,7 +11,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		public OpenFileFeedbackEventArgs() {}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.OpenFile;} }
+		public override FeedbackType FeedbackType => FeedbackType.OpenFile;
 
 
 		/// <seealso cref="OpenFileDialog.Multiselect"/>

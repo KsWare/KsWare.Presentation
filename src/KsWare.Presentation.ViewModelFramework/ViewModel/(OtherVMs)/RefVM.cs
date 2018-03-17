@@ -75,7 +75,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The metadata.</value>
 		/// <remarks>The metadata provides additional configuration for this view model object</remarks>
-		public new ReferenceViewModelMetadata Metadata{get { return (ReferenceViewModelMetadata) base.Metadata; } set { base.Metadata = value; }}
+		public new ReferenceViewModelMetadata Metadata{get => (ReferenceViewModelMetadata) base.Metadata; set => base.Metadata = value; }
 
 		protected override ViewModelMetadata CreateDefaultMetadata() {
 			var businessType = BusinessObjectVM.GetBusinessType(typeof (TRef));
@@ -129,9 +129,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether <see cref="Target"/> is not null.
 		/// </summary>
 		/// <value><c>true</c> if <see cref="Target"/> is not null; otherwise, <c>false</c>.</value>
-		public bool HasTarget { get { return _target != null; } }
+		public bool HasTarget => _target != null;
 
-		object IRefVM.Target {get { return Target; }set { Target = (TRef) value; }}
+		object IRefVM.Target {get => Target; set => Target = (TRef) value; }
 
 		/// <summary> [EXPERIMENTAL] Gets or sets the item template.
 		/// </summary>
@@ -163,14 +163,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the event source for the event which occurs when <see cref="Target"/> changed.
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
-			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
-		}
-		
-		IEventSource IRefVM.TargetChangedEvent { get { return TargetChangedEvent; } }
+		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent => EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent");
+
+		IEventSource IRefVM.TargetChangedEvent => TargetChangedEvent;
 
 		[Obsolete("Use TargetChangedEvent")]
-		public EventHandler EːTargetChanged {set { TargetChanged+=value; }}
+		public EventHandler EːTargetChanged {set => TargetChanged+=value; }
 
 		/// <summary> [EXPERIMENTAL] Gets or sets the previous target.
 		/// </summary>
@@ -264,7 +262,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The list of available targets</value>
 		/// <remarks>uses the ValueSourceProvider: <c>Metadata.ValueSourceProvider.SourceList</c></remarks>
-		public IList<TRef> MːSourceList { get { return (IList<TRef>) Metadata.ValueSourceProvider.SourceList; } set{Metadata.ValueSourceProvider.SourceList=value;} }
+		public IList<TRef> MːSourceList { get => (IList<TRef>) Metadata.ValueSourceProvider.SourceList; set => Metadata.ValueSourceProvider.SourceList=value; }
 	}
 
 	/// <summary> Provides a metadata implementation for references (RefVM) 

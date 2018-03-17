@@ -73,12 +73,12 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the previous value
 		/// </summary>
 		/// <value>The previous data</value>
-		public new T PreviousValue { get { return (T)base.PreviousValue; }}
+		public new T PreviousValue => (T)base.PreviousValue;
 
 		/// <summary> Gets the new value.
 		/// </summary>
 		/// <value>The new value.</value>
-		public new T NewValue { get { return (T)base.NewValue; }  }
+		public new T NewValue => (T)base.NewValue;
 	}
 
 }

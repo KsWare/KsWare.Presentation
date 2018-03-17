@@ -15,7 +15,7 @@ namespace KsWare.Presentation.Providers {
 			_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		public EventSourceStore EventSources{get { return _LazyWeakEventStore.Value; }}
+		public EventSourceStore EventSources => _LazyWeakEventStore.Value;
 
 		public abstract bool IsSupported { get; }
 
@@ -23,7 +23,7 @@ namespace KsWare.Presentation.Providers {
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return _isAutoCreated==true; }
+			get => _isAutoCreated ==true;
 			set {
 				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{E7279D65-F0FA-42BE-812F-45BA404524C8}");
 				_isAutoCreated = value;
@@ -39,7 +39,7 @@ namespace KsWare.Presentation.Providers {
 		/// <value>The parent of this instance.</value>
 		/// <remarks></remarks>
 		public object Parent {
-			get {return _parent;}
+			get => _parent;
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Parent cannot be null!",this,"{DE9F4789-BD94-46A6-8238-F5988092A30C}");
 				MemberAccessUtil.DemandWriteOnce(_parent==null,null,this,nameof(Parent),"{F02EA960-5BBA-412D-A777-766413010026}");
@@ -58,7 +58,7 @@ namespace KsWare.Presentation.Providers {
 		/// </summary>
 		/// <value>The event source.</value>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent => EventSources.Get<EventHandler>("ParentChangedEvent");
 
 		#endregion
 
@@ -67,7 +67,7 @@ namespace KsWare.Presentation.Providers {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent { get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); } }
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent => EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent");
 
 		[NotifyPropertyChangedInvocator]
 //		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

@@ -82,17 +82,17 @@ namespace KsWare.Presentation.Core.Diagnostics {
 		/// <summary> Gets the column number in the file that contains the code that is executing. 
 		/// This information is typically extracted from the debugging symbols for the executable.
 		/// </summary>
-		public int FileColumnNumber {get {return _fileColumnNumber;}}
+		public int FileColumnNumber => _fileColumnNumber;
 
 		/// <summary> Gets the line number in the file that contains the code that is executing. 
 		/// This information is typically extracted from the debugging symbols for the executable.
 		/// </summary>
-		public int FileLineNumber {get {return _fileLineNumber;}}
+		public int FileLineNumber => _fileLineNumber;
 
 		/// <summary> Gets the file name that contains the code that is executing. 
 		/// This information is typically extracted from the debugging symbols for the executable.
 		/// </summary>
-		public string FileName {get {return _fileName;}}
+		public string FileName => _fileName;
 
 		///// <summary> [PRELIMINARY] Get the method signature.
 		///// </summary>

@@ -13,7 +13,7 @@ namespace KsWare.Presentation {
 			ResourceString = resourceString;
 		}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.StringResource;} }
+		public override FeedbackType FeedbackType => FeedbackType.StringResource;
 
 		/// <summary> Gets or sets the resource string.
 		/// </summary>

@@ -17,7 +17,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		protected System.Windows.Input.InputBinding InputBinding { get;set; }
 
 		public InputGesture Gesture {
-			get {return _gesture;}
+			get => _gesture;
 			set {
 				_gesture = value;
 				if (InputBinding != null) InputBinding.Gesture = value;
@@ -51,10 +51,10 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 	{
 		private MouseAction _mouseAction;
 
-		public new System.Windows.Input.MouseBinding InputBinding { get { return (System.Windows.Input.MouseBinding)base.InputBinding; } private set {base.InputBinding = value; } }
+		public new System.Windows.Input.MouseBinding InputBinding { get => (System.Windows.Input.MouseBinding)base.InputBinding; private set => base.InputBinding = value; }
 		
 		public MouseAction MouseAction {
-			get {return _mouseAction;}
+			get => _mouseAction;
 			set {
 				_mouseAction = value;
 				if (InputBinding != null) InputBinding.MouseAction = value;
@@ -80,10 +80,10 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 	{
 		private Key key;
 
-		public new System.Windows.Input.KeyBinding InputBinding { get {return (System.Windows.Input.KeyBinding) base.InputBinding; } private set {base.InputBinding = value; } }
+		public new System.Windows.Input.KeyBinding InputBinding { get => (System.Windows.Input.KeyBinding) base.InputBinding; private set => base.InputBinding = value; }
 
 		public Key Key {
-			get {return key;}
+			get => key;
 			set {
 				key = value;
 				if (InputBinding != null) InputBinding.Key = value;

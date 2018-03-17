@@ -26,9 +26,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets or sets the provided data.
 		/// </summary>
 		/// <value>The data.</value>
-		public TData Data { get { return (TData) Metadata.DataProvider.Data; } set { Metadata.DataProvider.Data = value; }}
+		public TData Data { get => (TData) Metadata.DataProvider.Data; set => Metadata.DataProvider.Data = value; }
 
-		object IDataVM.Data{get { return Data; } set { Data = (TData) value; }}
+		object IDataVM.Data{get => Data; set => Data = (TData) value; }
 
 		/// <summary> Called when Metadata.DataProvider.Data has been changed
 		/// </summary>

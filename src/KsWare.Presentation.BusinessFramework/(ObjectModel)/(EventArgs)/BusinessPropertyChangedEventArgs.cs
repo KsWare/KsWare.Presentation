@@ -12,8 +12,6 @@ namespace KsWare.Presentation.BusinessFramework {
 			_PropertyName = propertyName;
 		}
 
-		public string PropertyName {
-			get { return _PropertyName; }
-		}
+		public string PropertyName => _PropertyName;
 	}
 }

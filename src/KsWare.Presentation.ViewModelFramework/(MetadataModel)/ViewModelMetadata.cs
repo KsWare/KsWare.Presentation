@@ -54,8 +54,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		internal ReflectedPropertyInfo Reflection { get; set; }
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected EventSourceStore EventStore { get { return _lazyWeakEventProperties.Value; }}
-		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventProperties; }}
+		protected EventSourceStore EventStore => _lazyWeakEventProperties.Value;
+
+		protected Lazy<EventSourceStore> LazyWeakEventStore => _lazyWeakEventProperties;
 
 		/// <summary> Gets the view model object which holds this metadata.
 		/// </summary>
@@ -77,13 +78,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		object IParentSupport.Parent { get { return Parent; } set { Parent = (IObjectVM) value; } }
+		object IParentSupport.Parent { get => Parent; set => Parent = (IObjectVM) value; }
 
 		/// <summary> Occurs when <see cref="Parent"/> property has been changed.
 		/// </summary>
 		public event EventHandler ParentChanged;
 
-		public IEventSource<EventHandler>  ParentChangedEvent  { get { return EventStore.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler>  ParentChangedEvent => EventStore.Get<EventHandler>("ParentChangedEvent");
 
 		/// <summary> Called when <see cref="Parent"/>-property has been changed.
 		/// This indicates metadata has been assigned to an view model object and all metadata properties are now read-only.
@@ -101,7 +102,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		public bool EnableBusinessModelFeatures {
-			get { return _enableBusinessModelFeatures; }
+			get => _enableBusinessModelFeatures;
 			set {
 				MemberAccessUtil.DemandWriteOnce(_enableBusinessModelFeatures==false,null,this,nameof(EnableBusinessModelFeatures),"{6BAD9F66-E6DF-4556-B4CF-3A7D91DDD666}");
 				_enableBusinessModelFeatures = value;
@@ -131,7 +132,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>
 		/// <c>true</c> if this instance has data provider assigned; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasDataProvider {get { return _dataProvider != null; }}
+		public bool HasDataProvider => _dataProvider != null;
 
 		/// <summary> Gets or sets the data provider.
 		/// </summary>
@@ -189,9 +190,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public event EventHandler<ValueChangedEventArgs<IDataProvider>>  DataProviderChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ValueChangedEventArgs<IDataProvider>>> DataProviderChangedEvent {
-			get { return EventStore.Get<EventHandler<ValueChangedEventArgs<IDataProvider>>>(nameof(DataProviderChangedEvent)); }
-		}
+		public IEventSource<EventHandler<ValueChangedEventArgs<IDataProvider>>> DataProviderChangedEvent => EventStore.Get<EventHandler<ValueChangedEventArgs<IDataProvider>>>(nameof(DataProviderChangedEvent));
 
 		/// <summary> Creates the default data provider.
 		/// </summary>
@@ -478,7 +477,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<PropertyChangedEventHandler>  PropertyChangedEvent { get { return EventStore.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); } }
+		public IEventSource<PropertyChangedEventHandler>  PropertyChangedEvent => EventStore.Get<PropertyChangedEventHandler>("PropertyChangedEvent");
 
 		protected void OnPropertyChanged(string propertyName) {
 			var ea = new PropertyChangedEventArgs(propertyName);
@@ -512,7 +511,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of the metadata.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type is not derived from ViewModelMetadata!</exception>
 		public Type MetadataType {
-			get { return _metadataType; }
+			get => _metadataType;
 			set {
 				if (!typeof (ViewModelMetadata).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type is not derived from ViewModelMetadata!");
 				_metadataType = value;
@@ -525,7 +524,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of data provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IDataProvider"/>!</exception>
 		public Type DataProvider {
-			get { return _dataProvider; }
+			get => _dataProvider;
 			set {
 				if (!typeof (IDataProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IDataProvider!");
 				_dataProvider = value;
@@ -538,7 +537,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of action provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IErrorProvider"/>!</exception>
 		public Type ErrorProvider {
-			get { return _errorProvider; }
+			get => _errorProvider;
 			set {
 				if (!typeof (IErrorProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IErrorProvider!");
 				_errorProvider = value;
@@ -551,7 +550,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of display provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IDisplayValueProvider"/>!</exception>
 		public Type DisplayValueProvider {
-			get { return _displayValueProvider; }
+			get => _displayValueProvider;
 			set {
 				if (!typeof (IDisplayValueProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IDisplayValueProvider!");
 				_displayValueProvider = value;
@@ -564,7 +563,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of edit provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IEditValueProvider"/>!</exception>
 		public Type EditValueProvider {
-			get { return _editValueProvider; }
+			get => _editValueProvider;
 			set {
 				if (!typeof (IEditValueProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IEditValueProvider!");
 				_editValueProvider = value;
@@ -577,7 +576,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of value soure provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IValueSourceProvider"/>!</exception>
 		public Type ValueSourceProvider {
-			get { return _valueSourceProvider; }
+			get => _valueSourceProvider;
 			set {
 				if (!typeof (IValueSourceProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IValueSourceProvider!");
 				_valueSourceProvider = value;
@@ -590,7 +589,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of localization provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="ILocalizationProvider"/>!</exception>
 		public Type LocalizationProvider {
-			get { return _localizationProvider; }
+			get => _localizationProvider;
 			set {
 				if (!typeof (ILocalizationProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement ILocalizationProvider!");
 				_localizationProvider = value;
@@ -603,7 +602,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of binding provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IBindingProvider"/>!</exception>
 		public Type BindingProvider {
-			get { return _bindingProvider; }
+			get => _bindingProvider;
 			set {
 				if (!typeof (IBindingProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IBindingProvider!");
 				_bindingProvider = value;

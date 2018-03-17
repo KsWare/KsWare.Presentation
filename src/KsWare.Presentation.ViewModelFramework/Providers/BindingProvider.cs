@@ -21,7 +21,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported{get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> [NOT IMPLEMENTED] Always BindingMode.Auto
 		/// </summary>
@@ -35,7 +35,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The source.</value>
 		public object Source {
-			get { return _source; }
+			get => _source;
 			set {
 				var prev = _source;
 				_source = value;
@@ -80,9 +80,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		public ValueBindingProvider() {}
 
-		public new ViewModelMetadata Parent { get { return (ViewModelMetadata) base.Parent; } set { base.Parent = value; }}
-		public new IValueVM ViewModel { get { return (IValueVM) base.ViewModel; } }
-		public new IValueVM Source { get { return (IValueVM) base.Source; } set { base.Source = value; }}
+		public new ViewModelMetadata Parent { get => (ViewModelMetadata) base.Parent; set => base.Parent = value; }
+		public new IValueVM ViewModel => (IValueVM) base.ViewModel;
+		public new IValueVM Source { get => (IValueVM) base.Source; set => base.Source = value; }
 
 		protected override void OnViewModelChanged(IObjectVM viewModel) {
 			base.OnViewModelChanged(viewModel);
@@ -130,15 +130,15 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		 *					Execute  --> 
 		\*/
 
-		private ActionVM LinkedAction{get { return (ActionVM) Source; }}
+		private ActionVM LinkedAction => (ActionVM) Source;
 
 		/// <summary> Initializes a new instance of the <see cref="ActionBindingProvider"/> class.
 		/// </summary>
 		public ActionBindingProvider() {}
 
-		public new ActionMetadata Parent { get { return (ActionMetadata) base.Parent; } set { base.Parent = value; }}
-		public new ActionVM ViewModel { get { return (ActionVM) base.ViewModel; } }
-		public new ActionVM Source { get { return (ActionVM) base.Source; } set { base.Source = value; }}
+		public new ActionMetadata Parent { get => (ActionMetadata) base.Parent; set => base.Parent = value; }
+		public new ActionVM ViewModel => (ActionVM) base.ViewModel;
+		public new ActionVM Source { get => (ActionVM) base.Source; set => base.Source = value; }
 
 		protected override void OnViewModelChanged(IObjectVM viewModel) {
 			Parent.ActionProvider.ExecutedCallback=LocalActionProviderExecutedCallback;

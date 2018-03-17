@@ -51,7 +51,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>A PropertyChangedCallback implementation reference.</value>
 		public BusinessValueChangedCallback ValueChangedCallback {
-			get {return _valueChangedCallback;}
+			get => _valueChangedCallback;
 			set {
 				DemandWrite();
 				_valueChangedCallback = value;
@@ -62,7 +62,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>A CoerceValueCallback implementation reference.</value>
 		public CoerceValueCallback CoerceValueCallback {
-			get {return _coerceValueCallback;}
+			get => _coerceValueCallback;
 			set {
 				DemandWrite();
 				_coerceValueCallback = value;
@@ -73,7 +73,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The settings.</value>
 		public IValueSettings Settings {
-			get {return _settings;}
+			get => _settings;
 			set {
 				DemandWrite();
 				_settings = value;

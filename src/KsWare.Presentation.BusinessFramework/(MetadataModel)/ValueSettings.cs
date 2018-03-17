@@ -469,7 +469,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The default value.</value>
 		public TValue Default {
-			get {return _defaultValue;}
+			get => _defaultValue;
 			set {
 				if (Equals(_defaultValue, value)) return;
 				_defaultValue = value;
@@ -481,7 +481,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The minimum value.</value>
 		public TValue Minimum {
-			get {return _minimum;}
+			get => _minimum;
 			set {
 				if (Equals(_minimum, value)) return;
 				_minimum = value;
@@ -493,7 +493,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="Minimum"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool MinimumSpecified {
-			get {return _minimumSpecified;}
+			get => _minimumSpecified;
 			set {
 				if (Equals(_minimumSpecified, value)) return;
 				_minimumSpecified = value;
@@ -505,7 +505,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The maximum value.</value>
 		public TValue Maximum {
-			get {return _maximum;}
+			get => _maximum;
 			set {
 				if (Equals(_maximum, value)) return;
 				_maximum = value;
@@ -517,7 +517,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="Minimum"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool MaximumSpecified {
-			get {return _maximumSpecified;}
+			get => _maximumSpecified;
 			set {
 				if (Equals(_maximumSpecified, value)) return;
 				_maximumSpecified = value;
@@ -529,7 +529,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The list of valid values.</value>
 		public IEnumerable<TValue> IncludeValues {
-			get {return _includeValues;}
+			get => _includeValues;
 			set {
 				if (Equals(_includeValues, value)) return;
 				_includeValues = value;
@@ -541,7 +541,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="IncludeValues"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool IncludeValuesSpecified {
-			get {return _includeValuesSpecified;}
+			get => _includeValuesSpecified;
 			set {
 				if (Equals(_includeValuesSpecified, value)) return;
 				_includeValuesSpecified = value;
@@ -553,7 +553,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The list of invalid values.</value>
 		public IEnumerable<TValue> ExcludeValues {
-			get {return _excludeValues;}
+			get => _excludeValues;
 			set {
 				if (Equals(_excludeValues, value)) return;
 				_excludeValues = value;
@@ -565,7 +565,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="ExcludeValues"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool ExcludeValuesSpecified {
-			get {return _excludeValuesSpecified;}
+			get => _excludeValuesSpecified;
 			set {
 				if (Equals(_excludeValuesSpecified, value)) return;
 				_excludeValuesSpecified = value;
@@ -578,7 +578,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The decimal accuracy.</value>
 		public TValue DecimalAccuracy {
-			get {return _decimalAccuracy;}
+			get => _decimalAccuracy;
 			set {
 				if (Equals(_decimalAccuracy, value)) return;
 				_decimalAccuracy = value;
@@ -590,7 +590,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if <see cref="DecimalAccuracy"/> is specified; otherwise, <see langword="false"/>.</value>
 		public bool DecimalAccuracySpecified {
-			get {return _decimalAccuracySpecified;}
+			get => _decimalAccuracySpecified;
 			set {
 				if (Equals(_decimalAccuracySpecified, value)) return;
 				_decimalAccuracySpecified = value;
@@ -615,19 +615,19 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		#region explicit implementation of IValueSettings (for invariant compatibility)
 
-		object IValueSettings.Default{get {return Default;}set {Default = (TValue) value;}}
+		object IValueSettings.Default{get => Default; set => Default = (TValue) value; }
 
-		object IValueSettings.Minimum{get {return Minimum;}set {Minimum = (TValue) value;}}
+		object IValueSettings.Minimum{get => Minimum; set => Minimum = (TValue) value; }
 
-		object IValueSettings.Maximum{get {return Maximum;}set {Maximum = (TValue) value;}}
+		object IValueSettings.Maximum{get => Maximum; set => Maximum = (TValue) value; }
 
-		object IValueSettings.DecimalAccuracy{get {return DecimalAccuracy;}set {DecimalAccuracy = (TValue) value;}}
+		object IValueSettings.DecimalAccuracy{get => DecimalAccuracy; set => DecimalAccuracy = (TValue) value; }
 
-		object IValueSettings.NullValue{get {return NullValue;}set {NullValue = (TValue) value;}}
+		object IValueSettings.NullValue{get => NullValue; set => NullValue = (TValue) value; }
 
-		IEnumerable IValueSettings.IncludeValues{get {return IncludeValues;}set {IncludeValues = (IEnumerable<TValue>) value;}}
+		IEnumerable IValueSettings.IncludeValues{get => IncludeValues; set => IncludeValues = (IEnumerable<TValue>) value; }
 																
-		IEnumerable IValueSettings.ExcludeValues { get { return ExcludeValues; } set { ExcludeValues = (IEnumerable<TValue>)value; } }
+		IEnumerable IValueSettings.ExcludeValues { get => ExcludeValues; set => ExcludeValues = (IEnumerable<TValue>)value; }
 
 		public Exception Validate(IValueBM businessValue, object value) {return Validate(businessValue, (TValue)value);}
 

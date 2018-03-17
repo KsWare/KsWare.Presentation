@@ -150,8 +150,8 @@ namespace KsWare.Presentation.ViewFramework {
 		}
 
 		public static bool IsInDesignMode {
-			get { return DesignerProperties.GetIsInDesignMode(s_DependencyObject); }
-			set { DesignerProperties.SetIsInDesignMode(s_DependencyObject,value);}
+			get => DesignerProperties.GetIsInDesignMode(s_DependencyObject);
+			set => DesignerProperties.SetIsInDesignMode(s_DependencyObject, value);
 		}
 
 		private bool GetIsNull(object value, object parameter) {return Equals(value, null);}

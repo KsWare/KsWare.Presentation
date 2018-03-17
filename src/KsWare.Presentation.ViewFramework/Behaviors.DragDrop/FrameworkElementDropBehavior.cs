@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		public Thickness DropRegion { get; set; }
 
 		public Type AdornerType {
-			get { return _adornerType; }
+			get => _adornerType;
 			set {
 				if(!typeof(FrameworkElementAdorner).IsAssignableFrom(value)) throw new InvalidOperationException("Invalid type of adorner. Type of FrameworkElementAdorner expected.");
 				_adornerType = value;

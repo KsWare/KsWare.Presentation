@@ -1,5 +1,6 @@
 ﻿using KsWare.Presentation.BusinessFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable TestClassNameDoesNotMatchFileNameWarning
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 

@@ -102,7 +102,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				_sender.RequestUserFeedback(new BusyUserFeedbackEventArgs(true));
 			}
 
-			internal IObjectVM Sender { get { return _sender; } }
+			internal IObjectVM Sender => _sender;
 
 			void IDisposable.Dispose() {
 				if (_suppressDispose) { _suppressDispose = false; return;}

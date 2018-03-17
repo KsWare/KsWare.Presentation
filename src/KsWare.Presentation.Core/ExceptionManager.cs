@@ -82,7 +82,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value><c>true</c> if unhandled exceptions are catched; otherwise, <c>false</c>.</value>
 		public static bool CatchUnhandledExceptions {
-			get { return s_CatchUnhandledExceptions; }
+			get => s_CatchUnhandledExceptions;
 			set {
 				if (value) {
 					if (Debugger.IsAttached && s_CatchUnhandledExceptionsDebug==false) { /*don't catch exceptions*/} 
@@ -101,8 +101,8 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <remarks>The last registered handler gets the event as first.</remarks>
 		public static event RoutedUnhandledExceptionEventHandler UnhandledException {
-			add    { s_ManagedHandlers.Insert(0,value); } 
-			remove { s_ManagedHandlers.Remove(value); }
+			add => s_ManagedHandlers.Insert(0, value);
+			remove => s_ManagedHandlers.Remove(value);
 		}
 
 		private static void OnUnhandledException(RoutedUnhandledExceptionEventArgs e) {
@@ -261,7 +261,7 @@ namespace KsWare.Presentation {
 		public bool IsTerminating { get; private set; }
 
 		public bool IsHandled {
-			get { return _isHandled; }
+			get => _isHandled;
 			set {
 				if(_isHandled && value==false) throw new InvalidOperationException("Can not set Handled to false!");
 				if(_isHandled==value) return;

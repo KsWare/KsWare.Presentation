@@ -176,7 +176,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the erroneous value.
 		/// </summary>
 		/// <value>The erroneous value.</value>
-		public object Value{get {return _Value;}}
+		public object Value => _Value;
 
 		//TODO implement ValueValidationException
 	}

@@ -42,7 +42,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Creates a new item.
 		/// </summary>
@@ -123,7 +123,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				if(_TypeMap==null)_TypeMap = new Dictionary<Type, Type>();
 				return _TypeMap;
 			}
-			set { _TypeMap = value; }
+			set => _TypeMap = value;
 		}
 
 		protected virtual void AssignMetaData(IObjectVM item, object data) {
@@ -193,7 +193,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The factory.</value>
 		public Type Factory {
-			get { return _factory; }
+			get => _factory;
 			set {
 				if(!typeof(ITypeFactory).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value), "Type does not implement ITypeFactory");
 				_factory = value;
@@ -223,7 +223,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 //		/// <summary> Gets or sets the parent of this instance.
 //		/// </summary>
@@ -248,7 +248,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The create new item callback.</value>
 		public CreateNewItemCallbackHandler CreateNewItemCallback {
-			get {return _createNewItemCallbackHandler;}
+			get => _createNewItemCallbackHandler;
 			set {
 				if(_createNewItemCallbackHandler!=null) throw new InvalidOperationException("CreateNewItemCallback already specified!");
 				_createNewItemCallbackHandler=value;

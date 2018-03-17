@@ -21,12 +21,12 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the previous data or null if previous data is unknown
 		/// </summary>
 		/// <value>The previous data or null.</value>
-		public object PreviousData {get {return _PreviousData;}}
+		public object PreviousData => _PreviousData;
 
 		/// <summary> Gets the new data.
 		/// </summary>
 		/// <value>The new data.</value>
-		public object NewData {get {return _NewData;}}
+		public object NewData => _NewData;
 
 		public string Cause { get; set; }
 	}
@@ -50,12 +50,12 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the previous data or null if previous data is unknown
 		/// </summary>
 		/// <value>The previous data or null.</value>
-		public TData PreviousData {get {return _PreviousData;}}
+		public TData PreviousData => _PreviousData;
 
 		/// <summary> Gets the new data.
 		/// </summary>
 		/// <value>The new data.</value>
-		public TData NewData {get {return _NewData;}}
+		public TData NewData => _NewData;
 
 		public string Cause { get; set; }
 	}

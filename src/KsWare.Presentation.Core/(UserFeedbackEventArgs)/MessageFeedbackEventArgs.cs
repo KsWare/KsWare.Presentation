@@ -37,7 +37,7 @@ namespace KsWare.Presentation {
 			Options = options;
 		}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.Message;} }
+		public override FeedbackType FeedbackType => FeedbackType.Message;
 
 		/// <summary> Gets or sets the message box text.
 		/// </summary>

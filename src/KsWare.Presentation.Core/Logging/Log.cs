@@ -19,13 +19,13 @@ namespace KsWare.Presentation.Core.Logging
 		private static readonly IFormatProvider enUS=CultureInfo.CreateSpecificCulture("en-US");
 // ReSharper restore InconsistentNaming
 
-		public static IFormatProvider FormatProvider {get {return enUS;}}
+		public static IFormatProvider FormatProvider => enUS;
 
 		public static bool DisableTimestamp{get;set;}
 
-		public static ICollection<LogFilter> Include {get {return includeFilters;}}
+		public static ICollection<LogFilter> Include => includeFilters;
 
-		public static ICollection<LogFilter> Exclude {get {return excludeFilters;}}
+		public static ICollection<LogFilter> Exclude => excludeFilters;
 
 		static List<LogFilter> includeFilters=new List<LogFilter>();
 		static List<LogFilter> excludeFilters=new List<LogFilter>();

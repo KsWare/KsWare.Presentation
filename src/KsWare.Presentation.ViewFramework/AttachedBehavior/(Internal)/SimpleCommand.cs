@@ -35,8 +35,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior
 		/// </summary>
 		/// <remarks></remarks>
 		public event EventHandler CanExecuteChanged {
-			add { CommandManager.RequerySuggested += value; }
-			remove { CommandManager.RequerySuggested -= value; }
+			add => CommandManager.RequerySuggested += value;
+			remove => CommandManager.RequerySuggested -= value;
 		}
 
 		/// <summary> Executes the command

@@ -88,7 +88,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether the window is the foreground window.
 		/// </summary>
 		/// <value><c>true</c> the window is the foreground window; otherwise, <c>false</c>.</value>
-		public bool IsActivated { get { return Fields.GetValue<bool>(); } private set { Fields.SetValue(value); } }
+		public bool IsActivated { get => Fields.GetValue<bool>(); private set => Fields.SetValue(value); }
 
 		private void AtWindowClosed(object sender, EventArgs e) {
 			UIAccess.Window.DataContext = null;
@@ -128,7 +128,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected virtual void DoFullscreen() {IsFullScreen = true;}
 
-		public bool IsFullScreen { get { return Fields.GetValue<bool>(); } set { Fields.SetValue(value); } }
+		public bool IsFullScreen { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 
 		private void AtIsFullScreenChanged(object sender, ValueChangedEventArgs e) {
 			if (IsFullScreen) {
@@ -146,7 +146,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void DoClose() {  Close();}
 
 		public bool IsOpen {
-			get { return UIAccess.HasWindow; }
+			get => UIAccess.HasWindow;
 			set {
 				if (value) {
 					if(!UIAccess.HasWindow) Show();
@@ -185,9 +185,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			else this.App.NonAppWindowsInternal.Add(this);
 		}
 
-		internal bool IsDisposed {get { return _disposed; }}
+		internal bool IsDisposed => _disposed;
 
-		private ApplicationVM App { get { return ApplicationVM.Current; } }
+		private ApplicationVM App => ApplicationVM.Current;
 //		private bool IsInsideApp { get { return Application.Current != null; } }
 
 
@@ -226,21 +226,21 @@ namespace KsWare.Presentation.ViewModelFramework {
 			/// <summary> Gets the <see cref="Window"/>.
 			/// </summary>
 			/// <value>The <see cref="Window"/>.</value>
-			public Window Window { get { DemandAccess(); return Fields.Get<Window>("Window"); } }
+			public Window Window { get { DemandAccess(); return Fields.GetValue<Window>(); } }
 
 			/// <summary> Gets a value indicating whether this instance has window.
 			/// </summary>
 			/// <value><c>true</c> if this instance has window; otherwise, <c>false</c>.</value>
-			public bool HasWindow { get { return Fields.Get<Window>("Window") != null; } }
+			public bool HasWindow => Fields.GetValue<Window>(nameof(Window)) != null;
 
 			internal void AssignWindowInternal(Window window) {
 				if(window==null) throw new ArgumentNullException(nameof(window));
 				DemandAssign();
-				Fields.Set("Window", window);
+				Fields.SetValue(window, nameof(Window));
 			}
 
 			public void ReleaseWindowInternal() {
-				Fields.Set("Window", (Window)null);
+				Fields.SetValue<Window>(null, nameof(Window));
 			}
 
 			public event EventHandler<ValueChangedEventArgs<Window>> WindowChanged;
@@ -314,7 +314,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// Gets or sets the dialog result value, which is the value that is returned from the <see cref="ShowDialog"/> method.
 		/// </summary>
 		/// <value>A System.Nullable value of type System.Boolean. The default is false.</value>
-		public bool? DialogResult { get { return UIAccess.Window.DialogResult; } set { UIAccess.Window.DialogResult = value; } }
+		public bool? DialogResult { get => UIAccess.Window.DialogResult; set => UIAccess.Window.DialogResult = value; }
 
 	}
 

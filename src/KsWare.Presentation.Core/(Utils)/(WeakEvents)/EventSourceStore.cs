@@ -46,9 +46,9 @@ namespace KsWare.Presentation {
 
 		/// <summary> Gets the number of initialized weak event sources
 		/// </summary>
-		public int Count { get { return _EventSources.Count; } }
+		public int Count => _EventSources.Count;
 
-        //		/// <summary> Gets a weak event source (IWeakEventSource)
+		//		/// <summary> Gets a weak event source (IWeakEventSource)
         //		/// </summary>
         //		/// <typeparam name="TEventHandler">The type of the event handler</typeparam>
         //		/// <param name="eventPropertyExpression">(e.g. <c>_=>MyPropertyChangedEvent</c>)</param>

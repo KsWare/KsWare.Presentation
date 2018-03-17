@@ -94,9 +94,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Conditional("DEBUG")][StringFormatMethod("format")]
 		protected void DebugːTrace(bool condition, string format,params object[] args) {if(condition) DebugːTraceInternal(string.Format(format,args));} 
 
-		public string DebugːGetTypeːName{get { return DebugUtil.FormatTypeName(this); }}
-		
-		public string DebugːGetTypeːFullName{get { return this.GetType().FullName; }}
+		public string DebugːGetTypeːName => DebugUtil.FormatTypeName(this);
+
+		public string DebugːGetTypeːFullName => this.GetType().FullName;
 
 		/// <summary> Signals a breakpoint to the debugger.
 		/// <br/>(If an debugger is attached; else no action)

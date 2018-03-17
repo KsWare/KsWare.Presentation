@@ -29,14 +29,14 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Gets a value indicating whether this instance is supported.
 		/// </summary>
 		/// <remarks></remarks>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets or sets the collection changing callback.
 		/// </summary>
 		/// <value>The collection changing callback.</value>
 		/// <remarks></remarks>
 		public NotifyCollectionChangedEventHandler CollectionChangingCallback {
-			get {return this._collectionChangedCallback;}
+			get => this._collectionChangedCallback;
 			set {
 				MemberAccessUtil.DemandWriteOnce(_collectionChangedCallback==null,null,this,nameof(CollectionChangingCallback),"{FD9170EF-4342-4C1E-A42C-E8EBFBC06471}");
 				this._collectionChangedCallback = value;
@@ -48,7 +48,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>The collection changed callback.</value>
 		/// <remarks></remarks>
 		public NotifyCollectionChangedEventHandler CollectionChangedCallback {
-			get {return this._collectionChangingCallback;}
+			get => this._collectionChangingCallback;
 			set {
 				MemberAccessUtil.DemandWriteOnce(_collectionChangedCallback==null,null,this,nameof(CollectionChangedCallback),"{D3C97757-06BF-4E66-A0A7-96685EE7D14B}");
 				this._collectionChangingCallback = value;

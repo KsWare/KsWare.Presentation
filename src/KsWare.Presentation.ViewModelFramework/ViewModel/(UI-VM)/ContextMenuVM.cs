@@ -14,7 +14,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public ListVM<ObjectVM> Items { get; private set; }
 
-		public bool IsPopup {get { return Fields.Get<bool>("IsPopup"); } set { Fields.Set("IsPopup", value); }}
+		public bool IsPopup {get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 
 	}
 }

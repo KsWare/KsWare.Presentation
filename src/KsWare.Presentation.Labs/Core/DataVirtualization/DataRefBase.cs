@@ -103,13 +103,13 @@ namespace KsWare.Presentation.DataVirtualization {
 
 			public override bool CanResetValue(object component) { return false; }
 
-			public override Type ComponentType { get { return typeof (DataRefBase<T>); } }
+			public override Type ComponentType => typeof (DataRefBase<T>);
 
 			public override object GetValue(object component) { return ((DataRefBase<T>) component).GetValue(_PropertyDescriptor); }
 
-			public override bool IsReadOnly { get { return _PropertyDescriptor.IsReadOnly; } }
+			public override bool IsReadOnly => _PropertyDescriptor.IsReadOnly;
 
-			public override Type PropertyType { get { return _PropertyDescriptor.PropertyType; } }
+			public override Type PropertyType => _PropertyDescriptor.PropertyType;
 
 			public override void ResetValue(object component) { throw new NotImplementedException(); }
 
@@ -128,7 +128,7 @@ namespace KsWare.Presentation.DataVirtualization {
 
 			public override object GetValue(object component) { return ((DataRefBase<T>) component).Data; }
 
-			public override Type PropertyType { get { return typeof (T); } }
+			public override Type PropertyType => typeof (T);
 
 			public override void ResetValue(object component) { throw new NotImplementedException(); }
 

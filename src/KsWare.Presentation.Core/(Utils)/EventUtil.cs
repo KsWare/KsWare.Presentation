@@ -23,7 +23,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value><see langword="true"/> if exceptions will be rethrown; otherwise, <see langword="false"/>. </value>
 //		public static bool RethrowExceptions{get;set;}
-		public static bool RethrowExceptions{get {return true;}}
+		public static bool RethrowExceptions => true;
 
 		/// <summary> Helps to safely raise an event.
 		/// </summary>
@@ -114,9 +114,7 @@ namespace KsWare.Presentation {
 			}
 		}
 
-		private static bool IsInDesignMode {
-			get { return DesignerProperties.GetIsInDesignMode(_dependencyObject); }
-		}
+		private static bool IsInDesignMode => DesignerProperties.GetIsInDesignMode(_dependencyObject);
 
 		private static void InvokeAppDispatcher(Delegate d, object sender, EventArgs e, List<Exception> exceptions) {
 			ApplicationDispatcher.Invoke(() => Invoke(d,sender,e,exceptions));
@@ -496,17 +494,11 @@ namespace KsWare.Presentation {
 				_WeakObject = new WeakReference(obj);
 			}
 
-			public WeakReference OwnerRef {
-				get { return _WeakOwner; }
-			}
+			public WeakReference OwnerRef => _WeakOwner;
 
-			public string Key {
-				get { return _Key; }
-			}
+			public string Key => _Key;
 
-			public WeakReference ObjectRef {
-				get { return _WeakObject; }
-			}
+			public WeakReference ObjectRef => _WeakObject;
 		}
 	}
 

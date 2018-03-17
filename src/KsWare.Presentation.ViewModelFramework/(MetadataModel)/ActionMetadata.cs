@@ -71,7 +71,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>
 		/// <c>true</c> if this instance has action provider; otherwise, <c>false</c>.
 		/// </value>
-		public bool HasActionProvider { get { return _actionProvider != null; } }
+		public bool HasActionProvider => _actionProvider != null;
 
 		protected virtual void OnActionProviderChanged(ValueChangedEventArgs<IActionProvider> e) {
 			//OnPropertyChanged("ActionProvider");
@@ -81,7 +81,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public event ValueChangedEventHandler<IActionProvider> ActionProviderChanged;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<ValueChangedEventHandler<IActionProvider>> ActionProviderChangedEvent { get { return EventStore.Get<ValueChangedEventHandler<IActionProvider>>("ActionProviderChangedEvent"); }}
+		public IEventSource<ValueChangedEventHandler<IActionProvider>> ActionProviderChangedEvent => EventStore.Get<ValueChangedEventHandler<IActionProvider>>("ActionProviderChangedEvent");
 
 		public void ChangeActionProvider(IActionProvider actionProvider) {
 			DemandNotNull(actionProvider);
@@ -129,7 +129,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of action provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IActionProvider"/>!</exception>
 		public Type ActionProvider {
-			get { return _actionProvider; }
+			get => _actionProvider;
 			set {
 				if (!typeof (IActionProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IActionProvider!");
 				_actionProvider = value;

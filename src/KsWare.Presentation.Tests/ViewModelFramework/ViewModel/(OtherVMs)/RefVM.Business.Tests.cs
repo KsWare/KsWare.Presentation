@@ -92,11 +92,11 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 	}
 
 	public class TestBM:ObjectBM {
-		public string Test{get { return ((TestDM) Metadata.DataProvider.Data).Test; } set { ((TestDM) Metadata.DataProvider.Data).Test = value; }}
+		public string Test{get => ((TestDM) Metadata.DataProvider.Data).Test; set => ((TestDM) Metadata.DataProvider.Data).Test = value; }
 	}
 
 	public class TestVM:BusinessObjectVM<TestBM> {
-		public string Test{get { return ((TestBM) Metadata.DataProvider.Data).Test; } set { ((TestBM) Metadata.DataProvider.Data).Test = value; }}
+		public string Test{get => ((TestBM) Metadata.DataProvider.Data).Test; set => ((TestBM) Metadata.DataProvider.Data).Test = value; }
 	}
 
 	public class TestDM {

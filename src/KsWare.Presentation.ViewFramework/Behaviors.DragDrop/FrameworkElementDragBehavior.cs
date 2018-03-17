@@ -21,20 +21,20 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		public static readonly DependencyProperty DragDropTemplateProperty = DependencyProperty.Register(
 			"DragDropTemplate", typeof (DataTemplate), typeof (FrameworkElementDragBehavior), new PropertyMetadata(default(DataTemplate)));
 
-		public DataTemplate DragDropTemplate { get { return (DataTemplate) GetValue(DragDropTemplateProperty); } set { SetValue(DragDropTemplateProperty, value); } }
+		public DataTemplate DragDropTemplate { get => (DataTemplate) GetValue(DragDropTemplateProperty); set => SetValue(DragDropTemplateProperty, value); }
 
 		#endregion
 
 		public static readonly DependencyProperty DragCursorProperty = DependencyProperty.Register(
 			"DragCursor", typeof (DataTemplate), typeof (FrameworkElementDragBehavior), new PropertyMetadata(default(DataTemplate)));
 
-		public DataTemplate DragCursor { get { return (DataTemplate) GetValue(DragCursorProperty); } set { SetValue(DragCursorProperty, value); } }
+		public DataTemplate DragCursor { get => (DataTemplate) GetValue(DragCursorProperty); set => SetValue(DragCursorProperty, value); }
 
 		#region EnableTrace
 		public static readonly DependencyProperty EnableTraceProperty = DependencyProperty.Register(
 			"EnableTrace", typeof (bool), typeof (FrameworkElementDragBehavior), new PropertyMetadata(default(bool)));
 
-		public bool EnableTrace { get { return (bool) GetValue(EnableTraceProperty); } set { SetValue(EnableTraceProperty, value); } }
+		public bool EnableTrace { get => (bool) GetValue(EnableTraceProperty); set => SetValue(EnableTraceProperty, value); }
 		#endregion EnableTrace
 
 		private bool _isLeftButtonDown;

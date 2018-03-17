@@ -41,7 +41,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The list of available targets</value>
 		/// <remarks>uses the ValueSourceProvider: <c>Metadata.ValueSourceProvider.SourceList</c></remarks>
-		public IList<T> MːSourceList { get { return (IList<T>) Metadata.ValueSourceProvider.SourceList; } set{Metadata.ValueSourceProvider.SourceList=value;} }
+		public IList<T> MːSourceList { get => (IList<T>) Metadata.ValueSourceProvider.SourceList; set => Metadata.ValueSourceProvider.SourceList=value; }
 
 	}
 
@@ -66,7 +66,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// The ExternalControlProvider allows to change the logic of this ListVM w/o to write a new ListVM.
 		/// </remarks>
 		public IExternalListControllerProvider ExternalControlProvider {
-			get {return _externalControlProvider;}
+			get => _externalControlProvider;
 			set {
 				MemberAccessUtil.DemandWriteOnce(_externalControlProvider==null,null,this,nameof(ExternalControlProvider),"{91AD3CA1-DDE5-47A4-A441-D19CD62CA690}");
 				_externalControlProvider = value;
@@ -146,7 +146,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of external control provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="IExternalListControllerProvider"/>!</exception>
 		public Type ExternalControlProvider {
-			get { return _externalControlProvider; }
+			get => _externalControlProvider;
 			set {
 				if (!typeof (IExternalListControllerProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement IExternalListControllerProvider!");
 				_externalControlProvider = value;
@@ -159,7 +159,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The type of new item provider.</value>
 		/// <exception cref="System.ArgumentOutOfRangeException">The type does not implement <see cref="INewItemProvider"/>!</exception>
 		public Type NewItemProvider {
-			get { return _newItemProvider; }
+			get => _newItemProvider;
 			set {
 				if (!typeof (INewItemProvider).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"The type does not implement INewItemProvider!");
 				_newItemProvider = value;

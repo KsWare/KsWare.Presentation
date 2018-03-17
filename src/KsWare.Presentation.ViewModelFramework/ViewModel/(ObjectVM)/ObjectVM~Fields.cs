@@ -13,8 +13,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
-		public BackingFieldsStore FieldsːDebug { get { return _lazyFields.IsValueCreated ? _lazyFields.Value : null; } }
+		public BackingFieldsStore Fields => _lazyFields.Value;
+
+		public BackingFieldsStore FieldsːDebug => _lazyFields.IsValueCreated ? _lazyFields.Value : null;
 	}
 
 }

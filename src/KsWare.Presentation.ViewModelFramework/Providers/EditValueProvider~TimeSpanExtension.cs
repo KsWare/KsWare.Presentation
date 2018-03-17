@@ -42,7 +42,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			public TimeSpanExtension(EditValueProvider provider) : base(provider) {}
 
 			public string Days {
-				get {return _days; }
+				get => _days;
 				set {
 					if(Equals(_days,value))return;
 					_days = value;
@@ -63,7 +63,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool DaysHasError {
-				get {return _daysHasError; }
+				get => _daysHasError;
 				private set {
 					if(Equals(_daysHasError,value))return;
 					_daysHasError = value;
@@ -72,7 +72,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public string Hours {
-				get {return _hours; }
+				get => _hours;
 				set {
 					if(Equals(_hours,value))return;
 					_hours = value;
@@ -93,7 +93,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool HoursHasError {
-				get {return _hoursHasError; }
+				get => _hoursHasError;
 				private set {
 					if(Equals(_hoursHasError,value))return;
 					_hoursHasError = value;
@@ -102,7 +102,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public string Minutes {
-				get {return _minutes; }
+				get => _minutes;
 				set {
 					if(Equals(_minutes,value))return;
 					_minutes = value;
@@ -123,7 +123,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool MinutesHasError {
-				get {return _minutesHasError; }
+				get => _minutesHasError;
 				private set {
 					if(Equals(_minutesHasError,value))return;
 					_minutesHasError = value;
@@ -132,7 +132,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public string Seconds {
-				get {return _seconds; }
+				get => _seconds;
 				set {
 					if(Equals(_seconds,value))return;
 					_seconds = value;
@@ -153,7 +153,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool SecondsHasError {
-				get {return _secondsHasError; }
+				get => _secondsHasError;
 				private set {
 					if(Equals(_secondsHasError,value))return;
 					_secondsHasError = value;
@@ -162,7 +162,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public string Milliseconds {
-				get {return _milliseconds; }
+				get => _milliseconds;
 				set {
 					if(Equals(_milliseconds,value))return;
 					_milliseconds = value;
@@ -183,7 +183,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public bool MillisecondsHasError {
-				get {return _millisecondsHasError; }
+				get => _millisecondsHasError;
 				private set {
 					if(Equals(_millisecondsHasError,value))return;
 					_millisecondsHasError = value;
@@ -248,7 +248,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 
 			public double TotalSecondsAsDouble {
-				get {return _totalSecondsAsDouble; }
+				get => _totalSecondsAsDouble;
 				set {
 					if(Equals(_totalSecondsAsDouble,value))return;
 					_totalSecondsAsDouble = value;

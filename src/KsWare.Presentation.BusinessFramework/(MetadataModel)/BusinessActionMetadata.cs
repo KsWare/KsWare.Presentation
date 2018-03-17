@@ -33,14 +33,14 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Occurs when <see cref="ActionBM.CanExecute"/> property has been changed.
 		/// </summary>
 		public EventHandler<EventArgs> CanExecuteChangedCallback {
-			get { return _canExecuteChangedCallback; }
-			set { _canExecuteChangedCallback = value; }
+			get => _canExecuteChangedCallback;
+			set => _canExecuteChangedCallback = value;
 		}
 
 
 		/// <summary> Gets a value indicating whether this instance can execute.
 		/// </summary>
 		/// <remarks></remarks>
-		public bool CanExecute { get{return _CanExecuteObjections.Count == 0; }}
+		public bool CanExecute => _CanExecuteObjections.Count == 0;
 	}
 }

@@ -12,21 +12,21 @@
 		private Unit _unit;
 
 #pragma warning disable 1591 //TODO document this
-		public double Micro{get {return GetValue(FactorM);}set {SetValue(value,FactorM);}}
-		public double Milli{get {return GetValue(FactorK);}set {SetValue(value,FactorK);}}
-		public double Centi{get {return GetValue(FactorH);}set {SetValue(value,FactorH);}}
-		public double Deci {get {return GetValue(FactorD);}set {SetValue(value,FactorD);}}
-		public double Deca {get {return GetValue(1/FactorD);}set {SetValue(value,1/FactorD);}}
-		public double Hecto{get {return GetValue(1/FactorH);}set {SetValue(value,1/FactorH);}}
-		public double Kilo {get {return GetValue(1/FactorK);}set {SetValue(value,1/FactorK);}}
-		public double Mega {get {return GetValue(1/FactorM);}set {SetValue(value,1/FactorM);}}
+		public double Micro{get => GetValue(FactorM); set => SetValue(value, FactorM); }
+		public double Milli{get => GetValue(FactorK); set => SetValue(value, FactorK); }
+		public double Centi{get => GetValue(FactorH); set => SetValue(value, FactorH); }
+		public double Deci {get => GetValue(FactorD); set => SetValue(value, FactorD); }
+		public double Deca {get => GetValue(1 /FactorD); set => SetValue(value, 1 /FactorD); }
+		public double Hecto{get => GetValue(1 /FactorH); set => SetValue(value, 1 /FactorH); }
+		public double Kilo {get => GetValue(1 /FactorK); set => SetValue(value, 1 /FactorK); }
+		public double Mega {get => GetValue(1 /FactorM); set => SetValue(value, 1 /FactorM); }
 #pragma warning restore 1591
 
 		/// <summary> Gets or sets the _Unit of measure.
 		/// </summary>
 		/// <value>The _Unit of measure.</value>
 		public Unit Unit {
-			get {return _unit;}
+			get => _unit;
 			set {
 				MemberAccessUtil.DemandWriteOnce(_unit==Unit.None,null,this,nameof(Unit),"{554C3318-8CF8-4990-A3C6-51023ECA2D16}");
 				_unit = value;

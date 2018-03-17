@@ -33,8 +33,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <value> The width of the resize border.</value>
 		public double ResizeBorderWidth {
-			get { return (double)GetValue(ResizeBorderWidthProperty); }
-			set { SetValue(ResizeBorderWidthProperty, value); }
+			get => (double)GetValue(ResizeBorderWidthProperty);
+			set => SetValue(ResizeBorderWidthProperty, value);
 		}
 
 		#endregion
@@ -57,8 +57,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the title bar.
 		/// </value>
 		public string TitleBarName {
-			get { return (string)GetValue(TitleBarNameProperty); }
-			set { SetValue(TitleBarNameProperty, value); }
+			get => (string)GetValue(TitleBarNameProperty);
+			set => SetValue(TitleBarNameProperty, value);
 		}
 
 		public FrameworkElement TitleBar { get; set; }
@@ -83,8 +83,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the border.
 		/// </value>
 		public string BorderName {
-			get { return (string)GetValue(BorderNameProperty); }
-			set { SetValue(BorderNameProperty, value); }
+			get => (string)GetValue(BorderNameProperty);
+			set => SetValue(BorderNameProperty, value);
 		}
 
 		public Border Border { get; set; }
@@ -106,8 +106,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the resize grip.
 		/// </value>
 		public string ResizeGripName {
-			get { return (string)GetValue(ResizeGripNameProperty); }
-			set { SetValue(ResizeGripNameProperty, value); }
+			get => (string)GetValue(ResizeGripNameProperty);
+			set => SetValue(ResizeGripNameProperty, value);
 		}
 
 		public UIElement ResizeGrip { get; set; }
@@ -129,8 +129,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the close button.
 		/// </value>
 		public string CloseButtonName {
-			get { return (string)GetValue(CloseButtonNameProperty); }
-			set { SetValue(CloseButtonNameProperty, value); }
+			get => (string)GetValue(CloseButtonNameProperty);
+			set => SetValue(CloseButtonNameProperty, value);
 		}
 
 		public Button CloseButton { get; set; }
@@ -152,8 +152,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the minimize button.
 		/// </value>
 		public string MinimizeButtonName {
-			get { return (string)GetValue(MinimizeButtonNameProperty); }
-			set { SetValue(MinimizeButtonNameProperty, value); }
+			get => (string)GetValue(MinimizeButtonNameProperty);
+			set => SetValue(MinimizeButtonNameProperty, value);
 		}
 
 		public Button MinimizeButton { get; set; }
@@ -175,8 +175,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the maximize button.
 		/// </value>
 		public string MaximizeButtonName {
-			get { return (string)GetValue(MaximizeButtonNameProperty); }
-			set { SetValue(MaximizeButtonNameProperty, value); }
+			get => (string)GetValue(MaximizeButtonNameProperty);
+			set => SetValue(MaximizeButtonNameProperty, value);
 		}
 
 		public Button MaximizeButton { get; set; }
@@ -196,8 +196,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <value>The name of the restore button.</value>
 		public string RestoreButtonName {
-			get { return (string)GetValue(RestoreButtonNameProperty); }
-			set { SetValue(RestoreButtonNameProperty, value); }
+			get => (string)GetValue(RestoreButtonNameProperty);
+			set => SetValue(RestoreButtonNameProperty, value);
 		}
 
 		public Button RestoreButton { get; set; }
@@ -217,8 +217,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <value>The name of the "<i>full screen</i>" button.</value>
 		public string FullScreenButtonName {
-			get { return (string)GetValue(FullScreenButtonNameProperty); }
-			set { SetValue(FullScreenButtonNameProperty, value); }
+			get => (string)GetValue(FullScreenButtonNameProperty);
+			set => SetValue(FullScreenButtonNameProperty, value);
 		}
 
 		public Button FullScreenButton { get; set; }
@@ -238,8 +238,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <value>The name of the "exit full screen" button.</value>
 		public string ExitFullScreenButtonName {
-			get { return (string)GetValue(ExitFullScreenButtonNameProperty); }
-			set { SetValue(ExitFullScreenButtonNameProperty, value); }
+			get => (string)GetValue(ExitFullScreenButtonNameProperty);
+			set => SetValue(ExitFullScreenButtonNameProperty, value);
 		}
 
 		public Button ExitFullScreenButton { get; set; }
@@ -257,8 +257,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		}
 
 		public bool IsFullscreen {
-			get { return (bool) GetValue(IsFullscreenProperty); }
-			set { SetValue(IsFullscreenProperty, value); }
+			get => (bool) GetValue(IsFullscreenProperty);
+			set => SetValue(IsFullscreenProperty, value);
 		}
 
 		public EventHandler IsFullscreenChanged;
@@ -279,8 +279,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		///     The name of the fallback border if dwm composition is disabled.
 		/// </value>
 		public string NoDwmBorderName {
-			get { return (string)GetValue(NoDwmBorderNameProperty); }
-			set { SetValue(NoDwmBorderNameProperty, value); }
+			get => (string)GetValue(NoDwmBorderNameProperty);
+			set => SetValue(NoDwmBorderNameProperty, value);
 		}
 
 		public Border NoDwmBorder { get; set; }
@@ -1406,16 +1406,12 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			/// <summary>
 			///     Gets the width.
 			/// </summary>
-			public int Width {
-				get { return Math.Abs(right-left); }
-			}
+			public int Width => Math.Abs(right -left);
 
 			/// <summary>
 			///     Gets the height.
 			/// </summary>
-			public int Height {
-				get { return bottom-top; }
-			}
+			public int Height => bottom -top;
 
 			/// <summary>
 			///     Initializes a new instance of the <see cref="RECT" /> struct.

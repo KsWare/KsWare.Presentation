@@ -51,7 +51,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </code>
 		/// </example>
 		public IEnumerable SourceList {
-			get {return _sourceList;}
+			get => _sourceList;
 			set {
 				_sourceList=value;
 				OnPropertyChanged(nameof(SourceList));
@@ -62,7 +62,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 	}
 
@@ -84,7 +84,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The business value.</value>
 		public IValueBM BusinessValue {
-			get {return _businessValue;}
+			get => _businessValue;
 			set {
 				if(_businessValue!=null) {
 					//m_BusinessValue.Disposed-=AtBusinessValueDisposed;
@@ -177,7 +177,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <summary> Gets or sets the a list of available values.
 		/// </summary>
 		/// <value>The list of available values.</value>
-		public IEnumerable SourceList {get {return _values;}set {throw new InvalidOperationException("The SourceList is managed by underlying business object only!");}}
+		public IEnumerable SourceList {get => _values; set => throw new InvalidOperationException("The SourceList is managed by underlying business object only!"); }
 
 		/// <summary> Receives events from the centralized event manager.
 		/// </summary>
@@ -193,7 +193,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 
 		/// <summary> [WORKAROUND] Notifies the source list changed. This will raise PropertyChanged events.

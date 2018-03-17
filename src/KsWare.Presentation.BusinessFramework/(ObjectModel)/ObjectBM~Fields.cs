@@ -23,14 +23,15 @@ namespace KsWare.Presentation.BusinessFramework {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public BackingFieldsStore Fields { get { return _lazyFields.Value; } }
-		public BackingFieldsStore FieldsːDebug { get { return _lazyFields.IsValueCreated ? _lazyFields.Value : null; } }
+		public BackingFieldsStore Fields => _lazyFields.Value;
+
+		public BackingFieldsStore FieldsːDebug => _lazyFields.IsValueCreated ? _lazyFields.Value : null;
 
 
 		/// <summary> Occurs when a property value changes. (Implements INotifyPropertyChanged.PropertyChanged)
 		/// </summary>
 		[Obsolete("For presentation infrastructure compatibility only!")]
-		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add { _propertyChanged += value; } remove { _propertyChanged-=value; } }
+		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add => _propertyChanged += value; remove => _propertyChanged-=value; }
 
 	}
 }

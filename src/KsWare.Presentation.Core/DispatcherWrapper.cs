@@ -105,9 +105,7 @@ namespace KsWare.Presentation {
 
 		private static Dictionary<Dispatcher, IDispatcher> s_Map = new Dictionary<Dispatcher, IDispatcher>(); //TODO use weak references
 		
-		public static IDispatcher CurrentDispatcher {
-			get { return FromDispatcher(Dispatcher.CurrentDispatcher); }
-		}
+		public static IDispatcher CurrentDispatcher => FromDispatcher(Dispatcher.CurrentDispatcher);
 
 		public static IDispatcher FromDispatcher([NotNull]Dispatcher dispatcher) {
 			if (dispatcher == null) throw new ArgumentNullException(nameof(dispatcher));
@@ -216,7 +214,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value>The deprecated dispatcher.</value>
 		[Obsolete("Deprecated")]
-		public Dispatcher DeprecatedDispatcher { get { return _wrappedDispatcher; } private set { _wrappedDispatcher = value; }}
+		public Dispatcher DeprecatedDispatcher { get => _wrappedDispatcher; private set => _wrappedDispatcher = value; }
 
 		private DispatcherOperation LegacyBeginInvokeImpl(DispatcherPriority priority, Delegate method, object args,int numArgs) {
 //			Debug.WriteLine(string.Format("*   {0}\n==> BeginInvoke {1}",DebugUtil.FormatMethod(GetCallingMethod()),DebugUtil.FormatDelegate(method)));
@@ -345,12 +343,12 @@ namespace KsWare.Presentation {
 //			return _WrappedDispatcher.InvokeAsync(...)
 //		}
 
-		public Thread Thread { get { return _wrappedDispatcher.Thread; } }
-		
+		public Thread Thread => _wrappedDispatcher.Thread;
+
 		/// <summary> Gets a value indicating whether the caller must call an invoke method when making method calls to the UI because the caller is on a different thread than the one the UI was created on.
 		/// </summary>
 //		public bool IsInvokeRequired {get { return _WrappedDispatcher.Thread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId; }}
-		public bool IsInvokeRequired {get { return _wrappedDispatcher.Thread != Thread.CurrentThread; }}
+		public bool IsInvokeRequired => _wrappedDispatcher.Thread != Thread.CurrentThread;
 
 		/// <summary> Executes a delegate on the application dispatcher.
 		/// </summary>
@@ -395,7 +393,7 @@ namespace KsWare.Presentation {
 //		long invokeCount;
 
 		public DispatcherPriority ForcePriority { get; set; }
-		public DispatcherPriority ForcePriorityForThread { get { return _ForcePriorityForThread.Value; } set { _ForcePriorityForThread.Value = value; } }
+		public DispatcherPriority ForcePriorityForThread { get => _ForcePriorityForThread.Value; set => _ForcePriorityForThread.Value = value; }
 
 		private void HookInternal(string invokeMethod, Delegate callback, ref DispatcherPriority priority) {
 //			var methodName = DebugUtil.FormatTypeName(callback.Target)+"."+callback.Method.Name;
@@ -444,7 +442,7 @@ namespace KsWare.Presentation {
 				}
 				return s_SingletonInstance;
 			}
-			set { s_SingletonInstance = value; }
+			set => s_SingletonInstance = value;
 		}
 
 
@@ -488,14 +486,15 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <returns>The dispatcher associated with the application thread.</returns>
 		[Obsolete("Direct use static ApplicationDispatcher methods",false)]
-		public static IDispatcher CurrentDispatcher {get { return Instance; } set { Instance = value; }}
+		public static IDispatcher CurrentDispatcher {get => Instance; set => Instance = value; }
 
 		/// <summary> [DEPRECATED] Gets direct access to the wrapped <see cref="Dispatcher" /> for the application thread.
 		/// </summary>
 		/// <value>The <see cref="Dispatcher"/></value>
-		public static Dispatcher DeprecatedDispatcher { get { return InternalWrapper.DeprecatedDispatcher; } }
-		public static Thread Thread { get { return InternalWrapper.Thread; } }
-		public static bool IsInvokeRequired { get { return InternalWrapper.IsInvokeRequired; } }
+		public static Dispatcher DeprecatedDispatcher => InternalWrapper.DeprecatedDispatcher;
+
+		public static Thread Thread => InternalWrapper.Thread;
+		public static bool IsInvokeRequired => InternalWrapper.IsInvokeRequired;
 
 		public static DispatcherOperation BeginInvoke(DispatcherPriority priority, Delegate method) { return InternalWrapper.BeginInvoke(priority, method); }
 		public static DispatcherOperation BeginInvoke(DispatcherPriority priority, Delegate method, object arg) { return InternalWrapper.BeginInvoke(priority, method, arg); }
@@ -532,10 +531,10 @@ namespace KsWare.Presentation {
 		#endregion
 
 		#region Singleton
-		Dispatcher IDispatcher.DeprecatedDispatcher { get { return InternalWrapper.DeprecatedDispatcher; } }
-		Thread IDispatcher.Thread { get { return InternalWrapper.Thread; } }
-		bool IDispatcher.IsInvokeRequired { get { return InternalWrapper.IsInvokeRequired; } }
-		public static IDispatcher Wrapper { get { return s_Wrapper; } }
+		Dispatcher IDispatcher.DeprecatedDispatcher => InternalWrapper.DeprecatedDispatcher;
+		Thread IDispatcher.Thread => InternalWrapper.Thread;
+		bool IDispatcher.IsInvokeRequired => InternalWrapper.IsInvokeRequired;
+		public static IDispatcher Wrapper => s_Wrapper;
 
 		DispatcherOperation IDispatcher.BeginInvoke(DispatcherPriority priority, Delegate method) { return InternalWrapper.BeginInvoke(priority, method); }
 		DispatcherOperation IDispatcher.BeginInvoke(DispatcherPriority priority, Delegate method, object arg) { return InternalWrapper.BeginInvoke(priority, method, arg); }

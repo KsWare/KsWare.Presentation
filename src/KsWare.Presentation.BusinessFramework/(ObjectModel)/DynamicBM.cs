@@ -14,7 +14,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			
 		}
 
-		public Type ValueType { get { return Fields.Get<Type>("ValueType"); } set { Fields.Set("ValueType", value); } }
+		public Type ValueType { get => Fields.GetValue<Type>(); set => Fields.SetValue(value); }
 
 	}
 

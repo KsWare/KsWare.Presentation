@@ -25,7 +25,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the weak event handle.
 		/// </summary>
 		/// <value>a reference to <see cref="EventHandle"/> or <c>null</c> if the <see cref="EventHandle"/> has been garbage collected or container disposed.</value>
-		public EventHandle EventHandle { get { return  (_eventHandle ?? (_weakEventHandleWeakRef!=null ? (EventHandle) _weakEventHandleWeakRef.Target : null ) ); } }
+		public EventHandle EventHandle => (_eventHandle ?? (_weakEventHandleWeakRef !=null ? (EventHandle) _weakEventHandleWeakRef.Target : null ) );
 
 		/// <summary> Gets a value indicating whether the <see cref="EventHandle"/> is kept alive.
 		/// </summary>

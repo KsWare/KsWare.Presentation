@@ -11,13 +11,13 @@ namespace KsWare.Presentation.InternalStatistics {
 		private PropertyChangedEventHandler _propertyChanged;
 
 		public string Caption { get; protected set; }
-		public List<StatisticEntryVM> Items { get { return _Items; } }
+		public List<StatisticEntryVM> Items => _Items;
 
 		public virtual void Refresh() {
 			foreach (var item in _Items) { item.RefreshValue(); }
 		}
 
-		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add { _propertyChanged += value; }remove { _propertyChanged -= value; }}
+		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add => _propertyChanged += value; remove => _propertyChanged -= value; }
 
 		[NotifyPropertyChangedInvocator]
 		protected new void OnPropertyChanged(string propertyName) {

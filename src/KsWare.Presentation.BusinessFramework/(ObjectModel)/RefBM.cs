@@ -87,7 +87,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			}
 		}
 
-		IObjectBM IRefBM.Target {get { return Target; }set { Target = (TRef) value; }}
+		IObjectBM IRefBM.Target {get => Target; set => Target = (TRef) value; }
 
 
 		/// <summary> [EXPERIMENTAL] Gets or sets the list of available targets.
@@ -104,11 +104,10 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Event source for the event which occurs when the <see cref="Target"/> property changes.
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent {
-			get { return EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent"); }
-		}
+		public IEventSource<EventHandler<ValueChangedEventArgs<TRef>>> TargetChangedEvent => EventSources.Get<EventHandler<ValueChangedEventArgs<TRef>>>("TargetChangedEvent");
+
 //		IWeakEventSource<EventHandler<ValueChangedEventArgs>> IRefBM.TargetChangedEvent { get { return (IWeakEventSource<EventHandler<ValueChangedEventArgs>>)TargetChangedEvent; } }
-		IEventSource IRefBM.TargetChangedEvent { get { return TargetChangedEvent; } }
+		IEventSource IRefBM.TargetChangedEvent => TargetChangedEvent;
 
 	}
 }

@@ -30,7 +30,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			_ReflectedObjectBM = reflectedObjectBM;
 		}
 
-		public ObjectBM ReflectedObject { get { return _ReflectedObjectBM; } }
+		public ObjectBM ReflectedObject => _ReflectedObjectBM;
 
 		public BusinessPropertyInfo PropertyInfo { get; set; }
 	}
@@ -54,16 +54,16 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the name of the current property.
 		/// </summary>
 		/// <value>A <see cref="System.String"/> containing the name of this property.</value>
-		public string Name {get {return PropertyInfo.Name;}}
+		public string Name => PropertyInfo.Name;
 
 		/// <summary> Gets the type of this property.
 		/// </summary>
 		/// <value>TThe type of this property.</value>
-		public Type Type {get {return PropertyInfo.PropertyType;}}
+		public Type Type => PropertyInfo.PropertyType;
 
-		public HierarchyAttribute[] HierarchyAttributes {get {return _lazyHierarchyAttributes.Value;}}
+		public HierarchyAttribute[] HierarchyAttributes => _lazyHierarchyAttributes.Value;
 
-		public ValueSettingsAttribute ValueSettingsAttribute {get {return _lazyValueSettingsAttribute.Value;}}
+		public ValueSettingsAttribute ValueSettingsAttribute => _lazyValueSettingsAttribute.Value;
 
 	}
 }

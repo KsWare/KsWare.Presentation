@@ -11,7 +11,7 @@ namespace KsWare.Presentation {
 			DefaultValue = defaultValue;
 		}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.Input;} }
+		public override FeedbackType FeedbackType => FeedbackType.Input;
 
 		public string Prompt { get; set; }
 		public string Caption { get; set; }

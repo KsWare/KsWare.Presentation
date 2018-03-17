@@ -78,12 +78,12 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the error number.
 		/// </summary>
 		/// <value>The error number.</value>
-		public BusinessModelError ErrorNumber{get {return _errorNumber;}}
+		public BusinessModelError ErrorNumber => _errorNumber;
 
 		/// <summary> Gets the business object.
 		/// </summary>
 		/// <value>The business object.</value>
-		public IObjectBM BusinessObject{get {return _businessObject;}}
+		public IObjectBM BusinessObject => _businessObject;
 
 		private static string CreateMessage(BusinessModelError error) {
 			//TODO implement CreateMessage

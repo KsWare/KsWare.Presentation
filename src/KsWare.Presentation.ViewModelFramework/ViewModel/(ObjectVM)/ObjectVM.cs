@@ -133,12 +133,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the error provider for this instance. (short for: vmo.Metadata.ErrorProvider)
 		/// </summary>
 		/// <remarks></remarks>
-		public IErrorProvider ErrorProvider {
-			get
-			{
-				return Metadata.ErrorProvider;
-			}
-		}
+		public IErrorProvider ErrorProvider => Metadata.ErrorProvider;
 
 		#endregion
 
@@ -154,7 +149,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		//TODO revise name and location of PropertyLabel
 		[Localizable(true)]
 		public string PropertyLabel { // alias Summary/Title/Caption
-			get {return _propertyLabel;}
+			get => _propertyLabel;
 			set {
 				if (Equals(_propertyLabel, value)) return;
 				_propertyLabel = value;
@@ -212,7 +207,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 				return s_IsInDesignMode.Value;
 			}
-			set { s_IsInDesignMode = value; }
+			set => s_IsInDesignMode = value;
 		}
 
 		#endregion
@@ -296,9 +291,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class BusinessDataVM<TBusinessObject,TData>:ObjectVM,IBusinessDataVM<TBusinessObject,TData>,IDataVM {
 
-		public TData Data { get { return (TData) Metadata.DataProvider.Data; }set { Metadata.DataProvider.Data = value; }}
+		public TData Data { get => (TData) Metadata.DataProvider.Data; set => Metadata.DataProvider.Data = value; }
 
-		object IDataVM.Data{get { return Data; } set { Data = (TData) value; }}
+		object IDataVM.Data{get => Data; set => Data = (TData) value; }
 	}
 
 	public interface IBusinessDataVM<TBusinessObject,TData>:IDataVM {
@@ -326,7 +321,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the property identifier.
 		/// </summary>
 		/// <value>The property identifier.</value>
-		public ViewModelProperty Property {get {return _Property;}}
+		public ViewModelProperty Property => _Property;
 	}
 
 }

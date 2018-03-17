@@ -39,7 +39,7 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		}
 
 		public Type AdornerType {
-			get { return _adornerType; }
+			get => _adornerType;
 			set {
 				if(!typeof(RectangleFrameworkElementAdorner).IsAssignableFrom(value)) throw new InvalidOperationException("Invalid type of adorner. Type of RectangleFrameworkElementAdorner expected.");
 				_adornerType = value;

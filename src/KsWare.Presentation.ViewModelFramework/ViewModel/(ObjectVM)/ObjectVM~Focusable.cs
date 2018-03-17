@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewModelFramework
 		/// <remarks></remarks>
 		[UsedImplicitly]
 		public bool Focusable {
-			get {return _focusable;}
+			get => _focusable;
 			set {
 				if (_focusable == value) return;
 				_focusable = value;
@@ -32,7 +32,7 @@ namespace KsWare.Presentation.ViewModelFramework
 		/// <remarks></remarks>
 		[UsedImplicitly]
 		public bool IsKeyboardFocused {
-			get {return _isKeyboardFocused;}
+			get => _isKeyboardFocused;
 			set {
 				if (_isKeyboardFocused == value) return;
 				_isKeyboardFocused = value;

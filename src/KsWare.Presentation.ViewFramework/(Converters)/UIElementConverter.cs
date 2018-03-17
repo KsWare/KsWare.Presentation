@@ -23,7 +23,7 @@ namespace KsWare.Presentation.ViewFramework
 		static readonly ImageSourceConverter ImageSourceConverter = new ImageSourceConverter();
 		static readonly UIElementConverter DefaultInstance=new UIElementConverter();
 
-		public static UIElementConverter Default{get {return DefaultInstance;}}
+		public static UIElementConverter Default => DefaultInstance;
 
 		private static readonly Dictionary<string,Assembly2> CachedAssemblies=new Dictionary<string, Assembly2>(); 
 
@@ -242,7 +242,7 @@ namespace KsWare.Presentation.ViewFramework
 			public Assembly Assembly { get; private set; }
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-			public ResourceSet ResourceSet {get { return GetResourceSet(Thread.CurrentThread.CurrentUICulture); }}
+			public ResourceSet ResourceSet => GetResourceSet(Thread.CurrentThread.CurrentUICulture);
 
 			public ResourceSet GetResourceSet(CultureInfo culture) {
 				if(culture==null) culture = Thread.CurrentThread.CurrentUICulture;

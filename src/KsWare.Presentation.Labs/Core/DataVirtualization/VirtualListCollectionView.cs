@@ -140,7 +140,7 @@ namespace KsWare.Presentation.DataVirtualization {
 			}
 		}
 
-		private bool IsRefreshDeferred { get { return _deferRefreshCount > 0; } }
+		private bool IsRefreshDeferred => _deferRefreshCount > 0;
 
 		private void ThrowIfDeferred() { if (IsRefreshDeferred) throw new Exception("Can't do this while I'm deferred"); }
 
@@ -193,14 +193,14 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		#region ICollectionView Members
 
-		public bool CanFilter { get { return true; } }
+		public bool CanFilter => true;
 
-		public bool CanGroup { get { return false; } }
+		public bool CanGroup => false;
 
-		public bool CanSort { get { return true; } }
+		public bool CanSort => true;
 
 		public CultureInfo Culture {
-			get { return _cultureInfo; }
+			get => _cultureInfo;
 			set {
 				if (value == null) throw new ArgumentNullException(nameof(value));
 				if (_cultureInfo != value) {
@@ -234,7 +234,7 @@ namespace KsWare.Presentation.DataVirtualization {
 		}
 
 		public Predicate<object> Filter {
-			get { return _filter; }
+			get => _filter;
 			set {
 				if (!CanFilter) throw new NotSupportedException("Filter not supported");
 				_filter = value;
@@ -242,9 +242,9 @@ namespace KsWare.Presentation.DataVirtualization {
 			}
 		}
 
-		public ObservableCollection<GroupDescription> GroupDescriptions { get { return null; } }
+		public ObservableCollection<GroupDescription> GroupDescriptions => null;
 
-		public ReadOnlyObservableCollection<object> Groups { get { return null; } }
+		public ReadOnlyObservableCollection<object> Groups => null;
 
 		public bool IsCurrentAfterLast {
 			get {
@@ -260,7 +260,7 @@ namespace KsWare.Presentation.DataVirtualization {
 			}
 		}
 
-		public bool IsEmpty { get { return Count == 0; } }
+		public bool IsEmpty => Count == 0;
 
 		public bool MoveCurrentTo(object item) {
 			ThrowIfDeferred();
@@ -387,7 +387,7 @@ namespace KsWare.Presentation.DataVirtualization {
 		}
 
 
-		public IEnumerable SourceCollection { get { return _sourceCollection; } }
+		public IEnumerable SourceCollection => _sourceCollection;
 
 		#endregion
 

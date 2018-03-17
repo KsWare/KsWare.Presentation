@@ -51,7 +51,7 @@ namespace KsWare.Presentation.Testing {
 			ViewModelFramework.ApplicationVM.TestCleanup(); // clears the singleton
 		}
 
-		public IDispatcher Dispatcher { get { return ApplicationVM.Current.Dispatcher; }}
+		public IDispatcher Dispatcher => ApplicationVM.Current.Dispatcher;
 
 
 		public void Run(Action action) {

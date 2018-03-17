@@ -17,7 +17,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
 		/// <value>	<see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		#endregion
 
@@ -27,9 +27,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The provided data.</value>
 		public override object Data {
-			get {
-				return _data;
-			}
+			get => _data;
 			set {
 				if(Equals(value,PreviousData)) return;
 				Validate(value);
@@ -62,7 +60,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets a value indicating whether this instance is supported.
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 		#endregion
 
@@ -72,7 +70,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The provided data.</value>
 		public override TData Data {
-			get {return _data;}
+			get => _data;
 			set {
 				if (Equals(PreviousData, value)) return;
 				Validate(value);

@@ -89,7 +89,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if (!_isValues) {UpdateValues();_isValues = true;} //TODO revise _isValues
 				return _values;
 			}
-			private set { _values = value; }
+			private set => _values = value;
 		}
 
 		private void UpdateValues() {

@@ -19,7 +19,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 		/// <summary> Stores the Command Behavior Binding
 		/// </summary>
-		internal new InputCommandBehaviorBinding Behavior {get{return (InputCommandBehaviorBinding)base.Behavior;} }
+		internal new InputCommandBehaviorBinding Behavior => (InputCommandBehaviorBinding)base.Behavior;
 
 		#region Gesture
 
@@ -33,8 +33,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// <summary> Gets or sets the Gesture property.  
 		/// </summary>
 		public InputGesture Gesture {
-			get { return (InputGesture)GetValue(GestureProperty); }
-			set { SetValue(GestureProperty, value); }
+			get => (InputGesture)GetValue(GestureProperty);
+			set => SetValue(GestureProperty, value);
 		}
 
 		/// <summary> Handles changes to the Gesture property.
@@ -91,7 +91,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 		/// <summary> Stores the Command Behavior Binding
 		/// </summary>
-		internal new MouseBinding Behavior {get {return (MouseBinding)base.Behavior;}}
+		internal new MouseBinding Behavior => (MouseBinding)base.Behavior;
 
 		#region MouseAction
 
@@ -105,8 +105,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// <summary> Gets or sets the MouseAction property.  
 		/// </summary>
 		public MouseAction MouseAction {
-			get { return (MouseAction)GetValue(MouseActionProperty); }
-			set { SetValue(MouseActionProperty, value); }
+			get => (MouseAction)GetValue(MouseActionProperty);
+			set => SetValue(MouseActionProperty, value);
 		}
 
 
@@ -132,7 +132,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 		/// <summary> Stores the Command Behavior Binding
 		/// </summary>
-		internal new KeyBinding Behavior {get {return (KeyBinding) base.Behavior;}}
+		internal new KeyBinding Behavior => (KeyBinding) base.Behavior;
 
 		#region Key
 
@@ -147,8 +147,8 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 		/// </summary>
 		[UsedImplicitly]
 		public Key Key {
-			get { return (Key)GetValue(KeyProperty); }
-			set { SetValue(KeyProperty, value); }
+			get => (Key)GetValue(KeyProperty);
+			set => SetValue(KeyProperty, value);
 		}
 
 		/// <summary> Provides derived classes an opportunity to handle changes to the MouseAction property.

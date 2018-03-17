@@ -15,7 +15,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the event parameter.
 		/// </summary>
 		/// <remarks></remarks>
-		public object Parameter {get {return _parameter;}}
+		public object Parameter => _parameter;
 
 		public bool CanExecute { get; set; }
 	}

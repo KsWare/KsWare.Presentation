@@ -19,7 +19,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			return null;
 		}
 
-		public BusyManager Busy { get { return BusyManager.Instance; } }
+		public BusyManager Busy => BusyManager.Instance;
 
 		public void Exception(IObjectVM sender, Exception exception) { sender.RequestUserFeedback(new ExceptionFeedbackEventArgs(exception)); }
 

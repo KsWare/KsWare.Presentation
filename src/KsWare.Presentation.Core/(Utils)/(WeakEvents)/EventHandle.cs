@@ -103,7 +103,7 @@ namespace KsWare.Presentation {
 
 
 		[CanBeNull]
-		public string DestinationUid{get { return _destinationUid; }}
+		public string DestinationUid => _destinationUid;
 
 		/// <summary> Gets the source object.
 		/// </summary>
@@ -115,7 +115,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value>The name of the event.</value>
 		[CanBeNull]
-		public string EventName{get { return _eventName; }}
+		public string EventName => _eventName;
 
 		/// <summary> Gets a value indicating whether this instance is alive.
 		/// </summary>
@@ -132,7 +132,7 @@ namespace KsWare.Presentation {
 			}
 		}
 
-		public virtual Delegate Handler { get { return _handler; } }
+		public virtual Delegate Handler => _handler;
 
 		/// <summary> Raises the event with the specified arguments.
 		/// </summary>
@@ -201,7 +201,7 @@ namespace KsWare.Presentation {
 			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return _Handler; } }
+		public override Delegate Handler => _Handler;
 
 		internal override void Raise(object[] args) {
 			_Handler(args[0], (EventArgs) args[1]); 
@@ -240,7 +240,7 @@ namespace KsWare.Presentation {
 			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return _Handler; } }
+		public override Delegate Handler => _Handler;
 
 		internal override void Raise(object[] args) {
 			_Handler(args[0], (PropertyChangedEventArgs) args[1]); 
@@ -279,9 +279,9 @@ namespace KsWare.Presentation {
 			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return _Handler; } }
+		public override Delegate Handler => _Handler;
 
-		internal override void Raise(object[] args) {
+			internal override void Raise(object[] args) {
 			_Handler(args[0], (System.Collections.Specialized.NotifyCollectionChangedEventArgs) args[1]); 
 		}
 
@@ -305,7 +305,7 @@ namespace KsWare.Presentation {
 			_Handler = handler;
 		}
 
-		public override Delegate Handler { get { return _Handler; } }
+		public override Delegate Handler => _Handler;
 
 		internal override void Raise(object[] args) {
 			_Handler(args[0], (TEventArgs)args[1]); 

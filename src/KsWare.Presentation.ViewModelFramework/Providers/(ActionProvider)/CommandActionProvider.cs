@@ -19,18 +19,12 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported{get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets a value whether the action can be executed or not
 		/// </summary>
 		/// <value>The value whether the action can be executed or not</value>
-		public override bool CanExecute {
-			get {
-				//return _CanExecuteObjections.Count==0;
-//				return _Command!=null && _Command.CanExecute(null);
-				return true;
-			}
-		}
+		public override bool CanExecute => true;
 
 		/// <summary> Sets a value whether the action can be executed or not
 		/// </summary>
@@ -45,7 +39,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		public ICommand Command {
-			get { return _command; }
+			get => _command;
 			set {
 				if(_command==value)return;
 
@@ -69,7 +63,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The business object.</value>
 		/// <remarks></remarks>
-		public override object BusinessObject {get {throw new NotSupportedException();}set {throw new NotSupportedException();}}
+		public override object BusinessObject {get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
 	}
 
 }

@@ -17,7 +17,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private PropertyChangedEventHandler _INotifyPropertyChangedPropertyChanged;
-		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{_INotifyPropertyChangedPropertyChanged+=value;}remove {_INotifyPropertyChangedPropertyChanged-=value;}}
+		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add => _INotifyPropertyChangedPropertyChanged+=value; remove => _INotifyPropertyChangedPropertyChanged-=value; }
 		private List<PropertyChangedHandlerEntry> _PropertyChangedEventHandlersByName = new List<PropertyChangedHandlerEntry>(); 
 
 		/// <summary> Occurs when a property has been changed.
@@ -25,9 +25,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public event EventHandler<ViewModelPropertyChangedEventArgs> PropertyChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent {
-			get { return EventSources.Get<EventHandler<ViewModelPropertyChangedEventArgs>>(nameof(PropertyChangedEvent)); }
-		}
+		public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent => EventSources.Get<EventHandler<ViewModelPropertyChangedEventArgs>>(nameof(PropertyChangedEvent));
 
 		/// <summary> Called when a property has been changed.
 		/// </summary>

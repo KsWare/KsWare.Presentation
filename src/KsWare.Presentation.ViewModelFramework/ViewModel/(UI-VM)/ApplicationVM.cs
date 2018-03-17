@@ -41,7 +41,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 				return s_Current;
 			} 
-			private set { s_Current = value; }
+			private set => s_Current = value;
 		}
 
 		internal static bool IsShuttingDown {
@@ -157,7 +157,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets or sets a UI that is automatically shown when an application starts.
 		/// </summary>
 		public Type StartupUri {
-			get { return _startupUri; }
+			get => _startupUri;
 			set {
 //				if(!typeof(IObjectVM).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException("value","Type of IObjectVM expected!");
 				if(!typeof(WindowVM).IsAssignableFrom(value)) throw new ArgumentOutOfRangeException(nameof(value),"Type of WindowVM expected!");
@@ -190,7 +190,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> [EXPERIMENTAL] Gets the instantiated windows in an application.
 		/// </summary>
 		/// <value>A <see cref="WindowVMCollection"/> that contains references to all window objects in the current AppDomain.</value>
-		public WindowVMCollection Windows { get { return WindowsInternal; /*TODO clone*/ } }
+		public WindowVMCollection Windows => WindowsInternal;
 
 		// Type: System.Windows.Application
 		// Assembly: PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
@@ -212,14 +212,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>A <see cref="WindowVM"/> that is designated as the main application window.</value>
 		[Hierarchy(HierarchyType.Reference)]
-		public WindowVM MainWindow { get { return Fields.Get<WindowVM>("MainWindow"); } set { Fields.Set("MainWindow", value); } }
+		public WindowVM MainWindow { get => Fields.GetValue<WindowVM>(); set => Fields.SetValue(value); }
 		
-		public CultureInfo CurrentCulture { get { return Fields.Get<CultureInfo>("CurrentCulture"); } set { Fields.Set("CurrentCulture", value); } }
+		public CultureInfo CurrentCulture { get => Fields.GetValue<CultureInfo>(); set => Fields.SetValue(value); }
 		
 		/// <summary> Gets or sets a value indicating whether the application is in foreground.
 		/// </summary>
 		/// <value><c>true</c> if the application is in foreground; otherwise, <c>false</c>.</value>
-		public bool IsActive { get { return Fields.Get<bool>("IsActive"); } set { Fields.Set("IsActive", value); } }
+		public bool IsActive { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 
 		/// <summary> Gets the <see cref="Dispatcher"/> this object is associated with. 
 		/// </summary>
@@ -313,7 +313,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value><c>true</c> if user feedbacks are forwarded to main window; otherwise, <c>false</c>.</value>
 		/// <seealso cref="WindowVM.HandleApplicationUserFeedbackRequests"/>
-		public bool ForwardUserFeedbackToMainWindow { get { return Fields.Get<bool>("ForwardUserFeedbackToMainWindow"); } set { Fields.Set("ForwardUserFeedbackToMainWindow", value); } }
+		public bool ForwardUserFeedbackToMainWindow { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 
 		/// <summary> Forwards user feedback to main window
 		/// </summary>

@@ -92,7 +92,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ViewModelCodeGenerator4DataObjectsTest.cs" />
+    <Compile Include="ViewModelCodeGenerator4DataObjectsTests.cs" />
     <Compile Include="LibTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

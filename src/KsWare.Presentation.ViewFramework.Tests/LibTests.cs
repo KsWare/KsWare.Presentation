@@ -9,8 +9,8 @@ namespace KsWare.Presentation.ViewFramework.Tests {
 
 		[TestMethod]
 		public void NamespaceMustMatchAssemblyName() {
-			var t = typeof (KsWare.Presentation.ViewFramework.Lib);
-			var assemblyName = KsWare.Presentation.ViewFramework.Lib.Assembly.GetName(false).Name;
+			var t = typeof (KsWare.Presentation.ViewFramework.AssemblyInfo);
+			var assemblyName = KsWare.Presentation.ViewFramework.AssemblyInfo.Assembly.GetName(false).Name;
 			Assert.That(t.Namespace, Is.EqualTo(assemblyName));
 		}
 	}

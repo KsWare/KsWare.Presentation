@@ -10,7 +10,7 @@
 		/// <param name="isBusy">a value indicating whether the sender of the user feedback is busy.</param>
 		public BusyUserFeedbackEventArgs(bool isBusy) { IsBusy = isBusy; }
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.Busy;} }
+		public override FeedbackType FeedbackType => FeedbackType.Busy;
 
 		/// <summary> Gets a value indicating whether the sender of the user feedback is busy.
 		/// </summary>

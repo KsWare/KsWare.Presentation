@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -33,14 +34,20 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("1.0.0.0")]
+
+[assembly: XmlnsDefinition(KsWare.Presentation.ViewModelFramework.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewModelFramework")]
+[assembly: XmlnsPrefix("http://ksware.de/Presentation/ViewModelFramework", "ksvm")]
 
 // namespace must equal to assembly name
 // ReSharper disable once CheckNamespace
 namespace KsWare.Presentation.ViewModelFramework {
 
-	public static class Lib {
+	public static class AssemblyInfo {
 
 		public static Assembly Assembly => Assembly.GetExecutingAssembly();
+
+		public const string XmlNamespace = "http://ksware.de/Presentation/ViewModelFramework";
 
 	}
 }

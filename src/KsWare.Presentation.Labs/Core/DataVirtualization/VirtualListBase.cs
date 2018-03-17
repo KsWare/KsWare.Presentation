@@ -82,7 +82,7 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		public void RemoveAt(int index) { throw new NotImplementedException(); }
 
-		public DataRefBase<T> this[int index] { get { return new CachedDataRef(index, this); } set { throw new NotImplementedException(); } }
+		public DataRefBase<T> this[int index] { get => new CachedDataRef(index, this); set => throw new NotImplementedException(); }
 
 		#endregion
 
@@ -102,15 +102,9 @@ namespace KsWare.Presentation.DataVirtualization {
 			foreach (var item in this) array[arrayIndex++] = item;
 		}
 
-		public int Count {
-			get {
-//				// if the count hasn't been determind yet, we need to access at least one remote item to get it
-//				if (Cache.Count == UndefinedCount || Cache.Count == UninitializedCount) LoadData(0);
-				return Cache.Count;
-			}
-		}
+		public int Count => Cache.Count;
 
-		public bool IsReadOnly { get { return true; } }
+		public bool IsReadOnly => true;
 
 		public bool Remove(DataRefBase<T> item) { throw new NotImplementedException(); }
 
@@ -148,11 +142,11 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		public void Insert(int index, object value) { throw new NotImplementedException(); }
 
-		public bool IsFixedSize { get { return true; } }
+		public bool IsFixedSize => true;
 
 		public void Remove(object value) { throw new NotImplementedException(); }
 
-		object IList.this[int index] { get { return this[index]; } set { throw new NotImplementedException(); } }
+		object IList.this[int index] { get => this[index]; set => throw new NotImplementedException(); }
 
 		#endregion
 
@@ -172,7 +166,7 @@ namespace KsWare.Presentation.DataVirtualization {
 				}
 		}
 
-		public bool IsSynchronized { get { return false; } }
+		public bool IsSynchronized => false;
 
 		public object SyncRoot {
 			get {
@@ -185,7 +179,7 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		#region IItemProperties Members
 
-		public ReadOnlyCollection<ItemPropertyInfo> ItemProperties { get { return s_ItemPropertyInfo; } }
+		public ReadOnlyCollection<ItemPropertyInfo> ItemProperties => s_ItemPropertyInfo;
 
 		#endregion
 
@@ -225,9 +219,9 @@ namespace KsWare.Presentation.DataVirtualization {
 
 			public void Reset() { _current = -1; }
 
-			public DataRefBase<T> Current { get { return _list[_current]; } }
+			public DataRefBase<T> Current => _list[_current];
 
-			object IEnumerator.Current { get { return Current; } }
+			object IEnumerator.Current => Current;
 		}
 
 		protected class CachedDataRef : DataRefBase<T> {
@@ -240,7 +234,7 @@ namespace KsWare.Presentation.DataVirtualization {
 				List = list;
 			}
 
-			public override T Data { get { return List.LoadData(Index); } }
+			public override T Data => List.LoadData(Index);
 
 			public override int GetHashCode() { return Index ^ List.GetHashCode(); }
 

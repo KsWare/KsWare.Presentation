@@ -171,21 +171,21 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <returns> An object that can be used to synchronize access to the <see cref="ICollection"/>. </returns>
 		/// <filterpriority>2</filterpriority>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		object ICollection.SyncRoot{get {return ((ICollection)InnerList).SyncRoot;;}}
+		object ICollection.SyncRoot => ((ICollection)InnerList).SyncRoot;
 
 		/// <summary> Gets a value indicating whether access to the <see cref="ICollection"/> is synchronized (thread safe).
 		/// </summary>
 		/// <returns> true if access to the <see cref="ICollection"/> is synchronized (thread safe); otherwise, false. </returns>
 		/// <filterpriority>2</filterpriority>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		bool ICollection.IsSynchronized{get {return ((ICollection)InnerList).IsSynchronized;}}
+		bool ICollection.IsSynchronized => ((ICollection)InnerList).IsSynchronized;
 
 //		/// <summary> Gets a value indicating whether the <see cref="IList"/> is read-only.
 //		/// </summary>
 //		/// <returns> true if the <see cref="IList"/> is read-only; otherwise, false. </returns>
 //		/// <filterpriority>2</filterpriority>
 //		//TOOD: IsReadOnly List|ObjectVM ??
-		bool IList.IsReadOnly{get{return ((IList)InnerList).IsReadOnly;}}
+		bool IList.IsReadOnly => ((IList)InnerList).IsReadOnly;
 //		public bool new IsReadOnly{get {return ((IList)InnerList).IsReadOnly;}}
 
 		/// <summary> Gets a value indicating whether the <see cref="IList"/> has a fixed size.
@@ -193,7 +193,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <returns> true if the <see cref="IList"/> has a fixed size; otherwise, false. </returns>
 		/// <filterpriority>2</filterpriority>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		bool IList.IsFixedSize{get {return ((IList)InnerList).IsFixedSize;}}
+		bool IList.IsFixedSize => ((IList)InnerList).IsFixedSize;
 
 		/// <summary> Determines the index of a specific item in the <see cref="System.Collections.Generic.IList{TItem}"/>.
 		/// </summary>
@@ -223,14 +223,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="IList"/>. </exception>
 		/// <exception cref="TItem:System.NotSupportedException">The property is set and the <see cref="IList"/> is read-only. </exception>
 		/// <filterpriority>2</filterpriority>
-		object IList.this[int index]{get {return GetItem(index);}set {ReplaceItem(index, (TItem) value);}}
+		object IList.this[int index]{get => GetItem(index); set => ReplaceItem(index, (TItem) value); }
 
 		/// <summary> Gets or sets the element at the specified index.
 		/// </summary>
 		/// <returns> The element at the specified index. </returns>
 		/// <param name="index">The zero-based index of the element to get or set.</param><exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="System.Collections.Generic.IList{TItem}"/>.</exception>
 		/// <exception cref="TItem:System.NotSupportedException">The property is set and the <see cref="System.Collections.Generic.IList{TItem}"/> is read-only.</exception>
-		public TItem this[int index] {get { return GetItem(index); }set {ReplaceItem(index, value);}}
+		public TItem this[int index] {get => GetItem(index); set => ReplaceItem(index, value); }
 
 		/// <summary> Returns an enumerator that iterates through a collection.
 		/// </summary>
@@ -279,7 +279,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The metadata.</value>
 		/// <remarks></remarks>
-		public new ListViewModelMetadata Metadata{get{return (ListViewModelMetadata) base.Metadata;}set{base.Metadata = value;}}
+		public new ListViewModelMetadata Metadata{get => (ListViewModelMetadata) base.Metadata; set => base.Metadata = value; }
 
 		#endregion
 
@@ -879,17 +879,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<NotifyCollectionChangedEventHandler> CollectionChangedEvent {
-			get { return EventSources.Get<NotifyCollectionChangedEventHandler>("CollectionChangedEvent"); }
-		}
+		public IEventSource<NotifyCollectionChangedEventHandler> CollectionChangedEvent => EventSources.Get<NotifyCollectionChangedEventHandler>("CollectionChangedEvent");
 
 		/// <summary> Returns the first element of a sequence, or a default value if the sequence contains no elements.
 		/// </summary>
-		public TItem First{get{return this.FirstOrDefault();}}
+		public TItem First => this.FirstOrDefault();
 
 		/// <summary> Returns the last element of a sequence, or a default value if the sequence contains no elements.
 		/// </summary>
-		public TItem Last{get{return this.LastOrDefault();}}
+		public TItem Last => this.LastOrDefault();
 
 		[Obsolete("DRAFT")]
 		public TItem ItemTemplate {
@@ -913,7 +911,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		public ICollectionView CollectionView {
-			get { return _collectionView??CollectionViewSource.GetDefaultView(this); }
+			get => _collectionView ??CollectionViewSource.GetDefaultView(this);
 			set { _collectionView = value; OnPropertyChanged("CollectionView");}
 		}
 

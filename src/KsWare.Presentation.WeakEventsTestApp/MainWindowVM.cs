@@ -11,7 +11,7 @@ namespace KsWare.Presentation.WeakEventsTestApp {
 		private TestViewModel1VM _testViewModel;
 		private WeakReference _weakTestViewModel;
 
-		public static MainWindowVM Instance {get { return s_instance ?? (s_instance = new MainWindowVM()); } }
+		public static MainWindowVM Instance => s_instance ?? (s_instance = new MainWindowVM());
 
 		public MainWindowVM() {
 

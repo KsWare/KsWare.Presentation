@@ -30,8 +30,8 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			_lazyWeakEventStore=new Lazy<EventSourceStore>(()=>new EventSourceStore(this));
 		}
 
-		protected Lazy<EventSourceStore> LazyWeakEventStore { get { return _lazyWeakEventStore; } }
-		protected EventSourceStore EventStore { get { return _lazyWeakEventStore.Value; } }
+		protected Lazy<EventSourceStore> LazyWeakEventStore => _lazyWeakEventStore;
+		protected EventSourceStore EventStore => _lazyWeakEventStore.Value;
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
@@ -40,7 +40,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		public abstract bool IsSupported{get;}
 
 		public bool IsAutoCreated {
-			get { return _isAutoCreated==true; }
+			get => _isAutoCreated ==true;
 			set {
 				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
 				_isAutoCreated = value;
@@ -66,7 +66,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			}
 		}
 
-		object IParentSupport.Parent {get { return Parent; }set { Parent = (IViewModelMetadata)value; }}
+		object IParentSupport.Parent {get => Parent; set => Parent = (IViewModelMetadata)value; }
 
 		/// <summary> Occurs when the <see cref="Parent"/> property has been changed.
 		/// </summary>
@@ -74,20 +74,20 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		public event EventHandler ParentChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent { get { return EventStore.Get<EventHandler>("ParentChangedEvent"); }}
+		public IEventSource<EventHandler> ParentChangedEvent => EventStore.Get<EventHandler>("ParentChangedEvent");
 
 		/// <summary> Gets parent metadata (<see cref="IViewModelMetadata"/>) of this instance.
 		/// </summary>
 		/// <value>The parent metadata of this instance.</value>
 		/// <remarks></remarks>
-		protected IViewModelMetadata Metadata{get { return Parent; }}
+		protected IViewModelMetadata Metadata => Parent;
 
 		/// <summary> Gets parent viewmodel (<see cref="IObjectVM"/>) of this instance.
 		/// </summary>
 		/// <value>The parent viewmodel of this instance.</value>
 		/// <remarks></remarks>
 //		protected IObjectVM ViewModel{get { return (IObjectVM) this.ʘ(o=>o.Parent).ʘ(o=>o.Parent); }}
-		protected IObjectVM ViewModel{get { return (IObjectVM) Parent?.Parent; }}
+		protected IObjectVM ViewModel => (IObjectVM) Parent?.Parent;
 
 		/// <summary> Called when <see cref="Parent"/>-property has been changed. 
 		/// This indicates provider has been assigned to an metadata object and all provider configuration properties are now read-only.

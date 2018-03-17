@@ -42,7 +42,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		private Lazy<ConversionOptions> _lazyOptions=new Lazy<ConversionOptions>(()=>new ConversionOptions());
 
-		public ConversionOptions Options { get { return _lazyOptions.Value; } }
+		public ConversionOptions Options => _lazyOptions.Value;
 
 		/// <summary> Returns whether this converter can convert an object of the given type to the type of this converter, using the specified context.
 		/// </summary>

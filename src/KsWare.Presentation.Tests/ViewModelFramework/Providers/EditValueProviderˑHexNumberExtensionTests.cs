@@ -7,7 +7,7 @@ using Assert=NUnit.Framework.Assert;
 namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 
 	[TestClass]
-	public class EditValueProvider_HexNumberExtensionTests {
+	public class EditValueProviderˑHexNumberExtensionTests {
 
 		[TestMethod]
 		public void Int32VM_EditValueProvider_HexNumber_10() {

@@ -89,7 +89,7 @@ namespace KsWare.Presentation.UITestApp {
 		}
 
 		public string String {
-			get { return _string; }
+			get => _string;
 			set {
 				if(_string == value) return;
 				_string = value;

@@ -31,7 +31,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// Only the parent object itself can set this property!
 		/// </remarks>
 		public virtual IObjectBM Parent {
-			get { return _parent; }
+			get => _parent;
 			set {
 				if (Equals(_parent,value)) return;
 				var prev = _parent;
@@ -52,12 +52,12 @@ namespace KsWare.Presentation.BusinessFramework {
 		public event EventHandler ParentChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent => EventSources.Get<EventHandler>("ParentChangedEvent");
 
 		/// <summary> Gets or sets the parent.
 		/// </summary>
 		/// <value>The parent.</value>
-		IObjectBM IHierarchical<IObjectBM>.Parent { get { return Parent; } set { Parent = value; } }
+		IObjectBM IHierarchical<IObjectBM>.Parent { get => Parent; set => Parent = value; }
 
 		/// <summary> Gets or sets the name of the member.
 		/// </summary>
@@ -67,9 +67,9 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the children.
 		/// </summary>
 		/// <value>The children.</value>
-		public ICollection<IObjectBM> Children { get { return _children.AsReadOnly(); } }
+		public ICollection<IObjectBM> Children => _children.AsReadOnly();
 
-		ICollection<IObjectBM> IHierarchical<IObjectBM>.Children { get { return this.Children; } }
+		ICollection<IObjectBM> IHierarchical<IObjectBM>.Children => this.Children;
 
 		/// <summary> Registers a child <see cref="IObjectBM"/> in the business object tree
 		/// </summary>

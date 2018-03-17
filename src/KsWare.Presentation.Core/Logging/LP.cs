@@ -22,12 +22,12 @@ namespace KsWare.Presentation.Core.Logging
 		/// <summary> Gets the name of the parameter
 		/// </summary>
 		/// <value>The name.</value>
-		public string Name {get {return this.name;}}
+		public string Name => this.name;
 
 		/// <summary> Gets the value of the parameter
 		/// </summary>
 		/// <value>The value.</value>
-		public object Value {get {return this.value;}}
+		public object Value => this.value;
 
 	}
 

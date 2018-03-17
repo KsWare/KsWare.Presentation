@@ -20,7 +20,7 @@ namespace KsWare.Presentation {
 			_weakReferences.Add(new WeakReference(o));
 		}
 
-		public int Count { get { return _weakReferences.Count;} }
+		public int Count => _weakReferences.Count;
 
 		public List<object> Targets {
 			get {
@@ -88,7 +88,7 @@ namespace KsWare.Presentation {
 			public void Reset() { _currentIndex = -1; }
 			public WeakReference Current { get; private set; }
 
-			object IEnumerator.Current {get { return Current; } }
+			object IEnumerator.Current => Current;
 
 			#endregion
 		}

@@ -37,7 +37,7 @@ namespace KsWare.Presentation {
 			Exception = exception;
 		}
 
-		public override FeedbackType FeedbackType { get{return FeedbackType.Exception;} }
+		public override FeedbackType FeedbackType => FeedbackType.Exception;
 
 		/// <summary> Gets or sets the Exception.
 		/// </summary>

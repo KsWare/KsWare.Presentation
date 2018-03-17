@@ -52,7 +52,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public SlimDataVM(TData data) { _data = data; }
 
 		public TData Data {
-			get { return _data; }
+			get => _data;
 			set {
 				if(Equals(_data,value)) return;
 				var prev = _data;
@@ -62,7 +62,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		object ISlimDataVM.Data { get { return Data; } set { Data = (TData) value; } }
+		object ISlimDataVM.Data { get => Data; set => Data = (TData) value; }
 
 		protected virtual void OnDataChanged(TData previousData, TData newData) {
 			List<string> properties;

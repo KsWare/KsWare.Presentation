@@ -29,8 +29,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1721:PropertyNamesShouldNotMatchGetMethods")]
 		public object Value {
-			get { return (object) GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
+			get => (object) GetValue(ValueProperty);
+			set => SetValue(ValueProperty, value);
 		}
 
 		/// <summary> Occurs when <see cref="Value"/> property has been changed

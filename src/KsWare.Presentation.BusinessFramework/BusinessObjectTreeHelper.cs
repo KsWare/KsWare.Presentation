@@ -174,13 +174,13 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value><see langword="true"/> if tree event are raised; otherwise, <see langword="false"/>.
 		/// </value>
-		public static bool IsTreeChangedEventDelayed{get {return s_DelayTreeChangedEventsCount > 0;}}
+		public static bool IsTreeChangedEventDelayed => s_DelayTreeChangedEventsCount > 0;
 
 		/// <summary> Gets a value indicating whether tree events are raised.
 		/// </summary>
 		/// <value><see langword="true"/> if tree event are skiped; otherwise, <see langword="false"/>.
 		/// </value>
-		public static bool IsTreeChangedEventSkipped{get {return s_SkipTreeChangedEventsCount > 0;}}
+		public static bool IsTreeChangedEventSkipped => s_SkipTreeChangedEventsCount > 0;
 
 		/// <summary> Helper class to manage StopTreeChangedEvents/StartTreeChangeEvents
 		/// </summary>

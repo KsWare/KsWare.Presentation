@@ -17,7 +17,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
 		/// <remarks></remarks>
-		public override bool IsSupported{get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets a value whether the action can be executed or not
 		/// </summary>
@@ -49,7 +49,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// </summary>
 		/// <value>The business object.</value>
 		/// <remarks></remarks>
-		public override object BusinessObject {get {throw new NotSupportedException();}set {throw new NotSupportedException();}}
+		public override object BusinessObject {get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
 	}
 
 }

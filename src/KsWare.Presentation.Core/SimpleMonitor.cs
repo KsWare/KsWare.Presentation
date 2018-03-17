@@ -64,7 +64,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets a value indicating whether this <see cref="SimpleMonitor"/> is busy.
 		/// </summary>
 		/// <value><c>true</c> if busy; otherwise, <c>false</c>.</value>
-		public bool IsBusy {get {return (this.busyCount > 0);}}
+		public bool IsBusy => (this.busyCount > 0);
 
 
 		static readonly Dictionary<object,SimpleMonitor> instances=new Dictionary<object, SimpleMonitor>();

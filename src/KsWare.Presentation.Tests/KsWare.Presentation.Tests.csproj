@@ -113,7 +113,6 @@
     <Compile Include="BusinessFramework\RefBMTests.cs" />
     <Compile Include="Core\EventManagerˑIntegrationTests.cs" />
     <Compile Include="DispatcherWrapperTests.cs" />
-    <Compile Include="Core\UnitTest1.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="ViewFramework\%28Converters%29\VisibilityConverterTests.cs" />
     <Compile Include="ViewFramework\Application.Tests.cs" />
@@ -132,15 +131,15 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Core\WeakEventManager.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM+CustomDataProvider+NotifyDataChangedTests.cs" />
+    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVMˑCustomDataProviderˑNotifyDataChangedTests.cs" />
     <None Include="Core\DEACTIVATED\MappedDataProvider.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\RefVM.Business.Tests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28UI-VM%29\ApplicationVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMLinkTest.cs" />
+    <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMLinkTests.cs" />
     <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMWeakEvent.Tests.cs" />
     <Compile Include="BusinessFramework\BusinessAction.Tests.cs" />
     <Compile Include="BusinessFramework\ListBMˑTests.cs" />
-    <Compile Include="BusinessFramework\BusinessList.2.Tests.cs" />
+    <Compile Include="BusinessFramework\BusinessList_2_Tests.cs" />
     <Compile Include="BusinessFramework\BusinessObjectTreeHelper.Tests.cs" />
     <Compile Include="BusinessFramework\MetricValue.Tests.cs" />
     <Compile Include="BusinessFramework\Providers\CustomNewItemProvider.Tests.cs" />
@@ -164,9 +163,9 @@
     <Compile Include="WeakEventManagerExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModelFramework\Providers\EditValueProvider~HexNumberExtensionTests.cs" />
-    <Compile Include="ViewModelFramework\Providers\EditValueProvider~NullableBoolExtensionTests.cs" />
-    <Compile Include="ViewModelFramework\Providers\EditValueProvider~StringExtensionTests.cs" />
+    <Compile Include="ViewModelFramework\Providers\EditValueProviderˑHexNumberExtensionTests.cs" />
+    <Compile Include="ViewModelFramework\Providers\EditValueProviderˑBoolNullableˑTests.cs" />
+    <Compile Include="ViewModelFramework\Providers\EditValueProviderˑStringExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\key.snk" />

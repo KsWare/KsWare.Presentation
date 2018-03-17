@@ -11,7 +11,7 @@ namespace KsWare.Presentation {
 		public SimpleProperty() {}
 
 		public T Value {
-			get { return _value; }
+			get => _value;
 			set {
 				if(Equals(_value,value)) return;
 				_value = value;

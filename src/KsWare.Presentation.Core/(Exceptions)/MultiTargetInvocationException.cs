@@ -69,11 +69,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the exceptions.
 		/// </summary>
 		/// <value>The exceptions.</value>
-		public ReadOnlyCollection<Exception> Exceptions {
-			get {
-				return _Exceptions.AsReadOnly();
-			}
-		}
+		public ReadOnlyCollection<Exception> Exceptions => _Exceptions.AsReadOnly();
 
 	}
 }

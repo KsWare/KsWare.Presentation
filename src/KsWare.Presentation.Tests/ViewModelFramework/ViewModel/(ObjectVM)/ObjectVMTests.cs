@@ -175,7 +175,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			public event EventHandler Disposed;
 
 			
-			event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add{_notifyPropertyChangedPropertyChanged+=value;}remove {_notifyPropertyChangedPropertyChanged-=value;}}
+			event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {add => _notifyPropertyChangedPropertyChanged+=value; remove => _notifyPropertyChangedPropertyChanged-=value; }
 
 			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 			public IEventSource<EventHandler<ViewModelPropertyChangedEventArgs>> PropertyChangedEvent { get; private set; }
@@ -186,9 +186,9 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 			public event EventHandler<ViewModelPropertyChangedEventArgs> PropertyChanged;
 
-			public IErrorProvider ErrorProvider {get {throw new NotImplementedException();}}
+			public IErrorProvider ErrorProvider => throw new NotImplementedException();
 
-			public bool HasMetadata { get { return false; }}
+			public bool HasMetadata => false;
 
 			public event EventHandler<ValueChangedEventArgs<ViewModelMetadata>> MetadataChanged;
 
@@ -199,7 +199,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			public void NotifyDeactivated() {throw new NotImplementedException();}
 
 			public UIPropertiesRoot UI { get; private set; }
-			public ViewModelMetadata Metadata {get {throw new NotImplementedException();}set { throw new NotImplementedException(); }}
+			public ViewModelMetadata Metadata {get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 			
 
@@ -210,13 +210,13 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			public event EventHandler ParentChanged;
 
 			public IEventSource<EventHandler> ParentChangedEvent { get; private set; }
-			ICollection<IObjectVM> IHierarchical<IObjectVM>.Children { get { return Children; } }
+			ICollection<IObjectVM> IHierarchical<IObjectVM>.Children => Children;
 
 			public string MemberName{get;set;}
 
-			IObjectVM IHierarchical<IObjectVM>.Parent { get { return Parent; } set { Parent = value; } }
+			IObjectVM IHierarchical<IObjectVM>.Parent { get => Parent; set => Parent = value; }
 
-			public ICollection<IObjectVM> Children {get {return this._Children;}}
+			public ICollection<IObjectVM> Children => this._Children;
 
 			public string MemberPath {
 				get {
@@ -243,7 +243,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			private string testProperty;
 
 			public string TestProperty {
-				get {return this.testProperty;}
+				get => this.testProperty;
 				set {
 					if (Equals(this.testProperty, value)) return;
 					this.testProperty = value;

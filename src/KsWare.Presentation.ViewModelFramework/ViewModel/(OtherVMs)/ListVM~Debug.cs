@@ -8,7 +8,7 @@
 		/// </summary>
 		/// <value>The debugger flags.</value>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
-		public new ClassDebuggerFlags DebuggerFlags{get { return (ClassDebuggerFlags)base.DebuggerFlags; }}
+		public new ClassDebuggerFlags DebuggerFlags => (ClassDebuggerFlags)base.DebuggerFlags;
 // ReSharper restore UnusedAutoPropertyAccessor.Global
 
 
@@ -28,7 +28,7 @@
 			/// <summary> Gets the breakpoints.
 			/// </summary>
 			/// <remarks></remarks>
-			public new ClassDebuggerFlagsBreakpoints Breakpoints{get { return (ClassDebuggerFlagsBreakpoints)base.Breakpoints; }}
+			public new ClassDebuggerFlagsBreakpoints Breakpoints => (ClassDebuggerFlagsBreakpoints)base.Breakpoints;
 // ReSharper restore UnusedAutoPropertyAccessor.Global
 		}
 

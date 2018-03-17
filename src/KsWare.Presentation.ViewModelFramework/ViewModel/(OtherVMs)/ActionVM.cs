@@ -39,7 +39,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The action metadata.</value>
 		/// <remarks></remarks>
-		public new ActionMetadata Metadata {get {return (ActionMetadata) base.Metadata;}set{base.Metadata=value;}}
+		public new ActionMetadata Metadata {get => (ActionMetadata) base.Metadata; set => base.Metadata=value; }
 
 		/// <summary> Creates the default metadata.
 		/// </summary>
@@ -166,17 +166,17 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets a value indicating whether this instance can execute.
 		/// </summary>
 		/// <remarks></remarks>
-		public bool CanExecute {get {return Metadata.ActionProvider.CanExecute;}}
+		public bool CanExecute => Metadata.ActionProvider.CanExecute;
 
 		/// <summary> Gets the event source for the event which occurs when <see cref="CanExecute"/> has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> CanExecuteChangedEvent { get { return EventSources.Get<EventHandler>("CanExecuteChangedEvent"); }}
+		public IEventSource<EventHandler> CanExecuteChangedEvent => EventSources.Get<EventHandler>("CanExecuteChangedEvent");
 
-		public IObservable<bool> CanExecuteObservable {get {return Metadata.ActionProvider.CanExecuteObservable;}}
+		public IObservable<bool> CanExecuteObservable => Metadata.ActionProvider.CanExecuteObservable;
 
-			/// <summary> Sets <see cref="CanExecute"/>.
+		/// <summary> Sets <see cref="CanExecute"/>.
 		/// </summary>
 		/// <param name="token">The token.</param>
 		/// <param name="value">if set to <c>true</c> [value].</param>
@@ -186,7 +186,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		/// <summary> Alias to Metadata.ActionProvider.ExecutedCallback </summary>
-		public EventHandler<ExecutedEventArgs> MːExecutedCallback{set { Metadata.ActionProvider.ExecutedCallback = value; }}
+		public EventHandler<ExecutedEventArgs> MːExecutedCallback{set => Metadata.ActionProvider.ExecutedCallback = value; }
 
 		/// <summary> Sets the Metadata.ActionProvider.ExecutedCallback. Excptions are forwarded using <see cref="IObjectVM.RequestUserFeedback"/>
 		/// </summary>
@@ -215,7 +215,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Supports ToogleButton.IsChecked, MenuEvent.IsChecked
 		/// </summary>
 		public bool IsActive {
-			get { return _isActive; }
+			get => _isActive;
 			set {
 				if (Equals(_isActive, value)) return;
 				_isActive = value;
@@ -225,7 +225,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Supports MenuEvent.InputGestureText
 		/// </summary>
-		public string InputGestureText {get { return Fields.Get<string>("InputGestureText"); }set { Fields.Set("InputGestureText", value); }}
+		public string InputGestureText {get => Fields.GetValue<string>(); set => Fields.SetValue(value); }
 
 
 		/// <summary> Sets the <see cref="ActionProvider.CanExecuteCallback"/>.
@@ -234,7 +234,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks>
 		/// <para>ALIAS for <c>Metadata.ActionProvider.CanExecuteCallback</c></para>
 		/// </remarks>
-		public EventHandler<CanExecuteEventArgs> MːCanExecuteCallback {set { Metadata.ActionProvider.CanExecuteCallback = value; }}
+		public EventHandler<CanExecuteEventArgs> MːCanExecuteCallback {set => Metadata.ActionProvider.CanExecuteCallback = value; }
 
 		protected override void OnDataChanged(DataChangedEventArgs e) {
 			base.OnDataChanged(e);
@@ -286,7 +286,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		#region DRAFT RoutedCommands support 
 
-		public bool HasRoutedCommand{get { return _routedCommand!=null; }}
+		public bool HasRoutedCommand => _routedCommand !=null;
 
 		public RoutedCommand RoutedCommand {
 			get {

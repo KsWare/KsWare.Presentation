@@ -16,6 +16,6 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <summary> Gets the name of the changed property.
 		/// </summary>
 		/// <value>The name of the changed property.</value>
-		public ValueSettingName PropertyName{get {return _PropertyName;}}
+		public ValueSettingName PropertyName => _PropertyName;
 	}
 }

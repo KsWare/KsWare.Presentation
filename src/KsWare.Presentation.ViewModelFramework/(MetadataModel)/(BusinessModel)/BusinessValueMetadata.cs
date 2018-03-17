@@ -22,7 +22,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The data provider.</value>
 		/// <remarks></remarks>
-		public new BusinessValueDataProvider<T> DataProvider{get {return (BusinessValueDataProvider<T>) base.DataProvider;}}
+		public new BusinessValueDataProvider<T> DataProvider => (BusinessValueDataProvider<T>) base.DataProvider;
 
 		/// <summary> Creates the default data provider.
 		/// </summary>
@@ -38,7 +38,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Gets the value source provider.
 		/// </summary>
 		/// <remarks></remarks>
-		public new BusinessValueSourceProvider ValueSourceProvider{get {return (BusinessValueSourceProvider) base.ValueSourceProvider;}}
+		public new BusinessValueSourceProvider ValueSourceProvider => (BusinessValueSourceProvider) base.ValueSourceProvider;
 
 		/// <summary>
 		/// Creates the default edit value provider.

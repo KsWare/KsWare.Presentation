@@ -23,9 +23,7 @@ namespace KsWare.Presentation.Core.Logging
 	{
 		static readonly ThreadLocal<Exception> loggedException=new ThreadLocal<Exception>();
 
-		public static Exception LoggedException {
-			get {return loggedException.Value;}
-		}
+		public static Exception LoggedException => loggedException.Value;
 
 		[Conditional("DEBUG")]
 		public static void Log(this object obj, FlowExpression flow) {
@@ -63,17 +61,11 @@ namespace KsWare.Presentation.Core.Logging
 
 		#region Expressions
 
-		public static PositionExpression Enter {
-			get {return new PositionExpression(new ExpressionResult(new StackTrace(1), FlowMemberPosition.EnterMethod));}
-		}
+		public static PositionExpression Enter => new PositionExpression(new ExpressionResult(new StackTrace(1), FlowMemberPosition.EnterMethod));
 
-		public static PositionExpression Any {
-			get {return new PositionExpression(new ExpressionResult(new StackTrace(1), FlowMemberPosition.None));}
-		}
+		public static PositionExpression Any => new PositionExpression(new ExpressionResult(new StackTrace(1), FlowMemberPosition.None));
 
-		public static PositionExpression Exit {
-			get {return new PositionExpression(new ExpressionResult(new StackTrace(1), FlowMemberPosition.ExitMethod));}
-		}
+		public static PositionExpression Exit => new PositionExpression(new ExpressionResult(new StackTrace(1), FlowMemberPosition.ExitMethod));
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "KsWare.Presentation.Logging.Flow+ExpressionResult.set_Message(System.String)")]
 		public static PositionExpression StartThread(Thread thread) {
@@ -164,7 +156,7 @@ namespace KsWare.Presentation.Core.Logging
 
 			protected ExpressionResult Data{get;set;}
 
-			ExpressionResult IExpressionResult.Result {get {return Data;}}
+			ExpressionResult IExpressionResult.Result => Data;
 		}
 
 		public class ExpressionResult
@@ -249,12 +241,12 @@ namespace KsWare.Presentation.Core.Logging
 			/// <summary> Gets the assembly.
 			/// </summary>
 			/// <remarks></remarks>
-			public Assembly Assembly{get {return Type == null ? null : Type.Assembly;}}
+			public Assembly Assembly => Type == null ? null : Type.Assembly;
 
 			/// <summary> Gets the module.
 			/// </summary>
 			/// <remarks></remarks>
-			public Module Module{get {return Type == null ? null : Type.Module;}}
+			public Module Module => Type == null ? null : Type.Module;
 		}
 
 //		public class Flow:Constraint

@@ -8,7 +8,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 		public ForceException() { throw new Exception("ForceException"); }
 
-		public static Uri Uri { get { throw new Exception("ForceException"); } }
+		public static Uri Uri => throw new Exception("ForceException");
 
 	}
 

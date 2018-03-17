@@ -38,8 +38,8 @@ namespace KsWare.Presentation.ViewFramework {
 		protected readonly IObjectVM _RootVM ;
 
 		public bool CatchUnhandledExceptions {
-			get { return ExceptionManager.CatchUnhandledExceptions; }
-			set { ExceptionManager.CatchUnhandledExceptions = value; }
+			get => ExceptionManager.CatchUnhandledExceptions;
+			set => ExceptionManager.CatchUnhandledExceptions = value;
 		}
 
 		public ViewModelApplication():this(typeof(ApplicationVM)) {}
@@ -129,7 +129,7 @@ namespace KsWare.Presentation.ViewFramework {
 			OnUserFeedbackRequested(this,efea);			
 		}
 
-		public virtual ApplicationVM ViewModel { get { return (ApplicationVM) _RootVM; } }
+		public virtual ApplicationVM ViewModel => (ApplicationVM) _RootVM;
 
 		protected virtual void OnUserFeedbackRequested(object sender, UserFeedbackEventArgs e) {
 			try {
@@ -174,9 +174,9 @@ namespace KsWare.Presentation.ViewFramework {
 		public ViewModelApplication():base(typeof(TRootVM)) {}
 
 		[Obsolete("Use ViewModel property!")]
-		public TRootVM RootVM { get { return (TRootVM)_RootVM; }}
+		public TRootVM RootVM => (TRootVM)_RootVM;
 
-		public new TRootVM ViewModel { get { return (TRootVM) _RootVM; } }
+		public new TRootVM ViewModel => (TRootVM) _RootVM;
 
 	}
 

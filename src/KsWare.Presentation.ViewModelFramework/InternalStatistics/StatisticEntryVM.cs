@@ -19,7 +19,7 @@ namespace KsWare.Presentation.InternalStatistics {
 		public string Description{ get; set; }
 
 		public object Value {
-			get { return _value; }
+			get => _value;
 			set {
 				if (Equals(value, _value)) return;
 				_value = value;

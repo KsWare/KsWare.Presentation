@@ -124,7 +124,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The business object metadata.</value>
 		// implemented for type cast
-		public new BusinessListMetadata Metadata{get{return (BusinessListMetadata) base.Metadata;} set{base.Metadata = value;}}
+		public new BusinessListMetadata Metadata{get => (BusinessListMetadata) base.Metadata; set => base.Metadata = value; }
 
 		#endregion
 
@@ -132,8 +132,8 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		/// <summary> Provides access to the underlying data list using the data provider specified in metadata.
 		/// </summary>
-		private IList DataList{get{return (IList) Metadata.DataProvider.Data;}}
-		
+		private IList DataList => (IList) Metadata.DataProvider.Data;
+
 		/// <summary> Invoked after the underlying data (<see cref="DataList"/> / Metadata.DataProvider.Data) has been changed.
 		/// </summary>
 		/// <param name="e"></param>
@@ -380,27 +380,27 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <returns> An object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection"/>. </returns>
 		/// <filterpriority>2</filterpriority>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		object ICollection.SyncRoot{get {return ((ICollection)InnerList).SyncRoot;}}
+		object ICollection.SyncRoot => ((ICollection)InnerList).SyncRoot;
 
 		/// <summary> Gets a value indicating whether access to the <see cref="T:System.Collections.ICollection"/> is synchronized (thread safe).
 		/// </summary>
 		/// <returns> true if access to the <see cref="T:System.Collections.ICollection"/> is synchronized (thread safe); otherwise, false. </returns>
 		/// <filterpriority>2</filterpriority>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		bool ICollection.IsSynchronized{get {return ((ICollection)InnerList).IsSynchronized;}}
+		bool ICollection.IsSynchronized => ((ICollection)InnerList).IsSynchronized;
 
 		/// <summary> Gets a value indicating whether the <see cref="T:System.Collections.IList"/> is read-only.
 		/// </summary>
 		/// <returns> true if the <see cref="T:System.Collections.IList"/> is read-only; otherwise, false. </returns>
 		/// <filterpriority>2</filterpriority>
-		public bool IsReadOnly{get {return ((IList)InnerList).IsReadOnly;}}
+		public bool IsReadOnly => ((IList)InnerList).IsReadOnly;
 
 		/// <summary> Gets a value indicating whether the <see cref="T:System.Collections.IList"/> has a fixed size.
 		/// </summary>
 		/// <returns> true if the <see cref="T:System.Collections.IList"/> has a fixed size; otherwise, false. </returns>
 		/// <filterpriority>2</filterpriority>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		bool IList.IsFixedSize{get {return ((IList)InnerList).IsFixedSize;}}
+		bool IList.IsFixedSize => ((IList)InnerList).IsFixedSize;
 
 		/// <summary> Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
 		/// </summary>
@@ -430,14 +430,14 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.IList"/>. </exception>
 		/// <exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.IList"/> is read-only. </exception>
 		/// <filterpriority>2</filterpriority>
-		object IList.this[int index]{get {return this[index];}set {this[index]=(TItem) value;}}
+		object IList.this[int index]{get => this[index]; set => this[index]=(TItem) value; }
 
 		/// <summary> Gets or sets the element at the specified index.
 		/// </summary>
 		/// <returns> The element at the specified index. </returns>
 		/// <param name="index">The zero-based index of the element to get or set.</param><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.</exception>
 		/// <exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.Generic.IList`1"/> is read-only.</exception>
-		public TItem this[int index] {get {return InnerList[index];}set {ReplaceItem(index, value);}}
+		public TItem this[int index] {get => InnerList[index]; set => ReplaceItem(index, value); }
 
 		/// <summary> Returns an enumerator that iterates through a collection.
 		/// </summary>

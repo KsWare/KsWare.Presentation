@@ -19,7 +19,7 @@ namespace KsWare.Presentation.ViewFramework {
 		private static readonly Lazy<TypeNameDataTemplateSelector> s_LazyDefault=new Lazy<TypeNameDataTemplateSelector>(()=>new TypeNameDataTemplateSelector());
 
 
-		public static TypeNameDataTemplateSelector Default { get { return s_LazyDefault.Value; } }
+		public static TypeNameDataTemplateSelector Default => s_LazyDefault.Value;
 
 		/// <summary> Gets or sets the resource key for null data template.
 		/// </summary>
@@ -51,7 +51,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// </summary>
 		public ResourceDictionary Resources { get; set; }
 
-		public Type AnyTypeOfControlsAssembly { set { ControlsAssembly = value.Assembly; } get { return null; }}
+		public Type AnyTypeOfControlsAssembly { set => ControlsAssembly = value.Assembly; get => null; }
 
 		/// <summary> Gets or sets the assembly which contains the views.
 		/// </summary>

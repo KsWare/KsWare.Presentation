@@ -17,7 +17,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			_LazyFields=new Lazy<BackingFieldsStore>(()=>new BackingFieldsStore(this,OnPropertyChanged));
 		}
 
-		public BackingFieldsStore Fields { get { return _LazyFields.Value; } }
+		public BackingFieldsStore Fields => _LazyFields.Value;
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {

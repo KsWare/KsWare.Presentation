@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -34,15 +35,22 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("1.0.0.0")]
+
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+
+[assembly: XmlnsDefinition(KsWare.Presentation.ViewFramework.AssemblyInfo.XmlNamespace,"KsWare.Presentation.ViewFramework")]
+[assembly: XmlnsPrefix("http://ksware.de/Presentation/ViewFramework","ksv")]
 
 // namespace must equal to assembly name
 // ReSharper disable once CheckNamespace
 namespace KsWare.Presentation.ViewFramework {
 
-	public static class Lib {
+	public static class AssemblyInfo {
 
 		public static Assembly Assembly => Assembly.GetExecutingAssembly();
+
+		public const string XmlNamespace = "http://ksware.de/Presentation/ViewFramework";
 
 	}
 }

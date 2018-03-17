@@ -18,7 +18,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			Clipboard.SetText(Caption+"\r\n\r\nMessage:\r\n"+(MessageBoxText??"")+"\r\n\r\nDetails:\r\n"+(DetailMessage??""));
 		}
 
-		public string DetailMessage { get { return Fields.Get<string>("DetailMessage"); } set { Fields.Set("DetailMessage", value); } }
+		public string DetailMessage { get => Fields.GetValue<string>(); set => Fields.SetValue(value); }
 		public ActionVM CopyDetailsToClipboardAction { get; private set; }
 		public ActionVM CopyAllToClipboardAction { get; private set; }
 

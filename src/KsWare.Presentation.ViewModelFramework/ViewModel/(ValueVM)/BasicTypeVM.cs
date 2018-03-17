@@ -99,8 +99,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
-		public T MinValue{get { return Fields.Get<T>("MinValue"); } set{Fields.Set("MinValue",value);}}
-		public T MaxValue{get { return Fields.Get<T>("MaxValue"); } set{Fields.Set("MaxValue",value);}}
+		public T MinValue{get => Fields.GetValue<T>(); set => Fields.SetValue(value); }
+		public T MaxValue{get => Fields.GetValue<T>(); set => Fields.SetValue(value); }
 	}
 
 	/// <summary> Provides a view-model for <see cref="Byte"/>
@@ -294,28 +294,28 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value><c>true</c> if this instance is true; otherwise, <c>false</c>.</value>
 		/// <remarks></remarks>
-		public bool IsTrue {get { return Value == true; }set { Value = value; }}
+		public bool IsTrue {get => Value == true; set => Value = value; }
 
 		/// <summary> Gets or sets a value indicating whether this instance is false.
 		/// </summary>
 		/// <value><c>true</c> if this instance is false; otherwise, <c>false</c>.</value>
 		/// <remarks></remarks>
-		public bool IsFalse {get { return Value == false; }set { Value = !value; }}
+		public bool IsFalse {get => Value == false; set => Value = !value; }
 
 		/// <summary> Gets a value indicating whether this instance is false and enabled.
 		/// </summary>
 		/// <remarks></remarks>
 		public bool IsFalseAndEnabled {
-			get { return Value == false && IsEnabled; }
-			set { Value = !value; }
+			get => Value == false && IsEnabled;
+			set => Value = !value;
 		}
 
 		/// <summary> Gets a value indicating whether this instance is true and enabled.
 		/// </summary>
 		/// <remarks></remarks>
 		public bool IsTrueAndEnabled {
-			get { return Value == true && IsEnabled; }
-			set { Value = value; }
+			get => Value == true && IsEnabled;
+			set => Value = value;
 		}
 	}
 	

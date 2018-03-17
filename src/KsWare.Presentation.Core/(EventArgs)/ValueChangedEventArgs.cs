@@ -43,7 +43,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets a value wether the <see cref="PreviousValue"/>-property is specified.
 		/// </summary>
 		/// <value>The previous value specified.</value>
-		public bool PreviousValueSpecified {get {return PreviousValue != DependencyProperty.UnsetValue;}}
+		public bool PreviousValueSpecified => PreviousValue != DependencyProperty.UnsetValue;
 
 		/// <summary> Gets the new value.
 		/// </summary>
@@ -53,7 +53,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets a value wether the <see cref="NewValue"/>-property is specified.
 		/// </summary>
 		/// <value>The new value is specified.</value>
-		public bool NewValueSpecified {get {return PreviousValue != DependencyProperty.UnsetValue;}}
+		public bool NewValueSpecified => PreviousValue != DependencyProperty.UnsetValue;
 	}
 
 	public sealed class ValueChangedEventArgs<T> : ValueChangedEventArgs {
@@ -66,12 +66,12 @@ namespace KsWare.Presentation {
 		/// <summary> Gets the previous value
 		/// </summary>
 		/// <value>The previous data or <see cref="DependencyProperty.UnsetValue"/>.</value>
-		public new T PreviousValue { get { return PreviousValueSpecified?(T)base.PreviousValue:default(T); }}
+		public new T PreviousValue => PreviousValueSpecified?(T)base.PreviousValue:default(T);
 
 		/// <summary> Gets the new value.
 		/// </summary>
 		/// <value>The new value</value>
-		public new T NewValue { get { return (T) base.NewValue; }}
+		public new T NewValue => (T) base.NewValue;
 	}
 
 	public delegate void ValueChangedEventHandler<TValue>(object sender, ValueChangedEventArgs<TValue> e);

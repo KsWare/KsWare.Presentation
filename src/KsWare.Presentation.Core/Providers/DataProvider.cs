@@ -105,7 +105,7 @@ namespace KsWare.Presentation.Core.Providers {
 			_LazyWeakEventStore=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
 
-		public EventSourceStore EventSources{get { return _LazyWeakEventStore.Value; }}
+		public EventSourceStore EventSources => _LazyWeakEventStore.Value;
 
 		#region Implementation of IProvider
 
@@ -118,7 +118,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return _IsAutoCreated==true; }
+			get => _IsAutoCreated ==true;
 			set {
 				MemberAccessUtil.DemandWriteOnce(!_IsAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{E7279D65-F0FA-42BE-812F-45BA404524C8}");
 				_IsAutoCreated = value;
@@ -152,7 +152,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The event source.</value>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent => EventSources.Get<EventHandler>("ParentChangedEvent");
 
 		#endregion
 
@@ -167,7 +167,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The event source.</value>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent { get { return EventSources.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent"); } }
+		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent => EventSources.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent");
 
 		/// <summary> Gets or sets the data validation callback.
 		/// </summary>
@@ -245,9 +245,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets the event source for the event which occurs when a property value changes.
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
-			get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
-		}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent => EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent");
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {
@@ -279,16 +277,16 @@ namespace KsWare.Presentation.Core.Providers {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected EventSourceStore EventStore{get { return _LazyWeakEventStore.Value; }}
+		protected EventSourceStore EventStore => _LazyWeakEventStore.Value;
 
-		protected Lazy<EventSourceStore> LazyWeakEventStore{get { return _LazyWeakEventStore; }}
+		protected Lazy<EventSourceStore> LazyWeakEventStore => _LazyWeakEventStore;
 
 		#region Implementation of IProvider
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
 		/// <value><see langword="true"/> if this instance is supported; otherwise, <see langword="false"/>.</value>
-		public virtual bool IsSupported{get {return false;}}
+		public virtual bool IsSupported => false;
 
 		/// <summary> Gets or sets the parent of this provider.
 		/// </summary>
@@ -312,13 +310,13 @@ namespace KsWare.Presentation.Core.Providers {
 		public event EventHandler ParentChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent { get { return EventStore.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent => EventStore.Get<EventHandler>("ParentChangedEvent");
 
 		/// <summary> Gets or sets a value indicating whether this instance is auto created.
 		/// </summary>
 		/// <value> <c>true</c> if this instance is auto created; otherwise, <c>false</c>. </value>
 		public bool IsAutoCreated {
-			get { return _isAutoCreated==true; }
+			get => _isAutoCreated ==true;
 			set {
 				MemberAccessUtil.DemandWriteOnce(!_isAutoCreated.HasValue,"The property can only be written once!",this,nameof(IsAutoCreated),"{8E2584E1-C321-4DD8-98F1-FEDC25B402FB}");
 				_isAutoCreated = value;
@@ -339,10 +337,10 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Adds a <see cref="DataChanged"/>-event handler. Supports object initializer.
 		/// </summary>
 		[SuppressMessage("Microsoft.Design", "CA1044:PropertiesShouldNotBeWriteOnly")]
-		public EventHandler<DataChangedEventArgs> DataChangedHandler {set {this.DataChanged += value;}}
+		public EventHandler<DataChangedEventArgs> DataChangedHandler {set => this.DataChanged += value; }
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent { get { return EventStore.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent"); } }
+		public IEventSource<EventHandler<DataChangedEventArgs>> DataChangedEvent => EventStore.Get<EventHandler<DataChangedEventArgs>>("DataChangedEvent");
 
 		/// <summary> Gets or sets the data validating callback.
 		/// </summary>
@@ -410,7 +408,7 @@ namespace KsWare.Presentation.Core.Providers {
 
 		#region Implementation of IDataProvider
 
-		object IDataProvider.Data{get{return Data;} set{Data=(T) value;}}
+		object IDataProvider.Data{get => Data; set => Data=(T) value; }
 		object IDataProvider.TryGetData(out Exception exception){return TryGetData(out exception);}
 		Exception IDataProvider.Validate(object data){ return Validate((T) data); }
 
@@ -425,9 +423,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent {
-			get { return EventStore.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }
-		}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent => EventStore.Get<PropertyChangedEventHandler>("PropertyChangedEvent");
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {

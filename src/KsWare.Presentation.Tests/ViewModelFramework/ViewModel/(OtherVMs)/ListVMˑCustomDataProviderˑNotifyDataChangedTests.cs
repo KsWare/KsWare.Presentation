@@ -5,8 +5,9 @@ using KsWare.Presentation.ViewModelFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
+
 	[TestClass]
-	public class ListVM_CustomDataProvider_NotifyDataChangedTests:ApplicationVMTestBase {
+	public class ListVMˑCustomDataProviderˑNotifyDataChangedTests:ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>

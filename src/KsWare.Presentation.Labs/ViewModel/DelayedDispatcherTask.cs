@@ -93,9 +93,9 @@ namespace KsWare.Presentation {
 			} 
 		}
 
-		object IAsyncResult.AsyncState { get { return _asyncState; } }
+		object IAsyncResult.AsyncState => _asyncState;
 
-		bool IAsyncResult.CompletedSynchronously { get { return false; } }
+		bool IAsyncResult.CompletedSynchronously => false;
 
 		public DispatcherOperation DispatcherOperation { get { lock (_dispatcherOperationLock) return _dispatcherOperation; } }
 

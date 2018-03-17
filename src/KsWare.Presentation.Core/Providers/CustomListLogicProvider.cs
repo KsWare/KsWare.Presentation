@@ -47,19 +47,19 @@ namespace KsWare.Presentation.Core.Providers {
 		public NoListLogicProvider() {
 			_lazyWeakEventProperties=new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 		}
-		public EventSourceStore EventSources{get { return _lazyWeakEventProperties.Value; }}
+		public EventSourceStore EventSources => _lazyWeakEventProperties.Value;
 
 		/// <summary> Gets the metadata which holds this provider.
 		/// </summary>
 		/// <value>The metadata.</value>
-		public IMetadata Metadata {get {return (IMetadata) _parent;}}
+		public IMetadata Metadata => (IMetadata) _parent;
 
 		/// <summary> Gets or sets the parent of this instance.
 		/// </summary>
 		/// <value>The parent of this instance.</value>
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
 		object IParentSupport.Parent {
-			get {return _parent;}
+			get => _parent;
 			set {
 				_parent = (IMetadata) value;
 				EventUtil.Raise(_parentChanged,this,EventArgs.Empty,"{202C8927-F9CF-49A3-A07B-6B37837B724B}");
@@ -70,23 +70,23 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
 		/// <remarks></remarks>
-		event EventHandler IParentSupport.ParentChanged {add { _parentChanged += value; }remove { _parentChanged -= value; }}
+		event EventHandler IParentSupport.ParentChanged {add => _parentChanged += value; remove => _parentChanged -= value; }
 
 		/// <summary> Gets the event source for the event which occurs when the <see cref="IParentSupport.Parent"/> property has been changed.
 		/// </summary>
 		/// <value>The event source.</value>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler> ParentChangedEvent { get { return EventSources.Get<EventHandler>("ParentChangedEvent"); } }
+		public IEventSource<EventHandler> ParentChangedEvent => EventSources.Get<EventHandler>("ParentChangedEvent");
 
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
 		/// <value> Always <see langword="false"/>.
 		/// </value>
-		public bool IsSupported {get {return false;}}
+		public bool IsSupported => false;
 
-		public bool IsAutoCreated { get { return false; } set { throw new NotSupportedException("{C5790F29-09F4-4EA0-A8AE-078A79EB230E}"); } }
+		public bool IsAutoCreated { get => false; set => throw new NotSupportedException("{C5790F29-09F4-4EA0-A8AE-078A79EB230E}"); }
 
-		public bool IsInUse { get { return true; } set { throw new NotSupportedException("{FFEB6A77-1CB9-446F-9038-7546936D5455}"); } }
+		public bool IsInUse { get => true; set => throw new NotSupportedException("{FFEB6A77-1CB9-446F-9038-7546936D5455}"); }
 
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
 		void IListLogicProvider.CollectionChanging(NotifyCollectionChangedEventArgs e) { throw new NotSupportedException("{AD721A0A-C864-410B-965A-34E14178AE19}"); }
@@ -96,7 +96,7 @@ namespace KsWare.Presentation.Core.Providers {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent{get { return EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent"); }}
+		public IEventSource<PropertyChangedEventHandler> PropertyChangedEvent => EventSources.Get<PropertyChangedEventHandler>("PropertyChangedEvent");
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged(string propertyName) {
@@ -130,19 +130,19 @@ namespace KsWare.Presentation.Core.Providers {
 		/// <summary> Gets a value indicating whether the provider is supported.
 		/// </summary>
 		/// <value><c><see langword="true"/></c> if this instance is supported; otherwise, <c><see langword="true"/></c>. </value>
-		public override bool IsSupported {get {return true;}}
+		public override bool IsSupported => true;
 
 
 		/// <summary> Gets the metadata which holds this provider.
 		/// </summary>
 		/// <value>The metadata.</value>
-		public IMetadata Metadata{get {return (IMetadata) Parent;}}
+		public IMetadata Metadata => (IMetadata) Parent;
 
 		/// <summary> Gets or sets the collection changing callback.
 		/// </summary>
 		/// <value>The collection changing callback.</value>
 		public NotifyCollectionChangedEventHandler CollectionChangingCallback {
-			get {return this._collectionChangingCallback;}
+			get => this._collectionChangingCallback;
 			set {
 				MemberAccessUtil.DemandWrite(Parent==null,null,this,nameof(CollectionChangingCallback),"{B51E7C51-F3B0-4D28-972B-65789E5EF9B8}");
 				_collectionChangingCallback = value;
@@ -153,7 +153,7 @@ namespace KsWare.Presentation.Core.Providers {
 		/// </summary>
 		/// <value>The collection changed callback.</value>
 		public NotifyCollectionChangedEventHandler CollectionChangedCallback {
-			get {return _collectionChangedCallback;}
+			get => _collectionChangedCallback;
 			set {
 				MemberAccessUtil.DemandWrite(Parent==null,null,this,nameof(CollectionChangingCallback),"{2BB7B891-3DB6-46BF-A82F-3037C299B037}");
 				_collectionChangedCallback = value;

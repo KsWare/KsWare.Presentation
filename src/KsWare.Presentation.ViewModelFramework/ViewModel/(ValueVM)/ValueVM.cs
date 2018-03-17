@@ -149,9 +149,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		[Obsolete("Use ValueChangedEvent")]
 		public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
-		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent {
-			get { return EventSources.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent"); }
-		}
+		public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent => EventSources.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent");
 
 		protected override ViewModelMetadata CreateDefaultMetadata() {
 			 if (Reflection != null) {
@@ -177,7 +175,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The <see cref="docːObjectVM.underlyingˑdata"/>.</value>
 		public override object MːData {
-			get {return Metadata.DataProvider.Data;}
+			get => Metadata.DataProvider.Data;
 			set {
 				if (value is IValueBM) MːBusinessObject = (IValueBM) value; 
 				else Metadata.DataProvider.Data=value;
@@ -261,18 +259,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Provides the display value
 		/// </summary>
-		public IDisplayValueProvider DisplayValueProvider{get {return Metadata.DisplayValueProvider;}}
+		public IDisplayValueProvider DisplayValueProvider => Metadata.DisplayValueProvider;
 
 		/// <summary> Provides the edit value
 		/// </summary>
-		public IEditValueProvider EditValueProvider{get {return Metadata.EditValueProvider;}}
+		public IEditValueProvider EditValueProvider => Metadata.EditValueProvider;
 
 		/// <summary> Provides a list of valid values
 		/// </summary>
 		/// <remarks>
 		/// Used as ItemsSource 
 		/// </remarks>
-		public virtual IValueSourceProvider ValueSourceProvider{get {return Metadata.ValueSourceProvider;}}
+		public virtual IValueSourceProvider ValueSourceProvider => Metadata.ValueSourceProvider;
 
 		#endregion
 
@@ -281,12 +279,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The value changed callback.</value>
 		[SuppressMessage("Microsoft.Design", "CA1044:PropertiesShouldNotBeWriteOnly")]
 		[Obsolete("Use ValueChangedEventAdd")]
-		public EventHandler<ValueChangedEventArgs> ValueChangedAdd {set {ValueChanged += value;}}
+		public EventHandler<ValueChangedEventArgs> ValueChangedAdd {set => ValueChanged += value; }
 		
 		/// <summary> Sets the value changed callback handler. Should be used only for initializer syntax
 		/// </summary>
 		/// <value>The value changed callback.</value>
-		public EventHandler<ValueChangedEventArgs> ValueChangedEventAdd {set {ValueChangedEvent.Register(this,"ValueChanged", value);}}
+		public EventHandler<ValueChangedEventArgs> ValueChangedEventAdd {set => ValueChangedEvent.Register(this, "ValueChanged", value); }
 
 		/// <summary> Gets a value indicating whether this instance has a value.
 		/// </summary>
@@ -419,10 +417,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		#region IValueVM
 
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		Type IValueVM.ValueType{get {return typeof(T);}}
+		Type IValueVM.ValueType => typeof(T);
 
 		[SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
-		object IValueVM.Value{get {return Value;}set {Value = (T) value;}}
+		object IValueVM.Value{get => Value; set => Value = (T) value; }
 
 		#endregion
 
@@ -447,7 +445,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The debugger flags.</value>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
-		public new ClassDebuggerFlags DebuggerFlags{get { return (ClassDebuggerFlags) base.DebuggerFlags; }}
+		public new ClassDebuggerFlags DebuggerFlags => (ClassDebuggerFlags) base.DebuggerFlags;
 
 
 		/// <summary> Provides flags for class debugging
@@ -467,7 +465,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			/// <summary> Gets the breakpoints.
 			/// </summary>
 			/// <remarks></remarks>
-			public new ClassDebuggerFlagsBreakpoints Breakpoints{get { return (ClassDebuggerFlagsBreakpoints) base.Breakpoints; }}
+			public new ClassDebuggerFlagsBreakpoints Breakpoints => (ClassDebuggerFlagsBreakpoints) base.Breakpoints;
 		}
 
 		/// <summary> provides availabe breakpoints for <see cref="ClassDebuggerFlags"/>

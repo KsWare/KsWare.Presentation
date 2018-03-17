@@ -78,7 +78,7 @@ namespace KsWare.Presentation.Tests.Core {
 			//Assert.Fail("Nothing collected!");
 		}
 
-		[TestMethod]
+		[TestMethod,Ignore]
 		public void ProviderGarbageCollectionˑTest() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();
@@ -107,11 +107,11 @@ namespace KsWare.Presentation.Tests.Core {
 				LazyEventSources = new Lazy<EventSourceStore>(() => new EventSourceStore(this));
 			}
 
-			protected EventSourceStore EventSources { get { return LazyEventSources.Value; }}
+			protected EventSourceStore EventSources => LazyEventSources.Value;
 
 
 			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-			public IEventSource<EventHandler> MyEvent { get { return EventSources.Get<EventHandler>("MyEvent"); } }
+			public IEventSource<EventHandler> MyEvent => EventSources.Get<EventHandler>("MyEvent");
 
 			public void RaiseˑMyEvent() {
 				EventManager.Raise<EventHandler,EventArgs>(LazyEventSources,"MyEvent",EventArgs.Empty);

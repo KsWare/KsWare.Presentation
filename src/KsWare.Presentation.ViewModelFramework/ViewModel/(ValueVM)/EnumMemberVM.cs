@@ -35,10 +35,10 @@ namespace KsWare.Presentation.ViewModelFramework
 		/// <value>The value.</value>
 		/// <remarks>Enum members are read-only. Set the value will throw a <see cref="InvalidOperationException"/>. </remarks>
 		/// <exception cref="InvalidOperationException">Value ist allways read-only for enum members</exception>
-		public override T Value { get { return base.Value; } set { throw new InvalidOperationException("Can not set readonly enum member value!"); } }
+		public override T Value { get => base.Value; set => throw new InvalidOperationException("Can not set readonly enum member value!"); }
 
 		public bool IsChecked {
-			get { return _isChecked; }
+			get => _isChecked;
 			set {
 				if(Equals(_isChecked,value))return;
 				_isChecked = value;

@@ -14,10 +14,11 @@ namespace KsWare.Presentation.WeakEventManagerExamples {
 		}
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<EventArgs>> MyEvent { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent"); } }
+		public IEventSource<EventHandler<EventArgs>> MyEvent => LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent");
+
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<EventArgs>> MyEvent2 { get { return LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent2"); } }
-		
+		public IEventSource<EventHandler<EventArgs>> MyEvent2 => LazyWeakEventProperties.Value.Get<EventHandler<EventArgs>>("MyEvent2");
+
 		private void OnMyEvent() {
 			// if no one has registered an event handler the event source will not be creted.
 			EventManager.Raise<EventHandler<EventArgs>,EventArgs>(LazyWeakEventProperties, "MyEvent", EventArgs.Empty);

@@ -87,7 +87,7 @@ namespace KsWare.Presentation.BusinessFramework {
 			Interlocked.Decrement(ref StatisticsːNumberOfInstances);
 		}
 
-		public bool IsSlim { get { return false;} }
+		public bool IsSlim => false;
 
 		protected Lazy<EventSourceStore> LazyWeakEventStore => _lazyWeakEventPropertyStore;
 
@@ -220,18 +220,14 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <value>The user feedback requested event source.</value>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent {
-			get { return EventSources.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent"); }
-		}
+		public IEventSource<EventHandler<UserFeedbackEventArgs>> UserFeedbackRequestedEvent => EventSources.Get<EventHandler<UserFeedbackEventArgs>>("UserFeedbackRequestedEvent");
 
 		/// <summary> Occurs when a business property has been changed.
 		/// </summary>
 		public event EventHandler<BusinessPropertyChangedEventArgs> BusinessPropertyChanged;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<BusinessPropertyChangedEventArgs>> PropertyChangedEvent {
-			get { return EventSources.Get<EventHandler<BusinessPropertyChangedEventArgs>>("PropertyChangedEvent"); }
-		}
+		public IEventSource<EventHandler<BusinessPropertyChangedEventArgs>> PropertyChangedEvent => EventSources.Get<EventHandler<BusinessPropertyChangedEventArgs>>("PropertyChangedEvent");
 
 		#region IModel,IDisposable
 
@@ -306,7 +302,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// </summary>
 		/// <remarks></remarks>
 		[DefaultValue(true)]
-		public bool IsApplicable { get { return this._IsApplicableObjections.Count == 0; } }
+		public bool IsApplicable => this._IsApplicableObjections.Count == 0;
 
 		/// <summary> Occurs when <see cref="IsApplicable"/>-property has been changed.
 		/// </summary>
@@ -360,18 +356,13 @@ namespace KsWare.Presentation.BusinessFramework {
 		/// <remarks>
 		/// The value must be set manually to emulate design time behavior</remarks>
 		public static bool IsInDesignMode {
-			get {
-//				if(s_IsInDesignMode==null) {
-//					s_IsInDesignMode=DesignerProperties.GetIsInDesignMode(new DependencyObject());
-//				}
-			    return s_isInDesignMode == true;
-			}
-			set { s_isInDesignMode = value; }
+			get => s_isInDesignMode == true;
+			set => s_isInDesignMode = value;
 		}
 
 		#endregion
 
-		public IDispatcher Dispatcher { get { return ApplicationBM.ModelDispatcher; } }
+		public IDispatcher Dispatcher => ApplicationBM.ModelDispatcher;
 
 		/// <summary> Completes the initialization. Call this method as last directive in constructor
 		/// </summary>
@@ -382,7 +373,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		}
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public bool IsInitialized { get { return  _lazyFields.IsValueCreated ? Fields.GetValue<bool>() : false; } set { Fields.SetValue(value); } }
+		public bool IsInitialized { get => _lazyFields.IsValueCreated ? Fields.GetValue<bool>() : false; set => Fields.SetValue(value); }
 
 		public void DoWhenInitialized(Action action) {
 			if (IsInitialized) action();
@@ -407,9 +398,9 @@ namespace KsWare.Presentation.BusinessFramework {
 	public class DataBM<TData> : ObjectBM, IDataBM<TData>, IDataBM {
 
 		/// <summary> Alias for Metadata.DataProvider.Data </summary>
-		public TData Data { get { return (TData) Metadata.DataProvider.Data; } set { Metadata.DataProvider.Data = value; } }
+		public TData Data { get => (TData) Metadata.DataProvider.Data; set => Metadata.DataProvider.Data = value; }
 
-		object IDataBM.Data { get { return Metadata.DataProvider.Data; } set { Metadata.DataProvider.Data = value; } }
+		object IDataBM.Data { get => Metadata.DataProvider.Data; set => Metadata.DataProvider.Data = value; }
 
 		protected override void OnDataChanged(DataChangedEventArgs e) { OnDataChanged(new DataChangedEventArgs<TData>((TData) e.PreviousData, (TData) e.NewData) {Cause = e.Cause}); }
 

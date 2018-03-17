@@ -69,32 +69,32 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		/// <value>
 		/// 	<c>true</c> if this instance is supported; otherwise, <c>false</c>.
 		/// </value>
-		public override bool IsSupported{get {return true;}}
+		public override bool IsSupported => true;
 
 		/// <summary> Gets the type converter.
 		/// </summary>
 		/// <value>The type converter.</value>
 		/// <seealso cref="ValueProviderStringConverter"/>
-		public TypeConverter TypeConverter{get{return _typeConverter;} private set{_typeConverter = value;}}
+		public TypeConverter TypeConverter{get => _typeConverter; private set => _typeConverter = value; }
 
 		/// <summary> Gets or sets the editable value as string.
 		/// </summary>
 		/// <value>The editable value.</value>
-		public string String {get { return _lazyString.Value.Value; } set { _lazyString.Value.Value=value; }}
+		public string String {get => _lazyString.Value.Value; set => _lazyString.Value.Value=value; }
 
 		/// <summary> Gets or sets the editable value as <see cref="Nullable{Boolean}"/>.
 		/// </summary>
 		/// <value>The editable value.</value>
 		/// <remarks>Use <see cref="BoolNullable"/> to bind e.g. <see cref="CheckBox.IsChecked"/> property</remarks>
-		public bool? BoolNullable {get { return _lazyNullableBool.Value.Value; }set { _lazyNullableBool.Value.Value = value; }}
+		public bool? BoolNullable {get => _lazyNullableBool.Value.Value; set => _lazyNullableBool.Value.Value = value; }
 
-		public IEditValueProviderStringExtension StringExt { get { return _lazyString.Value; } }
-		public IEditValueProviderNullableBoolExtension BoolNullableExt { get { return _lazyNullableBool.Value; } }
-		public IEditValueProviderHexNumberExtension HexNumber { get { return _lazyHexNumber.Value; } }
-		public IEditValueProviderTimeSpanExtension TimeSpan { get { return _lazyTimeSpan.Value; } }
-		public IEditValueProviderDateTimeExtension DateTime { get { return _lazyDateTime.Value; } }
-		public IEditValueProviderMetricExtension Metric { get { return _lazyMetric.Value; }}
-		public IEditValueProviderQuantizationExtension Quantization { get { return _lazyQuantization.Value; } }
+		public IEditValueProviderStringExtension StringExt => _lazyString.Value;
+		public IEditValueProviderNullableBoolExtension BoolNullableExt => _lazyNullableBool.Value;
+		public IEditValueProviderHexNumberExtension HexNumber => _lazyHexNumber.Value;
+		public IEditValueProviderTimeSpanExtension TimeSpan => _lazyTimeSpan.Value;
+		public IEditValueProviderDateTimeExtension DateTime => _lazyDateTime.Value;
+		public IEditValueProviderMetricExtension Metric => _lazyMetric.Value;
+		public IEditValueProviderQuantizationExtension Quantization => _lazyQuantization.Value;
 
 		/// <summary> Called if ValueVM.Value has been changed
 		/// </summary>
@@ -163,7 +163,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 		public event EventHandler<ValueChangedEventArgs> SourceUpdated;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public IEventSource<EventHandler<ValueChangedEventArgs>> SourceUpdatedEvent { get { return EventStore.Get<EventHandler<ValueChangedEventArgs>>("SourceUpdatedEvent"); } }
+		public IEventSource<EventHandler<ValueChangedEventArgs>> SourceUpdatedEvent => EventStore.Get<EventHandler<ValueChangedEventArgs>>("SourceUpdatedEvent");
 
 
 		/// <summary> Determines whether the specified value is an integer value.
@@ -190,17 +190,9 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 
 	partial class EditValueProvider : IDataErrorInfo {
 
-		string IDataErrorInfo.this[string columnName] {
-			get {
-				return ViewModel.Metadata.ErrorProvider.HasError == false ? "" : ViewModel.Metadata.ErrorProvider.ErrorMessage;
-			}
-		}
+		string IDataErrorInfo.this[string columnName] => ViewModel.Metadata.ErrorProvider.HasError == false ? "" : ViewModel.Metadata.ErrorProvider.ErrorMessage;
 
-		string IDataErrorInfo.Error {
-			get {
-				return ViewModel.Metadata.ErrorProvider.HasError == false ? "" : ViewModel.Metadata.ErrorProvider.ErrorMessage;
-			}
-		}
+		string IDataErrorInfo.Error => ViewModel.Metadata.ErrorProvider.HasError == false ? "" : ViewModel.Metadata.ErrorProvider.ErrorMessage;
 	}
 
 	partial class EditValueProvider {

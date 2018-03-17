@@ -27,56 +27,56 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			DependencyProperty.Register("Header", typeof (object), typeof (KsButton), new PropertyMetadata(null,(o, args) => ((KsButton)o).UpdateHasHeader()));
 
 		public object Header {
-			get { return (object) GetValue(HeaderProperty); }
-			set { SetValue(HeaderProperty, value); }
+			get => (object) GetValue(HeaderProperty);
+			set => SetValue(HeaderProperty, value);
 		}
 		
 		public static readonly DependencyProperty HeaderTemplateProperty =
 			DependencyProperty.Register("HeaderTemplate", typeof (DataTemplate), typeof (KsButton), new PropertyMetadata(default(DataTemplate)));
 
 		public DataTemplate HeaderTemplate {
-			get { return (DataTemplate) GetValue(HeaderTemplateProperty); }
-			set { SetValue(HeaderTemplateProperty, value); }
+			get => (DataTemplate) GetValue(HeaderTemplateProperty);
+			set => SetValue(HeaderTemplateProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderStringFormatProperty =
 			DependencyProperty.Register("HeaderStringFormat", typeof (string), typeof (KsButton), new PropertyMetadata(default(string)));
 
 		public string HeaderStringFormat {
-			get { return (string) GetValue(HeaderStringFormatProperty); }
-			set { SetValue(HeaderStringFormatProperty, value); }
+			get => (string) GetValue(HeaderStringFormatProperty);
+			set => SetValue(HeaderStringFormatProperty, value);
 		}
 
 		public static readonly DependencyProperty HorizontalHeaderAlignmentProperty =
 			DependencyProperty.Register("HorizontalHeaderAlignment", typeof (HorizontalAlignment), typeof (KsButton), new PropertyMetadata(default(HorizontalAlignment)));
 
 		public HorizontalAlignment HorizontalHeaderAlignment {
-			get { return (HorizontalAlignment) GetValue(HorizontalHeaderAlignmentProperty); }
-			set { SetValue(HorizontalHeaderAlignmentProperty, value); }
+			get => (HorizontalAlignment) GetValue(HorizontalHeaderAlignmentProperty);
+			set => SetValue(HorizontalHeaderAlignmentProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderPaddingProperty =
 			DependencyProperty.Register("HeaderPadding", typeof (Thickness), typeof (KsButton), new PropertyMetadata(default(Thickness)));
 
 		public Thickness HeaderPadding {
-			get { return (Thickness) GetValue(HeaderPaddingProperty); }
-			set { SetValue(HeaderPaddingProperty, value); }
+			get => (Thickness) GetValue(HeaderPaddingProperty);
+			set => SetValue(HeaderPaddingProperty, value);
 		}
 
 		public static readonly DependencyProperty VerticalHeaderAlignmentProperty =
 			DependencyProperty.Register("VerticalHeaderAlignment", typeof (VerticalAlignment), typeof (KsButton), new PropertyMetadata(default(VerticalAlignment)));
 
 		public VerticalAlignment VerticalHeaderAlignment {
-			get { return (VerticalAlignment) GetValue(VerticalHeaderAlignmentProperty); }
-			set { SetValue(VerticalHeaderAlignmentProperty, value); }
+			get => (VerticalAlignment) GetValue(VerticalHeaderAlignmentProperty);
+			set => SetValue(VerticalHeaderAlignmentProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderTemplateSelectorProperty =
 			DependencyProperty.Register("HeaderTemplateSelector ", typeof (DataTemplateSelector), typeof (KsButton), new PropertyMetadata(default(DataTemplateSelector)));
 
 		public DataTemplateSelector HeaderTemplateSelector  {
-			get { return (DataTemplateSelector) GetValue(HeaderTemplateSelectorProperty); }
-			set { SetValue(HeaderTemplateSelectorProperty, value); }
+			get => (DataTemplateSelector) GetValue(HeaderTemplateSelectorProperty);
+			set => SetValue(HeaderTemplateSelectorProperty, value);
 		}
 
 		public static readonly DependencyProperty HasHeaderProperty =
@@ -84,8 +84,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 
 		[DefaultValue(true)]
 		public bool HasHeader {
-			get { return (bool) GetValue(HasHeaderProperty); }
-			private set { SetValue(HasHeaderProperty, value); }
+			get => (bool) GetValue(HasHeaderProperty);
+			private set => SetValue(HasHeaderProperty, value);
 		}
 
 		private void UpdateHasHeader() {
@@ -119,21 +119,21 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		/// The <see cref="ContentSource"/> property ist used to show content from ressources (xaml/baml or bitmap images).<br/>
 		/// An <see cref="ResourcePresenter"/> (using a <see cref="UIElementConverter"/>) will be created and assigned to <see cref="ContentControl.Content"/>.
 		/// </remarks>
-		public Uri ContentSource {get {return (Uri) GetValue(ContentSourceProperty);}set {SetValue(ContentSourceProperty, value);}}
+		public Uri ContentSource {get => (Uri) GetValue(ContentSourceProperty); set => SetValue(ContentSourceProperty, value); }
 
 		public static readonly DependencyProperty ContentSourceParameter0Property =
 			DependencyProperty.Register("ContentSourceParameter0", typeof(string), typeof(KsButton), new PropertyMetadata(null,
 			(d, e) => ((KsButton) d).UpdateContent()));
 
-		public string ContentSourceParameter0 {get { return (string)GetValue(ContentSourceParameter0Property); }set { SetValue(ContentSourceParameter0Property, value); }}
+		public string ContentSourceParameter0 {get => (string)GetValue(ContentSourceParameter0Property); set => SetValue(ContentSourceParameter0Property, value); }
 
 		public static readonly DependencyProperty ContentSourceParameter1Property =
 			DependencyProperty.Register("ContentSourceParameter1", typeof(string), typeof(KsButton), new PropertyMetadata(null,
 			(d, e) => ((KsButton) d).UpdateContent()));
 
 		public string ContentSourceParameter1 {
-			get { return (string)GetValue(ContentSourceParameter1Property); }
-			set { SetValue(ContentSourceParameter1Property, value); }
+			get => (string)GetValue(ContentSourceParameter1Property);
+			set => SetValue(ContentSourceParameter1Property, value);
 		}
 
 		public static readonly DependencyProperty ContentSourceParameter2Property =
@@ -141,8 +141,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			(d, e) => ((KsButton) d).UpdateContent()));
 
 		public string ContentSourceParameter2 {
-			get { return (string)GetValue(ContentSourceParameter2Property); }
-			set { SetValue(ContentSourceParameter2Property, value); }
+			get => (string)GetValue(ContentSourceParameter2Property);
+			set => SetValue(ContentSourceParameter2Property, value);
 		}
 
 		private void UpdateContent() {
@@ -197,27 +197,27 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		/// An <see cref="ResourcePresenter"/> (using a <see cref="UIElementConverter"/>) will be created and assigned to <see cref="KsButton.Header"/>.
 		/// </remarks>
 		public Uri HeaderSource {
-			get {return (Uri) GetValue(HeaderSourceProperty);}
-			set {SetValue(HeaderSourceProperty, value);}
+			get => (Uri) GetValue(HeaderSourceProperty);
+			set => SetValue(HeaderSourceProperty, value);
 		}
 		
 		public static readonly DependencyProperty HeaderSourceParameter0Property =
 			DependencyProperty.Register("HeaderSourceParameter0", typeof(string), typeof(KsButton), new PropertyMetadata(null,
 			(d, e) => ((KsButton) d).UpdateHeader()));
 
-		public string HeaderSourceParameter0 {get { return (string)GetValue(HeaderSourceParameter0Property); }set { SetValue(HeaderSourceParameter0Property, value); }}
+		public string HeaderSourceParameter0 {get => (string)GetValue(HeaderSourceParameter0Property); set => SetValue(HeaderSourceParameter0Property, value); }
 
 		public static readonly DependencyProperty HeaderSourceParameter1Property =
 			DependencyProperty.Register("HeaderSourceParameter1", typeof(string), typeof(KsButton), new PropertyMetadata(null,
 			(d, e) => ((KsButton) d).UpdateHeader()));
 
-		public string HeaderSourceParameter1 {get { return (string)GetValue(HeaderSourceParameter1Property); }set { SetValue(HeaderSourceParameter1Property, value); }}
+		public string HeaderSourceParameter1 {get => (string)GetValue(HeaderSourceParameter1Property); set => SetValue(HeaderSourceParameter1Property, value); }
 
 		public static readonly DependencyProperty HeaderSourceParameter2Property =
 			DependencyProperty.Register("HeaderSourceParameter2", typeof(string), typeof(KsButton), new PropertyMetadata(null,
 			(d, e) => ((KsButton) d).UpdateHeader()));
 
-		public string HeaderSourceParameter2 {get { return (string)GetValue(HeaderSourceParameter2Property); }set { SetValue(HeaderSourceParameter2Property, value); }}
+		public string HeaderSourceParameter2 {get => (string)GetValue(HeaderSourceParameter2Property); set => SetValue(HeaderSourceParameter2Property, value); }
 
 		private void UpdateHeader() {UpdateHeader(HeaderSource,new []{HeaderSourceParameter0,HeaderSourceParameter1,HeaderSourceParameter2});}
 
@@ -257,7 +257,7 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		/// <returns>true if the <see cref="ToggleButton"/> is checked; false if the <see cref="ToggleButton"/> is unchecked; otherwise null. The default is false.</returns>
 		/// <seealso cref="ToggleButton.IsChecked"/>
 		[Bindable(BindableSupport.Yes,BindingDirection.TwoWay)]
-		public bool? IsChecked {get { return (bool?)GetValue(IsCheckedProperty); }set { SetValue(IsCheckedProperty, value); }}
+		public bool? IsChecked {get => (bool?)GetValue(IsCheckedProperty); set => SetValue(IsCheckedProperty, value); }
 		
 		#endregion
 
@@ -267,7 +267,7 @@ namespace KsWare.Presentation.ViewFramework.Controls
 			DependencyProperty.Register("CanToggle", typeof(bool), typeof(KsButton), 
 			new PropertyMetadata(default(bool),(o,e)=>((KsButton)o).AtCanToggleChanged(new ValueChangedEventArgs<bool>(e))));
 
-		public bool CanToggle {get { return (bool)GetValue(CanToggleProperty); }set { SetValue(CanToggleProperty, value); }}
+		public bool CanToggle {get => (bool)GetValue(CanToggleProperty); set => SetValue(CanToggleProperty, value); }
 
 		#endregion
 
@@ -284,8 +284,8 @@ namespace KsWare.Presentation.ViewFramework.Controls
 		/// The popup.
 		/// </value>
 		public Popup Popup {
-			get { return (Popup)GetValue(PopupProperty); }
-			set { SetValue(PopupProperty, value); }
+			get => (Popup)GetValue(PopupProperty);
+			set => SetValue(PopupProperty, value);
 		}
 		#endregion
 
@@ -296,7 +296,7 @@ namespace KsWare.Presentation.ViewFramework.Controls
 
 		private DateTime _popupClosingTime;
 
-		public List<KsButtonVisualState> VisualStateConfiguration {get { return (List<KsButtonVisualState>)GetValue(VisualStateConfigurationProperty); }set { SetValue(VisualStateConfigurationProperty, value); }}
+		public List<KsButtonVisualState> VisualStateConfiguration {get => (List<KsButtonVisualState>)GetValue(VisualStateConfigurationProperty); set => SetValue(VisualStateConfigurationProperty, value); }
 
 		#endregion
 
@@ -359,40 +359,40 @@ namespace KsWare.Presentation.ViewFramework.Controls.Appearance
 			DependencyProperty.Register("Template", typeof(ControlTemplate), typeof(KsButtonVisualState), new PropertyMetadata(default(ControlTemplate)));
 
 		public ControlTemplate Template {
-			get { return (ControlTemplate)GetValue(TemplateProperty); }
-			set { SetValue(TemplateProperty, value); }
+			get => (ControlTemplate)GetValue(TemplateProperty);
+			set => SetValue(TemplateProperty, value);
 		}
 
 		public static readonly DependencyProperty ContentProperty =
 			DependencyProperty.Register("Content", typeof(object), typeof(KsButtonVisualState), new PropertyMetadata(default(object)));
 
 		public object Content {
-			get { return (object)GetValue(ContentProperty); }
-			set { SetValue(ContentProperty, value); }
+			get => (object)GetValue(ContentProperty);
+			set => SetValue(ContentProperty, value);
 		}
 
 		public static readonly DependencyProperty ContentStringFormatProperty =
 			DependencyProperty.Register("ContentStringFormat", typeof(string), typeof(KsButtonVisualState), new PropertyMetadata(default(string)));
 
 		public string ContentStringFormat {
-			get { return (string)GetValue(ContentStringFormatProperty); }
-			set { SetValue(ContentStringFormatProperty, value); }
+			get => (string)GetValue(ContentStringFormatProperty);
+			set => SetValue(ContentStringFormatProperty, value);
 		}
 
 		public static readonly DependencyProperty ContentTemplateProperty =
 			DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(KsButtonVisualState), new PropertyMetadata(default(DataTemplate)));
 
 		public DataTemplate ContentTemplate {
-			get { return (DataTemplate)GetValue(ContentTemplateProperty); }
-			set { SetValue(ContentTemplateProperty, value); }
+			get => (DataTemplate)GetValue(ContentTemplateProperty);
+			set => SetValue(ContentTemplateProperty, value);
 		}
 
 		public static readonly DependencyProperty ContentTemplateSelectorProperty =
 			DependencyProperty.Register("ContentTemplateSelector", typeof(DataTemplateSelector ), typeof(KsButtonVisualState), new PropertyMetadata(default(DataTemplateSelector )));
 
 		public DataTemplateSelector  ContentTemplateSelector {
-			get { return (DataTemplateSelector )GetValue(ContentTemplateSelectorProperty); }
-			set { SetValue(ContentTemplateSelectorProperty, value); }
+			get => (DataTemplateSelector )GetValue(ContentTemplateSelectorProperty);
+			set => SetValue(ContentTemplateSelectorProperty, value);
 		}
 
 		#endregion
@@ -403,72 +403,72 @@ namespace KsWare.Presentation.ViewFramework.Controls.Appearance
 			DependencyProperty.Register("Margin", typeof(Thickness), typeof(KsButtonVisualState), new PropertyMetadata(default(Thickness)));
 
 		public Thickness Margin {
-			get { return (Thickness)GetValue(MarginProperty); }
-			set { SetValue(MarginProperty, value); }
+			get => (Thickness)GetValue(MarginProperty);
+			set => SetValue(MarginProperty, value);
 		}
 
 		public static readonly DependencyProperty HeightProperty =
 			DependencyProperty.Register("Height", typeof(double), typeof(KsButtonVisualState), new PropertyMetadata(default(double)));
 
 		public double Height {
-			get { return (double)GetValue(HeightProperty); }
-			set { SetValue(HeightProperty, value); }
+			get => (double)GetValue(HeightProperty);
+			set => SetValue(HeightProperty, value);
 		}
 
 		public static readonly DependencyProperty WidthProperty =
 			DependencyProperty.Register("Width", typeof(double), typeof(KsButtonVisualState), new PropertyMetadata(default(double)));
 
 		public double Width {
-			get { return (double)GetValue(WidthProperty); }
-			set { SetValue(WidthProperty, value); }
+			get => (double)GetValue(WidthProperty);
+			set => SetValue(WidthProperty, value);
 		}
 
 		public static readonly DependencyProperty MinHeightProperty =
 			DependencyProperty.Register("MinHeight", typeof(double), typeof(KsButtonVisualState), new PropertyMetadata(default(double)));
 
 		public double MinHeight {
-			get { return (double)GetValue(MinHeightProperty); }
-			set { SetValue(MinHeightProperty, value); }
+			get => (double)GetValue(MinHeightProperty);
+			set => SetValue(MinHeightProperty, value);
 		}
 
 		public static readonly DependencyProperty MaxHeightProperty =
 			DependencyProperty.Register("MaxHeight", typeof(double), typeof(KsButtonVisualState), new PropertyMetadata(default(double)));
 
 		public double MaxHeight {
-			get { return (double)GetValue(MaxHeightProperty); }
-			set { SetValue(MaxHeightProperty, value); }
+			get => (double)GetValue(MaxHeightProperty);
+			set => SetValue(MaxHeightProperty, value);
 		}
 
 		public static readonly DependencyProperty MinWidthProperty =
 			DependencyProperty.Register("MinWidth", typeof(double), typeof(KsButtonVisualState), new PropertyMetadata(default(double)));
 
 		public double MinWidth {
-			get { return (double)GetValue(MinWidthProperty); }
-			set { SetValue(MinWidthProperty, value); }
+			get => (double)GetValue(MinWidthProperty);
+			set => SetValue(MinWidthProperty, value);
 		}
 
 		public static readonly DependencyProperty MaxWidthProperty =
 			DependencyProperty.Register("MaxWidth", typeof(double), typeof(KsButtonVisualState), new PropertyMetadata(default(double)));
 
 		public double MaxWidth {
-			get { return (double)GetValue(MaxWidthProperty); }
-			set { SetValue(MaxWidthProperty, value); }
+			get => (double)GetValue(MaxWidthProperty);
+			set => SetValue(MaxWidthProperty, value);
 		}
 
 		public static readonly DependencyProperty StyleProperty =
 			DependencyProperty.Register("Style", typeof(Style), typeof(KsButtonVisualState), new PropertyMetadata(default(Style)));
 
 		public Style Style {
-			get { return (Style)GetValue(StyleProperty); }
-			set { SetValue(StyleProperty, value); }
+			get => (Style)GetValue(StyleProperty);
+			set => SetValue(StyleProperty, value);
 		}
 
 		public static readonly DependencyProperty ToolTipProperty =
 			DependencyProperty.Register("ToolTip", typeof(object), typeof(KsButtonVisualState), new PropertyMetadata(default(object)));
 
 		public object ToolTip {
-			get { return (object)GetValue(ToolTipProperty); }
-			set { SetValue(ToolTipProperty, value); }
+			get => (object)GetValue(ToolTipProperty);
+			set => SetValue(ToolTipProperty, value);
 		}
 
 		#endregion
@@ -479,56 +479,56 @@ namespace KsWare.Presentation.ViewFramework.Controls.Appearance
 			DependencyProperty.Register("Header", typeof (object), typeof (KsButtonVisualState), new PropertyMetadata(null));
 
 		public object Header {
-			get { return (object) GetValue(HeaderProperty); }
-			set { SetValue(HeaderProperty, value); }
+			get => (object) GetValue(HeaderProperty);
+			set => SetValue(HeaderProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderTemplateProperty =
 			DependencyProperty.Register("HeaderTemplate", typeof (DataTemplate), typeof (KsButtonVisualState), new PropertyMetadata(default(DataTemplate)));
 
 		public DataTemplate HeaderTemplate {
-			get { return (DataTemplate) GetValue(HeaderTemplateProperty); }
-			set { SetValue(HeaderTemplateProperty, value); }
+			get => (DataTemplate) GetValue(HeaderTemplateProperty);
+			set => SetValue(HeaderTemplateProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderStringFormatProperty =
 			DependencyProperty.Register("HeaderStringFormat", typeof (string), typeof (KsButtonVisualState), new PropertyMetadata(default(string)));
 
 		public string HeaderStringFormat {
-			get { return (string) GetValue(HeaderStringFormatProperty); }
-			set { SetValue(HeaderStringFormatProperty, value); }
+			get => (string) GetValue(HeaderStringFormatProperty);
+			set => SetValue(HeaderStringFormatProperty, value);
 		}
 
 		public static readonly DependencyProperty HorizontalHeaderAlignmentProperty =
 			DependencyProperty.Register("HorizontalHeaderAlignment", typeof (HorizontalAlignment), typeof (KsButtonVisualState), new PropertyMetadata(default(HorizontalAlignment)));
 
 		public HorizontalAlignment HorizontalHeaderAlignment {
-			get { return (HorizontalAlignment) GetValue(HorizontalHeaderAlignmentProperty); }
-			set { SetValue(HorizontalHeaderAlignmentProperty, value); }
+			get => (HorizontalAlignment) GetValue(HorizontalHeaderAlignmentProperty);
+			set => SetValue(HorizontalHeaderAlignmentProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderPaddingProperty =
 			DependencyProperty.Register("HeaderPadding", typeof (Thickness), typeof (KsButtonVisualState), new PropertyMetadata(default(Thickness)));
 
 		public Thickness HeaderPadding {
-			get { return (Thickness) GetValue(HeaderPaddingProperty); }
-			set { SetValue(HeaderPaddingProperty, value); }
+			get => (Thickness) GetValue(HeaderPaddingProperty);
+			set => SetValue(HeaderPaddingProperty, value);
 		}
 
 		public static readonly DependencyProperty VerticalHeaderAlignmentProperty =
 			DependencyProperty.Register("VerticalHeaderAlignment", typeof (VerticalAlignment), typeof (KsButtonVisualState), new PropertyMetadata(default(VerticalAlignment)));
 
 		public VerticalAlignment VerticalHeaderAlignment {
-			get { return (VerticalAlignment) GetValue(VerticalHeaderAlignmentProperty); }
-			set { SetValue(VerticalHeaderAlignmentProperty, value); }
+			get => (VerticalAlignment) GetValue(VerticalHeaderAlignmentProperty);
+			set => SetValue(VerticalHeaderAlignmentProperty, value);
 		}
 
 		public static readonly DependencyProperty HeaderTemplateSelectorProperty =
 			DependencyProperty.Register("HeaderTemplateSelector ", typeof (DataTemplateSelector), typeof (KsButtonVisualState), new PropertyMetadata(default(DataTemplateSelector)));
 
 		public DataTemplateSelector HeaderTemplateSelector  {
-			get { return (DataTemplateSelector) GetValue(HeaderTemplateSelectorProperty); }
-			set { SetValue(HeaderTemplateSelectorProperty, value); }
+			get => (DataTemplateSelector) GetValue(HeaderTemplateSelectorProperty);
+			set => SetValue(HeaderTemplateSelectorProperty, value);
 		}
 
 		#endregion
@@ -556,32 +556,32 @@ namespace KsWare.Presentation.ViewFramework.Controls.Appearance
 		/// An <see cref="ResourcePresenter"/> (using a <see cref="UIElementConverter"/>) will be created and assigned to <see cref="ContentControl.Content"/>.
 		/// </remarks>
 		public Uri ContentSource {
-			get {return (Uri) GetValue(ContentSourceProperty);}
-			set {SetValue(ContentSourceProperty, value);}
+			get => (Uri) GetValue(ContentSourceProperty);
+			set => SetValue(ContentSourceProperty, value);
 		}
 
 		public static readonly DependencyProperty ContentSourceParameter0Property =
 			DependencyProperty.Register("ContentSourceParameter0", typeof(string), typeof(KsButtonVisualState), new PropertyMetadata(null));
 
 		public string ContentSourceParameter0 {
-			get { return (string)GetValue(ContentSourceParameter0Property); }
-			set { SetValue(ContentSourceParameter0Property, value); }
+			get => (string)GetValue(ContentSourceParameter0Property);
+			set => SetValue(ContentSourceParameter0Property, value);
 		}
 
 		public static readonly DependencyProperty ContentSourceParameter1Property =
 			DependencyProperty.Register("ContentSourceParameter1", typeof(string), typeof(KsButtonVisualState), new PropertyMetadata(null));
 
 		public string ContentSourceParameter1 {
-			get { return (string)GetValue(ContentSourceParameter1Property); }
-			set { SetValue(ContentSourceParameter1Property, value); }
+			get => (string)GetValue(ContentSourceParameter1Property);
+			set => SetValue(ContentSourceParameter1Property, value);
 		}
 
 		public static readonly DependencyProperty ContentSourceParameter2Property =
 			DependencyProperty.Register("ContentSourceParameter2", typeof(string), typeof(KsButtonVisualState), new PropertyMetadata(null));
 
 		public string ContentSourceParameter2 {
-			get { return (string)GetValue(ContentSourceParameter2Property); }
-			set { SetValue(ContentSourceParameter2Property, value); }
+			get => (string)GetValue(ContentSourceParameter2Property);
+			set => SetValue(ContentSourceParameter2Property, value);
 		}
 
 		#endregion
@@ -605,24 +605,24 @@ namespace KsWare.Presentation.ViewFramework.Controls.Appearance
 		/// An <see cref="ResourcePresenter"/> (using a <see cref="UIElementConverter"/>) will be created and assigned to <see cref="KsButton.Header"/>.
 		/// </remarks>
 		public Uri HeaderSource {
-			get {return (Uri) GetValue(HeaderSourceProperty);}
-			set {SetValue(HeaderSourceProperty, value);}
+			get => (Uri) GetValue(HeaderSourceProperty);
+			set => SetValue(HeaderSourceProperty, value);
 		}
 		
 		public static readonly DependencyProperty HeaderSourceParameter0Property =
 			DependencyProperty.Register("HeaderSourceParameter0", typeof(string), typeof(KsButton), new PropertyMetadata(null));
 
-		public string HeaderSourceParameter0 {get { return (string)GetValue(HeaderSourceParameter0Property); }set { SetValue(HeaderSourceParameter0Property, value); }}
+		public string HeaderSourceParameter0 {get => (string)GetValue(HeaderSourceParameter0Property); set => SetValue(HeaderSourceParameter0Property, value); }
 
 		public static readonly DependencyProperty HeaderSourceParameter1Property =
 			DependencyProperty.Register("HeaderSourceParameter1", typeof(string), typeof(KsButton), new PropertyMetadata(null));
 
-		public string HeaderSourceParameter1 {get { return (string)GetValue(HeaderSourceParameter1Property); }set { SetValue(HeaderSourceParameter1Property, value); }}
+		public string HeaderSourceParameter1 {get => (string)GetValue(HeaderSourceParameter1Property); set => SetValue(HeaderSourceParameter1Property, value); }
 
 		public static readonly DependencyProperty HeaderSourceParameter2Property =
 			DependencyProperty.Register("HeaderSourceParameter2", typeof(string), typeof(KsButton), new PropertyMetadata(null));
 
-		public string HeaderSourceParameter2 {get { return (string)GetValue(HeaderSourceParameter2Property); }set { SetValue(HeaderSourceParameter2Property, value); }}
+		public string HeaderSourceParameter2 {get => (string)GetValue(HeaderSourceParameter2Property); set => SetValue(HeaderSourceParameter2Property, value); }
 
 		#endregion
 

@@ -35,7 +35,7 @@ namespace KsWare.Presentation {
 		/// <value><see langword="true"/> if handled asynchronous; otherwise, <see langword="false"/>.
 		/// </value>
 		public bool AsyncHandled {
-			get {return _asyncHandled;}
+			get => _asyncHandled;
 			set {
 				if (_asyncHandled == true && value == false)
 					throw new InvalidOperationException("UniqueID: {499187B0-B162-4DCC-AAEE-DA2DFAEB8E7F}");//REVIEW
@@ -48,7 +48,7 @@ namespace KsWare.Presentation {
 		/// <value><see langword="true"/> if handled; otherwise, <see langword="false"/>.
 		/// </value>
 		public bool Handled {
-			get {return _handled;}
+			get => _handled;
 			set {
 				if (_handled == true && value == false)
 					throw new InvalidOperationException("UniqueID: {83D4D228-D7B7-4A9E-AC4B-BB47533E6246}");//REVIEW
@@ -60,7 +60,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value>The return value.</value>
 		public object ReturnValue {
-			get {return _returnValue;}
+			get => _returnValue;
 			set {
 				MemberAccessUtil.DemandWriteOnce(this._returnValue==null,null,this,nameof(ReturnValue),"{E10EB54D-F471-4C8E-8682-8C678A374E9B}");
 				this._returnValue = value;
@@ -68,19 +68,13 @@ namespace KsWare.Presentation {
 		}
 
 		public Action<UserFeedbackEventArgs> AsyncCallback {
-			get { return _asyncCallback; }
-			set { 
-//				MemberAccessUtil.DemandWriteOnce(_AsyncCallback==null && _AsyncCallbackParameters==null,null,this,"AsyncCallback","{CD39C0F6-59AF-4CFD-9C19-95E650766618}");
-				_asyncCallback = value;
-			}
+			get => _asyncCallback;
+			set => _asyncCallback = value;
 		}
 
 		public object AsyncCallbackParameters {
-			get { return _asyncCallbackParameters; }
-			set {
-//				MemberAccessUtil.DemandWriteOnce(_AsyncCallback==null && _AsyncCallbackParameters==null,null,this,"AsyncCallbackParameters","{CD39C0F6-59AF-4CFD-9C19-95E650766618}");
-				_asyncCallbackParameters = value;
-			}
+			get => _asyncCallbackParameters;
+			set => _asyncCallbackParameters = value;
 		}
 
 		/// <summary> Gets the requesting source

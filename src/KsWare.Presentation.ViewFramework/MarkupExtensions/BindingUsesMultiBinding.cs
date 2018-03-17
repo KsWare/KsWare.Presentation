@@ -74,7 +74,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// Eine Zeichenfolge, die angibt, wie die Bindung formatiert werden soll, wenn diese den gebundenen Wert als Zeichenfolge anzeigt.
 		/// </returns>
 		[DefaultValue(null)]
-		public new string StringFormat { get { return MainBinding.StringFormat; } set { MainBinding.StringFormat = value; } }
+		public new string StringFormat { get => MainBinding.StringFormat; set => MainBinding.StringFormat = value; }
 
 //			/// <summary>
 //			/// Ruft den Wert ab, der im Ziel verwendet wird, wenn der Wert der Quelle null ist, oder legt diesen fest.

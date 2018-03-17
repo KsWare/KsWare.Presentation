@@ -17,7 +17,7 @@ namespace KsWare.Presentation {
 			new MemoizingMRUCache2b<LambdaExpression, string>(GetNameFunc, 25);
 
 		internal static long StatisticsːRaiseːGetCount;
-		internal static int StatisticsːCount { get { return PropertyCache.Count; } }
+		internal static int StatisticsːCount => PropertyCache.Count;
 
 		private static string GetNameFunc(LambdaExpression expression) {
 //			MemberExpression body;
@@ -134,7 +134,7 @@ namespace KsWare.Presentation {
 				return result;
 			}
 
-			public int Count { get { return 0; } }
+			public int Count => 0;
 
 		}
 
@@ -157,7 +157,7 @@ namespace KsWare.Presentation {
 				return result;
 			}
 
-			public int Count { get { return _CacheEntries.Count; } }
+			public int Count => _CacheEntries.Count;
 		}
 
 		private class MemoizingMRUCache2<TParam, TVal>:ICache<TParam, TVal> {
@@ -176,7 +176,7 @@ namespace KsWare.Presentation {
 				return result;
 			}
 
-			public int Count { get { return _CacheEntries.Count; } }
+			public int Count => _CacheEntries.Count;
 		}
 
 		// https://github.com/reactiveui/ReactiveUI/blob/master/ReactiveUI/MemoizingMRUCache.cs
@@ -325,7 +325,7 @@ namespace KsWare.Presentation {
 				Contract.Invariant(_cacheEntries.Count <= _maxCacheSize);
 			}
 
-			public int Count { get { return _cacheEntries.Count; } }
+			public int Count => _cacheEntries.Count;
 		}
 		
 //		/// <summary>

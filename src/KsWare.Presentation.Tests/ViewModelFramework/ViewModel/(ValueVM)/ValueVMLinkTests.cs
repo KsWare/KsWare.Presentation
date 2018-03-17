@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	[TestClass]
-	public class ValueVMLinkTest {
+	public class ValueVMLinkTests {
 
 		[TestMethod]
 		public void Instance() {
