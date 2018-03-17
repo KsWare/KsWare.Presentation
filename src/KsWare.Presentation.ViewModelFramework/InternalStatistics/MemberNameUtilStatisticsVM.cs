@@ -4,7 +4,7 @@
 	public class MemberNameUtilStatisticsVM : BaseStatisticsVM {
 
 		public MemberNameUtilStatisticsVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 			Caption = "MemberNameUtil";
 
 			_Items.Add(new StatisticEntryVM("Number of registered expressions"  ,()=>MemberNameUtil.StatisticsːCount));

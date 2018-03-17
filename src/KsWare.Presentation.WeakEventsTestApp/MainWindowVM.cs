@@ -21,7 +21,7 @@ namespace KsWare.Presentation.WeakEventsTestApp {
 			if(wo.IsAlive) throw new Exception("GC.Collec() failed!??"); // Debug x86
 
 			StatisticsWindowVM.Instance.Show();
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 
 			CreateAction.MːDoAction = () => {
 				_weakTestViewModel=new WeakReference(_testViewModel = new TestViewModel1VM());

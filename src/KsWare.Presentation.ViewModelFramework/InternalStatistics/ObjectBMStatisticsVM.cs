@@ -6,7 +6,7 @@ namespace KsWare.Presentation.InternalStatistics {
 	public class ObjectBMStatisticsVM : BaseStatisticsVM {
 
 		public ObjectBMStatisticsVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 			Caption = "ObjectBM";
 
 			_Items.Add(new StatisticEntryVM("Number of created instances"    ,()=>ObjectBM.StatisticsːNumberOfCreatedInstances));

@@ -271,6 +271,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		static readonly Dictionary<Type,ReflectedPropertyInfo[]>  RegisterChildren_PropertyInfos=new Dictionary<Type, ReflectedPropertyInfo[]>();
 
+		[Obsolete("Use RegisterChildren(()=>this);",true)]
+		protected void RegisterChildren(Func<object, IObjectVM> @this) {}
+
 		/// <summary> Registers all children of this view model. 
 		/// Use <see cref="HierarchyAttribute"/> for specific properties to control the behavior.
 		/// </summary>
@@ -285,34 +288,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		///    // ... custom registrations here ...
 		///	   // SendAction = RegisterChild(_=>SendAction, new ActionVM{/*...*/});
 		/// 
-		///    RegisterChildren(_=>this);
-		/// }
-		/// </code></example>
-		/// <seealso cref="HierarchyAttribute"/>
-		/// <seealso cref="ViewModelMetadataAttribute"/>
-		/// <seealso cref="ActionMetadataAttribute"/>
-		/// <seealso cref="ValueMetadataAttribute"/>
-		/// <seealso cref="ListMetadataAttribute"/>
-		protected void RegisterChildren(Func<object, IObjectVM> @this) {
-			var o = this;
-			var t = @this.Method.DeclaringType; if (t == null) throw new InvalidOperationException("ErrorID: {069CE654-981A-48F4-8A0A-9F6E4CA530B9}");
-			RegisterChildren(t, o);
-		}
-		/// <summary> Registers all children of this view model. 
-		/// Use <see cref="HierarchyAttribute"/> for specific properties to control the behavior.
-		/// </summary>
-		/// <param name="this">Always use: <c>_=>this</c></param>
-		/// <remarks>
-		/// Only members declared at the level of the supplied type's hierarchy should be considered. Inherited members are not considered.
-		/// <p>Use <see cref="HierarchyAttribute"/> to control the behavoir for each property.</p>
-		/// <p> All properties which have NOT HierarchyType.Children are skipped.</p>
-		/// </remarks>
-		/// <example><code>
-		/// public Constructor() {
-		///    // ... custom registrations here ...
-		///	   // SendAction = RegisterChild(_=>SendAction, new ActionVM{/*...*/});
-		/// 
-		///    RegisterChildren(_=>this);
+		///    RegisterChildren(()=>this);
 		/// }
 		/// </code></example>
 		/// <seealso cref="HierarchyAttribute"/>

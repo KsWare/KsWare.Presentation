@@ -21,7 +21,7 @@ namespace KsWare.Presentation.InternalStatistics {
 
 		public StatisticsWindowVM() {
 			UIAccess.IsDirectAccessEnabled = true;
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 
 			Modules.Add(new WeakEventManagerStatisticsVM());
 			Modules.Add(new MemberNameUtilStatisticsVM());

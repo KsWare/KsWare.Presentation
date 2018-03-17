@@ -4,7 +4,7 @@
 	public class WeakEventManagerStatisticsVM : BaseStatisticsVM {
 
 		public WeakEventManagerStatisticsVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 			Caption = "WeakEventManager";
 
 			Items.Add(new StatisticEntryVM("Number of created sources"    ,()=>EventSource.StatisticsːInstancesˑCreated));
