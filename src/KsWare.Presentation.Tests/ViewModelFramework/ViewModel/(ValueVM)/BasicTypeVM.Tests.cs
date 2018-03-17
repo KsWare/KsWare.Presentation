@@ -37,9 +37,11 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			var types = new Type[] {typeof (ByteVM), typeof (Int16VM), typeof (Int32VM), typeof (Int64VM), typeof (SingleVM), typeof (DoubleVM), typeof (BoolVM), typeof (DateTimeVM), typeof (TimeSpanVM), typeof (GuidVM)};
 			foreach (var type in types) {
 				var vm=(IValueVM)Activator.CreateInstance(type);
+#pragma warning disable 618
 				vm.ValueChanged+=OnValueChanged;
 				vm.EditValueProvider.String = "blubber";
 				vm.ValueChanged-=OnValueChanged;
+#pragma warning restore 618
 			}
 		}
 

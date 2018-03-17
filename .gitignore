@@ -210,3 +210,5 @@ ModelManifest.xml
 /nuget/archive
 /src/KsWare.Presentation.Solution/.vs/KsWare.Presentation/v15/Server/sqlite3
 /src/KsWare.Presentation.Solution/packages
+*.nupkg
+.vs/

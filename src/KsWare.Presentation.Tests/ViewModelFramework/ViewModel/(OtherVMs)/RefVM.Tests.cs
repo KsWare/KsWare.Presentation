@@ -16,7 +16,9 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 		public void T002_TargetChanged_MustRaised() {
 			var refVM = new RefVM<StringVM>();
 			int targetChangedCounter=0;
+#pragma warning disable 618
 			refVM.TargetChanged += (s, e) => targetChangedCounter++;
+#pragma warning restore 618
 			refVM.Target=new StringVM();
 			Assert.AreEqual(1,targetChangedCounter);
 		}

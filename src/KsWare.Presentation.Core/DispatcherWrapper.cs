@@ -206,13 +206,12 @@ namespace KsWare.Presentation {
 		/// <param name="dispatcher">The dispatcher.</param>
 		/// <exception cref="System.ArgumentNullException">dispatcher</exception>
 		public DispatcherWrapper([NotNull] Dispatcher dispatcher) {
-			if(dispatcher==null) throw new ArgumentNullException(nameof(dispatcher));
-			_wrappedDispatcher = dispatcher;
+			_wrappedDispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
 		}
 
 		/// <summary> Gets direct access to the wrapped <see cref="Dispatcher"/>.
 		/// </summary>
-		/// <value>The deprecated dispatcher.</value>
+		/// <value>The <see cref="Dispatcher"/>.</value>
 		[Obsolete("Deprecated")]
 		public Dispatcher ThreadDispatcher { get => _wrappedDispatcher; private set => _wrappedDispatcher = value; }
 
@@ -485,13 +484,13 @@ namespace KsWare.Presentation {
 		/// <summary> [COMPATIBILITY] Gets the <see cref="IDispatcher"/> for the application thread and creates a new <see cref="IDispatcher"/> if one is not already associated with the thread.
 		/// </summary>
 		/// <returns>The dispatcher associated with the application thread.</returns>
-		[Obsolete("Direct use static ApplicationDispatcher methods",false)]
+		[Obsolete("Directly use static ApplicationDispatcher methods",false)]
 		public static IDispatcher CurrentDispatcher {get => Instance; set => Instance = value; }
 
 		/// <summary> [DEPRECATED] Gets direct access to the wrapped <see cref="Dispatcher" /> for the application thread.
 		/// </summary>
 		/// <value>The <see cref="Dispatcher"/></value>
-		public static Dispatcher DeprecatedDispatcher => InternalWrapper.ThreadDispatcher;
+		public static Dispatcher ThreadDispatcher => InternalWrapper.ThreadDispatcher;
 
 		public static Thread Thread => InternalWrapper.Thread;
 		public static bool IsInvokeRequired => InternalWrapper.IsInvokeRequired;

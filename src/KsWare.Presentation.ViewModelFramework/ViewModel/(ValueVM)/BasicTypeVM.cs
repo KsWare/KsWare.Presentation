@@ -278,7 +278,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <remarks></remarks>
 		public BoolVM() {
 
-			ValueChanged+=(sender, args) => {
+			ValueChangedEvent.add=(sender, args) => {
 					OnPropertyChanged("IsTrue"); 
 					OnPropertyChanged("IsFalse"); 
 					OnPropertyChanged("IsTrueAndEnabled"); 

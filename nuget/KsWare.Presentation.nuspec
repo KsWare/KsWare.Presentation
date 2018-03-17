@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>KsWare.Presentation</id>
+		<title>KsWare.Presentation</title>
+        <version>0.18.2</version>
+<!--		<version>$version$</version> -->
+        <authors>KsWare</authors>
+		<owners>KsWare</owners>
+		<licenseUrl>https://github.com/KsWare/KsWare.Presentation/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/KsWare/KsWare.Presentation</projectUrl>
+        <description>For test purposes only. NO WARRANTY</description>
+        <summary>A MVVM Framework.</summary>
+        <copyright>© 2002-2018 by KsWare. All rights reserved.</copyright>
+        <tags>dotnet WPF MVVM library KsWare</tags>
+		<iconUrl>https://raw.githubusercontent.com/KsWare/KsWare.Presentation/master/icon.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<releaseNotes>https://raw.githubusercontent.com/KsWare/KsWare.Presentation/master/ChangeLog.md</releaseNotes>
+        <dependencies>
+            <dependency id="System.Windows.Interactivity.WPF" version="2.0.20525" />
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+            <frameworkAssembly assemblyName="PresentationFramework" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xaml" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Drawing.Design" targetFramework="" />
+            <frameworkAssembly assemblyName="System" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+            <frameworkAssembly assemblyName="PresentationCore" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
+            <frameworkAssembly assemblyName="WindowsBase" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+		<file src="lib\ChangeLog.md" target="lib\ChangeLog.md" />
+<!--		<file src="..\LICENCE" target="lib\LICENCE" /> -->
+        <file src="lib\net45\KsWare.Presentation.Core.dll" target="lib\net45\KsWare.Presentation.Core.dll" />
+        <file src="lib\net45\KsWare.Presentation.Core.xml" target="lib\net45\KsWare.Presentation.Core.xml" />
+        <file src="lib\net45\KsWare.Presentation.BusinessFramework.dll" target="lib\net45\KsWare.Presentation.BusinessFramework.dll" />
+        <file src="lib\net45\KsWare.Presentation.BusinessFramework.xml" target="lib\net45\KsWare.Presentation.BusinessFramework.xml" />
+        <file src="lib\net45\KsWare.Presentation.ViewFramework.dll" target="lib\net45\KsWare.Presentation.ViewFramework.dll" />
+        <file src="lib\net45\KsWare.Presentation.ViewFramework.xml" target="lib\net45\KsWare.Presentation.ViewFramework.xml" />
+        <file src="lib\net45\KsWare.Presentation.ViewModelFramework.dll" target="lib\net45\KsWare.Presentation.ViewModelFramework.dll" />
+        <file src="lib\net45\KsWare.Presentation.ViewModelFramework.xml" target="lib\net45\KsWare.Presentation.ViewModelFramework.xml" />
+        <file src="lib\net45\KsWare.Presentation.ViewModelFramework.dll" target="lib\net45\KsWare.Presentation.ViewModelFramework.dll" />
+        <file src="lib\net45\KsWare.Presentation.ViewModelFramework.xml" target="lib\net45\KsWare.Presentation.ViewModelFramework.xml" />
+        <file src="lib\net45\KsWare.Presentation.Labs.dll" target="lib\net45\KsWare.Presentation.Labs.dll" />
+        <file src="lib\net45\KsWare.Presentation.Labs.xml" target="lib\net45\KsWare.Presentation.Labs.xml" />
+    </files>
+</package>
