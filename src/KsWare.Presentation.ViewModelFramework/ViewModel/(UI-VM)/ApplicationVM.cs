@@ -116,7 +116,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			WindowsInternal       = RegisterChild(() => WindowsInternal, new WindowVMCollection());
 			NonAppWindowsInternal = RegisterChild(() => NonAppWindowsInternal, new WindowVMCollection());
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 
 			if (_application != null) { //for UnitTest the application can be null
 				_application.Startup     += AtStartup;                             //=> Occurs when the Run method of the Application object is called.

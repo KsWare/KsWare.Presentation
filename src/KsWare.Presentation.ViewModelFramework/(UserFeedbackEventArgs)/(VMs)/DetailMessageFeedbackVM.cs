@@ -6,7 +6,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	public class DetailMessageFeedbackVM : MessageFeedbackVM<DetailMessageFeedbackEventArgs> {
 
 		public DetailMessageFeedbackVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 			CopyDetailsToClipboardAction.MːDoAction = DoCopyDetailsToClipboard;
 			CopyAllToClipboardAction.MːDoAction = DoCopyAllToClipboard;
 		}

@@ -15,9 +15,9 @@ namespace KsWare.Presentation {
 
 		/// <summary> Gets direct access to the wrapped <see cref="Dispatcher"/>.
 		/// </summary>
-		/// <value>The deprecated dispatcher.</value>
+		/// <value>The <see cref="System.Windows.Threading.Dispatcher"/>.</value>
 		[Obsolete("Deprecated")]
-		Dispatcher DeprecatedDispatcher { get; }
+		Dispatcher ThreadDispatcher { get; }
 
 		Thread Thread { get; }
 
@@ -214,7 +214,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value>The deprecated dispatcher.</value>
 		[Obsolete("Deprecated")]
-		public Dispatcher DeprecatedDispatcher { get => _wrappedDispatcher; private set => _wrappedDispatcher = value; }
+		public Dispatcher ThreadDispatcher { get => _wrappedDispatcher; private set => _wrappedDispatcher = value; }
 
 		private DispatcherOperation LegacyBeginInvokeImpl(DispatcherPriority priority, Delegate method, object args,int numArgs) {
 //			Debug.WriteLine(string.Format("*   {0}\n==> BeginInvoke {1}",DebugUtil.FormatMethod(GetCallingMethod()),DebugUtil.FormatDelegate(method)));
@@ -450,15 +450,15 @@ namespace KsWare.Presentation {
 		private static FieldInfo DispatcherOperationˑ_method = typeof (DispatcherOperation).GetField("_method", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		
 		private static void InitHooks() {
-//			s_SingletonInstance.DeprecatedDispatcher.Hooks.OperationPosted += (s, e) => {
+//			s_SingletonInstance.ThreadDispatcher.Hooks.OperationPosted += (s, e) => {
 //				Interlocked.Increment(ref StatisticsːOperationsˑCurrentˑCount);
 //				Interlocked.Increment(ref StatisticsːOperationsˑTotalˑCount);
 //			};
-//			s_SingletonInstance.DeprecatedDispatcher.Hooks.OperationAborted += (s, e) => Interlocked.Decrement(ref StatisticsːOperationsˑCurrentˑCount);
-//			s_SingletonInstance.DeprecatedDispatcher.Hooks.OperationCompleted += (s, e) => Interlocked.Decrement(ref StatisticsːOperationsˑCurrentˑCount);
+//			s_SingletonInstance.ThreadDispatcher.Hooks.OperationAborted += (s, e) => Interlocked.Decrement(ref StatisticsːOperationsˑCurrentˑCount);
+//			s_SingletonInstance.ThreadDispatcher.Hooks.OperationCompleted += (s, e) => Interlocked.Decrement(ref StatisticsːOperationsˑCurrentˑCount);
 
 
-//			s_SingletonInstance.DeprecatedDispatcher.Hooks.OperationPosted += (s, e) => {
+//			s_SingletonInstance.ThreadDispatcher.Hooks.OperationPosted += (s, e) => {
 //				//string name;try{name=(string)DispatcherOperationˑName.GetValue(e.Operation, BindingFlags.Instance | BindingFlags.NonPublic, null, null, null);}catch(Exception ex){name="?";}
 //				Delegate _method;try{_method=(Delegate)DispatcherOperationˑ_method.GetValue(e.Operation);}catch(Exception ex){_method=null;}
 //				var name=DebugUtil.FormatDelegate(_method);
@@ -491,7 +491,7 @@ namespace KsWare.Presentation {
 		/// <summary> [DEPRECATED] Gets direct access to the wrapped <see cref="Dispatcher" /> for the application thread.
 		/// </summary>
 		/// <value>The <see cref="Dispatcher"/></value>
-		public static Dispatcher DeprecatedDispatcher => InternalWrapper.DeprecatedDispatcher;
+		public static Dispatcher DeprecatedDispatcher => InternalWrapper.ThreadDispatcher;
 
 		public static Thread Thread => InternalWrapper.Thread;
 		public static bool IsInvokeRequired => InternalWrapper.IsInvokeRequired;
@@ -531,7 +531,7 @@ namespace KsWare.Presentation {
 		#endregion
 
 		#region Singleton
-		Dispatcher IDispatcher.DeprecatedDispatcher => InternalWrapper.DeprecatedDispatcher;
+		Dispatcher IDispatcher.ThreadDispatcher => InternalWrapper.ThreadDispatcher;
 		Thread IDispatcher.Thread => InternalWrapper.Thread;
 		bool IDispatcher.IsInvokeRequired => InternalWrapper.IsInvokeRequired;
 		public static IDispatcher Wrapper => s_Wrapper;

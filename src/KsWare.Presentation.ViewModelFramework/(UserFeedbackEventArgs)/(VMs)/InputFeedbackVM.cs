@@ -5,7 +5,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	public class InputFeedbackVM : UserFeedbackVM<InputFeedbackEventArgs> {
 
 		public InputFeedbackVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 
 			OkAction    .MːDoAction=DoOkClick;
 			CancelAction.MːDoAction=DoCancelClick;

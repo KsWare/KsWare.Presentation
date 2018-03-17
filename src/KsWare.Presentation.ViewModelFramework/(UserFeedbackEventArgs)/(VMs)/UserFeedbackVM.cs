@@ -3,7 +3,7 @@
 	public abstract class UserFeedbackVM<T> : DataVM<T> where T:UserFeedbackEventArgs {
 
 		protected UserFeedbackVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 			CloseAction.MːDoAction = DoClose;
 		}
 

@@ -6,7 +6,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	public abstract class MessageFeedbackVM<T> : UserFeedbackVM<T> where T:MessageFeedbackEventArgs {
 
 		public MessageFeedbackVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 
 			OkAction    .MːDoAction=DoOkClick;
 			YesAction   .MːDoAction=DoYesClick;

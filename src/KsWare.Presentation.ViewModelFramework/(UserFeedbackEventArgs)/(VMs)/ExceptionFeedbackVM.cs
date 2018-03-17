@@ -6,7 +6,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	public class ExceptionFeedbackVM : MessageFeedbackVM<ExceptionFeedbackEventArgs> {
 
 		public ExceptionFeedbackVM() {
-			RegisterChildren(_=>this);
+			RegisterChildren(()=>this);
 			CopyDetailsToClipboardAction.MːDoAction = DoCopyDetailsToClipboard;
 			CopyAllToClipboardAction.MːDoAction = DoCopyAllToClipboard;
 		}

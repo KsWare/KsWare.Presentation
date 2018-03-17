@@ -40,7 +40,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	public class AxVM : DataVM<BxVM> {
 
-		public AxVM() {RegisterChildren(_=>this);}
+		public AxVM() {RegisterChildren(()=>this);}
 
 		[ValueMetadata(typeof(LinkedValueMetadata))]
 		public Int32VM Int32 { get; private set; }
@@ -57,7 +57,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	public class BxVM : ObjectVM {
 
-		public BxVM() {RegisterChildren(_=>this);}
+		public BxVM() {RegisterChildren(()=>this);}
 
 		public Int32VM Int32 { get; private set; }
 	}
