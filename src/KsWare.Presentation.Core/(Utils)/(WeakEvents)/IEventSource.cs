@@ -25,7 +25,7 @@ namespace KsWare.Presentation {
 	/// <typeparam name="TEventHandler">The type of the event.</typeparam>
 	/// <example> Definition of the event source property:
 	/// <code> public IWeakEventSource&lt;EventHandler&lt;ViewModelPropertyChangedEventArgs>> PropertyChangedEvent { get { return WeakEventProperties.Get(()=>PropertyChangedEvent); } }</code>
-	/// The <see cref="ObjectVM.EventSources"/> property is available in all <see cref="ObjectVM"/> and <see cref="ObjectBM"/> classes.</example>
+	/// The ObjectVM.EventSourcesproperty is available in all ObjectVM and ObjectBM classes.</example>
 	public interface IEventSource<TEventHandler>:IEventSource  {
 
 		/// <summary> Registers an event handler.

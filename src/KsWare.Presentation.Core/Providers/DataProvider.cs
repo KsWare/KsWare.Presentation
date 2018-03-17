@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -51,14 +52,6 @@ namespace KsWare.Presentation.Core.Providers {
 		/// Call this method if the provided data does not implement <see cref="INotifyCollectionChanged"/>
 		/// </remarks>
 		void NotifyDataChanged();
-
-		/// <summary> Gets or sets a value indicating whether this instance has been automatically (on demand) created.
-		/// </summary>
-		/// <value>
-		/// <c>true</c> if this instance has been automatically created; otherwise, <c>false</c>.
-		/// </value>
-		bool IsAutoCreated { get; set; }
-
 	}
 
 	/// <summary> Generic DataProvider interface

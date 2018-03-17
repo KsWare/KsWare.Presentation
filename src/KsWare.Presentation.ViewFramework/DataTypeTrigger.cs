@@ -22,7 +22,7 @@ namespace KsWare.Presentation.ViewFramework {
 			}
 		}
 
-		/// <summary> [EXPERIMENTAL] Sets the <see cref="Setters"/> from a style (copy from Style.Setters).
+		/// <summary> [EXPERIMENTAL] Sets the Setters from a style (copy from Style.Setters).
 		/// </summary>
 		/// <value>The setter from style.</value>
 		public Style SetterFromStyle {

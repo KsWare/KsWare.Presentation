@@ -14,7 +14,7 @@ namespace KsWare.Presentation.Collections.Special {
 				//Pending: The operation is pending and is still in the System.Windows.Threading.Dispatcher queue.
 				if(_lastDispatcherOperation.Status==DispatcherOperationStatus.Pending) return;
 			}
-			_lastDispatcherOperation = ApplicationDispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, OnCollectionChanged, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+			_lastDispatcherOperation = ApplicationDispatcher.BeginInvoke(DispatcherPriority.Background, OnCollectionChanged, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 
 		private void OnCollectionChanged(NotifyCollectionChangedEventArgs eventArgs) {

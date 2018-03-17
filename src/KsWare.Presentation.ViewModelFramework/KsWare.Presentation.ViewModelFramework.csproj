@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\KsWare.Presentation.ViewModelFramework.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -160,13 +161,18 @@
     <Compile Include="ViewModel\%28Slim%29\SlimBusinessObjectVM.cs" />
     <Compile Include="ViewModel\%28Slim%29\SlimDataVM.cs" />
     <Compile Include="ViewModel\%28Slim%29\SlimObjectVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\DialogWindowVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\IDialogWindowVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\IOverlayWindowVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\IWindowVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\WindowProperties.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ApplicationVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\CommandUserFeedback.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ContextMenuVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ScrollBarVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\UIElementVM.cs" />
-    <Compile Include="ViewModel\%28UI-VM%29\WindowVM.cs" />
-    <Compile Include="ViewModel\%28UI-VM%29\WndowsVM~Overlays.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\WindowVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\WndowsVM~Overlays.cs" />
     <Compile Include="ViewModel\%28ValueVM%29\BasicTypeVM.cs" />
     <Compile Include="ViewModel\%28ValueVM%29\EnumMemberVM.cs" />
     <Compile Include="ViewModel\%28ValueVM%29\EnumVM.cs" />

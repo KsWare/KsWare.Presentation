@@ -20,55 +20,55 @@ namespace KsWare.Presentation {
 		/// <seealso cref="SaveFileDialog.OverwritePrompt"/>
 		public bool OverwritePrompt { get; set; }
 
-		/// <seealso cref="SaveFileDialog.AddExtension"/>
+		/// <seealso cref="FileDialog.AddExtension"/>
 		public bool AddExtension { get; set; }
 
-		/// <seealso cref="SaveFileDialog.CheckFileExists"/>
+		/// <seealso cref="FileDialog.CheckFileExists"/>
 		public bool CheckFileExists { get; set; }
 
-		/// <seealso cref="SaveFileDialog.CheckPathExists"/>
+		/// <seealso cref="FileDialog.CheckPathExists"/>
 		public bool CheckPathExists { get; set; }
 
-		/// <seealso cref="SaveFileDialog.CustomPlaces"/>
+		/// <seealso cref="FileDialog.CustomPlaces"/>
 		public IList<FileDialogCustomPlace> CustomPlaces { get; set; }
 		
-		/// <seealso cref="SaveFileDialog.DefaultExt"/>
+		/// <seealso cref="FileDialog.DefaultExt"/>
 		public string DefaultExt { get; set; }
 
-		/// <seealso cref="SaveFileDialog.DereferenceLinks"/>
+		/// <seealso cref="FileDialog.DereferenceLinks"/>
 		public bool DereferenceLinks { get; set; }
 		
-		/// <seealso cref="SaveFileDialog.FileName"/>
+		/// <seealso cref="FileDialog.FileName"/>
 		public string FileName { get; set; }
 
-		/// <seealso cref="SaveFileDialog.FileNames"/>
+		/// <seealso cref="FileDialog.FileNames"/>
 		public string[] FileNames { get; set; }
 
-		/// <seealso cref="SaveFileDialog.Filter"/>
+		/// <seealso cref="FileDialog.Filter"/>
 		public string Filter { get; set; }
 
-		/// <seealso cref="SaveFileDialog.FilterIndex"/>
+		/// <seealso cref="FileDialog.FilterIndex"/>
 		public int FilterIndex { get; set; }
 
-		/// <seealso cref="SaveFileDialog.InitialDirectory"/>
+		/// <seealso cref="FileDialog.InitialDirectory"/>
 		public string InitialDirectory { get; set; }
 
-		/// <seealso cref="SaveFileDialog.RestoreDirectory"/>
+		/// <seealso cref="FileDialog.RestoreDirectory"/>
 		public bool RestoreDirectory { get; set; }
 		
 		/// <summary> Gets or sets the name of the safe file.
 		/// </summary>
 		/// <value>The name of the safe file.</value>
-		/// <seealso cref="SaveFileDialog.SafeFileName"/>
+		/// <seealso cref="FileDialog.SafeFileName"/>
 		public string SafeFileName { get; set; }
 		
-		/// <seealso cref="SaveFileDialog.SafeFileNames"/>
+		/// <seealso cref="FileDialog.SafeFileNames"/>
 		public string[] SafeFileNames { get; set; }
 		
-		/// <seealso cref="SaveFileDialog.Title"/>
+		/// <seealso cref="FileDialog.Title"/>
 		public string Title { get; set; }
 		
-		/// <seealso cref="SaveFileDialog.ValidateNames"/>
+		/// <seealso cref="FileDialog.ValidateNames"/>
 		public bool ValidateNames { get; set; }
 
 

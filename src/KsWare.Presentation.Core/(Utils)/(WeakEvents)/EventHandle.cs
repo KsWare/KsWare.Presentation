@@ -26,7 +26,6 @@ namespace KsWare.Presentation {
 		private WeakReference _weakEventSource;
 		private string _eventName;
 		private int _isDisposed;
-		private string _debugString;
 		private bool _doNotCallReleased;
 
 		protected EventHandle() {

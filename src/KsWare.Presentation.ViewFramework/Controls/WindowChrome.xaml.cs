@@ -21,7 +21,6 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 		const Key FullscreenHotkey = Key.F11;
 
 		private Window _window;
-		private decimal _lastF11Timestamp;
 		WindowChromeBehavior _windowChromeBehavior;
 
 		// ReSharper disable InconsistentNaming

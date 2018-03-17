@@ -21,7 +21,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets or sets a value indicating whether the property is initialized with an instance. The default ist <c>true</c>
 		/// </summary>
 		/// <value><c>true</c> automatically registered; otherwise, <c>false</c>.</value>
-		/// <remarks><see cref="CreateInstance"/> is used in <see cref="ObjectVM.RegisterChildren"/> </remarks>
+		/// <remarks><see cref="CreateInstance"/> is used in ObjectVM.RegisterChildren </remarks>
 		public bool CreateInstance { get; set; }
 
 	}

@@ -74,12 +74,12 @@ namespace KsWare.Presentation {
 ////			return handle;
 //		}
 
-		/// <summary> [EXPERIMENTAL] 
-		/// </summary>
-		/// <param name="handler"></param>
-		/// <param name="sourceObject"></param>
-		/// <param name="eventName"></param>
-		/// <returns></returns>
+//		/// <summary> [EXPERIMENTAL] 
+//		/// </summary>
+//		/// <param name="handler"></param>
+//		/// <param name="sourceObject"></param>
+//		/// <param name="eventName"></param>
+//		/// <returns></returns>
 //		public static IWeakEventHandle RegisterWeak(Delegate handler, object source, string eventName) {
 
 		internal static EventContainer RegisterWeak([NotNull] IEventSource eventSource, Delegate handler, object sourceObject, string eventName) {
@@ -225,7 +225,7 @@ namespace KsWare.Presentation {
 		/// <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
 		/// <param name="lazyEventSourceStore">The store with the lazy weak event sources.</param>
 		/// <param name="eventName">Name of the event.</param>
-		/// <param name="e">The <see cref="TEventArgs"/> instance containing the event data.</param>
+		/// <param name="e">The instance containing the event data.</param>
 		/// <example><code>WeakEventManager.Raise&gt;EventHandler,EventArgs>(LazyWeakEventStore,"MyPropertyChangedEvent", EventArgs.Empty);</code></example>
 		public static void Raise<TEventHandler,TEventArgs>(Lazy<EventSourceStore> lazyEventSourceStore, string eventName, TEventArgs e) where TEventArgs:EventArgs {
 			if(!lazyEventSourceStore.IsValueCreated) return;

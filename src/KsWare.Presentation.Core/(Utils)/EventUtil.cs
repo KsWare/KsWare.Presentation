@@ -336,7 +336,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <param name="disposedEvent">The disposed event.</param>
 		/// <param name="sender">The sender.</param>
-		/// <remarks>Internally used by <see cref="ObjectVM.Dispose">ObjectVM.Dispose</see> and <see cref="ObjectBM.Dispose">ObjectBM.Dispose</see></remarks>
+		/// <remarks>Internally used by ObjectVM.Dispose and ObjectBM.Dispose</remarks>
 		[SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
 		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 		public static void RaiseDisposedEvent(EventHandler disposedEvent, object sender) {

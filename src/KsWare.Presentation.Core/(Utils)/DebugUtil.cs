@@ -102,6 +102,7 @@ namespace KsWare.Presentation {
 
 		/// <summary> Formats a parameter if the condition is true.
 		/// </summary>
+		/// <param name="condition">The condition.</param>
 		/// <param name="parameterName">Name of the parameter.</param>
 		/// <param name="parameterValue">The function to get the parameter value</param>
 		/// <returns>System.String.</returns>
@@ -112,6 +113,7 @@ namespace KsWare.Presentation {
 
 		/// <summary> Formats a parameter if the condition is true.
 		/// </summary>
+		/// <param name="condition">The condition.</param>
 		/// <param name="parameterName">Name of the parameter.</param>
 		/// <param name="parameterValue">The parameter value.</param>
 		/// <returns>System.String.</returns>

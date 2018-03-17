@@ -163,7 +163,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 //			while (ownedWindowsInternal.Count > 0) ownedWindowsInternal[0].InternalClose(false, true);
 //			if (!this.IsOwnerNull) this.Owner.OwnedWindowsInternal.Remove(this);
 //			if (!this.IsInsideApp) return;
-			if (ApplicationVM.Current.Dispatcher.Thread == ApplicationDispatcher.CurrentDispatcher.Thread) {
+			if (ApplicationVM.Current.Dispatcher.Thread == ApplicationDispatcher.Thread) {
 				App.WindowsInternal.Remove(this);
 //				if (!this._appShuttingDown && (this.App.Windows.Count == 0 && this.App.ShutdownMode == ShutdownMode.OnLastWindowClose || this.App.MainWindow == this && this.App.ShutdownMode == ShutdownMode.OnMainWindowClose)) this.App.CriticalShutdown(0);
 //				this.TryClearingMainWindow();
@@ -299,86 +299,4 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 	}
 
-	public class DialogWindowVM : WindowVM,IDialogWindowVM {
-
-		/// <summary> Opens a window and returns only when the newly opened window is closed.
-		/// </summary>
-		/// <returns>A Nullable{T} value of type Boolean that specifies whether the activity was accepted (true) or canceled (false). The return value is the value of the DialogResult property before a window closes.</returns>
-		/// <seealso cref="Window.ShowDialog"/>
-		public bool? ShowDialog() {
-			if (!UIAccess.HasWindow) return ApplicationVM.Current.WindowsInternal.ShowDialog(this);
-			else return UIAccess.Window.ShowDialog();
-		}
-
-		/// <summary>
-		/// Gets or sets the dialog result value, which is the value that is returned from the <see cref="ShowDialog"/> method.
-		/// </summary>
-		/// <value>A System.Nullable value of type System.Boolean. The default is false.</value>
-		public bool? DialogResult { get => UIAccess.Window.DialogResult; set => UIAccess.Window.DialogResult = value; }
-
-	}
-
-	/// <summary> IWindowVM
-	/// </summary>
-	/// <see cref="System.Windows.Window"/>
-	public interface IWindowVM {
-
-		ActionVM CloseAction { get; }
-
-		void Show();
-
-//		void Close();
-	}
-
-	/// <summary> [DRAFT] IDialogWindowVM
-	/// </summary>
-	/// <see cref="System.Windows.DialogWindow"/>
-	public interface IDialogWindowVM {
-
-		ActionVM CloseAction { get; }
-
-//		ActionVM HelpAction { get; } //???
-
-		/// <summary>
-		/// Gets or sets the dialog result value, which is the value that is returned from the System.Windows.Window.ShowDialog method.
-		/// </summary>
-		/// <value>A System.Nullable value of type System.Boolean. The default is false. </value>
-		bool? DialogResult { get; set; }
-	}
-
-	/// <summary> [DRAFT] IOverlayWindowVM
-	/// </summary>
-	/// <see cref="System.Windows.Controls.Primitives.Popup"/>
-	public interface IOverlayWindowVM {
-		
-	}
-
-	public class WindowProperties {
-		public ResizeMode ResizeMode { get; set; }
-		public WindowState WindowState { get; set; }
-		public WindowStyle WindowStyle { get; set; }
-		public bool IsFullScreen { get; set; }
-
-		public void RestoreFromFullScreen(Window window, WindowState newState) {
-			window.ResizeMode=ResizeMode;
-			window.WindowStyle=WindowStyle;
-			window.WindowState=newState;
-		}
-
-		internal void RestoreFromFullScreen(Window window) {
-			window.ResizeMode=ResizeMode;
-			window.WindowStyle=WindowStyle;
-			window.WindowState=WindowState;
-		}
-
-		public static WindowProperties PrepareFullScreenRestore(Window window) {
-			return new WindowProperties {
-				IsFullScreen=false,
-				ResizeMode =window.ResizeMode,
-				WindowStyle=window.WindowStyle,
-				WindowState=window.WindowState
-			};
-		}
-
-	}
 }

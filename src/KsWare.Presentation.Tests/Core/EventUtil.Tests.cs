@@ -41,7 +41,6 @@ namespace KsWare.Presentation.Tests.Core {
 
 		public event EventHandler TestEvent;
 
-		public event EventHandler<DispatcherEventArgs> TestEvent2;
 //		public delegate void EventHandler<in TEventArgs>(object sender, TEventArgs e);
 		private void DoNothingEventHandlerEventArgs(object sender, EventArgs e) {  }
 		private void DoNothingEventHandlerDispatcherEventArgs(object sender, DispatcherEventArgs e) {  }

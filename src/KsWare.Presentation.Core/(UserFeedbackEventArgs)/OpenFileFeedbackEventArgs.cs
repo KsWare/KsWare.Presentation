@@ -23,56 +23,56 @@ namespace KsWare.Presentation {
 		/// <seealso cref="OpenFileDialog.ShowReadOnly"/>
 		public bool ShowReadOnly { get; set; }
 
-		/// <seealso cref="OpenFileDialog.AddExtension"/>
+		/// <seealso cref="FileDialog.AddExtension"/>
 		public bool AddExtension { get; set; }
 
-		/// <seealso cref="OpenFileDialog.CheckFileExists"/>
+		/// <seealso cref="FileDialog.CheckFileExists"/>
 		public bool CheckFileExists { get; set; }
 
-		/// <seealso cref="OpenFileDialog.CheckPathExists"/>
+		/// <seealso cref="FileDialog.CheckPathExists"/>
 		public bool CheckPathExists { get; set; }
 
-		/// <seealso cref="OpenFileDialog.CustomPlaces"/>
+		/// <seealso cref="FileDialog.CustomPlaces"/>
 		public IList<FileDialogCustomPlace> CustomPlaces { get; set; }
 
-		/// <seealso cref="OpenFileDialog.DefaultExt"/>
+		/// <seealso cref="FileDialog.DefaultExt"/>
 		public string DefaultExt { get; set; }
 
-		/// <seealso cref="OpenFileDialog.DereferenceLinks"/>
+		/// <seealso cref="FileDialog.DereferenceLinks"/>
 		public bool DereferenceLinks { get; set; }
 
-		/// <seealso cref="OpenFileDialog.FileName"/>
+		/// <seealso cref="FileDialog.FileName"/>
 		public string FileName { get; set; }
 
-		/// <seealso cref="OpenFileDialog.FileNames"/>
+		/// <seealso cref="FileDialog.FileNames"/>
 		public string[] FileNames { get; set; }
 
-		/// <seealso cref="OpenFileDialog.Filter"/>
+		/// <seealso cref="FileDialog.Filter"/>
 		public string Filter { get; set; }
 
-		/// <seealso cref="OpenFileDialog.FilterIndex"/>
+		/// <seealso cref="FileDialog.FilterIndex"/>
 		public int FilterIndex { get; set; }
 
-		/// <seealso cref="OpenFileDialog.InitialDirectory"/>
+		/// <seealso cref="FileDialog.InitialDirectory"/>
 		public string InitialDirectory { get; set; }
 
-		/// <seealso cref="OpenFileDialog.RestoreDirectory"/>
+		/// <seealso cref="FileDialog.RestoreDirectory"/>
 		public bool RestoreDirectory { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name of the safe file.
 		/// </summary>
 		/// <value>The name of the safe file.</value>
-		/// <seealso cref="OpenFileDialog.SafeFileName"/>
+		/// <seealso cref="FileDialog.SafeFileName"/>
 		public string SafeFileName { get; set; }
 
-		/// <seealso cref="OpenFileDialog.SafeFileNames"/>
+		/// <seealso cref="FileDialog.SafeFileNames"/>
 		public string[] SafeFileNames { get; set; }
 
-		/// <seealso cref="OpenFileDialog.Title"/>
+		/// <seealso cref="FileDialog.Title"/>
 		public string Title { get; set; }
 
-		/// <seealso cref="OpenFileDialog.ValidateNames"/>
+		/// <seealso cref="FileDialog.ValidateNames"/>
 		public bool ValidateNames { get; set; }
 
 		/// <summary> Gets or sets the dialog result.
@@ -143,7 +143,7 @@ namespace KsWare.Presentation {
 		/// <summary> Shows the dialog.
 		/// </summary>
 		/// <returns>The dialog result</returns>
-		/// <seealso cref="OpenFileDialog.ShowDialog()"/>
+		/// <seealso cref="CommonDialog.ShowDialog()"/>
 		public bool? ShowDialog() {
 			var dlg = CreateDialog();
 			var rslt = dlg.ShowDialog();

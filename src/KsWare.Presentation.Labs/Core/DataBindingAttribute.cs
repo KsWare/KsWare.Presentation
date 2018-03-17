@@ -46,7 +46,7 @@ namespace KsWare.Presentation {
 
 		Default,
 
-		/// <summary> Updates the binding source only when you call the <see cref="UpdateSource"/> method.
+		/// <summary> Updates the binding source only when you call the UpdateSource method.
 		/// </summary>
 		Explicit,
 

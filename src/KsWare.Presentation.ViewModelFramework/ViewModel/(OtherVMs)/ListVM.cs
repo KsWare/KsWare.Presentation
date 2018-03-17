@@ -71,34 +71,34 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Returns an enumerator that iterates through the collection.
 		/// </summary>
-		/// <returns> A <see cref="TItem:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection. </returns>
+		/// <returns> A <see cref="System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection. </returns>
 		/// <filterpriority>1</filterpriority>
 		public IEnumerator<TItem> GetEnumerator() { return InnerList.GetEnumerator(); }
 
 		/// <summary> Adds an item to the <see cref="ICollection{TItem}"/>.
 		/// </summary>
 		/// <param name="item">The object to add to the <see cref="ICollection{TItem}"/>.</param>
-		/// <exception cref="TItem:System.NotSupportedException">The <see cref="ICollection{TItem}"/> is read-only.</exception>
+		/// <exception cref="System.NotSupportedException">The <see cref="ICollection{TItem}"/> is read-only.</exception>
 		public void Add(TItem item)  {InsertItem(InnerList.Count,item);}
 
 		/// <summary> Adds an item to the <see cref="IList"/>.
 		/// </summary>
 		/// <returns> The position into which the new element was inserted, or -1 to indicate that the item was not inserted into the collection. </returns>
 		/// <param name="value">The object to add to the <see cref="IList"/>. </param>
-		/// <exception cref="TItem:System.NotSupportedException">The <see cref="IList"/> is read-only.-or- The <see cref="IList"/> has a fixed size. </exception>
+		/// <exception cref="System.NotSupportedException">The <see cref="IList"/> is read-only.-or- The <see cref="IList"/> has a fixed size. </exception>
 		/// <filterpriority>2</filterpriority>
 		int IList.Add(object value) { return InsertItem(InnerList.Count,(TItem) value);}
 
 		/// <summary> Determines whether the <see cref="IList"/> contains a specific value.
 		/// </summary>
-		/// <returns> true if the <see cref="TItem:System.Object"/> is found in the <see cref="IList"/>; otherwise, false. </returns>
+		/// <returns> true if the <see cref="System.Object"/> is found in the <see cref="IList"/>; otherwise, false. </returns>
 		/// <param name="value">The object to locate in the <see cref="IList"/>. </param>
 		/// <filterpriority>2</filterpriority>
 		bool IList.Contains(object value) { return Contains((TItem) value);}
 
 		/// <summary> Removes all items from the <see cref="IList"/>.
 		/// </summary>
-		/// <exception cref="TItem:System.NotSupportedException">The <see cref="IList"/> is read-only. </exception>
+		/// <exception cref="System.NotSupportedException">The <see cref="IList"/> is read-only. </exception>
 		/// <filterpriority>2</filterpriority>
 		public void Clear() {ClearItems();}
 
@@ -113,15 +113,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <param name="index">The zero-based index at which <paramref name="value"/> should be inserted. </param>
 		/// <param name="value">The object to insert into the <see cref="IList"/>. </param>
-		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="IList"/>. </exception><exception cref="TItem:System.NotSupportedException">The <see cref="IList"/> is read-only.-or- The <see cref="IList"/> has a fixed size. </exception>
-		/// <exception cref="TItem:System.NullReferenceException"><paramref name="value"/> is null reference in the <see cref="IList"/>.</exception>
+		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="IList"/>. </exception><exception cref="System.NotSupportedException">The <see cref="IList"/> is read-only.-or- The <see cref="IList"/> has a fixed size. </exception>
+		/// <exception cref="System.NullReferenceException"><paramref name="value"/> is null reference in the <see cref="IList"/>.</exception>
 		/// <filterpriority>2</filterpriority>
 		void IList.Insert(int index, object value) { Insert(index, (TItem) value); }
 
 		/// <summary> Removes the first occurrence of a specific object from the <see cref="IList"/>.
 		/// </summary>
 		/// <param name="value">The object to remove from the <see cref="IList"/>. </param>
-		/// <exception cref="TItem:System.NotSupportedException">The <see cref="IList"/> is read-only.-or- The <see cref="IList"/> has a fixed size. </exception>
+		/// <exception cref="System.NotSupportedException">The <see cref="IList"/> is read-only.-or- The <see cref="IList"/> has a fixed size. </exception>
 		/// <filterpriority>2</filterpriority>
 		void IList.Remove(object value) { Remove((TItem) value); }
 
@@ -147,7 +147,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Removes the first occurrence of a specific object from the <see cref="ICollection{TItem}"/>.
 		/// </summary>
 		/// <returns> true if <paramref name="item"/> was successfully removed from the <see cref="ICollection{TItem}"/>; otherwise, false. This method also returns false if <paramref name="item"/> is not found in the original <see cref="ICollection{TItem}"/>. </returns>
-		/// <param name="item">The object to remove from the <see cref="ICollection{TItem}"/>.</param><exception cref="TItem:System.NotSupportedException">The <see cref="ICollection{TItem}"/> is read-only.</exception>
+		/// <param name="item">The object to remove from the <see cref="ICollection{TItem}"/>.</param><exception cref="System.NotSupportedException">The <see cref="ICollection{TItem}"/> is read-only.</exception>
 		public bool Remove(TItem item) { 
 			int idx = IndexOf(item);
 			if(idx<0) return false;
@@ -157,7 +157,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Copies the elements of the <see cref="ICollection"/> to an <see cref="Array"/>, starting at a particular <see cref="Array"/> index.
 		/// </summary>
-		/// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="ICollection"/>. The <see cref="Array"/> must have zero-based indexing. </param><param name="index">The zero-based index in <paramref name="array"/> at which copying begins. </param><exception cref="TItem:System.ArgumentNullException"><paramref name="array"/> is null. </exception><exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is less than zero. </exception><exception cref="TItem:System.ArgumentException"><paramref name="array"/> is multidimensional.-or- The number of elements in the source <see cref="ICollection"/> is greater than the available space from <paramref name="index"/> to the end of the destination <paramref name="array"/>. </exception><exception cref="TItem:System.ArgumentException">The type of the source <see cref="ICollection"/> cannot be cast automatically to the type of the destination <paramref name="array"/>. </exception><filterpriority>2</filterpriority>
+		/// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="ICollection"/>. The <see cref="Array"/> must have zero-based indexing. </param><param name="index">The zero-based index in <paramref name="array"/> at which copying begins. </param><exception cref="System.ArgumentNullException"><paramref name="array"/> is null. </exception><exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is less than zero. </exception><exception cref="System.ArgumentException"><paramref name="array"/> is multidimensional.-or- The number of elements in the source <see cref="ICollection"/> is greater than the available space from <paramref name="index"/> to the end of the destination <paramref name="array"/>. </exception><exception cref="System.ArgumentException">The type of the source <see cref="ICollection"/> cannot be cast automatically to the type of the destination <paramref name="array"/>. </exception><filterpriority>2</filterpriority>
 		void ICollection.CopyTo(Array array, int index) { ((ICollection)InnerList).CopyTo(array,index); }
 
 		/// <summary> Gets the number of elements contained in the <see cref="ICollection"/>.
@@ -206,7 +206,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
 		/// <param name="item">The object to insert into the <see cref="System.Collections.Generic.IList{TItem}"/>.</param>
 		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="System.Collections.Generic.IList{TItem}"/>.</exception>
-		/// <exception cref="TItem:System.NotSupportedException">The <see cref="System.Collections.Generic.IList{TItem}"/> is read-only.</exception>
+		/// <exception cref="System.NotSupportedException">The <see cref="System.Collections.Generic.IList{TItem}"/> is read-only.</exception>
 		public void Insert(int index, TItem item) {InsertItem(index, item);}
 
 		/// <summary> Removes the <see cref="IList"/> item at the specified index.
@@ -221,7 +221,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <returns> The element at the specified index. </returns>
 		/// <param name="index">The zero-based index of the element to get or set. </param>
 		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="IList"/>. </exception>
-		/// <exception cref="TItem:System.NotSupportedException">The property is set and the <see cref="IList"/> is read-only. </exception>
+		/// <exception cref="System.NotSupportedException">The property is set and the <see cref="IList"/> is read-only. </exception>
 		/// <filterpriority>2</filterpriority>
 		object IList.this[int index]{get => GetItem(index); set => ReplaceItem(index, (TItem) value); }
 
@@ -229,12 +229,12 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <returns> The element at the specified index. </returns>
 		/// <param name="index">The zero-based index of the element to get or set.</param><exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is not a valid index in the <see cref="System.Collections.Generic.IList{TItem}"/>.</exception>
-		/// <exception cref="TItem:System.NotSupportedException">The property is set and the <see cref="System.Collections.Generic.IList{TItem}"/> is read-only.</exception>
+		/// <exception cref="System.NotSupportedException">The property is set and the <see cref="System.Collections.Generic.IList{TItem}"/> is read-only.</exception>
 		public TItem this[int index] {get => GetItem(index); set => ReplaceItem(index, value); }
 
 		/// <summary> Returns an enumerator that iterates through a collection.
 		/// </summary>
-		/// <returns> An <see cref="TItem:System.Collections.IEnumerator"/> object that can be used to iterate through the collection. </returns>
+		/// <returns> An <see cref="System.Collections.IEnumerator"/> object that can be used to iterate through the collection. </returns>
 		/// <filterpriority>2</filterpriority>
 		IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
 

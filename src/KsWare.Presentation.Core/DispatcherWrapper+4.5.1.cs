@@ -63,12 +63,12 @@ namespace KsWare.Presentation {
 		event EventHandler ShutdownFinished;
 
 		/// <summary>
-		/// Tritt ein, wenn eine Threadausnahme ausgelöst und nicht abgefangen wird, während ein Delegat mit <see cref="Overload:System.Windows.Threading.Dispatcher.Invoke"/> oder <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> ausgeführt wird und sich in der Filterstufe befindet.
+		/// Tritt ein, wenn eine Threadausnahme ausgelöst und nicht abgefangen wird, während ein Delegat mit <see cref="o:System.Windows.Threading.Dispatcher.Invoke"/> oder <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> ausgeführt wird und sich in der Filterstufe befindet.
 		/// </summary>
 		event DispatcherUnhandledExceptionFilterEventHandler UnhandledExceptionFilter;
 
 		/// <summary>
-		/// Tritt ein, wenn eine Threadausnahme ausgelöst und während der Ausführung eines Delegaten mit <see cref="Overload:System.Windows.Threading.Dispatcher.Invoke"/> oder <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> nicht abgefangen wird.
+		/// Tritt ein, wenn eine Threadausnahme ausgelöst und während der Ausführung eines Delegaten mit <see cref="o:System.Windows.Threading.Dispatcher.Invoke"/> oder <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> nicht abgefangen wird.
 		/// </summary>
 		event DispatcherUnhandledExceptionEventHandler UnhandledException;
 
@@ -107,7 +107,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// 
 		/// <returns>
-		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
+		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
 		/// </returns>
 		/// <param name="priority">Die Priorität, relativ zu den anderen anstehenden Operationen in der <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange, mit der die angegebene Methode aufgerufen wird.</param><param name="method">Der Delegat zu einer Methode, die keine Argumente erwartet und in die <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange gestellt wird.</param><exception cref="T:System.ArgumentNullException"><paramref name="method"/> ist null.</exception><exception cref="T:System.ComponentModel.InvalidEnumArgumentException"><paramref name="priority"/> ist kein gültiger <see cref="T:System.Windows.Threading.DispatcherPriority"/>.</exception>
 		[Browsable(false)]
@@ -120,7 +120,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// 
 		/// <returns>
-		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
+		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
 		/// </returns>
 		/// <param name="priority">Die Priorität, relativ zu den anderen anstehenden Operationen in der <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange, mit der die angegebene Methode aufgerufen wird.</param><param name="method">Ein Delegat zu einer Methode, die ein Argument erwartet und in die <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange gestellt wird.</param><param name="arg">Das Objekt, das als Argument an die angegebene Methode übergeben wird.</param><exception cref="T:System.ArgumentNullException"><paramref name="method"/> ist null.</exception><exception cref="T:System.ComponentModel.InvalidEnumArgumentException"><paramref name="priority"/> ist kein gültiger <see cref="T:System.Windows.Threading.DispatcherPriority"/>.</exception>
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -133,7 +133,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// 
 		/// <returns>
-		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der <see cref="T:System.Windows.Threading.Dispatcher"/>-Warteschlange steht.
+		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der <see cref="T:System.Windows.Threading.Dispatcher"/>-Warteschlange steht.
 		/// </returns>
 		/// <param name="priority">Die Priorität, relativ zu den anderen anstehenden Operationen in der <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange, mit der die angegebene Methode aufgerufen wird.</param><param name="method">Ein Delegat zu einer Methode, die mehrere Argumente erwartet und in die <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange gestellt wird.</param><param name="arg">Das Objekt, das als Argument an die angegebene Methode übergeben wird.</param><param name="args">Ein Array von Objekten, die als Argumente an die angegebene Methode übergeben werden sollen.</param><exception cref="T:System.ArgumentNullException"><paramref name="method"/> ist null.</exception><exception cref="T:System.ComponentModel.InvalidEnumArgumentException"><see cref="T:System.Windows.Threading.DispatcherPriority"/> ist keine gültige Priorität.</exception>
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -145,7 +145,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// 
 		/// <returns>
-		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
+		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
 		/// </returns>
 		/// <param name="method">Der Delegat für eine Methode, die in <paramref name="args"/> angegebene Parameter akzeptiert und in die <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange gestellt wird.</param><param name="args">Ein Array von Objekten, die als Argumente an die angegebene Methode übergeben werden sollen. Kann null sein.</param>
 		[TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
@@ -156,7 +156,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// 
 		/// <returns>
-		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="Overload:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
+		/// Ein Objekt, das unmittelbar nach dem Aufruf von <see cref="o:System.Windows.Threading.Dispatcher.BeginInvoke"/> zurückgegeben wird und für die Interaktion mit dem Delegaten verwendet werden kann, während im Delegaten die Ausführung einer Aufgabe in der Warteschlange steht.
 		/// </returns>
 		/// <param name="method">Der Delegat für eine Methode, die in <paramref name="args"/> angegebene Parameter akzeptiert und in die <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange gestellt wird.</param><param name="priority">Die Priorität, relativ zu den anderen anstehenden Operationen in der <see cref="T:System.Windows.Threading.Dispatcher"/>-Ereigniswarteschlange, mit der die angegebene Methode aufgerufen wird.</param><param name="args">Ein Array von Objekten, die als Argumente an die angegebene Methode übergeben werden sollen. Kann null sein.</param>
 		[TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
