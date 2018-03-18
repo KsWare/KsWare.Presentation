@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.WeakEve
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5DE1F59B-26E6-4C82-AA54-E27781BF0088}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docu", "Docu", "{C9980D44-9BB9-40E9-9B95-16B0B0C50313}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Testing", "KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj", "{48BD0342-2458-44F5-A3BB-1405A56EFAF4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{F7A61450-8E62-44BF-9E51-148495AF00A9}"
@@ -20,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		nuget\create nuget packet.cmd = nuget\create nuget packet.cmd
 		KsWare.Presentation.Solution\History.txt = KsWare.Presentation.Solution\History.txt
 		KsWare.Presentation.Solution\packages.txt = KsWare.Presentation.Solution\packages.txt
-		README.md = README.md
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Tests.Runner", "KsWare.Presentation.Tests.Runner\KsWare.Presentation.Tests.Runner.csproj", "{32B05328-CC4D-4909-89AA-72DB78FAC651}"

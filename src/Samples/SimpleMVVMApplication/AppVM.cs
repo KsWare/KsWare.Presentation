@@ -1,6 +1,6 @@
 ﻿using KsWare.Presentation.ViewModelFramework;
 
-namespace KsWare.Presentation {
+namespace SimpleMVVMApplication {
 
 	public class AppVM : ApplicationVM {
 

@@ -1,8 +1,7 @@
 ﻿using System;
-using JetBrains.Annotations;
 using KsWare.Presentation.ViewModelFramework;
 
-namespace KsWare.Presentation {
+namespace SimpleMVVMApplication {
 
 	public class MainWindowVM : WindowVM {
 

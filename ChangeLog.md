@@ -1,4 +1,7 @@
 # 0.18
+- BackingFieldStore extended
+- add ObservableDictionary
+- Sample application moved
 # 0.18.5
 - remove KsWare.JsonFx
 - remove KsWare.Presentation.Compatibility40

@@ -213,3 +213,4 @@ ModelManifest.xml
 *.nupkg
 .vs/
 /src/packages
+/src/Samples/packages/JetBrains.Annotations.11.1.0/lib
