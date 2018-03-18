@@ -1,4 +1,5 @@
 # 0.18
+# 0.18.11
 - BackingFieldStore extended
 - add ObservableDictionary
 - Sample application moved
