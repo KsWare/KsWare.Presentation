@@ -212,3 +212,4 @@ ModelManifest.xml
 /src/KsWare.Presentation.Solution/packages
 *.nupkg
 .vs/
+/src/packages

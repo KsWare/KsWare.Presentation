@@ -65,7 +65,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\KsWare.Presentation.Solution\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -158,13 +158,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Documentation\Changes.txt" />
+    <None Include="Documentation\Changes.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Documentation\TODO.txt" />
+    <None Include="Documentation\TODO.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="%28.docs%29\notes.txt" />
+    <None Include="%28.docs%29\notes.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Diagnostics\" />

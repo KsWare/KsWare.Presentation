@@ -100,6 +100,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		public T MinValue{get => Fields.GetValue<T>(); set => Fields.SetValue(value); }
+
 		public T MaxValue{get => Fields.GetValue<T>(); set => Fields.SetValue(value); }
 	}
 

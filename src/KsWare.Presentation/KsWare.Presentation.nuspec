@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+  <metadata>
+    <id>KsWare.Presentation</id>
+    <version>$version$</version>
+    <title>KsWare.Presentation</title>
+    <authors>KsWare</authors>
+    <owners>KsWare</owners>
+    <licenseUrl>https://github.com/KsWare/KsWare.Presentation/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/KsWare/KsWare.Presentation</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/KsWare/KsWare.Presentation/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A MVVM framework.</description>
+    <developmentDependency>false</developmentDependency>
+    <releaseNotes>https://raw.githubusercontent.com/KsWare/KsWare.Presentation/master/ChangeLog.md</releaseNotes>
+    <copyright>© 2002-2018 by KsWare. All rights reserved.</copyright>
+    <tags>dotnet WPF MVVM library KsWare</tags>
+  </metadata>
+     <files>
+		<file src="..\..\ChangeLog.md" target="lib\ChangeLog.md" />
+<!--	<file src="..\..\LICENCE" target="lib\LICENCE" /> -->
+	</files>
+</package>
