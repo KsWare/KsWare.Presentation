@@ -82,11 +82,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="%28BackingFieldsStore%29\%28FieldBindings%29\FieldBinding.cs" />
+    <Compile Include="%28BackingFieldsStore%29\%28FieldBindings%29\FieldBindingOperations.cs" />
+    <Compile Include="%28BackingFieldsStore%29\%28FieldBindings%29\BackingFieldsStoreExtensions.cs" />
     <Compile Include="%28BackingFieldsStore%29\%28LazyFields%29\BackingFieldsStore+LazyAttribute.cs" />
     <Compile Include="%28BackingFieldsStore%29\%28LazyFields%29\BackingFieldsStore+IValueFactory.cs" />
     <Compile Include="%28BackingFieldsStore%29\%28LazyFields%29\BackingFieldsStore~LazyFields.cs" />
     <Compile Include="%28BackingFieldsStore%29\BackingFieldsStore+BackingFieldInfo.cs" />
     <Compile Include="%28BackingFieldsStore%29\BackingFieldsStore+EventHandlerInfo.cs" />
+    <Compile Include="Converter\PassThroughConverter.cs" />
+    <Compile Include="Converter\TypeConverter.cs" />
     <Compile Include="Documentation\docːFeatured.cs" />
     <Compile Include="%28Attributes%29\AnnotationAttribute.cs" />
     <Compile Include="%28Attributes%29\DefaultViewAttribute.cs" />

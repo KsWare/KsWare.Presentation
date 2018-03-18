@@ -55,7 +55,7 @@ namespace KsWare.Presentation.DataVirtualization {
 
 		public string GetComponentName() { return TypeDescriptor.GetComponentName(this); }
 
-		public TypeConverter GetConverter() { return TypeDescriptor.GetConverter(typeof (T)); }
+		public System.ComponentModel.TypeConverter GetConverter() { return TypeDescriptor.GetConverter(typeof (T)); }
 
 		public EventDescriptor GetDefaultEvent() { return TypeDescriptor.GetDefaultEvent(typeof (T)); }
 

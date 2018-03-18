@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using KsWare.Presentation.ViewModelFramework;
 
 namespace SimpleMVVMApplication {

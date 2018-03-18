@@ -2,6 +2,8 @@
 - BackingFieldStore extended
 - add ObservableDictionary
 - Sample application moved
+- add SharedResourceDictionary
+- add FieldBindings
 # 0.18.5
 - remove KsWare.JsonFx
 - remove KsWare.Presentation.Compatibility40
