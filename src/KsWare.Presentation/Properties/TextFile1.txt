@@ -1,7 +1,0 @@
-﻿
-Behavior->
-System.Windows.Interactivity.dll
-The Expression Blend SDK for .NET 4 (WPF)
-http://www.microsoft.com/en-us/download/details.aspx?id=10801
-BlendWPFSDK_en.msi
-C:\Program Files\Microsoft SDKs\Expression\Blend\.NETFramework\v4.0\Libraries\System.Windows.Interactivity.dll
