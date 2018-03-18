@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("0.18.0")]
 [assembly: AssemblyFileVersion("0.18.0")]
-[assembly: AssemblyInformationalVersion("0.18.0+20180318035925")]
+[assembly: AssemblyInformationalVersion("0.18.0+20180318040829")]
 
 // namespace must equal to assembly name
 // ReSharper disable once CheckNamespace

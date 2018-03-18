@@ -35,7 +35,7 @@ using System.Windows.Markup;
 // [assembly: AssemblyVersion("0.18.0")]
 [assembly: AssemblyVersion("0.18.0")]
 [assembly: AssemblyFileVersion("0.18.0")]
-[assembly: AssemblyInformationalVersion("0.18.0+20180318035925")]
+[assembly: AssemblyInformationalVersion("0.18.0+20180318040829")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
