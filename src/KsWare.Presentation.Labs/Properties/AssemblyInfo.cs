@@ -16,9 +16,9 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("b2428431-ad89-4221-8b7c-4109afa93690")]
 
-[assembly: AssemblyVersion("0.18.9")]
-[assembly: AssemblyFileVersion("0.18.9")]
-[assembly: AssemblyInformationalVersion("0.18.9+20180318125738")]
+[assembly: AssemblyVersion("0.18.10")]
+[assembly: AssemblyFileVersion("0.18.10")]
+[assembly: AssemblyInformationalVersion("0.18.10+20180318143628")]
 
 // namespace must equal to assembly name
 // ReSharper disable once CheckNamespace
