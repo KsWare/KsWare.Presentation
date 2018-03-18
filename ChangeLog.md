@@ -1,5 +1,5 @@
 # 0.18
-# 0.18.4
+# 0.18.5
 - remove KsWare.JsonFx
 - remove KsWare.Presentation.Compatibility40
 - add KsWare.Presentation.Themes to NuGet package
