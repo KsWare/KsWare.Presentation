@@ -139,7 +139,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			//this.Dispatcher.UnhandledException+=
 			//this.Dispatcher.UnhandledExceptionFilter+=
 
-			Fields[_=>CurrentCulture].ValueChanged+= delegate {
+			Fields[nameof(CurrentCulture)].ValueChanged+= delegate {
 				Dispatcher.Thread.CurrentCulture = CurrentCulture;
 				Dispatcher.Thread.CurrentUICulture = CurrentCulture;
 			};	

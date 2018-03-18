@@ -210,7 +210,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			public UIAccessClass() {
 				Fields=new BackingFieldsStore(this,OnPropertyChanged);
-				Fields[_=>Window].ValueChanged+=(s,e) => EventUtil.Raise(WindowChanged,this, new ValueChangedEventArgs<Window>((Window) e.PreviousValue,(Window) e.NewValue),"{5AC93EA1-BB23-49CE-86F4-7DA533825945}");
+				Fields[nameof(Window)].ValueChanged+=(s,e) => EventUtil.Raise(WindowChanged,this, new ValueChangedEventArgs<Window>((Window) e.PreviousValue,(Window) e.NewValue),"{5AC93EA1-BB23-49CE-86F4-7DA533825945}");
 			}
 
 			/// <summary> Gets or sets a value indicating whether direct UI access is enabled.

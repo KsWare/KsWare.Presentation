@@ -377,7 +377,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		public void DoWhenInitialized(Action action) {
 			if (IsInitialized) action();
-			else Fields[_=>IsInitialized].ValueChanged+=(s,e) => action();
+			else Fields[nameof(IsInitialized)].ValueChanged+=(s,e) => action();
 		}
 	}
 

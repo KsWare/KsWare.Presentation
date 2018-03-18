@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -12,7 +11,9 @@ namespace KsWare.Presentation {
 
 	public sealed partial class BackingFieldsStore:IDisposable {
 
-		private static readonly Dictionary<Type,Dictionary<string, Type>> s_TypesDic = new Dictionary<Type,Dictionary<string, Type>>();
+		// TODO Binding to a Field is not working if the field does not yet exist because _fields Dictionary is not observable.
+
+		private static readonly Dictionary<Type,Dictionary<string, Type>> TypesDictionary = new Dictionary<Type,Dictionary<string, Type>>();
 
 		private int _isDisposed;
 		private object _owner;
@@ -21,14 +22,13 @@ namespace KsWare.Presentation {
 		private bool _readOnlyCollection = false;
 
 		public BackingFieldsStore([NotNull] object owner, Action<string> propertyChangedCallback) {
-			if(owner==null) throw new ArgumentNullException(nameof(owner));
+			_owner = owner ?? throw new ArgumentNullException(nameof(owner));
 
-			_owner = owner;
 			_propertyChangedCallback = propertyChangedCallback;
 
 			var ownerType = _owner.GetType();
 
-			if (!s_TypesDic.ContainsKey(owner.GetType())) {
+			if (!TypesDictionary.ContainsKey(owner.GetType())) {
 				var propertyInfos = _owner.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic );
 				var typeDic = new Dictionary<string, Type>();
 				foreach (var propertyInfo in propertyInfos) {
@@ -42,35 +42,60 @@ namespace KsWare.Presentation {
 					typeDic.Add(name,type);
 					
 				}
-				s_TypesDic.Add(ownerType,typeDic);
+				TypesDictionary.Add(ownerType,typeDic);
 			}
 			{
-				var typeDic = s_TypesDic[ownerType];
+				var typeDic = TypesDictionary[ownerType];
 				foreach (var entry in typeDic) {
 					var name = entry.Key;
 					var type = entry.Value;
 					var value = type.IsValueType ? Activator.CreateInstance(type) : null;
-					_fields.Add(name, new BackingFieldInfo {
-						Value = value,
-						Type = type,
-					});
+					var field = new BackingFieldInfo(name, type, value, this);
+					_fields.Add(name, field);
 				}
 			}
 		}
 
+		/// <summary>
+		/// Gets the owner of this instance.
+		/// </summary>
+		/// <value>The owner.</value>
+		/// <remarks>If used in KsWare.PresentationFramework is it the ObjectVM or ObjectBM.</remarks>
 		public object Owner => _owner;
 
-		public BackingFieldInfo this[Expression<Func<object, object>> memberExpression] => _fields[MemberNameUtil.GetPropertyName(memberExpression)];
+		[Obsolete("Use overload.",true)]
+		public IBackingFieldInfo this[Expression<Func<object, object>> memberExpression] => _fields[MemberNameUtil.GetPropertyName(memberExpression)];
 
-		public BackingFieldInfo this[Expression<Func<object>> memberExpression] => _fields[MemberNameUtil.GetPropertyName(memberExpression)];
+		[Obsolete("Use overload.", true)]
+		public IBackingFieldInfo this[Expression<Func<object>> memberExpression] => _fields[MemberNameUtil.GetPropertyName(memberExpression)];
 
-		public BackingFieldInfo this[string name] => _fields[name];
+		/// <summary>
+		/// Gets the <see cref="BackingFieldInfo"/> with the specified name.
+		/// </summary>
+		/// <param name="fieldName">The name of the field</param>
+		/// <returns>The <see cref="BackingFieldInfo"/>.</returns>
+		/// <example>
+		/// Gets the MyBool field. 
+		/// <code language="C#">
+		/// Fields[nameof(MyBool)]
+		/// </code>
+		/// </example>
+		public IBackingFieldInfo this[string fieldName] => _fields[fieldName];
 
-		public void Add<T>(string name, T value=default(T)) { AddCore<T>(name); }
+		/// <summary>
+		/// Adds a field with the specified name.
+		/// </summary>
+		/// <typeparam name="T">The type of the field.</typeparam>
+		/// <param name="fieldName">Name of the field.</param>
+		/// <param name="value">The value.</param>
+		public void Add<T>(string fieldName, T value=default(T)) { AddCore<T>(fieldName); }
 
+		[Obsolete("Use overload.", true)]
 		public void Add<T>(Expression<Func<object, T>> memberExpression, T value=default(T)) {
 			Add(MemberNameUtil.GetPropertyName(memberExpression),value);
 		}
+
+		[Obsolete("Use overload.", true)]
 		public void Add<T>(Expression<Func<T>> memberExpression, T value=default(T)) {
 			Add(MemberNameUtil.GetPropertyName(memberExpression),value);
 		}
@@ -78,12 +103,13 @@ namespace KsWare.Presentation {
 		private void AddCore<T>(string name, T value = default(T)) {
 			if(_readOnlyCollection) throw new InvalidOperationException("The BackingFieldStore is read-only!");
 			if(_fields.ContainsKey(name)) throw new InvalidOperationException("The BackingFieldStore already contains a item with name'"+name+"'!");
-			_fields.Add(name, new BackingFieldInfo{Value = value,Type = typeof(T)});
+			var field = new BackingFieldInfo(name, typeof(T), value, this);
+			_fields.Add(name, field);
 			OnPropertyChanged(name,default(T),value);
 		}
 
 		[Obsolete("Use SetValue", true)]
-		public void Set<T>(string name, T value) { SetInternal(name,value); }
+		public void Set<T>(string name, T value) { SetValueInternal(name,value); }
 
 
 		/// <summary>
@@ -92,7 +118,7 @@ namespace KsWare.Presentation {
 		/// <typeparam name="T">The type of the field</typeparam>
 		/// <param name="value">The value.</param>
 		/// <param name="name">The field name.</param>
-		public void SetValue<T>(T value, [CallerMemberName] string name=null) { SetInternal(name,value); }
+		public void SetValue<T>(T value, [CallerMemberName] string name=null) { SetValueInternal(name,value); }
 
 //		Search:		Fields\.Set\((\(\)|_)\s*=>\s*(\w+),
 //		Replace:	Fields.Set("$2",
@@ -101,7 +127,7 @@ namespace KsWare.Presentation {
 //		public void Set<T>(Expression<Func<T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
 
 		public void SetAndRaise<T>(string propertyName, T value, Action<T> changedCallback) {
-			if (SetInternal(propertyName, value)) 
+			if (SetValueInternal(propertyName, value)) 
 				changedCallback(value);
 		}
 
@@ -115,20 +141,28 @@ namespace KsWare.Presentation {
 //				changedCallback(value);
 //		}
 
-		private bool SetInternal<T>(string name, T value) {
-			const bool bChanged=true;const bool bNotChanged = false;
+		private bool SetValueInternal<T>(string name, T value) {
+			BackingFieldInfo field;
 			if (!_fields.ContainsKey(name)) {
-				_fields.Add(name, new BackingFieldInfo{Value = value,Type = typeof(T)});
-				OnPropertyChanged(name,default(T),value);
-				return bChanged;
-			} 
-			if (Equals(_fields[name].Value, value)) return bNotChanged;
-			var prev = _fields[name].Value;
-			_fields[name].Value = value;
-			OnPropertyChanged(name,prev,value);
-			return bChanged;
+				field = new BackingFieldInfo(name, typeof(T), this);
+				_fields.Add(name, field);
+			}
+			else {
+				field = _fields[name];
+			}
+			var previousValue = field.Value;
+			if(!field.SetValue(this, value)) return false;
+			OnPropertyChanged(name, previousValue, value);
+			return true;
 		}
 
+		/// <summary>
+		/// [SPECIAL] Called by Field.Value {set;}
+		/// </summary>
+		private void SetValueInternal<T>(BackingFieldInfo field, T value, T previousValue) {
+			if (!field.SetValue(this, value)) return;
+			OnPropertyChanged(field.Name, previousValue, value);
+		}
 
 		/// <summary> Gets the value for the property with the specified name.
 		/// </summary>
@@ -230,7 +264,6 @@ namespace KsWare.Presentation {
 //			item.Dispose();
 //		}
 
-
 		private void Dispose(bool explicitDispose ) {
 			if (explicitDispose) {
 				if(Interlocked.Exchange(ref _isDisposed,1)!=0) return;
@@ -246,143 +279,6 @@ namespace KsWare.Presentation {
 			Dispose(true);
 			//not required: GC.SuppressFinalize(this);
 		}
-
-		// ###
-
-		public class BackingFieldInfo:IDisposable {
-//			public string Name { get; set; }
-			public Type Type { get; set; }
-//			public object DefaultValue { get; set; }
-//			public bool CanWrite { get; set; }
-			public object Value { get; set; }
-			internal List<EventHandlerInfo> EventHandlers=new List<EventHandlerInfo>();
-			internal Lazy<EventSourceStore> LazyWeakEventProperties;
-
-			public BackingFieldInfo() {
-				LazyWeakEventProperties = new Lazy<EventSourceStore>(() => new EventSourceStore(this));
-			}
-
-			public event EventHandler<ValueChangedEventArgs> ValueChanged {
-				add {lock (EventHandlers) {EventHandlers.Add(new EventHandlerInfo(this, value));}}
-				remove {lock (EventHandlers) {var item = EventHandlers.First(x=>x.PropertyChangedEventHandler==value);item.Dispose();}}
-			}
-
-			[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-			public IEventSource<EventHandler<ValueChangedEventArgs>> ValueChangedEvent => LazyWeakEventProperties.Value.Get<EventHandler<ValueChangedEventArgs>>("ValueChangedEvent");
-
-			public void Dispose() {
-				foreach (var eventHandlerInfo in EventHandlers) eventHandlerInfo.Dispose();
-				EventHandlers = null;
-				if (LazyWeakEventProperties.IsValueCreated) LazyWeakEventProperties.Value.Dispose();
-				LazyWeakEventProperties = null;
-			}
-		}
-
-		internal class EventHandlerInfo:IDisposable {
-
-			private BackingFieldInfo _fieldInfo;
-
-			public EventHandlerInfo(BackingFieldInfo fieldInfo, EventHandler<ValueChangedEventArgs> propertyChangedEventHandler) {
-				_fieldInfo = fieldInfo;
-				PropertyChangedEventHandler = propertyChangedEventHandler;
-			}
-
-			public EventHandler<ValueChangedEventArgs> PropertyChangedEventHandler { get; private set; }
-
-			public void Dispose() {
-				lock (_fieldInfo.EventHandlers) {
-					_fieldInfo.EventHandlers.Remove(this);
-				}
-				_fieldInfo = null;
-			}
-		}
 	}
 
-	// Lazy support
-	partial class BackingFieldsStore {
-
-
-		public void AddLazy<TValue>(string propertyName, Lazy<TValue> lazy) {
-			AddCore(propertyName,lazy);
-		}
-
-//		public void AddLazy<T>(Expression<Func<object, T>> propertyExpression, Lazy<object> lazy) {
-//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-//			AddCore(name,lazy);
-//		}
-//
-//		public void AddLazy<T>(Expression<Func<T>> propertyExpression, Lazy<object> lazy) {
-//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-//			AddCore(name,lazy);
-//		}
-
-		public TValue GetLazy<TValue>(string propertyName) {
-			return (TValue)GetInternal<Lazy<TValue>>(propertyName,default(Lazy<TValue>)).Value;
-		}
-
-//		public TValue GetLazy<TValue>(Expression<Func<object,TValue>> propertyExpression) {
-//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-//			return (TValue)GetInternal<Lazy<object>>(name,default(TValue)).Value;
-//		}
-//
-//		public TValue GetLazy<TValue>(Expression<Func<TValue>> propertyExpression) {
-//			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-//			return (TValue)GetInternal<Lazy<object>>(name).Value;
-//		}
-
-		/// <summary> Gets the specified property. When lazy initialization occurs, the specified initialization function is used.
-		/// </summary>
-		/// <typeparam name="TRet">The type of the return value.</typeparam>
-		/// <param name="propertyExpression">The property expression.</param>
-		/// <param name="valueFactory">The delegate that is invoked to produce the lazily initialized value when it is needed.</param>
-		/// <returns>The value</returns>
-		/// <exception cref="System.Collections.Generic.KeyNotFoundException"></exception>
-		public TRet Get<TRet>([NotNull]Expression<Func<object,TRet>> propertyExpression, [NotNull]Func<TRet> valueFactory) {
-			if (valueFactory == null) throw new ArgumentNullException(nameof(valueFactory));
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			if (!_fields.ContainsKey(name)) {
-				if (_readOnlyCollection) throw new KeyNotFoundException();
-				var value = valueFactory();
-				AddCore(name,value);
-				if(Equals(value,default(TRet))) OnPropertyChanged(name,default(TRet),value);
-			}
-			return (TRet)_fields[name].Value;	
-		}
-
-		/// <summary> Gets the specified property. When lazy initialization occurs, the specified initialization function is used.
-		/// </summary>
-		/// <typeparam name="TRet">The type of the return value.</typeparam>
-		/// <param name="propertyExpression">The property expression.</param>
-		/// <param name="valueFactory">The delegate that is invoked to produce the lazily initialized value when it is needed.</param>
-		/// <returns>The value</returns>
-		/// <exception cref="System.Collections.Generic.KeyNotFoundException"></exception>
-		public TRet Get<TRet>([NotNull]Expression<Func<TRet>> propertyExpression, [NotNull]Func<TRet> valueFactory) {
-			if (valueFactory == null) throw new ArgumentNullException(nameof(valueFactory));
-			var name = MemberNameUtil.GetPropertyName(propertyExpression);
-			if (!_fields.ContainsKey(name)) {
-				if (_readOnlyCollection) throw new KeyNotFoundException();
-				var value = valueFactory();
-				AddCore(name,value);
-				if(Equals(value,default(TRet))) OnPropertyChanged(name,default(TRet),value);
-			}
-			return (TRet)_fields[name].Value;	
-		}
-
-
-		private LazyAttribute GetLazyAttribute(PropertyInfo propertyInfo) { return propertyInfo.GetCustomAttributes(typeof (LazyAttribute), false).Cast<LazyAttribute>().FirstOrDefault(); }
-
-		public sealed class LazyAttribute : Attribute {
-
-			public LazyAttribute(Type valueFactory) {
-				ValueFactory = valueFactory;
-			}
-
-			public Type ValueFactory { get; set; }
-		}
-
-		public interface IValueFactory {
-			object CreateInstance(Type type, BackingFieldsStore store);
-		}
-	}
-	
 }

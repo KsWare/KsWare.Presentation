@@ -82,6 +82,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="%28BackingFieldsStore%29\%28LazyFields%29\BackingFieldsStore+LazyAttribute.cs" />
+    <Compile Include="%28BackingFieldsStore%29\%28LazyFields%29\BackingFieldsStore+IValueFactory.cs" />
+    <Compile Include="%28BackingFieldsStore%29\%28LazyFields%29\BackingFieldsStore~LazyFields.cs" />
+    <Compile Include="%28BackingFieldsStore%29\BackingFieldsStore+BackingFieldInfo.cs" />
+    <Compile Include="%28BackingFieldsStore%29\BackingFieldsStore+EventHandlerInfo.cs" />
     <Compile Include="Documentation\docːFeatured.cs" />
     <Compile Include="%28Attributes%29\AnnotationAttribute.cs" />
     <Compile Include="%28Attributes%29\DefaultViewAttribute.cs" />
@@ -125,13 +130,14 @@
     <Compile Include="%28Utils%29\EventUtil.cs" />
     <Compile Include="%28Utils%29\MemberAccessUtil.cs" />
     <Compile Include="%28Utils%29\MemberNameUtil.cs" />
-    <Compile Include="BackingFieldsStore.cs" />
+    <Compile Include="%28BackingFieldsStore%29\BackingFieldsStore.cs" />
     <Compile Include="DependencyPropertyChangeNotifier.cs" />
     <Compile Include="DispatcherWrapper+4.0.cs" />
     <Compile Include="DispatcherWrapper+4.5.1.cs" />
     <Compile Include="DispatcherWrapper.cs" />
     <Compile Include="ExceptionManager.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Providers\CustomDataProvider.cs" />
     <Compile Include="Providers\CustomListLogicProvider.cs" />
     <Compile Include="Providers\DataChangedEventArgs.cs" />
