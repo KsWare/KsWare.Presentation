@@ -1,4 +1,9 @@
 # 0.18
+# 0.18.4
+- remove KsWare.JsonFx
+- remove KsWare.Presentation.Compatibility40
+- add KsWare.Presentation.Themes to NuGet package
+- add KsWare.Presentation.Themes.Aero2Fix to NuGet package
 # 0.18.2
 - cleanup old methods
 - Remove support for .NET Framework 4.0
