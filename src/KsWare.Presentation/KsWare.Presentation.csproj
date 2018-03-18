@@ -112,6 +112,14 @@
       <Project>{b2428431-ad89-4221-8b7c-4109afa93690}</Project>
       <Name>KsWare.Presentation.Labs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Themes.Aero2Fix\KsWare.Presentation.Themes.Aero2Fix.csproj">
+      <Project>{0e361651-6cd2-4809-b6d1-8bbc185b1940}</Project>
+      <Name>KsWare.Presentation.Themes.Aero2Fix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Themes\KsWare.Presentation.Themes.csproj">
+      <Project>{1a8f63b3-a873-4e50-9064-48708330d99c}</Project>
+      <Name>KsWare.Presentation.Themes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj">
       <Project>{480179c9-c018-4515-8b83-44e21112887d}</Project>
       <Name>KsWare.Presentation.ViewFramework</Name>
