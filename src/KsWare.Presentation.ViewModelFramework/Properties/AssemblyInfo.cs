@@ -17,9 +17,9 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 [assembly: Guid("e45e9672-0236-47fc-9ade-5fef5cdfc7ae")]
 
-[assembly: AssemblyVersion("0.18.6")]
-[assembly: AssemblyFileVersion("0.18.6")]
-[assembly: AssemblyInformationalVersion("0.18.6+20180318105538")]
+[assembly: AssemblyVersion("0.18.7")]
+[assembly: AssemblyFileVersion("0.18.7")]
+[assembly: AssemblyInformationalVersion("0.18.7+20180318113008")]
 
 [assembly: XmlnsDefinition(KsWare.Presentation.ViewModelFramework.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewModelFramework")]
 [assembly: XmlnsPrefix("http://ksware.de/Presentation/ViewModelFramework", "ksvm")]
