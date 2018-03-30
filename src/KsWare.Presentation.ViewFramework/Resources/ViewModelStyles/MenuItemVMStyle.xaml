@@ -9,7 +9,7 @@
 	<!-- use in Menu.ItemContainerStyle/ContextMenu.ItemContainerStyle -->
 
 	<Style x:Key="MenuItemVMStyle" TargetType="MenuItem">
-		<d:Style.DataContext><d:DesignInstance Type="{x:Type ksvm:MenuItemVM}"></d:DesignInstance></d:Style.DataContext>
+		<d:Style.DataContext><x:Type Type="ksvm:MenuItemVM"></x:Type></d:Style.DataContext>
 		<Setter Property="ItemsSource" Value="{Binding Items}" />
 		<Setter Property="Header" Value="{Binding Caption}" />
 		<Setter Property="Command" Value="{Binding CommandAction}" />

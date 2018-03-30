@@ -1,4 +1,5 @@
 # 0.18
+- add ViewModelStylesResources
 # 0.18.15 (2018-03-30)
 - add MenuItemVM
 - add MenuItemVMStyle

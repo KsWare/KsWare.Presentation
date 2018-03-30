@@ -105,6 +105,7 @@
     <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
     <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
     <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
+    <Compile Include="Resources\ViewModelStylesResources.cs" />
     <Compile Include="SetterTriggerCollection.cs" />
     <Compile Include="DesigntimeResourceDictionary.cs" />
     <Compile Include="SharedResourceDictionary.cs" />
