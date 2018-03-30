@@ -21,17 +21,19 @@ Include =>			 <ResourceDictionary Source="pack://application:,,,/KsWare.Presenta
 	
 -->
 	
-<ResourceDictionary
+<viewFramework:SharedResourceDictionary
+	x:Class="KsWare.Presentation.ViewFramework.Resources.ViewModelStylesResources"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:viewFramework="clr-namespace:KsWare.Presentation.ViewFramework"
 	mc:Ignorable="d" 
 >
-	<ResourceDictionary.MergedDictionaries>
+	<viewFramework:SharedResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="pack://application:,,,/KsWare.Presentation.ViewFramework;component/Resources/ViewModelStyles/MenuItemVMStyle.xaml"/>
 		<ResourceDictionary Source="pack://application:,,,/KsWare.Presentation.ViewFramework;component/Resources/ViewModelStyles/ViewModelStyles.xaml"/>
 		<ResourceDictionary Source="pack://application:,,,/KsWare.Presentation.ViewFramework;component/Resources/ViewModelStyles/ActionVMButtonStyle.xaml"/>
 		<ResourceDictionary Source="pack://application:,,,/KsWare.Presentation.ViewFramework;component/Resources/ViewModelStyles/ActionActiveProgressVMToggleButtonStyle.xaml"/>
-	</ResourceDictionary.MergedDictionaries>
-</ResourceDictionary>
+	</viewFramework:SharedResourceDictionary.MergedDictionaries>
+</viewFramework:SharedResourceDictionary>

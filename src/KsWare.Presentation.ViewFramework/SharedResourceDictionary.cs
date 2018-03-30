@@ -10,6 +10,10 @@ namespace KsWare.Presentation.ViewFramework {
 
 		private Uri _sourceCore;
 
+		public SharedResourceDictionary() {
+			
+		}
+
 		public bool DisableCache { get; set; }
 
 		public new Uri Source {
