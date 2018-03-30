@@ -51,8 +51,8 @@ using System.Windows.Markup;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("0.18.20")]
-[assembly: AssemblyVersion("0.18.20")]
-[assembly: AssemblyFileVersion("0.18.20")]
+// [assembly: AssemblyVersion("0.18.21")]
+[assembly: AssemblyVersion("0.18.21")]
+[assembly: AssemblyFileVersion("0.18.21")]
 
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation","KsWare.Presentation.ComponentSamples.DocumentElements")]
