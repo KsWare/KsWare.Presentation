@@ -1,4 +1,7 @@
 # 0.18
+- add MenuItemVM
+- add MenuItemVMStyle
+- add DesigntimeResourceDictionary
 # 0.18.11
 - BackingFieldStore extended
 - add ObservableDictionary

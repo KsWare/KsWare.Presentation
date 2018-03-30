@@ -1,0 +1,31 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:ksvm="http://ksware.de/Presentation/ViewModelFramework"
+	mc:Ignorable="d" 
+>
+	<!-- use in Menu.ItemContainerStyle/ContextMenu.ItemContainerStyle -->
+
+	<Style x:Key="MenuItemVMStyle" TargetType="MenuItem">
+		<d:Style.DataContext><d:DesignInstance Type="{x:Type ksvm:MenuItemVM}"></d:DesignInstance></d:Style.DataContext>
+		<Setter Property="ItemsSource" Value="{Binding Items}" />
+		<Setter Property="Header" Value="{Binding Caption}" />
+		<Setter Property="Command" Value="{Binding CommandAction}" />
+		<Setter Property="IsChecked" Value="{Binding IsChecked}" />
+		<Setter Property="IsCheckable" Value="{Binding IsCheckable}" />
+		<Style.Triggers>
+			<Trigger Property="Header" Value="-">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate>
+							<Separator />
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+</ResourceDictionary>

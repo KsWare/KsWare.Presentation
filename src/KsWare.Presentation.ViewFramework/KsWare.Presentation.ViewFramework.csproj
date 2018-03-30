@@ -106,6 +106,7 @@
     <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
     <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
     <Compile Include="SetterTriggerCollection.cs" />
+    <Compile Include="DesigntimeResourceDictionary.cs" />
     <Compile Include="SharedResourceDictionary.cs" />
     <Compile Include="SolidColorBrushAnimation.cs" />
     <Compile Include="ThemeSelector.cs" />
@@ -209,7 +210,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\ViewModelStyles\ActionVMButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ViewModelStyles\ActionActiveProgressVMToggleButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ViewModelStyles\MenuItemVMStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\ViewModelStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ViewModelStyles\ViewModelStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -227,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="%28Obsolete%29\Behaviors\" />
-    <Folder Include="Interactivity\" />
     <Folder Include="XmlDocMarkup\" />
   </ItemGroup>
   <ItemGroup>

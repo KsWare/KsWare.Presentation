@@ -201,3 +201,5 @@ packages/
 /nuget/archive
 *.nupkg
 .vs/
+/KsWare.Presentation.sln.lnk
+/src/KsWare.Presentation.sln - Verknüpfung.lnk

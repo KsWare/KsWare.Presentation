@@ -1,0 +1,59 @@
+﻿<Page 
+	x:Class="KsWare.Presentation.ComponentSamples.PanelErrorBinding1.ErrorBinding1Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KsWare.Presentation.ComponentSamples.PanelErrorBinding1"
+      xmlns:ksv="http://ksware.de/Presentation/ViewFramework"
+      mc:Ignorable="d"
+      Title="ErrorBinding1Page" Height="209.302" Width="382.89">
+	<Page.DataContext>
+		<local:ErrorBinding1PageVM />
+	</Page.DataContext>
+	<WrapPanel>
+		<GroupBox Header="Int32-VM" Padding="4" >
+			<TextBox Text="{ksv:BindingWithValidation Int32Value.EditValueProvider.String}" Width="80" />
+		</GroupBox>
+		<GroupBox Header="Int32-Field" Padding="4">
+			<TextBox Text="{ksv:BindingWithValidation Int32Field}" Width="80" />
+		</GroupBox>
+		<GroupBox Header="Int32-Field" Padding="4">
+			<GroupBox.Resources>
+				<Style TargetType="{x:Type TextBox}">
+					<Style.Triggers>
+						<Trigger Property="Validation.HasError" Value="True">
+							<Setter Property="Background" Value="Red" />
+							<Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}">
+							</Setter>
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</GroupBox.Resources>
+			<TextBox Text="{ksv:BindingWithValidation Int32Field}" Width="80" />
+		</GroupBox>
+		<GroupBox Header="Int32-Field" Padding="4">
+			<GroupBox.Resources>
+				<Style TargetType="{x:Type TextBox}">
+					<Setter Property="Validation.ErrorTemplate">
+						<Setter.Value>
+							<ControlTemplate x:Name="TextErrorTemplate">
+								<Border BorderBrush="Red" BorderThickness="1">
+									<Grid>
+										<AdornedElementPlaceholder />
+										<TextBlock 
+											Text="(!)" 
+											Foreground="Red" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 3 1"
+											ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=(Validation.Errors)[0].ErrorContent}"
+										/>
+									</Grid>
+								</Border>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</GroupBox.Resources>
+			<TextBox Text="{ksv:BindingWithValidation Int32Field}" Width="80" />
+		</GroupBox>
+	</WrapPanel>
+</Page>

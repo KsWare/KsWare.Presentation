@@ -169,6 +169,7 @@
     <Compile Include="ViewModel\%28UI-VM%29\ApplicationVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\CommandUserFeedback.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ContextMenuVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\MenuItemVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ScrollBarVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\UIElementVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\WindowVM.cs" />
