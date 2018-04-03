@@ -32,10 +32,10 @@ using System.Windows.Markup;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("0.18.19")]
-[assembly: AssemblyVersion("0.18.19")]
-[assembly: AssemblyFileVersion("0.18.19")]
-[assembly: AssemblyInformationalVersion("0.18.19")]
+// [assembly: AssemblyVersion("0.18.21")]
+[assembly: AssemblyVersion("0.18.21")]
+[assembly: AssemblyFileVersion("0.18.21")]
+[assembly: AssemblyInformationalVersion("0.18.21")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
