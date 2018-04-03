@@ -4,9 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
     xmlns:viewFramework="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation.ViewFramework"
->
+    xmlns:resources="clr-namespace:KsWare.Presentation.ViewFramework.Resources;assembly=KsWare.Presentation.ViewFramework">
     <Application.Resources>
-		<Style x:Key="WorkaroundDontRemoveThisDummyStyle" />
+<!--		<Style x:Key="WorkaroundDontRemoveThisDummyStyle" />-->
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<resources:ViewModelStylesResources/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Application.Resources>
 </viewFramework:ViewModelApplication>
 

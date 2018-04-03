@@ -100,6 +100,7 @@
     <Compile Include="AttachedBehavior\SharedWidth.cs" />
     <Compile Include="AttachedBehavior\TreeView.cs" />
     <Compile Include="AttachedBehavior\TreeViewVirtualizingStackPanel.cs" />
+    <Compile Include="AttachedBehavior\ViewModelControllerBehavior.cs" />
     <Compile Include="Behaviors.Busy\BusyAdornerBehavior.cs" />
     <Compile Include="Behaviors.Busy\BusyAdornerVisual.cs" />
     <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />

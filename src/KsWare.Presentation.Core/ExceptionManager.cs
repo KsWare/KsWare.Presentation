@@ -13,13 +13,13 @@ namespace KsWare.Presentation {
 	/// </summary>
 	public static class ExceptionManager {
 
-		private static bool s_CatchUnhandledExceptionsDebug           = true;//false is default
-		private static bool s_CatchUnhandledExceptions;
-		private static List<Dispatcher>                               s_Dispatchers=new List<Dispatcher>() ; 
+		private static bool _catchUnhandledExceptionsDebug           = true;//false is default
+		private static bool _catchUnhandledExceptions;
+		private static List<Dispatcher>                               _dispatchers=new List<Dispatcher>() ; 
 
-		private static List<RoutedUnhandledExceptionEventHandler> s_ManagedHandlers=new List<RoutedUnhandledExceptionEventHandler>();
-		private static object s_HandlerSyncRoot=new object();
-		private static int s_HandlerEntryCount;
+		private static List<RoutedUnhandledExceptionEventHandler> _managedHandlers=new List<RoutedUnhandledExceptionEventHandler>();
+		private static object _handlerSyncRoot=new object();
+		private static int _handlerEntryCount;
 
 		/// <summary> Registers a dispatcher.
 		/// </summary>
@@ -30,10 +30,10 @@ namespace KsWare.Presentation {
 		/// </remarks>
 		public static void RegisterDispatcher(Dispatcher dispatcher) {
 			if(dispatcher==null) return;
-			if(s_Dispatchers.Contains(dispatcher)) return;
-			s_Dispatchers.Add(dispatcher);
-			if (s_CatchUnhandledExceptions) {
-				if (Debugger.IsAttached && s_CatchUnhandledExceptionsDebug==false) { /*don't catch exceptions*/} 
+			if(_dispatchers.Contains(dispatcher)) return;
+			_dispatchers.Add(dispatcher);
+			if (_catchUnhandledExceptions) {
+				if (Debugger.IsAttached && _catchUnhandledExceptionsDebug==false) { /*don't catch exceptions*/} 
 				else dispatcher.UnhandledException+=AtDispatcherOnUnhandledException;
 			}
 			dispatcher.ShutdownFinished+=AtDispatcherOnShutdownFinished;
@@ -41,7 +41,7 @@ namespace KsWare.Presentation {
 
 		private static void AtDispatcherOnShutdownFinished(object sender, EventArgs eventArgs) {
 			var dispatcher = (Dispatcher) sender;
-			s_Dispatchers.Remove(dispatcher);
+			_dispatchers.Remove(dispatcher);
 			dispatcher.UnhandledException -= AtDispatcherOnUnhandledException;
 		}
 
@@ -57,7 +57,7 @@ namespace KsWare.Presentation {
 		/// <summary> Initializes the exception handlers.
 		/// </summary>
 		private static void InitExceptionHandlers() {
-			foreach (var dispatcher in s_Dispatchers) dispatcher.UnhandledException+=AtDispatcherOnUnhandledException;
+			foreach (var dispatcher in _dispatchers) dispatcher.UnhandledException+=AtDispatcherOnUnhandledException;
 			AppDomain    .CurrentDomain.UnhandledException           +=AtAppDomainOnUnhandledException;
 			TaskScheduler              .UnobservedTaskException      +=AtTaskSchedulerOnUnobservedTaskException;
 		}
@@ -82,18 +82,18 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <value><c>true</c> if unhandled exceptions are catched; otherwise, <c>false</c>.</value>
 		public static bool CatchUnhandledExceptions {
-			get => s_CatchUnhandledExceptions;
+			get => _catchUnhandledExceptions;
 			set {
 				if (value) {
-					if (Debugger.IsAttached && s_CatchUnhandledExceptionsDebug==false) { /*don't catch exceptions*/} 
+					if (Debugger.IsAttached && _catchUnhandledExceptionsDebug==false) { /*don't catch exceptions*/} 
 					else InitExceptionHandlers();
 				} else {
-					foreach (var dispatcher in s_Dispatchers) 
+					foreach (var dispatcher in _dispatchers) 
 						dispatcher         .UnhandledException      -= AtDispatcherOnUnhandledException;
 					AppDomain.CurrentDomain.UnhandledException      -= AtAppDomainOnUnhandledException;
 					TaskScheduler          .UnobservedTaskException -= AtTaskSchedulerOnUnobservedTaskException;
 				}
-				s_CatchUnhandledExceptions = value;
+				_catchUnhandledExceptions = value;
 			}
 		}
 
@@ -101,19 +101,19 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <remarks>The last registered handler gets the event as first.</remarks>
 		public static event RoutedUnhandledExceptionEventHandler UnhandledException {
-			add => s_ManagedHandlers.Insert(0, value);
-			remove => s_ManagedHandlers.Remove(value);
+			add => _managedHandlers.Insert(0, value);
+			remove => _managedHandlers.Remove(value);
 		}
 
 		private static void OnUnhandledException(RoutedUnhandledExceptionEventArgs e) {
 			Debug.WriteLine("ExceptionManager.OnUnhandledException "+e.SourceEventArgs.GetType().Name + " " + e.Exception.GetType().Name);
-			lock (s_HandlerSyncRoot) {
+			lock (_handlerSyncRoot) {
 				try {
-					s_HandlerEntryCount++;
-					if (s_HandlerEntryCount > 1) {
+					_handlerEntryCount++;
+					if (_handlerEntryCount > 1) {
 						//Environment.Exit(1);
 					}
-					foreach (var handler in s_ManagedHandlers) {
+					foreach (var handler in _managedHandlers) {
 						handler.Invoke(typeof (ExceptionManager), e);
 						if (e.IsHandled) return;
 					}
@@ -121,7 +121,7 @@ namespace KsWare.Presentation {
 					//Environment.Exit(1);
 				} 
 				//catch (Exception ex) { Environment.Exit(1);}
-				finally { s_HandlerEntryCount--; }
+				finally { _handlerEntryCount--; }
 			}
 		}
 		

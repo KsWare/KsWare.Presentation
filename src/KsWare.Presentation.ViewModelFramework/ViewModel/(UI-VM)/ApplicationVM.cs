@@ -103,7 +103,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public ApplicationVM(Application application) {
 			lock (s_GlobalLock) {
 				//if (s_AppCreatedInThisAppDomain) throw new InvalidOperationException(SR.Get("MultiSingleton"));
-				if(s_Current!=null) throw new InvalidOperationException("ApplicationVM already initialized!");
+				if(s_Current!=null) throw new InvalidOperationException("ApplicationVM allready initialized!");
 				s_Current = this;
 				IsShuttingDown = false;
 				//s_AppCreatedInThisAppDomain = true;

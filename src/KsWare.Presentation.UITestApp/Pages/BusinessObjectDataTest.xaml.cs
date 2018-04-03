@@ -23,7 +23,7 @@ namespace KsWare.Presentation.UITestApp {
 	/// <summary>
 	/// Interaction logic for BusinessObjectDataTest.xaml
 	/// </summary>
-	public partial class BusinessObjectDataTest : UserControl {
+	public partial class BusinessObjectDataTest {
 
 		public BusinessObjectDataTest() {
 			InitializeComponent();

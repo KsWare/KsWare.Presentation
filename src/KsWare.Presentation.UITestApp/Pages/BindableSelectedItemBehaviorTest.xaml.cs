@@ -15,10 +15,11 @@ using KsWare.Presentation.ViewModelFramework;
 
 
 namespace KsWare.Presentation.UITestApp {
+
 	/// <summary>
 	/// Interaction logic for BindableSelectedItemBehaviorTest.xaml
 	/// </summary>
-	public partial class BindableSelectedItemBehaviorTest : Window {
+	public partial class BindableSelectedItemBehaviorTest {
 
 		public BindableSelectedItemBehaviorTest() {
 			InitializeComponent();

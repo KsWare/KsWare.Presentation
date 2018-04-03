@@ -13,10 +13,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace KsWare.Presentation.UITestApp {
+
 	/// <summary>
 	/// Interaction logic for CommandVisibilityBindingTests.xaml
 	/// </summary>
-	public partial class CommandVisibilityBindingTests : UserControl {
+	public partial class CommandVisibilityBindingTests {
 
 		public CommandVisibilityBindingTests() {
 			InitializeComponent();

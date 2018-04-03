@@ -81,6 +81,7 @@
     <Compile Include="%28UserFeedbackEventArgs%29\%28VMs%29\UserFeedbackVM.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="DependencyValueWrapper.cs" />
+    <Compile Include="ViewResolver.cs" />
     <None Include="Documentation\docːObjectVM.cs" />
     <Compile Include="ErrorEventArgs.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -169,8 +170,10 @@
     <Compile Include="ViewModel\%28UI-VM%29\ApplicationVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\CommandUserFeedback.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ContextMenuVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\FrameControllerVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\MenuItemVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\ScrollBarVM.cs" />
+    <Compile Include="ViewModel\%28UI-VM%29\UIElementControllerVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\UIElementVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\WindowVM.cs" />
     <Compile Include="ViewModel\%28UI-VM%29\%28WindowVM%29\WndowsVM~Overlays.cs" />

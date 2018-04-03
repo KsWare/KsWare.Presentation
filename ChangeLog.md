@@ -1,5 +1,8 @@
 # 0.18
 - add ViewModelStylesResources
+- add UIElementControllerVM<T>
+- add ViewModelControllerBehavior
+- add FrameControllerVM
 # 0.18.15 (2018-03-30)
 - add MenuItemVM
 - add MenuItemVMStyle

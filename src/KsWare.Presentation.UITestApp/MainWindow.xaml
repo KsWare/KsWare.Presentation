@@ -5,6 +5,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
+	xmlns:ab="clr-namespace:KsWare.Presentation.ViewFramework.AttachedBehavior;assembly=KsWare.Presentation.ViewFramework"
 	mc:Ignorable="d"
 	Title="MainWindow" Height="350" Width="525"
 >
@@ -21,8 +22,13 @@
 			</MenuItem>
 		</Menu>
 		<Grid>
-			<local:StringViewModelChangeBusinessObject/>
-<!--			<local:BusinessObjectDataTest/>-->
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="200"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<ListBox ItemsSource="{Binding Pages}" SelectedItem="{Binding SelectedPage}" DisplayMemberPath="DisplayName" />
+			<GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="6"></GridSplitter>
+			<Frame Margin="6 0 0 0" Grid.Column="1" ab:ViewModelControllerBehavior.ViewModel="{Binding FrameController}"/>
 		</Grid>
 	</DockPanel>
 </Window>
