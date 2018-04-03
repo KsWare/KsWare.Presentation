@@ -1,4 +1,6 @@
 # 0.18
+
+# 0.18.22
 - add ViewModelStylesResources
 - add UIElementControllerVM<T>
 - add ViewModelControllerBehavior
