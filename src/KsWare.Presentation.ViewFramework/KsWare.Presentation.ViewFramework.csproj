@@ -101,8 +101,8 @@
     <Compile Include="AttachedBehavior\TreeView.cs" />
     <Compile Include="AttachedBehavior\TreeViewVirtualizingStackPanel.cs" />
     <Compile Include="AttachedBehavior\ViewModelControllerBehavior.cs" />
-    <Compile Include="Behaviors.Busy\BusyAdornerBehavior.cs" />
-    <Compile Include="Behaviors.Busy\BusyAdornerVisual.cs" />
+    <Compile Include="Behaviors\Busy\BusyAdornerBehavior.cs" />
+    <Compile Include="Behaviors\Busy\BusyAdornerVisual.cs" />
     <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
     <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
     <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
@@ -182,7 +182,7 @@
     <None Include="AttachedBehavior\#docu\info.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Behaviors.Busy\HourglassViewbox.xaml">
+    <Page Include="Behaviors\Busy\HourglassViewbox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

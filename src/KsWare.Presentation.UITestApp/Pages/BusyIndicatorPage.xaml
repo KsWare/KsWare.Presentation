@@ -1,0 +1,31 @@
+﻿<Page 
+	x:Class="KsWare.Presentation.UITestApp.Pages.BusyIndicatorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:KsWare.Presentation.UITestApp.Pages"
+    xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors;assembly=KsWare.Presentation.ViewFramework"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800"
+    Title="BusyIndicator"
+	
+	d:DataContext="{d:DesignInstance Type={x:Type local:BusyIndicatorVM}}"
+>
+    <WrapPanel>
+		<GroupBox 
+			Header="BusyUserRequest" 
+			behaviors:BusyAdornerBehavior.BindToBusyUserRequest="True"
+			behaviors:BusyAdornerBehavior.Background="#80FFFFFF"
+			Padding="6">
+			<Button Height="32" Width="96" Content="Busy" Command="{Binding BusyAction}"/>
+		</GroupBox>
+		<GroupBox 
+			Header="Busy Binding" 
+		    behaviors:BusyAdornerBehavior.IsBusy="{Binding IsBusy}"
+			behaviors:BusyAdornerBehavior.Background="#80FF0000"
+			Padding="6">
+			<Button Height="32" Width="96" Content="Busy" Command="{Binding BusyAction}" />
+		</GroupBox>
+	</WrapPanel>
+</Page>
