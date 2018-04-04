@@ -108,8 +108,6 @@
     <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
     <Compile Include="Resources\ViewModelStylesResources.cs" />
     <Compile Include="SetterTriggerCollection.cs" />
-    <Compile Include="DesigntimeResourceDictionary.cs" />
-    <Compile Include="SharedResourceDictionary.cs" />
     <Compile Include="SolidColorBrushAnimation.cs" />
     <Compile Include="ThemeSelector.cs" />
     <Compile Include="TypeNameDataTemplateSelector.cs" />

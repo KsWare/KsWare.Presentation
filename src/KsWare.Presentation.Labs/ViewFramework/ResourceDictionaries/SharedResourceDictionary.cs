@@ -17,7 +17,7 @@ namespace KsWare.Presentation.ViewFramework {
 		public bool DisableCache { get; set; }
 
 		public new Uri Source {
-			get { return _sourceCore; }
+			get => _sourceCore;
 			set {
 				_sourceCore = value;
 				if (!SharedCache.ContainsKey(_sourceCore) || DisableCache) {

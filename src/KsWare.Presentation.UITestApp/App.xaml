@@ -9,7 +9,7 @@
 <!--		<Style x:Key="WorkaroundDontRemoveThisDummyStyle" />-->
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<resources:ViewModelStylesResources/>
+				<ResourceDictionary Source="Resources/AppResources.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

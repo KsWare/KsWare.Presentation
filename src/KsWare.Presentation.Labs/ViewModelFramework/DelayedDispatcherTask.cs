@@ -2,9 +2,8 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using KsWare.Presentation.ViewModelFramework;
 
-namespace KsWare.Presentation {
+namespace KsWare.Presentation.ViewModelFramework {
 
 	/// <summary> [EXPERIMENTAL]
 	/// </summary>

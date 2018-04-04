@@ -24,7 +24,6 @@ namespace KsWare.Presentation.UITestApp {
 
 		public MainWindowVM() {
 			RegisterChildren(()=>this);
-
 			MenuItems.Add(new MenuItemVM {
 				Caption = "_File",
 				Items = {
@@ -38,6 +37,8 @@ namespace KsWare.Presentation.UITestApp {
 					new MenuItemVM {Caption = "Start Page", CommandAction = {MːDoAction = DoShowStartPage}}
 				}
 			});
+
+			if(IsInDesignMode) return;
 
 			ScanPages();
 

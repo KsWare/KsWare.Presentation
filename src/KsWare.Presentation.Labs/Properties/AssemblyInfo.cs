@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -8,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("provides experimental functionality")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("KsWare")]
-[assembly: AssemblyProduct("Presentation Framwork")]
-[assembly: AssemblyCopyright("Copyright © 2002- 2018 by KsWare. All rights reserved.")]
+[assembly: AssemblyProduct("Presentation Framework")]
+[assembly: AssemblyCopyright("Copyright © 2002-2018 by KsWare. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,6 +21,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("0.18.22")]
 [assembly: AssemblyInformationalVersion("0.18.22")]
 
+[assembly: XmlnsPrefix(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "kslab")]
+[assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewFramework")]
+[assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewModelFramework")]
+[assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.BusinessFramework")]
+[assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.Core")]
+[assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation")]
+
 // namespace must equal to assembly name
 // ReSharper disable once CheckNamespace
 namespace KsWare.Presentation.Labs {
@@ -28,5 +36,8 @@ namespace KsWare.Presentation.Labs {
 
 		public static Assembly Assembly => Assembly.GetExecutingAssembly();
 
+		public const string XmlNamespace = "http://ksware.de/Presentation/Labs";
+
+		public const string RootNamespace = "KsWare.Presentation";
 	}
 }

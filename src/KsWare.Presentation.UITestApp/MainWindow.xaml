@@ -6,21 +6,23 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
 	xmlns:ab="clr-namespace:KsWare.Presentation.ViewFramework.AttachedBehavior;assembly=KsWare.Presentation.ViewFramework"
+	xmlns:kslab="http://ksware.de/Presentation/Labs"
 	mc:Ignorable="d"
 	Title="MainWindow" Height="350" Width="525"
 >
 	<d:DesignProperties.DataContext>
 		<local:MainWindowVM />
 	</d:DesignProperties.DataContext>
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<kslab:DesigntimeResourceDictionary Source="Resources/AppResources.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
 	<DockPanel>
-		<Menu DockPanel.Dock="Top">
-			<MenuItem Header="_File">
-				<MenuItem Header="_Exit" Command="{Binding ExitAction}"/>
-			</MenuItem>
-			<MenuItem Header="_View">
-				<MenuItem Header="Dialog Window" Command="{Binding ShowDialogAction}"/>
-			</MenuItem>
-		</Menu>
+		<Menu DockPanel.Dock="Top" ItemsSource="{Binding MenuItems}" ItemContainerStyle="{StaticResource MenuItemVMStyle}" />
+			
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="200"/>
@@ -32,3 +34,18 @@
 		</Grid>
 	</DockPanel>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

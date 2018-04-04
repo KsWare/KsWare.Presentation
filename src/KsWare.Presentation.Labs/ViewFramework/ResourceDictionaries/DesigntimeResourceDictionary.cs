@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
@@ -16,7 +15,7 @@ namespace KsWare.Presentation.ViewFramework {
 
 		private static readonly bool IsInDesignMode = DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
-		private static readonly Uri EmptyResourceDictionary=new Uri("pack://application:,,,/KsWare.Presentation.ViewFramework;component/Resources/EmptyResourceDictionary.xaml",UriKind.Absolute);
+		private static readonly Uri EmptyResourceDictionaryUri=new Uri("pack://application:,,,/KsWare.Presentation.ViewFramework;component/Resources/EmptyResourceDictionary.xaml",UriKind.Absolute);
 
 		private readonly ObservableCollection<ResourceDictionary> _mergedDictionaries = new DesigntimeObservableCollection<ResourceDictionary>();
 
@@ -32,8 +31,8 @@ namespace KsWare.Presentation.ViewFramework {
 		/// <inheritdoc cref="ResourceDictionary.Source"/>
 		/// <remarks>Source is allways null at runtime.</remarks>
 		public new Uri Source {
-			get => IsInDesignMode ? base.Source : EmptyResourceDictionary;
-			set => base.Source = IsInDesignMode ? value : EmptyResourceDictionary;
+			get => IsInDesignMode ? base.Source : EmptyResourceDictionaryUri;
+			set => base.Source = IsInDesignMode ? value : EmptyResourceDictionaryUri;
 		}
 
 		private class DesigntimeObservableCollection<T> : ObservableCollection<T> {

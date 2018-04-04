@@ -8,11 +8,11 @@ using System.Windows;
 namespace KsWare.Presentation.ViewFramework.Resources {
 
 	/// <summary>
-	/// Provides the KsWare.Presentation.ViewFramework/Resources/ViewModelStyles.xaml as <see cref="ResourceDictionary"/>
+	/// Provides the KsWare.Presentation.ViewFramework;component/Resources/ViewModelStyles.xaml as <see cref="ResourceDictionary"/>
 	/// </summary>
 	/// <seealso cref="KsWare.Presentation.ViewFramework.SharedResourceDictionary" />
 	/// <seealso cref="ResourceDictionary" />
-	public class ViewModelStylesResources : SharedResourceDictionary {
+	public class ViewModelStylesResources : ResourceDictionary {
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ViewModelStylesResources"/> class.
