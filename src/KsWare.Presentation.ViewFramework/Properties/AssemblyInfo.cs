@@ -18,9 +18,9 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 [assembly: Guid("480179c9-c018-4515-8b83-44e21112887d")]
 
-[assembly: AssemblyVersion("0.18.25")]
-[assembly: AssemblyFileVersion("0.18.25")]
-[assembly: AssemblyInformationalVersion("0.18.25")]
+[assembly: AssemblyVersion("0.18.26")]
+[assembly: AssemblyFileVersion("0.18.26")]
+[assembly: AssemblyInformationalVersion("0.18.26")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
