@@ -67,6 +67,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewFramework\DelegateCommandBinding.cs" />
     <Compile Include="ViewFramework\ResourceDictionaries\ConcatResourceDictionary.cs" />
     <Compile Include="ViewFramework\ResourceDictionaries\DesigntimeApplicationResourceDictionary.cs" />
     <Compile Include="ViewFramework\MarkupExtensions\DebugViewer.cs" />

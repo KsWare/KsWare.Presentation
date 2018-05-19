@@ -106,6 +106,8 @@
     <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
     <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
     <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
+    <Compile Include="MarkupExtensions\RootBindingExtension.cs" />
+    <Compile Include="MarkupExtensions\RootElementExtension.cs" />
     <Compile Include="Resources\ViewModelStylesResources.cs" />
     <Compile Include="SetterTriggerCollection.cs" />
     <Compile Include="SolidColorBrushAnimation.cs" />
