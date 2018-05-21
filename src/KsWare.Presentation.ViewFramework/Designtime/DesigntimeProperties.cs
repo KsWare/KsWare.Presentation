@@ -76,7 +76,52 @@ namespace KsWare.Presentation.ViewFramework.Designtime {
 
 		#endregion
 
+		#region Background
 
+		public static readonly DependencyProperty BackgroundProperty = DependencyProperty.RegisterAttached("Background", typeof(Brush), typeof(Designtime), new PropertyMetadata(default(Brush),AtBackgroundChanged));
+
+		private static void AtBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+			if (!DesignerProperties.GetIsInDesignMode(d)) return;
+			((Control)d).Background = (Brush) e.NewValue;
+		}
+
+		public static void SetBackground(DependencyObject element, Brush value) { element.SetValue(BackgroundProperty, value); }
+
+		public static Brush GetBackground(DependencyObject element) { return (Brush) element.GetValue(BackgroundProperty); }
+
+		#endregion
+
+		#region Style
+
+		public static readonly DependencyProperty StyleProperty = DependencyProperty.RegisterAttached("Style", typeof(Style), typeof(Designtime), new PropertyMetadata(default(Style),AtStyleChanged));
+
+		private static void AtStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+			if (!DesignerProperties.GetIsInDesignMode(d)) return;
+			((FrameworkElement) d).Style = (Style) e.NewValue;
+		}
+
+		public static void SetStyle(DependencyObject element, Style value) { element.SetValue(StyleProperty, value); }
+
+		public static Style GetStyle(DependencyObject element) { return (Style) element.GetValue(StyleProperty); }
+
+		#endregion
+
+		#region Properties
+
+// TODO: WIP
+//		private static readonly DependencyPropertyKey PropertiesPropertyKey = DependencyProperty.RegisterAttachedReadOnly("Properties", typeof(DesigntimePropertyCollection), typeof(Designtime), new PropertyMetadata(default(DesigntimePropertyCollection)));
+//
+//		public static DependencyProperty PropertiesProperty => PropertiesPropertyKey.DependencyProperty;
+//
+//		public static void SetProperties(DependencyObject element, DesigntimePropertyCollection value) { element.SetValue(PropertiesProperty, value); }
+//
+//		public static DesigntimePropertyCollection GetProperties(DependencyObject element) { return (DesigntimePropertyCollection) element.GetValue(PropertiesProperty); }
+
+		#endregion
 	}
 
+// TODO: WIP
+//	public class DesigntimePropertyCollection {
+//		public void Add(object o){}
+//	}
 }
