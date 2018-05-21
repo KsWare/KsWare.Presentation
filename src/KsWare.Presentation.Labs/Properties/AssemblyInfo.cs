@@ -17,9 +17,9 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 [assembly: Guid("b2428431-ad89-4221-8b7c-4109afa93690")]
 
-[assembly: AssemblyVersion("0.18.27")]
-[assembly: AssemblyFileVersion("0.18.27")]
-[assembly: AssemblyInformationalVersion("0.18.27")]
+[assembly: AssemblyVersion("0.18.28")]
+[assembly: AssemblyFileVersion("0.18.28")]
+[assembly: AssemblyInformationalVersion("0.18.28")]
 
 [assembly: XmlnsPrefix(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "kslab")]
 [assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewFramework")]
