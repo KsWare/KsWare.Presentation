@@ -1,4 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -117,11 +122,67 @@ namespace KsWare.Presentation.ViewFramework.Designtime {
 //
 //		public static DesigntimePropertyCollection GetProperties(DependencyObject element) { return (DesigntimePropertyCollection) element.GetValue(PropertiesProperty); }
 
+		private static readonly DependencyPropertyKey PropertiesPropertyKey =
+			DependencyProperty.RegisterAttachedReadOnly("PropertiesInternal", typeof(DesigntimePropertyCollection), typeof(Designtime),
+				new UIPropertyMetadata(null));
+
+		public static readonly DependencyProperty PropertiesProperty = PropertiesPropertyKey.DependencyProperty;
+
+		private static void SetProperties(DependencyObject obj, DesigntimePropertyCollection value) {
+			obj.SetValue(PropertiesPropertyKey, value);
+		}
+
+		public static DesigntimePropertyCollection GetProperties(DependencyObject obj) {
+			if (obj == null) throw new ArgumentNullException(nameof(obj));
+			if (obj.GetValue(PropertiesProperty) is DesigntimePropertyCollection col) return col;
+			col = new DesigntimePropertyCollection(obj);
+			SetProperties(obj, col);
+			return col;
+		}
+
 		#endregion
 	}
 
 // TODO: WIP
-//	public class DesigntimePropertyCollection {
-//		public void Add(object o){}
-//	}
+	public class DesigntimePropertyCollection : ObservableCollection<DesigntimeProperty> {
+
+		public DesigntimePropertyCollection(DependencyObject associatedObject) {
+			if(!DesignerProperties.GetIsInDesignMode(associatedObject)) return; // do nothing at runtime
+			AssociatedObject = associatedObject;
+		}
+		public DependencyObject AssociatedObject { get; }
+
+		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e) {
+			base.OnCollectionChanged(e);
+			if (!DesignerProperties.GetIsInDesignMode(AssociatedObject)) return; // do nothing at runtime
+			switch (e.Action) {
+				case NotifyCollectionChangedAction.Add:
+					e.NewItems.Cast<DesigntimeProperty>().ForEach(OnPropertyAdded);
+					break;
+			}
+		}
+
+		private void OnPropertyAdded(DesigntimeProperty designtimeProperty) {
+			var pi=AssociatedObject.GetType().GetProperty(designtimeProperty.Name,
+				BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			var value = System.Convert.ChangeType(designtimeProperty.Value, pi.PropertyType);
+			AssociatedObject.GetType().InvokeMember(designtimeProperty.Name,
+				BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.SetProperty, null,
+				AssociatedObject, new object[] {value});
+		}
+	}
+
+	public class DesigntimeProperty : DependencyObject {
+
+		public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(DesigntimeProperty), new PropertyMetadata(default(string)));
+
+		public string Name { get => (string) GetValue(NameProperty); set => SetValue(NameProperty, value); }
+
+		public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(DesigntimeProperty), new PropertyMetadata(default(object)));
+
+		public object Value { get => (object) GetValue(ValueProperty); set => SetValue(ValueProperty, value); }
+	}
 }
+
+// Attached Read-only Collection Dependency Properties
+// https://digitaltapestry.wordpress.com/2008/07/28/attached-read-only-collection-dependency-properties/
