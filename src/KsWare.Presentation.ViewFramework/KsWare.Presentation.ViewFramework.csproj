@@ -46,6 +46,9 @@
     <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="KsWare.Presentation.Converters, Version=0.1.33.0, Culture=neutral, PublicKeyToken=398cf6eb36307095, processorArchitecture=MSIL">
+      <HintPath>..\packages\KsWare.Presentation.Converters.0.1.33\lib\net45\KsWare.Presentation.Converters.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
@@ -76,10 +79,8 @@
     <Compile Include="%28Converters%29\ResourceDictionaryLockupConverter.cs" />
     <Compile Include="%28Converters%29\SpecialBooleanConverter.cs" />
     <Compile Include="%28Converters%29\SpecialThicknessConverter.cs" />
-    <Compile Include="%28Converters%29\StringConverter.cs" />
     <Compile Include="%28Converters%29\StringJoinMultiValueConverter.cs" />
     <Compile Include="%28Converters%29\UIElementConverter.cs" />
-    <Compile Include="%28Converters%29\VisibilityConverter.cs" />
     <Compile Include="%28Obsolete%29\AttachedBehavior\Attributes.cs" />
     <Compile Include="AttachedBehavior\%28Base%29\BehaviorBinding.cs" />
     <Compile Include="AttachedBehavior\%28Interactivity.Behavior%29\TreeView.cs" />

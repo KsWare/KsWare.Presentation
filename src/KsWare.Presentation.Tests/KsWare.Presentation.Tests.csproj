@@ -119,7 +119,6 @@
     <Compile Include="Core\EventManagerˑIntegrationTests.cs" />
     <Compile Include="DispatcherWrapperTests.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="ViewFramework\%28Converters%29\VisibilityConverterTests.cs" />
     <Compile Include="ViewFramework\Application.Tests.cs" />
     <Compile Include="ViewFramework\AppDomain.Tests.cs" />
     <Compile Include="ViewModelFramework\%28MetadataModel%29\%28BusinessModel%29\BusinessActionMetadata.Tests.cs" />
@@ -221,6 +220,7 @@
     <Folder Include="NameSortTest\ㆍ\" />
     <Folder Include="NameSortTest\ａ\" />
     <Folder Include="Other\" />
+    <Folder Include="ViewFramework\%28Converters%29\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

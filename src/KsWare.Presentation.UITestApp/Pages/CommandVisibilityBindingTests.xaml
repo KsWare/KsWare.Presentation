@@ -23,7 +23,7 @@
 			</Button>
 			<Button Content="Compare Subject"
 				Command="{x:Static local:CommandVisibilityBindingTests.MockCommand}"
-				Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={x:Static ksv:VisibilityConverter.TrueVisibleElseHidden}}">
+				Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={x:Static VisibilityConverter.TrueVisibleElseHidden}}">
 			</Button>
 		</StackPanel>
     </DockPanel>

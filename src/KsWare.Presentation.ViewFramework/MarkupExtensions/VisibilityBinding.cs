@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 using JetBrains.Annotations;
+using KsWare.Presentation.Converters;
 
 namespace KsWare.Presentation.ViewFramework {
 	
