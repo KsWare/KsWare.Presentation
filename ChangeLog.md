@@ -1,4 +1,6 @@
 # 0.18
+
+# 0.18.39 (2019-09-03)
  - Use nuget Microsoft.Xaml.Behaviors.Wpf instead the System.Windows.Interactivity
    - Read more: https://devblogs.microsoft.com/dotnet/open-sourcing-xaml-behaviors-for-wpf/
 - remove nuget System.Windows.Interactivity.WPF-2.0.20525
