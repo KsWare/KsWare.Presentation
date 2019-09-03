@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interactivity;
 using System.Windows.Media;
 using KsWare.Presentation.ViewFramework.Behaviors;
+using Microsoft.Xaml.Behaviors;
+
 #pragma warning disable 1591
 
 namespace KsWare.Presentation.ViewFramework.Controls

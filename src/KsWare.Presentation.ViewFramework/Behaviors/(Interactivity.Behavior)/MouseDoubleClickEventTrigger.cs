@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using System.Windows.Interactivity;
+using Microsoft.Xaml.Behaviors;
 
 namespace KsWare.Presentation.ViewFramework.Behaviors {
 

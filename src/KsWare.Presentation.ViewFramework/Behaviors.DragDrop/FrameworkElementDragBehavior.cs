@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Interactivity;
+using Microsoft.Xaml.Behaviors;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
@@ -343,7 +343,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 /*
 <Button 
 	...
-	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 	xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors;assembly=KsWare.Presentation"
 >
 	<Button.Resources>
