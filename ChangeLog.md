@@ -1,5 +1,10 @@
 # 0.18
 
+# 0.18.36 (2019-09-03)
+- use nuget KsWare.Presentation.Converters
+- use nuget KsWare.Presentation.ViewFramework.Common
+- change namespace of some converters (KsWare.Presentation.Converters)
+
 # 0.18.22
 - add ViewModelStylesResources
 - add UIElementControllerVM<T>
