@@ -1,0 +1,49 @@
+﻿<Page x:Class="KsWare.Presentation.UITestApp.Pages.VisibilityBindingTests"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KsWare.Presentation.UITestApp.Pages"
+      xmlns:ksv="http://ksware.de/Presentation/ViewFramework"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="VisibilityBindingTests"
+      >
+	<Page.Resources>
+		<system:Double x:Key="Column1Width">50</system:Double>
+		<system:Double x:Key="Column2Width">40</system:Double>
+		<Style x:Key="Column1Style" TargetType="FrameworkElement">
+			<Setter Property="Width" Value="{StaticResource Column1Width}"/>
+			<Setter Property="Margin" Value="0 0 5 0"/>
+		</Style>
+		<Style x:Key="Column2Style" TargetType="FrameworkElement">
+			<Setter Property="Width" Value="{StaticResource Column2Width}"/>
+			<Setter Property="Margin" Value="0 0 5 0"/>
+		</Style>
+	</Page.Resources>
+	<Page.DataContext>
+		<local:VisibilityBindingTests_MyDataContext
+			BoolValue="True"
+			IntValue="1"
+			>
+			
+		</local:VisibilityBindingTests_MyDataContext>
+	</Page.DataContext>
+	<StackPanel>
+		<DockPanel LastChildFill="False">
+			<TextBlock Text="Bool" Style="{StaticResource Column1Style}"/>
+			<CheckBox IsChecked="{Binding BoolValue}" Style="{StaticResource Column2Style}"/>
+			<Rectangle 
+				Visibility="{ksv:VisibilityBinding BoolValue, TrueVisibleElseCollapsed}"
+				Fill="GreenYellow" Height="16" Width="16"/>
+		</DockPanel>
+		<DockPanel LastChildFill="False">
+			<TextBlock Text="Integer" Style="{StaticResource Column1Style}"/>
+			<TextBox Text="{Binding IntValue}" Style="{StaticResource Column2Style}" />
+			<Rectangle 
+				Visibility="{ksv:VisibilityBinding IntValue, NullOr0HiddenElseVisible}"
+				Fill="GreenYellow" Height="16" Width="16"/>
+		</DockPanel>
+    </StackPanel>
+</Page>
