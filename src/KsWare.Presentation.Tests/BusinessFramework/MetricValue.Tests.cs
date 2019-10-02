@@ -1,4 +1,5 @@
-﻿using KsWare.Presentation.BusinessFramework;
+﻿using System.Diagnostics.CodeAnalysis;
+using KsWare.Presentation.BusinessFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable TestClassNameDoesNotMatchFileNameWarning
 
@@ -7,6 +8,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
     /// <summary> Test Class
     /// </summary>
     [TestClass]
+    [SuppressMessage("ReSharper", "TestClassNameDoesNotMatchFileNameWarning")]
     public class MetricBusinessValueQubicMeterTests {
     	private MetricValueBM value;
 

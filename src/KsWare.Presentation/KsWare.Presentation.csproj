@@ -113,6 +113,10 @@
       <Project>{1a8f63b3-a873-4e50-9064-48708330d99c}</Project>
       <Name>KsWare.Presentation.Themes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewFramework.AttachedBehavior\KsWare.Presentation.ViewFramework.AttachedBehavior.csproj">
+      <Project>{e21ff939-c340-4e0a-a4e3-923a90acfa05}</Project>
+      <Name>KsWare.Presentation.ViewFramework.AttachedBehavior</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj">
       <Project>{480179c9-c018-4515-8b83-44e21112887d}</Project>
       <Name>KsWare.Presentation.ViewFramework</Name>

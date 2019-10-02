@@ -77,41 +77,15 @@
     <Compile Include="%28Converters%29\StringJoinMultiValueConverter.cs" />
     <Compile Include="%28Converters%29\UIElementConverter.cs" />
     <Compile Include="%28Obsolete%29\AttachedBehavior\Attributes.cs" />
-    <Compile Include="AttachedBehavior\%28Base%29\BehaviorBinding.cs" />
-    <Compile Include="AttachedBehavior\%28Xaml.Behavior%29\TreeView.cs" />
-    <Compile Include="AttachedBehavior\%28Internal%29\CommandBehaviorBinding.cs" />
-    <Compile Include="AttachedBehavior\%28Internal%29\EventCommandBehaviorBinding.cs" />
-    <Compile Include="AttachedBehavior\%28Internal%29\EventHandlerGenerator.cs" />
-    <Compile Include="AttachedBehavior\%28Internal%29\ExecutionStrategy.cs" />
-    <Compile Include="AttachedBehavior\%28Internal%29\InputCommandBehaviorBinding.cs" />
     <Compile Include="AttachedBehavior\%28Internal%29\SimpleCommand.cs" />
-    <Compile Include="AttachedBehavior\Behavior.cs" />
+    <Compile Include="AttachedBehavior\%28Xaml.Behavior%29\TreeView.cs" />
     <Compile Include="AttachedBehavior\BehaviorBase.cs" />
-    <Compile Include="AttachedBehavior\BehaviorBindingCollection.cs" />
-    <Compile Include="AttachedBehavior\EventBehavior.cs" />
-    <Compile Include="AttachedBehavior\EventBinding.cs" />
     <Compile Include="AttachedBehavior\FocusBehavior.cs" />
     <Compile Include="AttachedBehavior\ImageHelper.cs" />
-    <Compile Include="AttachedBehavior\InputBinding.cs" />
     <Compile Include="AttachedBehavior\SharedWidth.cs" />
     <Compile Include="AttachedBehavior\TreeView.cs" />
     <Compile Include="AttachedBehavior\TreeViewVirtualizingStackPanel.cs" />
     <Compile Include="AttachedBehavior\ViewModelControllerBehavior.cs" />
-    <Compile Include="Behaviors\Busy\BusyAdornerBehavior.cs" />
-    <Compile Include="Behaviors\Busy\BusyAdornerVisual.cs" />
-    <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
-    <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
-    <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
-    <Compile Include="MarkupExtensions\RootBindingExtension.cs" />
-    <Compile Include="MarkupExtensions\RootElementExtension.cs" />
-    <Compile Include="Resources\ViewModelStylesResources.cs" />
-    <Compile Include="SetterTriggerCollection.cs" />
-    <Compile Include="SolidColorBrushAnimation.cs" />
-    <Compile Include="ThemeSelector.cs" />
-    <Compile Include="TypeNameDataTemplateSelector.cs" />
-    <Compile Include="UIWorker.cs" />
-    <Compile Include="ViewModelApplication.cs" />
-    <Compile Include="XmlDoc.cs" />
     <None Include="Behaviors.DragDrop\Bea\DragDropHelper.cs" />
     <None Include="Behaviors.DragDrop\Bea\InsertionAdorner.cs" />
     <None Include="Behaviors.DragDrop\Bea\Utilities.cs" />
@@ -130,6 +104,8 @@
     <Compile Include="Behaviors\%28Interactivity.Behavior%29\MouseDoubleClickBehavior.cs" />
     <Compile Include="Behaviors\%28Interactivity.Behavior%29\MouseDoubleClickEventTrigger.cs" />
     <Compile Include="Behaviors\%28Interactivity.Behavior%29\WindowChromeBehavior.cs" />
+    <Compile Include="Behaviors\Busy\BusyAdornerBehavior.cs" />
+    <Compile Include="Behaviors\Busy\BusyAdornerVisual.cs" />
     <Compile Include="Behaviors\CommandBindingsBehavior.cs" />
     <Compile Include="Behaviors\ContextMenuExtension.cs" />
     <Compile Include="Behaviors\DataContextErrorVisualizer.cs" />
@@ -143,6 +119,19 @@
     <Compile Include="Behaviors\UIElementBehavior.cs" />
     <Compile Include="Behaviors\ViewModelBehavior.cs" />
     <Compile Include="Behaviors\Watermark.cs" />
+    <Compile Include="Documentation\docːbehaviorsˑextensionsˑoverview.cs" />
+    <Compile Include="Documentation\docːmarkupˑextensionsˑoverview.cs" />
+    <Compile Include="MarkupExtensions\CommandVisibilityBinding.cs" />
+    <Compile Include="MarkupExtensions\RootBindingExtension.cs" />
+    <Compile Include="MarkupExtensions\RootElementExtension.cs" />
+    <Compile Include="Resources\ViewModelStylesResources.cs" />
+    <Compile Include="SetterTriggerCollection.cs" />
+    <Compile Include="SolidColorBrushAnimation.cs" />
+    <Compile Include="ThemeSelector.cs" />
+    <Compile Include="TypeNameDataTemplateSelector.cs" />
+    <Compile Include="UIWorker.cs" />
+    <Compile Include="ViewModelApplication.cs" />
+    <Compile Include="XmlDoc.cs" />
     <Compile Include="ContextMenuServiceExtensions.cs" />
     <Compile Include="Controls\DataContextErrorAdorner.cs" />
     <Compile Include="Controls\GraphLayer.cs" />
@@ -168,14 +157,9 @@
     <Compile Include="MarkupExtensions\BindingWithPrefixAndSuffix.cs" />
     <Compile Include="MarkupExtensions\BindingWithValidationExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="AttachedBehavior\#docu\ACB.cd" />
     <None Include="Properties\KsWare.Presentation.snk" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AttachedBehavior\#docu\ACB.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AttachedBehavior\#docu\info.txt" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Behaviors\Busy\HourglassViewbox.xaml">
@@ -240,16 +224,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Behaviors.DragDrop\Bea\info.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="%28Obsolete%29\Behaviors\" />
+    <Folder Include="AttachedBehavior\%28Base%29\" />
     <Folder Include="XmlDocMarkup\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
       <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
       <Name>KsWare.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewFramework.AttachedBehavior\KsWare.Presentation.ViewFramework.AttachedBehavior.csproj">
+      <Project>{e21ff939-c340-4e0a-a4e3-923a90acfa05}</Project>
+      <Name>KsWare.Presentation.ViewFramework.AttachedBehavior</Name>
     </ProjectReference>
     <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj">
       <Project>{e45e9672-0236-47fc-9ade-5fef5cdfc7ae}</Project>
@@ -258,6 +244,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="InternalStatistics\notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AttachedBehavior\#docu\info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Behaviors.DragDrop\Bea\info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

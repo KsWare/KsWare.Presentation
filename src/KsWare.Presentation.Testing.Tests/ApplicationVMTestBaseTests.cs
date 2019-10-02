@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = NUnit.Framework.Assert;
 
@@ -23,6 +24,7 @@ namespace KsWare.Presentation.Testing.Tests {
 		}
 
 		[TestMethod]
+		[SuppressMessage("ReSharper", "AsyncConverter.AsyncWait")]
 		public void Dispatcher_BeginInvoke() {
 			var dispatcherOperation = System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() => InvokeCount++));
 			var dispatcherOperationStatus = dispatcherOperation.Wait(TimeSpan.FromSeconds(1));
@@ -34,7 +36,9 @@ namespace KsWare.Presentation.Testing.Tests {
 			ApplicationDispatcher.CurrentDispatcher.Invoke(new Action(() => InvokeCount++));
 			Assert.AreEqual(1,InvokeCount);
 		}
+
 		[TestMethod]
+		[SuppressMessage("ReSharper", "AsyncConverter.AsyncWait")]
 		public void ApplicationDispatcher_BeginInvoke() {
 			var dispatcherOperation = ApplicationDispatcher.CurrentDispatcher.BeginInvoke(new Action(() => InvokeCount++));
 			var dispatcherOperationStatus = dispatcherOperation.Wait(TimeSpan.FromSeconds(1));

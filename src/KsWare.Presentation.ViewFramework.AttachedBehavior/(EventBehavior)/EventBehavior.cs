@@ -2,6 +2,10 @@
 using System.Windows;
 using System.Windows.Input;
 
+//REQUIRES: CommandBehaviorBinding (in KsWare.Presentation.ViewFramework.AttachedBehavior)
+//REQUIRES: EventCommandBehaviorBinding (in KsWare.Presentation.ViewFramework.AttachedBehavior)
+
+
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 
 	/// <summary> Defines the attached properties to create a CommandBehaviorBinding

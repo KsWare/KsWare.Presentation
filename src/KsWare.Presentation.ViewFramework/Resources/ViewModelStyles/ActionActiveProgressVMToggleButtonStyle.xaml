@@ -3,8 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:ab="clr-namespace:KsWare.Presentation.ViewFramework.AttachedBehavior"
 	xmlns:ksvm="http://ksware.de/Presentation/ViewModelFramework"
+	xmlns:ksv="http://ksware.de/Presentation/ViewFramework"
 	mc:Ignorable="d" 
 >
 	<!-- Style for Button / ActionVM -->
@@ -12,8 +12,8 @@
 		<d:Style.DataContext><x:Type Type="ksvm:ActionVM"/></d:Style.DataContext>
 		<Setter Property="IsEnabled" Value="{Binding CanExecute}" />
 		<Setter Property="IsChecked" Value="{Binding IsActive, Mode=OneWay}" />
-		<Setter Property="ab:EventBehavior.Event" Value="Click" />
-		<Setter Property="ab:EventBehavior.InvokeMethod" Value="Execute" />
+		<Setter Property="ksv:EventBehavior.Event" Value="Click" />
+		<Setter Property="ksv:EventBehavior.InvokeMethod" Value="Execute" />
 		<Setter Property="Content" Value="{Binding PropertyLabel}" />
 	</Style>
 

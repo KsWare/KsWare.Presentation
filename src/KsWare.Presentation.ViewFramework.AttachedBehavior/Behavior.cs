@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior 
 {
 
-	/// <summary> Provides attached beavior
+	/// <summary> Provides attached behavior
 	/// </summary>
 	public static class Behavior 
 	{

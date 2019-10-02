@@ -67,10 +67,9 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 
 		#endregion
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		private static void AtTextChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
-			if     (obj is PasswordBox) AtTextChanged((PasswordBox)obj);
-			else if(obj is TextBox    ) AtTextChanged((TextBox    )obj);
+			if     (obj is PasswordBox passwordBox) AtTextChanged(passwordBox);
+			else if(obj is TextBox     textBox) AtTextChanged(textBox);
 		}
 
 		private static void AtTextChanged(PasswordBox passwordBox) {
