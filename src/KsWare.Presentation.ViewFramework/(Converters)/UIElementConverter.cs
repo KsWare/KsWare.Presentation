@@ -16,7 +16,7 @@ namespace KsWare.Presentation.ViewFramework
 {
 	// Loads UIElements (xaml/baml) from resources
 	// supports additional also image resources (converted to Image)
-
+	// TODO still required by KsButton
 	public class UIElementConverter: IValueConverter
 	{
 		
@@ -87,7 +87,7 @@ namespace KsWare.Presentation.ViewFramework
 					uiElement = new Image {Source = imageSource};
 					break;
 				case ".baml":case ".xaml":
-					var stream = GetRessourceStream(ressourceUri,culture,ref ext);
+					var stream = GetResourceStream(ressourceUri,culture,ref ext);
 					if(ext==".baml") {using(var bamlReader=new Baml2006Reader(stream)) uiElement=XamlReader.Load(bamlReader);}
 					else if(ext==".xaml") {uiElement =XamlReader.Load(stream);}
 					break;
@@ -102,42 +102,42 @@ namespace KsWare.Presentation.ViewFramework
 			return uiElement;
 		}
 
-		private Stream GetRessourceStream(Uri uri, CultureInfo culture, ref string ext) {
+		private Stream GetResourceStream(Uri uri, CultureInfo culture, ref string ext) {
 			Stream stream;
 
 			//* from file 
 			//			stream = new FileStream((string) parameter, FileMode.Open);
 
 			//* from manifest resource file (Resource)
-			//			stream = cachedAssembly.GetManifestResourceStream(ressourceName);//"KsWare.TestApp.View.Resources.Graphics.a_EmbeddedResource_Viewbox.xaml"
+			//			stream = cachedAssembly.GetManifestResourceStream(resourceName);//"KsWare.TestApp.View.Resources.Graphics.a_EmbeddedResource_Viewbox.xaml"
 
 			//* from (WPF) manifest resource file (EmbeddedResource, Page)
 
-			string ressourceName;
+			string resourceName;
 			string assemblyName;
 			var puq = uri.PathAndQuery;
 			var p = puq.IndexOf(";component/");
 			if(p>-1) {
-				ressourceName = puq.Substring(p+(";component/".Length));
+				resourceName = puq.Substring(p+(";component/".Length));
 				assemblyName = puq.Substring(1, p-1);
 			} else {
-				ressourceName = puq.TrimStart(new[]{'/'});
+				resourceName = puq.TrimStart(new[]{'/'});
 				assemblyName = Assembly.GetEntryAssembly().GetName(false).Name;//REVISE which assembly should be used if no one specified?
 			}
-			ressourceName = ressourceName.ToLower(CultureInfo.InvariantCulture).Replace(" ", "%20").Replace('\\','/');
+			resourceName = resourceName.ToLower(CultureInfo.InvariantCulture).Replace(" ", "%20").Replace('\\','/');
 			ResourceSet resourceSet = GetCachedResourceSet(assemblyName, culture);
-			stream = (Stream)resourceSet.GetObject(ressourceName);
+			stream = (Stream)resourceSet.GetObject(resourceName);
 
 			#region xaml/baml fallback
 			if(stream==null) {
 				if (ext==".xaml") {
-					var name0 = ressourceName.Substring(0, ressourceName.Length - 5) + ".baml";
+					var name0 = resourceName.Substring(0, resourceName.Length - 5) + ".baml";
 					stream = (Stream)resourceSet.GetObject(name0);
-					if(stream!=null){ressourceName=name0;ext=".baml";}
+					if(stream!=null){resourceName=name0;ext=".baml";}
 				} else if(ext==".baml") {
-					var name0 = ressourceName.Substring(0, ressourceName.Length - 5) + ".xaml";
+					var name0 = resourceName.Substring(0, resourceName.Length - 5) + ".xaml";
 					stream = (Stream)resourceSet.GetObject(name0);
-					if(stream!=null){ressourceName=name0;ext=".xaml";}
+					if(stream!=null){resourceName=name0;ext=".xaml";}
 				}				
 			}
 
@@ -145,7 +145,7 @@ namespace KsWare.Presentation.ViewFramework
 
 			if (stream==null) {
 				Debug.WriteLine("=>WARNING: Resource not found! " +
-				"\r\n\t"+"Resource: "+ ressourceName+
+				"\r\n\t"+"Resource: "+ resourceName+
 //				"\r\n\t"+"Assembly: "+ _CachedAssembly.FullName+
 				"\r\n\t"+"CallingAssembly: "+Assembly.GetCallingAssembly().FullName+
 				"\r\n\t"+"UniqueID: {536714F7-D844-4093-A595-041E83AFAF51}");

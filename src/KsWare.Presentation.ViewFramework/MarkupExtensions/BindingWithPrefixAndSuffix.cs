@@ -5,10 +5,10 @@ using System.Windows.Markup;
 
 namespace KsWare.Presentation.ViewFramework {
 
-	/// <summary> Binding with pefix and suffix.
+	/// <summary> Binding with prefix and suffix.
 	/// </summary>
 	/// <remarks> Note: This is a <see cref="MultiBinding"/>! 
-	/// Because this <see cref="BindingWithPrefixAndSuffix"/> mimes a simple <see cref="Binding"/> the behavoir of derived properties could be other as expected. 
+	/// Because this <see cref="BindingWithPrefixAndSuffix"/> mimes a simple <see cref="Binding"/> the behavior of derived properties could be other as expected. 
 	/// The results of all internal preconfigured bindings are joined as strings. 
 	/// The <see cref="StringFormat"/> property specifies the format of the main binding (specified by <see cref="Path"/>). 
 	/// The <see cref="Prefix"/> and <see cref="Suffix"/> properties are constant strings.

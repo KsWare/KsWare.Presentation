@@ -9,6 +9,8 @@ using System.Xaml;
 
 namespace KsWare.Presentation.ViewFramework {
 
+	//TODO remove: extracted to KsWare.Presentation.ViewModelFramework.Common
+
 	/// <summary>
 	/// XAML markup extension to bind directly to root data context.
 	/// </summary>
@@ -261,13 +263,12 @@ namespace KsWare.Presentation.ViewFramework {
 				ValidatesOnExceptions   = ValidatesOnExceptions,
 				IsAsync                 = IsAsync,
 				BindingGroupName        = BindingGroupName,
-				RelativeSource =
-					new RelativeSource() {Mode = RelativeSourceMode.FindAncestor, AncestorType = ancestorType,},
-				Converter          = Converter,
-				ConverterCulture   = ConverterCulture,
-				ConverterParameter = ConverterParameter,
-				StringFormat       = StringFormat,
-				FallbackValue      = FallbackValue,
+				RelativeSource          = new RelativeSource{Mode = RelativeSourceMode.FindAncestor, AncestorType = ancestorType,},
+				Converter				= Converter,
+				ConverterCulture		= ConverterCulture,
+				ConverterParameter		= ConverterParameter,
+				StringFormat			= StringFormat,
+				FallbackValue			= FallbackValue,
 			};
 		}
 	}

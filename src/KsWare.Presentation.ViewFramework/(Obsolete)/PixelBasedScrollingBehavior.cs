@@ -19,6 +19,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		</ListBox>	
 	 */
 
+	[Obsolete("In .Net 4.5 there's no need for this hack as you can set VirtualizingPanel.ScrollUnit=\"Pixel\".")]
 	public static class PixelBasedScrollingBehavior {
 
 		public static bool GetIsEnabled(DependencyObject obj) {

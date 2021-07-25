@@ -7,9 +7,11 @@ using System.Text;
 using System.Windows.Data;
 
 namespace KsWare.Presentation.ViewFramework {
+	// REPLACED by StringJoinConverter (KsWare.Presentation.Converters)
 
+	// TODO still required by Binding with PrefixAndSuffix
 	public class StringJoinMultiValueConverter:IMultiValueConverter {
-
+		
 		public static readonly StringJoinMultiValueConverter Default=new StringJoinMultiValueConverter();
 		
 		public Dictionary<int,string> StringFormat { get; set; }

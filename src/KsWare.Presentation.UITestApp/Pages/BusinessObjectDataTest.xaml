@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
     xmlns:ksv="clr-namespace:KsWare.Presentation.ViewFramework;assembly=KsWare.Presentation.ViewFramework"
+    xmlns:converters="http://ksware.de/Presentation/ViewFramework"
     mc:Ignorable="d" 
 >
 	<d:DesignProperties.DataContext>
@@ -26,7 +27,7 @@
 		</DockPanel>
 		<DockPanel>
 			<TextBlock Text="String.MːBusinessObject.MːData" Width="200"/>
-			<TextBox Text="{Binding String.MːBusinessObject.MːData, Converter={x:Static ksv:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+			<TextBox Text="{Binding String.MːBusinessObject.MːData, Converter={x:Static TypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
 		</DockPanel>
 		<DockPanel>
 			<TextBlock Text="String.MːBusinessObject.MːData" Width="200"/>
@@ -34,15 +35,15 @@
 		</DockPanel>
 		<DockPanel>
 			<TextBlock Text="String.MːBusinessObject" Width="200"/>
-			<TextBox Text="{Binding String.MːBusinessObject, Converter={x:Static ksv:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+			<TextBox Text="{Binding String.MːBusinessObject, Converter={x:Static TypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
 		</DockPanel>
 		<DockPanel>
 			<TextBlock Text="String.MːBusinessObjectːData" Width="200"/>
-			<TextBox Text="{Binding String.MːBusinessObjectːData, Converter={x:Static ksv:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+			<TextBox Text="{Binding String.MːBusinessObjectːData, Converter={x:Static TypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
 		</DockPanel>
 		<DockPanel>
 			<TextBlock Text="DataContext" Width="200"/>
-			<TextBox Text="{Binding ., Converter={x:Static ksv:DebugTypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
+			<TextBox Text="{Binding ., Converter={x:Static TypeNameConverter.Default}, Mode=OneWay}" IsReadOnly="True" />
 		</DockPanel>
 		<Button Content="Refresh" Command="{Binding RefreshAction}"/>
     </StackPanel>

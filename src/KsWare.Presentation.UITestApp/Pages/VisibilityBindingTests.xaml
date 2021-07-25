@@ -35,14 +35,14 @@
 			<TextBlock Text="Bool" Style="{StaticResource Column1Style}"/>
 			<CheckBox IsChecked="{Binding BoolValue}" Style="{StaticResource Column2Style}"/>
 			<Rectangle 
-				Visibility="{ksv:VisibilityBinding BoolValue, TrueVisibleElseCollapsed}"
+				Visibility="{VisibilityBinding BoolValue, TrueVisibleElseCollapsed}"
 				Fill="GreenYellow" Height="16" Width="16"/>
 		</DockPanel>
 		<DockPanel LastChildFill="False">
 			<TextBlock Text="Integer" Style="{StaticResource Column1Style}"/>
 			<TextBox Text="{Binding IntValue}" Style="{StaticResource Column2Style}" />
 			<Rectangle 
-				Visibility="{ksv:VisibilityBinding IntValue, NullOr0HiddenElseVisible}"
+				Visibility="{VisibilityBinding IntValue, NullOr0HiddenElseVisible}"
 				Fill="GreenYellow" Height="16" Width="16"/>
 		</DockPanel>
     </StackPanel>

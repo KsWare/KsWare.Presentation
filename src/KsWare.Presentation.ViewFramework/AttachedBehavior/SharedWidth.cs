@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
+	// TODO remove: moved to KsWare.Presentation.ViewFramework.Common
 
 	/// <summary> Provides support for a shared width (attached property)
 	/// </summary>

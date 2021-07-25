@@ -6,6 +6,7 @@
 namespace KsWare.Presentation.ViewFramework {
 
 	public class SpecialBooleanConverter:IValueConverter {
+		// REPLACED by BooleanComparingConverter (KsWare.Presentation.Converters)
 
 		private static readonly DoubleConverter DoubleConverter=new DoubleConverter();
 
