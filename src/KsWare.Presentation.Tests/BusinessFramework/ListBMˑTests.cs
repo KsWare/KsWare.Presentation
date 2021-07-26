@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Core.Providers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
@@ -13,20 +13,10 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 
 	/// <summary> Test Class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class ListBMˑTests {
 
-		/// <summary> Setup this instance.
-		/// </summary>
-		[TestInitialize]
-		public void Setup() { }
-
-		/// <summary> Teardowns this instance.
-		/// </summary>
-		[TestCleanup]
-		public void Teardown() { }
-
-		[TestMethod]
+		[Test]
 		public void InvalidMetadataInitialization() {
 			Assert.Throws<InvalidOperationException >(delegate {
 				var bl = new ListBM<TestItemBM> {
@@ -38,7 +28,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			});
 		}
 
-		[TestMethod]
+		[Test]
 		public void BusinessList_Contains_Empty_DataList() {
 			var dl = new List<TestItemDM>();
 			var bl = new ListBM<TestItemBM> {
@@ -102,7 +92,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			
 		}
 
-		[TestMethod]
+		[Test]
 		public void InitializedList() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -110,7 +100,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		}
 
 
-		[TestMethod]
+		[Test]
 		public void RemoveNonContainedItem() {
 			var dl = new List<TestItemDM>();
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -118,7 +108,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.IsFalse(bl.Remove(new TestItemBM{Metadata={DataProvider={Data = new TestItemDM(99)}}}));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ICollection() {
 			var dl = new List<TestItemDM>(new []{new TestItemDM(0) });
 			var bl = (ICollection)new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -129,7 +119,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.IsNotNull(bl.SyncRoot);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CheckReentrancyThrowsInvalidOperationException() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -145,7 +135,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BeginUpdateEndUpdate() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -159,7 +149,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			bl.CollectionChanged-=OnViewModelCollectionChangedCallInvalid;
 		}
 
-		[TestMethod]
+		[Test]
 		public void DataChange() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -171,7 +161,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void DataListItemsChange() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -183,7 +173,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void SetParent() {
 			var dl = new List<TestItemDM>();
 			var bl = new DerivedList {Metadata = {DataProvider = {Data = dl}}};
@@ -193,21 +183,21 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SetParent_DerivedList() {
 			var bl = new DerivedList {Metadata = {DataProvider = {Data = new List<TestItemDM>()}}};
 			var bi = new TestItemBM();
 			bl.Add(new TestItemBM());
 		}
 
-        [TestMethod][Ignore] //TODO: Later activate this. Error in test of release version
+        [Test,Ignore("TODO")] //TODO: Later activate this. Error in test of release version
 		public void SetParent_InvalidParent() {
 			var bl = new DerivedList {Metadata = {DataProvider = {Data = new List<TestItemDM>()}}};
 			var bi = new TestItemBM();
 			Assert.Throws<InvalidOperationException>(delegate { bi.Parent = bl; });
 		}
 
-		[TestMethod]
+		[Test]
 		public void AddSameItemToMultipleLists() {
 			var bl = new DerivedList {Metadata = {DataProvider = {Data = new List<TestItemDM>()}}};
 			var bi = new TestItemBM();

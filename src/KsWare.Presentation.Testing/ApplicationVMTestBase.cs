@@ -21,8 +21,8 @@ namespace KsWare.Presentation.Testing {
     Mit [ClassInitialize] markierte Methoden.     
 		Die mit diesem Attribut markierte Methode wird in einem Auslastungstest einmal ausgeführt. 
 		Alle von der Methode ausgeführten Initialisierungsvorgänge gelten für den gesamten Test.
-    Mit [TestInitialize] markierte Methoden.
-    Mit [TestMethod] markierte Methoden.
+    Mit [SetUp] markierte Methoden.
+    Mit [Test] markierte Methoden.
  */
 
 // ONLY ONE TIME in assembly
@@ -45,7 +45,7 @@ namespace KsWare.Presentation.Testing {
 			if(ApplicationVM.Current==null) throw new NullReferenceException("ApplicationVM.Current is null!");
 		}
 
-		//[TestCleanup]
+		//[TearDown]
 		public virtual void TestCleanup() {
 			WriteLine("=>Test: TestCleanup");
 			ViewModelFramework.ApplicationVM.TestCleanup(); // clears the singleton
@@ -58,33 +58,34 @@ namespace KsWare.Presentation.Testing {
 			Dispatcher.Invoke(action);
 		}
 
-		protected void ExecuteInSeparateAppDomain(string methodName) {
-			AppDomainSetup appDomainSetup = new AppDomainSetup();
-			appDomainSetup.ApplicationBase = Environment.CurrentDirectory;
-			AppDomain appDomain = AppDomain.CreateDomain(methodName, null, appDomainSetup);
-
-			try {
-				appDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e) {
-					throw (Exception)e.ExceptionObject;
-				};
-
-				var unitTest = (ApplicationVMTestBase)appDomain.CreateInstanceAndUnwrap(GetType().Assembly.GetName().Name, GetType().FullName);
-
-				unitTest.TestInitialize();
-
-				MethodInfo methodInfo = unitTest.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
-
-				if (methodInfo == null) { throw new InvalidOperationException(string.Format("Method '{0}' not found on type '{1}'.", methodName, unitTest.GetType().FullName)); }
-
-				try { methodInfo.Invoke(unitTest, null); }
-				catch (System.Reflection.TargetInvocationException e) {
-					throw e.InnerException;
-				}
-
-				unitTest.TestCleanup();
-			}
-			finally { AppDomain.Unload(appDomain); }
-		}
+		// protected void ExecuteInSeparateAppDomain(string methodName) {
+		// 	//does not more work in net5, deactivated because not used.
+		// 	AppDomainSetup appDomainSetup = new AppDomainSetup();
+		// 	appDomainSetup.ApplicationBase = Environment.CurrentDirectory;
+		// 	AppDomain appDomain = AppDomain.CreateDomain(methodName, null, appDomainSetup);
+		//
+		// 	try {
+		// 		appDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e) {
+		// 			throw (Exception)e.ExceptionObject;
+		// 		};
+		//
+		// 		var unitTest = (ApplicationVMTestBase)appDomain.CreateInstanceAndUnwrap(GetType().Assembly.GetName().Name, GetType().FullName);
+		//
+		// 		unitTest.TestInitialize();
+		//
+		// 		MethodInfo methodInfo = unitTest.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+		//
+		// 		if (methodInfo == null) { throw new InvalidOperationException(string.Format("Method '{0}' not found on type '{1}'.", methodName, unitTest.GetType().FullName)); }
+		//
+		// 		try { methodInfo.Invoke(unitTest, null); }
+		// 		catch (System.Reflection.TargetInvocationException e) {
+		// 			throw e.InnerException;
+		// 		}
+		//
+		// 		unitTest.TestCleanup();
+		// 	}
+		// 	finally { AppDomain.Unload(appDomain); }
+		// }
 
 
 		protected static void WriteLine() {

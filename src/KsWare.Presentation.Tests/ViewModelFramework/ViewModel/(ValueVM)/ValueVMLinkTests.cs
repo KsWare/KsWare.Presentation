@@ -1,19 +1,19 @@
 ﻿using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ValueVMLinkTests {
 
-		[TestMethod]
+		[Test]
 		public void Instance() {
 			var b = new BxVM();
 			var a = new AxVM{Data = b};
 		}
 
-		[TestMethod]
+		[Test]
 		public void Instance2() {
 			var b = new BxVM();
 			b.Int32.Value = 1;
@@ -21,7 +21,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(1,a.Int32.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void DataChanged_BA() {
 			var b = new BxVM();
 			var a = new AxVM{Data = b};
@@ -29,7 +29,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(1,a.Int32.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void DataChanged_AB() {
 			var b = new BxVM();
 			var a = new AxVM{Data = b};

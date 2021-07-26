@@ -6,7 +6,7 @@ using System.Linq;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
@@ -14,20 +14,20 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	/// <summary> Test Class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class ListVMTests:ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {base.TestInitialize(); }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {base.TestCleanup(); }
 
-		[TestMethod]
+		[Test]
 		public void ListVM_Contains_Empty_BusinessList() {
 			var dl = new List<TestItemDM>();
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -75,7 +75,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			vl.Dispose();
 		}
 
-		[TestMethod]
+		[Test]
 		public void InitializedList() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -97,7 +97,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(3,vl.Count);
 		}
 
-		[TestMethod]
+		[Test]
 		public void IList() {
 			var dl = new List<TestItemDM>();
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -125,7 +125,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(3,dl.Count);
 		}
 
-		[TestMethod]
+		[Test]
 		public void IListT() {
 			var dl = new List<TestItemDM>();
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -153,7 +153,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(3,dl.Count);
 		}
 
-		[TestMethod]
+		[Test]
 		public void RemoveNonContainedItem() {
 			var dl = new List<TestItemDM>();
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -162,7 +162,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(false,vl.Remove(TestItemVM.New()));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ICollection() {
 			var dl = new List<TestItemDM>(new []{new TestItemDM(0) });
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -174,7 +174,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.IsNotNull(vl.SyncRoot);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CheckReentrancyThrowsInvalidOperationException() {
 			var dl = new List<TestItemDM>{new TestItemDM(0),new TestItemDM(1),new TestItemDM(2)};
 			var bl = new ListBM<TestItemBM> {Metadata = {DataProvider = {Data = dl}}};
@@ -191,7 +191,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Test1() {
 			var dl = new List<TestItemDM>(new []{new TestItemDM(0) });
 			var bl = new ListBM<TestItemBM>{Metadata={DataProvider={Data =dl}}};
@@ -212,7 +212,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		}
 
-		[TestMethod]
+		[Test]
 		public void Clear_NoUnderlyingObject() {
 			var vm = new ListVM<TestItemVM>();
 			vm.Clear();

@@ -1,28 +1,28 @@
 ﻿using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ApplicationVMTests:ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {base.TestInitialize(); }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {base.TestCleanup(); }
 
-		[TestMethod]
+		[Test]
 		public void Current_IsNotNull() {
 			Assert.IsNotNull(ApplicationVM.Current);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Current_Dispatcher_IsNotNull() {
 			Assert.IsNotNull(ApplicationVM.Current.Dispatcher);
 		}

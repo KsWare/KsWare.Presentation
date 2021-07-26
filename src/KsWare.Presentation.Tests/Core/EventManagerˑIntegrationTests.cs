@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 using Is=NUnit.Framework.Is;
-using IgnoreAttribute=Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 namespace KsWare.Presentation.Tests.Core {
 
-	[TestClass]
+	[TestFixture]
 	public class EventManagerˑIntegrationTests {
 
-		[TestMethod]
+		[Test]
 		public void BasicˑTest() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();
@@ -26,7 +25,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(listener.EventCount,Is.EqualTo(1));
 		}
 
-		[TestMethod]
+		[Test][Ignore("ForceGarbageCollection does not have a (direct) effect.")]
 		public void ListenerGarbageCollectionˑTest() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();
@@ -42,7 +41,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(((IEventSourceInternal) provider.MyEvent).GetContainers().Count,Is.EqualTo(0));
 		}
 
-		[TestMethod,Ignore /* does not work in unit test runner */]
+		[Test,Ignore("does not work in unit test runner")]
 		public void MassiveListenerGCTest() {
 			var provider = new MyEventProvider();
 			var eventContainers = ((EventSource) provider.MyEvent).GetContainers();
@@ -78,7 +77,7 @@ namespace KsWare.Presentation.Tests.Core {
 			//Assert.Fail("Nothing collected!");
 		}
 
-		[TestMethod,Ignore]
+		[Test,Ignore("TODO")]
 		public void ProviderGarbageCollectionˑTest() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();

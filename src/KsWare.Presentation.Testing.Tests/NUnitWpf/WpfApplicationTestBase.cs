@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Test.Presentation.NUnitWpf.Mock;
 
 namespace KsWare.Test.Presentation.NUnitWpf {
@@ -11,7 +11,7 @@ namespace KsWare.Test.Presentation.NUnitWpf {
 	[Obsolete("Use ApplicationVMTestBase",true)]
 	public class WpfApplicationTestBase {
 
-		//[TestInitialize]
+		//[SetUp]
 		public virtual void TestInitialize() {
 			WriteLine("=>Test: TestInitialize");
 			if(Application.Current==null) {
@@ -35,7 +35,7 @@ namespace KsWare.Test.Presentation.NUnitWpf {
         	while (Application.Current==null) {Thread.Sleep(25);}
 		}
 
-		//[TestCleanup]
+		//[TearDown]
 		public virtual void TestCleanup() {
 			WriteLine("=>Test: TestCleanup");
 		}

@@ -2,29 +2,29 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.Core {
 	// ReSharper disable InconsistentNaming
 
-	[TestClass]
+	[TestFixture]
 	public class ShapeTests {
 
 		/// <summary> 
 		/// Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() { }
 
 		/// <summary> 
 		/// Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() { }
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Common() {
 
 			var l = new List<Point>(new[] { new Point(0, 0), new Point(0, 0), new Point(200, 0), new Point(0, 0) });

@@ -50,7 +50,7 @@ namespace KsWare.Presentation {
 		/// Die Hooks, die diesem <see cref="T:System.Windows.Threading.Dispatcher"/> zugeordnet sind.
 		/// </returns>
 		[EditorBrowsable(EditorBrowsableState.Advanced)]
-		DispatcherHooks Hooks { [SecurityCritical, UIPermission(SecurityAction.LinkDemand, Unrestricted = true)] get; }
+		DispatcherHooks Hooks { /*[SecurityCritical, UIPermission(SecurityAction.LinkDemand, Unrestricted = true)]*/ get; }
 
 		/// <summary>
 		/// Tritt ein, wenn der <see cref="T:System.Windows.Threading.Dispatcher"/> die Beendigung beginnt.

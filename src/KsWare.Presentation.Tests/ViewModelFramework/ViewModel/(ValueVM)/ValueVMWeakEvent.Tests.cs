@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ValueVMWeakEventTests:ApplicationVMTestBase {
 
-		[TestInitialize] public override void TestInitialize() {base.TestInitialize();}
-		[TestCleanup   ] public override void TestCleanup() {base.TestCleanup();}
+		[SetUp] public override void TestInitialize() {base.TestInitialize();}
+		[TearDown] public override void TestCleanup() {base.TestCleanup();}
 
-		[TestMethod]
+		[Test]
 		public void RegisterAndRelease() {
 			var count = 0;
 			var vm = new Int32VM();
@@ -27,7 +27,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 		}
 
 
-		[TestMethod,Ignore /*TODO*/]
+		[Test,Ignore("TODO") /*TODO*/]
 		public void Collect() {
 //			var count = 0;
 //			var vm = new Int32VM();

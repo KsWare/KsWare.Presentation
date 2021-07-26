@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "KsWare.Presentation.Tests.Runner": {
+      "commandName": "Project"
+    }
+  }
+}

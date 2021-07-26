@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using KsWare.Presentation.ViewModelFramework.DesignTime;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.ViewModelFramework.Tests {
 
-	[TestClass]
+	[TestFixture]
 	public class ViewModelCodeGenerator4DataObjectsTests {
 
 
-		[TestMethod]
+		[Test]
 		public void GenarateMissingProperties() {
 			ViewModelCodeGenerator4DataObjects.GenerateMissingProperties(typeof (TestData), typeof (TestVM));
 		}

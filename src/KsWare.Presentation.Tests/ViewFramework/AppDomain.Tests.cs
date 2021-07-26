@@ -3,11 +3,11 @@
 //using System.Reflection;
 //using System.Runtime.CompilerServices;
 //using System.Threading;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using NUnit.Framework;
 //
 //namespace KsWare.Test.Presentation.KsWare.Presentation.ViewFramework {
 //
-//	[TestClass]
+//	[TestFixture]
 //	public class AppDomainTests:MarshalByRefObject {
 //
 //		private void Log(string s) {
@@ -31,7 +31,7 @@
 //			return true;
 //		}
 //
-//		[TestMethod][Ignore]
+//		[Test,Ignore("TODO")]
 //		public void TestMethod1() {
 //			if(!RunInDomain()) return;
 //			

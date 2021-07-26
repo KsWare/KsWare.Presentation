@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.Core {
@@ -10,7 +10,7 @@ namespace KsWare.Presentation.Tests.Core {
 
 	/// <summary> Test the <see cref="EventUtil"/>-class
 	/// </summary>
-	[TestClass]//[TestSubject(typeof(EventUtil))]
+	[TestFixture]//[TestSubject(typeof(EventUtil))]
 	public class EventUtilTests {
 
 		// PerformanceTest results (1mio calls)
@@ -21,17 +21,17 @@ namespace KsWare.Presentation.Tests.Core {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Initialize() { }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Cleanup() { }
 
 		/// <summary> Common
 		/// </summary>
-		[TestMethod] [Ignore]
+		[Test] [Ignore("TODO")]
 		public void Common() {
 			TestEvent += FailTestEvent;
 			Assert.Throws<MultiTargetInvocationException>(()=> EventUtil.Raise(TestEvent,this,EventArgs.Empty,"{F2D351D0-FE36-46AC-8D9D-C33969840478}"));
@@ -113,7 +113,7 @@ namespace KsWare.Presentation.Tests.Core {
 			return duration;
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseˑTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			c.RaiseEventHandlerEvent();	
@@ -122,7 +122,7 @@ namespace KsWare.Presentation.Tests.Core {
 			c.RaiseCustomEventHandler();
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) {
@@ -134,51 +134,51 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseːEventHandlerEventDirectˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++)c.RaiseEventHandlerEventDirect();	
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseːEventHandlerEventˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandlerEvent();	
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseːEventHandler1EventArgsEventˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1EventArgsEvent();
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseːEventHandler1ValueChangedEventArgsEventˑPerformanceTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseEventHandler1ValueChangedEventArgsEvent();
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseːCustomEventHandlerˑPerformanceTest() {
 			// test for a not optimized delegate
 			var c=new EventUtilˑRaiseˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseCustomEventHandler();
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseˑTargetInvocationExceptionˑTest() {
 			var c=new EventUtilˑRaiseˑTestClass();
 			Assert.Throws<TargetInvocationException>(() => c.RaiseːTargetInvocationExceptionEvent());
 		}
 
 
-		[TestMethod]
+		[Test]
 		public void RaiseDynamicːDoubleNestedEventHandlerˑTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			c.RaiseːDoubleNestedEventHandlerEvent();
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseDynamicˑTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			c.RaiseːEventHandlerEvent();	
@@ -187,13 +187,13 @@ namespace KsWare.Presentation.Tests.Core {
 			c.RaiseːCustomEventHandlerEvent();				
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseDynamicˑCustomEventHandlerˑPerformanceTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			for (int i = 0; i < 1000000; i++) c.RaiseːCustomEventHandlerEvent();				
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseDynamicˑPerformanceTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			for (int i = 0; i < 100000; i++) {
@@ -204,7 +204,7 @@ namespace KsWare.Presentation.Tests.Core {
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseDynamicˑTargetInvocationExceptionˑTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			Assert.Throws<Exception>(() => c.RaiseːExceptionEvent(),"TestCase");

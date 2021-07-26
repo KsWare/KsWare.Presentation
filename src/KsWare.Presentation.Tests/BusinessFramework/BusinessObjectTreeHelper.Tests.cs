@@ -1,28 +1,19 @@
 ﻿using System.Diagnostics;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 	// ReSharper disable InconsistentNaming
 
 	/// <summary> Test the <see cref="BusinessObjectTreeHelper"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class BusinessObjectTreeHelperTests {
-
-		/// <summary> Setup this instance.
-		/// </summary>
-		[TestInitialize]
-		public void Setup() { }
-
-		/// <summary> Teardowns this instance.
-		/// </summary>
-		[TestCleanup]
-		public void Teardown() { }
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void CommonA() {
 			int treeChangesCount = 0;
 			BusinessObjectTreeHelper.TreeChanged+=delegate(object sender, TreeChangedEventArgs args) { treeChangesCount++; };
@@ -31,7 +22,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Debug.WriteLine("=>TreeChangesCount: " + treeChangesCount);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CommonB() {
 			//LOG: using(this.LogBlock(Flow.Enter)) 
 			{
@@ -45,7 +36,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void CommonC() {
 			int treeChangesCount = 0;
 			var a = new ObjectA();
@@ -53,7 +44,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			a.B.C.Change();
 			Debug.WriteLine("=>TreeChangesCount: " + treeChangesCount);
 		}
-		[TestMethod]
+		[Test]
 		public void CommonD() {
 			int treeChangesCountA=0,treeChangesCountB=0,treeChangesCountC = 0;
 			var a = new ObjectA();
@@ -68,7 +59,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Debug.WriteLine("=>TreeChangesCountC: " + treeChangesCountC);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CommonE() {
 			int treeChangesCountA=0,treeChangesCountB=0,treeChangesCountC = 0;
 			var a = new ObjectA();
@@ -84,13 +75,13 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		}
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void RaiseTreeChangedEventDirect() {
 			BusinessObjectTreeHelper.TreeChanged += delegate(object sender, TreeChangedEventArgs args) { Debug.WriteLine("=>" + new StackTrace()); };
 			BusinessObjectTreeHelper.RaiseTreeChangedEventDirect();
 		}
 
-		[TestMethod]
+		[Test]
 		public void RaiseTreeChangedEventWithHelper() {
 			BusinessObjectTreeHelper.TreeChanged += delegate(object sender, TreeChangedEventArgs args) { Debug.WriteLine("=>" + new StackTrace()); };
 			BusinessObjectTreeHelper.RaiseTreeChangedEventWithHelper();

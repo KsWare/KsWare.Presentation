@@ -2,7 +2,7 @@
 
 using System;
 using KsWare.Presentation.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.ViewModelFramework;
 using KsWare.Presentation.ViewModelFramework.Providers;
@@ -13,12 +13,12 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	/// <summary> Test the <see cref="BusinessValueErrorProvider"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class BusinessValueErrorProviderTests: TestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {
 			base.TestInitialize();
 			//...do anything here...
@@ -26,7 +26,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {
 			//...do anything here...
 			base.TestInitialize();
@@ -34,14 +34,14 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Common() {
 			var bm = new Int32BM{Metadata = new BusinessValueMetadata{DataProvider = new LocalDataProvider(),Settings = new ValueSettings<Int32>()}};
 			Assert.IsNotNull(bm.Settings);
 			var vm = new Int32VM {MemberName="Int32", Metadata = new BusinessValueMetadata<Int32>()};
-			Assert.IsInstanceOfType(vm.Metadata.ErrorProvider,typeof(BusinessValueErrorProvider));
+			Assert.IsInstanceOf<BusinessValueErrorProvider>(vm.Metadata.ErrorProvider);
 			((IBusinessValueDataProvider) vm.Metadata.DataProvider).BusinessValue = bm;
-			Assert.IsInstanceOfType(vm.Metadata.ErrorProvider,typeof(BusinessValueErrorProvider));
+			Assert.IsInstanceOf<BusinessValueErrorProvider>(vm.Metadata.ErrorProvider);
 			bm.Metadata.Settings.Maximum = 100;
 		}
 

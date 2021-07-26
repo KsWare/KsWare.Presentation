@@ -1,235 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1E3A05FD-0F03-4B1A-AB41-53AA2018D940}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KsWare.Presentation.Tests</RootNamespace>
-    <AssemblyName>KsWare.Presentation.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <CodeAnalysisRuleSet>..\Projects.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
+
+    <IsPackable>false</IsPackable>
+
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+
     <AssemblyOriginatorKeyFile>Properties\key.snk</AssemblyOriginatorKeyFile>
+
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=5.10.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.5.10.3\lib\net45\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Annotations, Version=2021.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.2021.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.util.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
+    <Compile Remove="JsonFx\**" />
+    <EmbeddedResource Remove="JsonFx\**" />
+    <None Remove="JsonFx\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Core\DEACTIVATED\MappedDataProvider.Tests.cs" />
+    <Compile Remove="Program.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="ViewFramework\SpecialThicknessConverter.Tests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
+    <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj"></ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj"></ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj"></ProjectReference>
+    <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj" />
+    <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessFramework\ListBMTests.cs" />
-    <Compile Include="BusinessFramework\ObjectBMːHierarchyTests.cs" />
-    <Compile Include="BusinessFramework\RefBMTests.cs" />
-    <Compile Include="Core\EventManagerˑIntegrationTests.cs" />
-    <Compile Include="DispatcherWrapperTests.cs" />
-    <Compile Include="TestBase.cs" />
-    <Compile Include="ViewFramework\Application.Tests.cs" />
-    <Compile Include="ViewFramework\AppDomain.Tests.cs" />
-    <Compile Include="ViewModelFramework\%28MetadataModel%29\%28BusinessModel%29\BusinessActionMetadata.Tests.cs" />
-    <Compile Include="ViewModelFramework\%28MetadataModel%29\%28BusinessModel%29\BusinessListMetadata.Tests.cs" />
-    <Compile Include="ViewModelFramework\%28MetadataModel%29\%28BusinessModel%29\BusinessObjectMetadata.Tests.cs" />
-    <Compile Include="ViewModelFramework\%28MetadataModel%29\%28BusinessModel%29\BusinessValueMetadata.Tests.cs" />
-    <Compile Include="ViewModelFramework\%28MetadataModel%29\ViewModelMetadata.Tests.cs" />
-    <Compile Include="ViewModelFramework\%28MetadataModel%29\ActionMetadata.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\RefVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28UI-VM%29\WindowVM.Tests.cs" />
-    <Compile Include="Core\GC.Tests.cs" />
-    <Compile Include="Core\BasicTests.cs" />
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Core\WeakEventManager.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVMˑCustomDataProviderˑNotifyDataChangedTests.cs" />
-    <None Include="Core\DEACTIVATED\MappedDataProvider.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\RefVM.Business.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28UI-VM%29\ApplicationVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMLinkTests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\ValueVMWeakEvent.Tests.cs" />
-    <Compile Include="BusinessFramework\BusinessAction.Tests.cs" />
-    <Compile Include="BusinessFramework\ListBMˑTests.cs" />
-    <Compile Include="BusinessFramework\BusinessList_2_Tests.cs" />
-    <Compile Include="BusinessFramework\BusinessObjectTreeHelper.Tests.cs" />
-    <Compile Include="BusinessFramework\MetricValue.Tests.cs" />
-    <Compile Include="BusinessFramework\Providers\CustomNewItemProvider.Tests.cs" />
-    <Compile Include="BusinessFramework\Providers\DefaultNewItemProvider.Tests.cs" />
-    <Compile Include="Core\CustomDataProvider.Tests.cs" />
-    <Compile Include="Core\DataProvider.Tests.cs" />
-    <Compile Include="Core\EventUtil.Tests.cs" />
-    <Compile Include="Core\Log.Tests.cs" />
-    <Compile Include="Core\MultiTargetInvocationException.Tests.cs" />
-    <Compile Include="Core\Shape.Tests.cs" />
-    <Compile Include="ViewFramework\AttachedBehavior\AttachedBehavior.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ActionVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\BasicTypeVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\BusinessValueErrorProvider.Tests.cs" />
-    <Compile Include="ViewModelFramework\DispatcherExtension.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28ValueVM%29\EnumVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28OtherVMs%29\ListVM.Tests.cs" />
-    <Compile Include="ViewModelFramework\ViewModel\%28ObjectVM%29\ObjectVMTests.cs" />
-    <Compile Include="ViewModelFramework\ValueProviderStringConverter.Tests.cs" />
-    <Compile Include="WeakEventManagerExample.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModelFramework\Providers\EditValueProviderˑHexNumberExtensionTests.cs" />
-    <Compile Include="ViewModelFramework\Providers\EditValueProviderˑBoolNullableˑTests.cs" />
-    <Compile Include="ViewModelFramework\Providers\EditValueProviderˑStringExtensionTests.cs" />
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\key.snk" />
-    <None Include="packages.config" />
+    <Folder Include="Core\DEACTIVATED\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj">
-      <Project>{816f4a41-a808-460e-8e5a-d048934b6a5d}</Project>
-      <Name>KsWare.Presentation.BusinessFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj">
-      <Project>{4341f602-848b-42fc-ad38-e86f0820e3f4}</Project>
-      <Name>KsWare.Presentation.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj">
-      <Project>{48bd0342-2458-44f5-a3bb-1405a56efaf4}</Project>
-      <Name>KsWare.Presentation.Testing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj">
-      <Project>{480179c9-c018-4515-8b83-44e21112887d}</Project>
-      <Name>KsWare.Presentation.ViewFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj">
-      <Project>{e45e9672-0236-47fc-9ade-5fef5cdfc7ae}</Project>
-      <Name>KsWare.Presentation.ViewModelFramework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NameSortTest\!\" />
-    <Folder Include="NameSortTest\%28\" />
-    <Folder Include="NameSortTest\%40\" />
-    <Folder Include="NameSortTest\a\" />
-    <Folder Include="NameSortTest\[\" />
-    <Folder Include="NameSortTest\{\" />
-    <Folder Include="NameSortTest\»\" />
-    <Folder Include="NameSortTest\※\" />
-    <Folder Include="NameSortTest\‼\" />
-    <Folder Include="NameSortTest\⁃\" />
-    <Folder Include="NameSortTest\⃠\" />
-    <Folder Include="NameSortTest\→\" />
-    <Folder Include="NameSortTest\⊘\" />
-    <Folder Include="NameSortTest\⋮\" />
-    <Folder Include="NameSortTest\⌦\" />
-    <Folder Include="NameSortTest\①\" />
-    <Folder Include="NameSortTest\⒒\" />
-    <Folder Include="NameSortTest\✖\" />
-    <Folder Include="NameSortTest\❶\" />
-    <Folder Include="NameSortTest\ㆍ\" />
-    <Folder Include="NameSortTest\ａ\" />
-    <Folder Include="Other\" />
-    <Folder Include="ViewFramework\%28Converters%29\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

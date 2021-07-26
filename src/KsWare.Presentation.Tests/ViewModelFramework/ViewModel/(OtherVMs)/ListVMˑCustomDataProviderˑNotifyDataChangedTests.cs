@@ -2,26 +2,26 @@
 using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ListVMˑCustomDataProviderˑNotifyDataChangedTests:ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() { base.TestInitialize();}
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {base.TestCleanup(); }
 
 		private List<TestData> _dataList;
 		
-		[TestMethod]
+		[Test]
 		public void NotifyDataChangedTest() {
 			_dataList=new List<TestData> {new TestData()};
 			var listVM = new ListVM<TestVM> {Metadata = new ListViewModelMetadata {DataProvider = new CustomDataProvider<IEnumerable<TestData>>(GetData, null)}};

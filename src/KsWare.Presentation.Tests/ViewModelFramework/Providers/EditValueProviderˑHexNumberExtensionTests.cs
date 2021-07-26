@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 
-	[TestClass]
+	[TestFixture]
 	public class EditValueProviderˑHexNumberExtensionTests {
 
-		[TestMethod]
+		[Test]
 		public void Int32VM_EditValueProvider_HexNumber_10() {
 			var vm = new Int32VM();
 			vm.Value = 1;
@@ -17,7 +17,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 			Assert.AreEqual((int) 16, vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Int32VM_EditValueProvider_HexNumber_FF() {
 			var vm = new Int32VM();
 			vm.Value = 1;
@@ -25,7 +25,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 			Assert.AreEqual((int) 255, vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Int32VM_EditValueProvider_HexNumber_0F() {
 			var vm = new Int32VM();
 			vm.Value = 1;
@@ -33,7 +33,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 			Assert.AreEqual((int) 15, vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ByteVM_EditValueProvider_HexNumber_100() {
 			var vm = new ByteVM();
 			vm.Value = 1;

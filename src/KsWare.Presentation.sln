@@ -66,6 +66,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Behavio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.ViewFramework.AttachedBehavior", "KsWare.Presentation.ViewFramework.AttachedBehavior\KsWare.Presentation.ViewFramework.AttachedBehavior.csproj", "{E21FF939-C340-4E0A-A4E3-923A90ACFA05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyNunitTestProject50", "EmptyNunitTestProject50\EmptyNunitTestProject50.csproj", "{7F2A7463-6CF5-4ABF-A7D7-25E2BB58D6D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmptyNunitTestProjectMT", "EmptyNunitTestProjectMT\EmptyNunitTestProjectMT.csproj", "{C04FF67A-2685-498B-A47F-484E1734313B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,6 +172,14 @@ Global
 		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2A7463-6CF5-4ABF-A7D7-25E2BB58D6D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2A7463-6CF5-4ABF-A7D7-25E2BB58D6D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2A7463-6CF5-4ABF-A7D7-25E2BB58D6D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2A7463-6CF5-4ABF-A7D7-25E2BB58D6D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C04FF67A-2685-498B-A47F-484E1734313B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C04FF67A-2685-498B-A47F-484E1734313B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C04FF67A-2685-498B-A47F-484E1734313B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C04FF67A-2685-498B-A47F-484E1734313B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -188,6 +200,8 @@ Global
 		{1A8F63B3-A873-4E50-9064-48708330D99C} = {E199FA15-4386-47A9-9E10-D49ECAC8392A}
 		{0E361651-6CD2-4809-B6D1-8BBC185B1940} = {E199FA15-4386-47A9-9E10-D49ECAC8392A}
 		{BA91CEB8-06B5-4BFE-BC1D-CA750C02EBCC} = {E199FA15-4386-47A9-9E10-D49ECAC8392A}
+		{7F2A7463-6CF5-4ABF-A7D7-25E2BB58D6D5} = {5DE1F59B-26E6-4C82-AA54-E27781BF0088}
+		{C04FF67A-2685-498B-A47F-484E1734313B} = {5DE1F59B-26E6-4C82-AA54-E27781BF0088}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8DBEDED-F850-44B2-A655-AB4B5D4CA024}

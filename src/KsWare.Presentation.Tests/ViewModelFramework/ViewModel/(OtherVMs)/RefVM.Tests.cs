@@ -1,18 +1,18 @@
 ﻿using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class RefVMTests {
 
-		[TestMethod]
+		[Test]
 		public void T001_Target_Set() {
 			var refVM = new RefVM<StringVM>();
 			refVM.Target=new StringVM();
 		}
 
-		[TestMethod]
+		[Test]
 		public void T002_TargetChanged_MustRaised() {
 			var refVM = new RefVM<StringVM>();
 			int targetChangedCounter=0;
@@ -23,7 +23,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.AreEqual(1,targetChangedCounter);
 		}
 
-		[TestMethod]
+		[Test]
 		public void T003_TargetChangedEvent_MustRaised() {
 			var refVM = new RefVM<StringVM>();
 			int targetChangedCounter=0;

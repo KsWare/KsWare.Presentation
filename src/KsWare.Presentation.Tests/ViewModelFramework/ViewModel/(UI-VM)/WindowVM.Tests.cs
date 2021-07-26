@@ -1,24 +1,25 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 using Is=NUnit.Framework.Is;
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class WindowVMTests:ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {
 			base.TestInitialize();
 		}
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {
 			if(TestSubject!=null) {TestSubject.Dispose(); TestSubject=null;}
 			base.TestCleanup();
@@ -26,7 +27,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		public WindowVM TestSubject { get; set; }
 
-		[TestMethod,Ignore/*this would create a real window, test this as standalone*/]
+		[Test][Ignore("TODO") /*this would create a real window, test this as standalone*/]
 		public void Show() {
 			TestSubject = new WindowVM();
 			TestSubject.UIAccess.IsDirectAccessEnabled = true;
@@ -44,7 +45,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			TestSubject.CloseAction.Execute(null);
 		}
 
-		[TestMethod]
+		[Test][Apartment(ApartmentState.STA)]
 		public void CloseWindow() {
 			TestSubject = new WindowVM();
 			TestSubject.UIAccess.IsDirectAccessEnabled = true;

@@ -68,7 +68,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		public IObjectVM Parent {
 			[CanBeNull]
 			get{return _parent;}
-			[NotNull] 
+			[JetBrains.Annotations.NotNull] 
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Property can not be null!",this,"Parent","{0317A98F-B4CD-4E89-AE9C-0A8A1ABBC196}");
 				MemberAccessUtil.DemandWriteOnce(_parent==null,"Property can only set one time!",this,nameof(Parent),"{968E415C-F520-4267-BC27-303EE01A5591}");
@@ -138,7 +138,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <value>The data provider.</value>
 		public IDataProvider DataProvider {
-			[NotNull] 
+			[JetBrains.Annotations.NotNull] 
 			get {
 				if(_dataProvider==null) {
 					_dataProvider = CreateDefaultDataProvider();
@@ -149,7 +149,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 				return _dataProvider;
 			}
-			[NotNull] 
+			[JetBrains.Annotations.NotNull] 
 			set {
 				DemandNotNull(value);
 				DemandPropertySet();

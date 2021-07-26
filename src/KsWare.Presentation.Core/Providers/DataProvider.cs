@@ -126,7 +126,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public object Parent {
 			[CanBeNull]
 			get {return _Parent;}
-			[NotNull]
+			[JetBrains.Annotations.NotNull]
 			set {
 				if(value==null) throw new InvalidOperationException("Parent cannot be null!");
 				MemberAccessUtil.DemandWriteOnce(this._Parent==null,null,this,nameof(Parent),"{B673604D-F920-4C88-80C7-416EDC0EB027}");
@@ -287,7 +287,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public object Parent {
 			[CanBeNull]
 			get {return _parent;}
-			[NotNull]
+			[JetBrains.Annotations.NotNull]
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Parent cannot be null!",this,"{28F3510D-FB94-44ED-BE16-B6A16B9F0C91}");
 				MemberAccessUtil.DemandWriteOnce(_parent==null,null,this,nameof(Parent),"{65A545AD-0209-4F59-9593-10B97243E955}");

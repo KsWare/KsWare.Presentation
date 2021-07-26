@@ -2,28 +2,24 @@
 using System.Globalization;
 using System.Text;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KsWare.Presentation.ViewModelFramework;
 using NUnit.Framework;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using CollectionAssert = Microsoft.VisualStudio.TestTools.UnitTesting.CollectionAssert;
-using IgnoreAttribute = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
+using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.Tests.ViewFramework {
 	// ReSharper disable InconsistentNaming
 
 	/// <summary> Test the <see cref="ValueProviderStringConverter"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class ValueProviderStringConverterTests {
 
-		[TestInitialize]
+		[SetUp]
 		public void Setup() {
 			TestSubject = new ValueProviderStringConverter();
 		}
 
 
-		[TestCleanup]
+		[TearDown]
 		public void Cleanup() {
 			TestSubject = null;
 
@@ -47,7 +43,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod,Ignore]
+		[Test,Ignore("TODO")]
 		public void CanConvertFrom() {
 //			Assert.IsTrue(TestSubject.CanConvertFrom(null,typeof(DateTime)));
 			Assert.IsTrue(TestSubject.CanConvertFrom(null,typeof(Guid?)));
@@ -61,7 +57,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod,Ignore]
+		[Test,Ignore("TODO")]
 		public void CanConvertTo() {
 //			Assert.IsTrue(TestSubject.CanConvertTo(null,typeof(DateTime)));
 			Assert.IsTrue(TestSubject.CanConvertTo(null,typeof(Guid)));
@@ -74,7 +70,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.IsFalse(TestSubject.CanConvertTo(null,typeof(Thread)));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertFrom() {
 			Assert.AreEqual("1",(string)TestSubject.ConvertFrom((Byte   ) 1));
 			Assert.AreEqual("1",(string)TestSubject.ConvertFrom((SByte  ) 1));
@@ -106,7 +102,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 //			Assert.AreEqual("1",TestSubject.ConvertFrom(new DateTime(2000,1,1,12,0,0)));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertTo() {
 			Assert.AreEqual((Byte   ) 1,(Byte   )TestSubject.ConvertTo("1",typeof(Byte   )));
 			Assert.AreEqual((SByte  ) 1,(SByte  )TestSubject.ConvertTo("1",typeof(SByte  )));
@@ -133,12 +129,12 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			CollectionAssert.AreEqual(new Decimal[] {1,2},(Decimal[])TestSubject.ConvertTo("1 2",typeof(Decimal[])));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertTo_ByteArray_StringEmpty() {
 			CollectionAssert.AreEqual(new Byte   [] {},(Byte   [])TestSubject.ConvertTo("",typeof(Byte   [])));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertTo_Double_Invariant() {
 			TestSubject.Options.Culture=CultureInfo.InvariantCulture;
 			Assert.AreEqual((Double ) 1.1, (Double )TestSubject.ConvertTo("1.1",typeof(Double )));
@@ -149,7 +145,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.AreEqual((Double ) (-1.1), (Double )TestSubject.ConvertTo("-01.1",typeof(Double )));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertFrom_Double_Invariant() {
 			TestSubject.Options.Culture = CultureInfo.InvariantCulture;
 
@@ -159,7 +155,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.AreEqual("-Infinity",(string)TestSubject.ConvertFrom((Double ) Double.NegativeInfinity));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertFrom_Double_DE() {
 			TestSubject.Options.Culture = CultureInfo.CreateSpecificCulture("de-DE");
 
@@ -171,7 +167,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.AreEqual("-∞",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
 		}
 
-		[TestMethod]
+		[Test]
 		public void ConvertFrom_Double_Current_EN() {
 			SetCulture(CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -183,7 +179,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.AreEqual("-∞",(string)TestSubject.ConvertFrom((Double ) Double.NegativeInfinity));
 		}
 		
-		[TestMethod]
+		[Test]
 		public void ConvertFrom_Double_Current_DE() {
 			SetCulture(CultureInfo.CreateSpecificCulture("de-DE"));
 
@@ -195,7 +191,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Assert.AreEqual("-∞",(string)TestSubject.ConvertFrom( Double.NegativeInfinity));
 		}
 
-		[TestMethod,Explicit]
+		[Test,Explicit]
 		public void ConvertFrom_Double_Show_Default_String_for_Infinity() {
 			var s = new StringBuilder();
 

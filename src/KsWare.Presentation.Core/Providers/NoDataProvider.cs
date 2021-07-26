@@ -30,7 +30,7 @@ namespace KsWare.Presentation.Core.Providers {
 		public object Parent {
 			[CanBeNull]
 			get {return _parent;}
-			[NotNull]
+			[JetBrains.Annotations.NotNull]
 			set {
 				MemberAccessUtil.DemandNotNull(value,"Property cannot be null!",this,"{8D3472D8-B6FD-45BE-A63F-79FA56577E24}");
 				MemberAccessUtil.DemandWriteOnce(this._parent==null,null,this,nameof(Parent),"{734D4ADC-52CF-4ED5-AA58-5274F4E66911}");

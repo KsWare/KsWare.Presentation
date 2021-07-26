@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using KsWare.Presentation.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.ViewModelFramework;
 using KsWare.Presentation.ViewModelFramework.Providers;
@@ -14,22 +14,22 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	/// <summary> Test the <see cref="EnumVM{T}"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class EnumVMTests:ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() { base.TestInitialize();}
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {base.TestCleanup(); }
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void UseWidthDefaultMetadata() {
 			var vm=new EnumVM<TestEnum>();
 			vm.EditValueProvider.String="B";
@@ -39,7 +39,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.IsTrue(vm.ErrorProvider.HasError);
 		}
 
-		[TestMethod]
+		[Test]
 		public void A() {
 			var enumBM = new EnumBM<TestEnum>();
 			Assert.IsTrue(enumBM.HasValue);
@@ -48,7 +48,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod,Ignore /*TODO document this test case and make it work*/]
+		[Test][Ignore("TODO") /*TODO document this test case and make it work*/]
 		public void B() {
 			var enumBM = new EnumBM<TestEnum>();
 			enumBM.Metadata.DataProvider.Data = TestEnum.A;
@@ -79,7 +79,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(TestEnum.C,enumBM.Value);
 		}
 
-		[TestMethod][Ignore]
+		[Test,Ignore("TODO")]
 		public void BusinessValueDataProvider_BusinessValue_Settings_IncludeValues_changed() {
 			var enumBM = new EnumBM<TestEnum>();
 			var enumVM = new EnumVM<TestEnum>{Metadata = new BusinessValueMetadata <TestEnum>()};
@@ -99,7 +99,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(TestEnum.C,enumVM.Value);
 		}
 
-		[TestMethod][Ignore]
+		[Test,Ignore("TODO")]
 		public void BusinessValueDataProvider_BusinessValue_Settings_IncludeValues_changed_while_value_is_selected() {
 			var enumBM = new EnumBM<TestEnum>();
 			var enumVM = new EnumVM<TestEnum>{Metadata = new BusinessValueMetadata <TestEnum>()};
@@ -111,7 +111,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.IsTrue(enumVM.ErrorProvider.HasError);
 		}
 
-		[TestMethod][Ignore]//TODO
+		[Test,Ignore("TODO")]//TODO
 		public void BusinessValueDataProvider_BusinessValue_is_not_initialized() {
 			var enumVM = new EnumVM<TestEnum>{Metadata = new BusinessValueMetadata <TestEnum>()};
 			//Throws.TypeOf<InvalidOperationException>();

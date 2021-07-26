@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class BusinessObjectMetadataTests {
 
-		[TestMethod][Ignore]
+		[Test,Ignore("TODO")]
 		public void NoTest() {
 			Assert.Fail("No Test");
 		}

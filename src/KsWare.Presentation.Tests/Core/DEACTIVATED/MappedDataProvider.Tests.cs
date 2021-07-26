@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.Core.Providers;
 
 namespace KsWare.Presentation.Tests.Core.Provides {
@@ -10,7 +10,7 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 
 	/// <summary> Test Class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class MappedDataProviderTests:TestBase {
 
 		private RootVM _RootVM;
@@ -19,7 +19,7 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 
 		/// <summary> Initialize the test.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {
 			base.TestInitialize();
 //			_RootVM=new RootVM();
@@ -30,22 +30,22 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 
 		/// <summary> Cleanup this test.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {
 			base.TestCleanup();
 		}
 
-		[TestMethod]
+		[Test]
 		public void T001_IsSupported() {
 			Assert.AreEqual(true,provider.IsSupported);
 		}
 
-		[TestMethod]
+		[Test]
 		public void T002_InitData() {
 			_TestVM.Data=new TestData{Number = 1};
 			Assert.AreEqual(1,_TestVM.Number.Value);
 		}
-		[TestMethod]
+		[Test]
 		public void T003_GetSet() {
 			var data = new TestData();
 			_TestVM.Data=data;
@@ -57,7 +57,7 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 			Assert.AreEqual(3,_TestVM.Number.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void T004_InitRootData() {
 			_RootVM=new RootVM();
 			var data = new RootData {TestObject = new TestData {Number = 1},TestList = new List<TestData>{new TestData{Number = 2}}};
@@ -76,7 +76,7 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 			Assert.AreEqual(2,_RootVM.TestList[0].Number.Value);
 		}
 
-//		[TestMethod]
+//		[Test]
 //		public void GetSet() {
 //			_RootVM.Data=new RootData{TestObject=new TestData{Number = 1}};
 //			Assert.AreEqual(1,provider.Data=1);
@@ -86,7 +86,7 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 //			Assert.AreEqual(5,provider.Data);
 //		}
 
-//		[TestMethod]
+//		[Test]
 //		public void NotifyDataChanged() {
 //			int cb = 0;
 //			provider.DataChanged+=delegate { cb++; };
@@ -95,7 +95,7 @@ namespace KsWare.Presentation.Tests.Core.Provides {
 //			Assert.AreEqual(1,cb);
 //		}
 
-//		[TestMethod]
+//		[Test]
 //		public void DataValidatingCallback() {
 //			int cb = 0;
 //			provider.DataValidatingCallback=delegate(object sender, object value) { cb++; return new Exception("Test");};

@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests {
 
-	[TestClass]
+	[TestFixture]
 	public class DispatcherWrapperTests {
 
-		[TestMethod]
+		[Test]
 		public void ParamsTest() {
 //			Assert.AreEqual(-1,MethodWithParams());
 			Assert.AreEqual( 0,MethodWithParams(             ));
