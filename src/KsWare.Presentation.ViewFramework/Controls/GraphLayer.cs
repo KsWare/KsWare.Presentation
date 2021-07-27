@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace KsWare.Presentation.ViewFramework.Controls
 {
-
+	//TODO description for GraphLayer
 	public abstract class GraphLayer:Control
 	{
 

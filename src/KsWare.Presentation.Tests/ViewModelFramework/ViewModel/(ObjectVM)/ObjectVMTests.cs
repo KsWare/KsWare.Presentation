@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework.UIProperties;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.ViewModelFramework;
 using KsWare.Presentation.ViewModelFramework.Providers;
 using Assert=NUnit.Framework.Assert;
@@ -20,12 +20,12 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 	/// <summary> Test the <see cref="ObjectVM"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class ObjectVMTests: ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {
 			base.TestInitialize();
 			//...do anything here...
@@ -33,7 +33,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {
 			//...do anything here...
 			base.TestCleanup();
@@ -41,7 +41,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SetEnabled_IsEnabled() {
 			var vm = new ObjectVM();
 			vm.SetEnabled("Test", false);
@@ -56,7 +56,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SetReadOnly_IsReadOnly() {
 			var vm = new ObjectVM();
 			vm.SetReadOnly("Test", false);
@@ -71,21 +71,21 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void RegisterChild() {
 			var parent = new TestVM();
 		}
 
 		/// <summary> TestDescription
 		/// </summary>
-		[TestMethod][Ignore]
+		[Test,Ignore("TODO")]
 		public void ProperName() {
 			var vm=new ObjectVM();
 			vm.MemberName = "blubber";
 			Assert.Throws<InvalidOperationException>(delegate { vm.MemberName = "other"; });
 		}
 
-		[TestMethod]
+		[Test]
 		public void PropertyChanged() {
 			var vm = new Test2VM();
 			vm.PropertyChanged+=OnTest2PropertyChanged;
@@ -95,7 +95,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			vm.PropertyChanged-=OnTest2PropertyChanged;
 		}
 
-		[TestMethod]
+		[Test]
 		public void Dispose() {
 			var vm = new Test2VM();
 			vm.Disposed+=OnTestDisposed;
@@ -112,7 +112,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			((Test2VM) sender).PropertyChangedCount++;
 		}
 
-		[TestMethod]
+		[Test]
 		public void PropertyChangedEvent() {
 			var vm = new ObjectVM();
 

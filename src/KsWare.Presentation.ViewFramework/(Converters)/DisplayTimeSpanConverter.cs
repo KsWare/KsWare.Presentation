@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Data;
 
 namespace KsWare.Presentation.ViewFramework {
+	// REPLACED by DisplayTimeSpanConverter (KsWare.Presentation.Converters)
 
 	public class DisplayTimeSpanConverter:IValueConverter {
 

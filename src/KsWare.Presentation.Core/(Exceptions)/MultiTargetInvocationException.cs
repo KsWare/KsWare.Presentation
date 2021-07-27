@@ -30,7 +30,7 @@ namespace KsWare.Presentation {
 		/// </summary>
 		/// <param name="message">The message.</param>
 		/// <param name="exceptions">The exceptions.</param>
-		public MultiTargetInvocationException(string message,[NotNull] IEnumerable<TargetInvocationException> exceptions): base(message) {
+		public MultiTargetInvocationException(string message,[JetBrains.Annotations.NotNull] IEnumerable<TargetInvocationException> exceptions): base(message) {
 			if (exceptions == null) 
 				throw new ArgumentNullException(nameof(exceptions));
 			

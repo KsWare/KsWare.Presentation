@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using KsWare.Presentation.ViewFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.ViewFramework {
@@ -9,26 +9,26 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 	/// <summary> Test the <see cref="SpecialThicknessConverter"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class SpecialThicknessConverterTests {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() {
 			//...do anything here...
 		}
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() {
 			//...do anything here...
 		}
 
 		/// <summary> Common
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Convert_variant_Formats() {
 			var conv = new SpecialThicknessConverter();
 			var v = 23;
@@ -46,7 +46,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> TestDescription
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Convert_variant_Types() {
 			var conv = new SpecialThicknessConverter();
 			Assert.AreEqual(new Thickness(1, 0, 0, 0),conv.Convert((String)"1", typeof (Thickness), "Left", null));
@@ -62,7 +62,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> TestDescription
 		/// </summary>
-		[TestMethod][Ignore]//TODO aktivate Test
+		[Test][Ignore]//TODO aktivate Test
 		public void Convert_unsupported_Types() {
 			var conv = new SpecialThicknessConverter();
 			Assert.AreEqual(new Thickness(0, 0, 0, 0), conv.Convert((Decimal)1, typeof (Thickness), "Left", null));
@@ -70,7 +70,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ConvertBack_NotImplemented() {
 			var conv = new SpecialThicknessConverter();
 			Assert.Throws<NotImplementedException>(delegate { conv.ConvertBack(new Thickness(1, 2, 3, 4), typeof(double), "Left", null); });

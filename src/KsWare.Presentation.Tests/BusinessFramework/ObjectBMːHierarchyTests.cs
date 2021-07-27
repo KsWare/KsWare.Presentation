@@ -1,15 +1,15 @@
 ﻿using System;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 using Is=NUnit.Framework.Is;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ObjectBMːHierarchyTests {
 
-		[TestMethod]
+		[Test]
 		public void RegisterChildːBoolBMˑCustomDataProviderˑTest() {
 			var data = new TestClass1Data();
 			var bm = new TestClass1BM();
@@ -33,7 +33,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.That(bm.MyBool.Value,Is.EqualTo(true));
 		}
 
-		[TestMethod]
+		[Test]
 		public void RegisterChildːEnumBMˑCustomDataProviderˑTest() {
 			var data = new TestClass2Data();
 			var bm = new TestClass2BM();
@@ -58,7 +58,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.That(bm.MyEnum.Value,Is.EqualTo(DayOfWeek.Friday));
 		}
 
-		[TestMethod]
+		[Test]
 		public void RegisterChildːInvalidBMˑCustomDataProviderˑTest() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => new TestClass3BM());
 		}

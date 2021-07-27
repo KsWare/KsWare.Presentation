@@ -1,26 +1,16 @@
 ﻿using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.BusinessFramework.Providers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.BusinessFramework.Providers {
 	// ReSharper disable InconsistentNaming
 
 	/// <summary> Test Class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class CustomNewItemProviderTests {
 
-		/// <summary> Setup this instance.
-		/// </summary>
-		[TestInitialize]
-		public void Setup() { }
-
-		/// <summary> Teardowns this instance.
-		/// </summary>
-		[TestCleanup]
-		public void Teardown() { }
-
-		[TestMethod]
+		[Test]
 		public void Constructor() {
 			TestItemBM testItem=new TestItemBM();
 			CreateNewItemCallbackHandler createNewItemCallbackHandler = delegate(object data) { return testItem; };

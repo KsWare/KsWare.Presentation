@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Xaml.Behaviors;
-using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 

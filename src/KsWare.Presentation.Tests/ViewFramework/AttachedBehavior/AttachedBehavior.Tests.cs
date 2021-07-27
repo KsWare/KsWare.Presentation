@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewFramework.AttachedBehavior {
 	// ReSharper disable InconsistentNaming
 
 	/// <summary> Test the <see cref="KsWare.Presentation.ViewFramework.AttachedBehavior"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class AttachedBehaviorTests {
 
 		/// <summary> TestDescription
 		/// </summary>
-		[TestMethod][Ignore]
+		[Test,Ignore("TODO")]
 		public void NoTest() {
 			Assert.Fail();
 		}

@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KsWare.Presentation.Core.Providers;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.Core {
 	// ReSharper disable InconsistentNaming
 
 	/// <summary> Test Class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class CustomDataProviderTests {
 
 		object data;
@@ -15,22 +15,22 @@ namespace KsWare.Presentation.Tests.Core {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() {
 			this.provider = new CustomDataProvider(() => data, v => data = v);
 		}
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() { }
 
-		[TestMethod]
+		[Test]
 		public void IsSupported() {
 			Assert.AreEqual(true,provider.IsSupported);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetSet() {
 			Assert.AreEqual(6,provider.Data=6);
 			Assert.AreEqual(data,provider.Data  );
@@ -39,7 +39,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.AreEqual(5,provider.Data);
 		}
 
-		[TestMethod]
+		[Test]
 		public void NotifyDataChanged() {
 			int cb = 0;
 			provider.DataChanged+=delegate { cb++; };
@@ -48,7 +48,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.AreEqual(1,cb);
 		}
 
-		[TestMethod]
+		[Test]
 		public void DataValidatingCallback() {
 			int cb = 0;
 			provider.DataValidatingCallback=delegate(object sender, object value) { cb++; return new Exception("Test");};

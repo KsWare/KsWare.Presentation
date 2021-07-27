@@ -96,7 +96,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <param name="child">The child view model to register</param>
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		protected TChild RegisterChild<TChild>([NotNull] TChild child) where TChild:class,IObjectVM {
+		protected TChild RegisterChild<TChild>([JetBrains.Annotations.NotNull] TChild child) where TChild:class,IObjectVM {
 //			if (child == null) throw new ArgumentNullException("child");
 //			var childHierarchical = (IHierarchical<IObjectVM>) child;
 //			if (childHierarchical.Parent!=null) throw new InvalidOperationException("Child is already in a hierarchy!");
@@ -121,7 +121,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		// [PREPARED]
-		private static TChild ːːInterfaceHelperːRegisterChild<TChild>([NotNull] TChild child, List<IObjectVM> _Children,IObjectVM @this) where TChild : class, IObjectVM {
+		private static TChild ːːInterfaceHelperːRegisterChild<TChild>([JetBrains.Annotations.NotNull] TChild child, List<IObjectVM> _Children,IObjectVM @this) where TChild : class, IObjectVM {
 			if (child == null) throw new ArgumentNullException(nameof(child));
 			var childHierarchical = (IHierarchical<IObjectVM>) child;
 			if (childHierarchical.Parent!=null) throw new InvalidOperationException("Child is already in a hierarchy!");
@@ -150,7 +150,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="propertyName"></param>
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		[Obsolete("Use other method",true)]
-		protected TChild RegisterChild<TChild>([NotNull] TChild child, [Localizable(false)] string propertyName) where TChild:class,IObjectVM{
+		protected TChild RegisterChild<TChild>([JetBrains.Annotations.NotNull] TChild child, [Localizable(false)] string propertyName) where TChild:class,IObjectVM{
 			throw new NotSupportedException("Obsolete!\nErrorID:{03BD0D3F-738D-49DC-9C03-528E7ABD0A6F}");
 		}
 
@@ -160,7 +160,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="child">The child view model to register</param>
 		/// <seealso cref="RegisterChildren"/>
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		protected TChild RegisterChild<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child) where TChild:class,IObjectVM {
+		protected TChild RegisterChild<TChild>([Localizable(false)] string propertyName, [JetBrains.Annotations.NotNull] TChild child) where TChild:class,IObjectVM {
 			return RegisterChildInternal(propertyName, child);
 		}
 
@@ -171,7 +171,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="child">The child view model to register</param>
 		/// <example><code>MyProperty = RegisterChild(_=>MyProperty, new MyPropertyVM{/*...*/});</code></example>
 		/// <seealso cref="RegisterChildren"/>
-		protected TChild RegisterChild<TChild>([NotNull] Expression<Func<object, TChild>> propertyExpression, [NotNull] TChild child) where TChild : class, IObjectVM {
+		protected TChild RegisterChild<TChild>([JetBrains.Annotations.NotNull] Expression<Func<object, TChild>> propertyExpression, [JetBrains.Annotations.NotNull] TChild child) where TChild : class, IObjectVM {
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
 			return RegisterChildInternal(memberName, child);
 		}
@@ -183,7 +183,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="child">The child view model to register</param>
 		/// <example><code>MyProperty = RegisterChild(_=>MyProperty, new MyPropertyVM{/*...*/});</code></example>
 		/// <seealso cref="RegisterChildren"/>
-		protected TChild RegisterChild<TChild>([NotNull] Expression<Func<TChild>> propertyExpression, [NotNull] TChild child) where TChild : class, IObjectVM {
+		protected TChild RegisterChild<TChild>([JetBrains.Annotations.NotNull] Expression<Func<TChild>> propertyExpression, [JetBrains.Annotations.NotNull] TChild child) where TChild : class, IObjectVM {
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
 			return RegisterChildInternal(memberName, child);
 		}
@@ -197,7 +197,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="child"></param>
 		/// <returns></returns>
 		/// <example><code>MyProperty = RegisterChild(this,vm=>vm.MyProperty, new MyPropertyVM{/*...*/});</code></example>
-		protected TChild RegisterChild<TViewModel,TChild>([NotNull] TViewModel @this, [NotNull] Expression<Func<TViewModel, TChild>> propertyExpression, [NotNull] TChild child) 
+		protected TChild RegisterChild<TViewModel,TChild>([JetBrains.Annotations.NotNull] TViewModel @this, [JetBrains.Annotations.NotNull] Expression<Func<TViewModel, TChild>> propertyExpression, [JetBrains.Annotations.NotNull] TChild child) 
 			where TChild : class, IObjectVM 
 			where TViewModel:class, IObjectVM 
 		{
@@ -205,17 +205,17 @@ namespace KsWare.Presentation.ViewModelFramework {
 			return RegisterChildInternal(memberName, child);
 		}
 
-		protected TChild SetChild<TChild>([NotNull] Expression<Func<TChild>> propertyExpression, TChild child) where TChild : class, IObjectVM {
+		protected TChild SetChild<TChild>([JetBrains.Annotations.NotNull] Expression<Func<TChild>> propertyExpression, TChild child) where TChild : class, IObjectVM {
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
 			return RegisterChildInternal(memberName, child,replaceExisting:true);
 		}
 
-		private TChild RegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child,bool replaceExisting = false) where TChild : class, IObjectVM {
+		private TChild RegisterChildInternal<TChild>([Localizable(false)] string propertyName, [JetBrains.Annotations.NotNull] TChild child,bool replaceExisting = false) where TChild : class, IObjectVM {
 			return ːːInterfaceHelperːRegisterChildInternal(propertyName, child,replaceExisting, _children, this);
 		}
 
 		// [PREPARED]
-		private static TChild ːːInterfaceHelperːRegisterChildInternal<TChild>([Localizable(false)] string propertyName, [NotNull] TChild child, bool replaceExisting, List<IObjectVM> _Children,IObjectVM @this) where TChild : class, IObjectVM {
+		private static TChild ːːInterfaceHelperːRegisterChildInternal<TChild>([Localizable(false)] string propertyName, [JetBrains.Annotations.NotNull] TChild child, bool replaceExisting, List<IObjectVM> _Children,IObjectVM @this) where TChild : class, IObjectVM {
 			if (child == null) throw new ArgumentNullException(nameof(child));
 //			if(!(child is IHierarchical) throw new ArgumentException("Type of children not supported!");
 
@@ -336,7 +336,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-		private static void SetParent([NotNull] IObjectVM child, IObjectVM parent) {
+		private static void SetParent([JetBrains.Annotations.NotNull] IObjectVM child, IObjectVM parent) {
 			// MemberAccessUtil.Demand.Parameter(child, "child").Not.Null;
 			if (child == null) throw new ArgumentNullException(nameof(child));
 			//if(child is ObjectVM) ((ObjectVM) child).Parent = this;

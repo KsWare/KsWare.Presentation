@@ -7,7 +7,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("KsWare")]
 [assembly: AssemblyProduct("Presentation Framework")]
-[assembly: AssemblyCopyright("Copyright © 2002-2018 by KsWare. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2002-2021 by KsWare. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -16,6 +16,6 @@ using System.Windows;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None,ResourceDictionaryLocation.SourceAssembly )]
 
-[assembly: AssemblyVersion("0.18.40")]
-[assembly: AssemblyFileVersion("0.18.40")]
-[assembly: AssemblyInformationalVersion("0.18.40")]
+[assembly: AssemblyVersion("0.19.2")]
+[assembly: AssemblyFileVersion("0.19.2")]
+[assembly: AssemblyInformationalVersion("0.19.2")]

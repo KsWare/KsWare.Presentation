@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 namespace KsWare.Presentation.ViewFramework {
+	// REPLACED by TypeNameConverter (KsWare.Presentation.Converters)
 
 
 	/// <summary> Provides a <see cref="IValueConverter"/> to convert a binding value into its type name.

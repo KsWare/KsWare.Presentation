@@ -6,6 +6,8 @@ using System.Xaml;
 
 namespace KsWare.Presentation.ViewFramework {
 
+	//TODO remove: extracted to KsWare.Presentation.ViewModelFramework.Common
+
 	/// <summary>
 	/// XAML markup extension to bind root element.
 	/// </summary>

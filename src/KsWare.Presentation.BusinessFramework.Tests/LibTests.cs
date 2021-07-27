@@ -1,13 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.BusinessFramework.Tests {
 
-	[TestClass]
+	[TestFixture]
 	public class LibTests {
 
-		[TestMethod]
+		[Test]
 		public void NamespaceMustMatchAssemblyName() {
 			var t = typeof (KsWare.Presentation.BusinessFramework.AssemblyInfo);
 			var assemblyName = KsWare.Presentation.BusinessFramework.AssemblyInfo.Assembly.GetName(false).Name;

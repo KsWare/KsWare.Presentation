@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ListBMTests {
 
 		// DataProvider: DefaultDataProvider
@@ -16,14 +16,14 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		//               AddRange
 
 
-		[TestMethod]
+		[Test]
 		public void Add_NoUnderlyingObject() {
 			var bm = new ListBM<TestItemBM>();
 			bm.Add(new TestItemBM());
 			Assert.AreEqual(1,bm.Count,"Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void RemoveAt_NoUnderlyingObject() {
 			var bm = new ListBM<TestItemBM>();
 			bm.Add(new TestItemBM());
@@ -31,7 +31,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.AreEqual(0,bm.Count,"Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void Remove_NoUnderlyingObject() {
 			var bm = new ListBM<TestItemBM>();
 			TestItemBM item=new TestItemBM();
@@ -40,7 +40,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.AreEqual(0,bm.Count,"Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void Clear_NoUnderlyingObject() {
 			var bm = new ListBM<TestItemBM>();
 			bm.Add(new TestItemBM());
@@ -51,7 +51,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		// ### 
 
 
-		[TestMethod]
+		[Test]
 		public void Add_DefaultDataProvider_List() {
 			var dm = new List<TestItemDM>();
 			var bm = new ListBM<TestItemBM>{MːData = dm};
@@ -62,7 +62,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.AreEqual(1,dm.Count,"Data.Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void RemoveAt_DefaultDataProvider_List() {
 			var dm = new List<TestItemDM>(new []{new TestItemDM(100)});
 			var bm = new ListBM<TestItemBM>{MːData = dm};
@@ -73,7 +73,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.AreEqual(0,dm.Count,"Data.Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void Remove_DefaultDataProvider_List() {
 			var dm = new List<TestItemDM>(new []{new TestItemDM(100)});
 			var bm = new ListBM<TestItemBM>{MːData = dm};
@@ -84,7 +84,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 			Assert.AreEqual(0,dm.Count,"Data.Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void Clear_DefaultDataProvider_List() {
 			var dm = new List<TestItemDM>(new []{new TestItemDM(100)});
 			var bm = new ListBM<TestItemBM>{MːData = dm};
@@ -97,7 +97,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 
 		// ###
 
-		[TestMethod]
+		[Test]
 		public void ReadOnly_OriginalBehavior() {
 			List<string>               a = new List<string>();
 			ReadOnlyCollection<string> b = a.AsReadOnly();
@@ -114,43 +114,47 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		}
 
 
-		[TestMethod]
-		[ExpectedException(typeof(NotSupportedException), AllowDerivedTypes = true)]
+		[Test]
 		public void Add_DefaultDataProvider_Array() {
 			var dm = new []{new TestItemDM(100),new TestItemDM(101)};
 			var bm = new ListBM<TestItemBM>{MːData = dm};
 
-			bm.Add(new TestItemBM{MːData = new TestItemDM(100)});
+			Assert.Throws<NotSupportedException>(() =>
+				bm.Add(new TestItemBM {MːData = new TestItemDM(100)})
+			);
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(NotSupportedException), AllowDerivedTypes = true)]
+		[Test]
 		public void RemoveAt_DefaultDataProvider_Array() {
 			var dm = new []{new TestItemDM(100),new TestItemDM(101)};
 			var bm = new ListBM<TestItemBM>{MːData = dm};
 
-			bm.RemoveAt(0);
+			Assert.Throws<NotSupportedException>(() =>
+				bm.RemoveAt(0)
+			);
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(NotSupportedException), AllowDerivedTypes = true)]
+		[Test]
 		public void Remove_DefaultDataProvider_Array() {
 			var dm = new []{new TestItemDM(100),new TestItemDM(101)};
 			var bm = new ListBM<TestItemBM>{MːData = dm};
 
-			bm.Remove(bm[0]);
+			Assert.Throws<NotSupportedException>(() =>
+				bm.Remove(bm[0])
+			);
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(NotSupportedException), AllowDerivedTypes = true)]
+		[Test]
 		public void Clear_DefaultDataProvider_Array() {
 			var dm = new []{new TestItemDM(100),new TestItemDM(101)};
 			var bm = new ListBM<TestItemBM>{MːData = dm};
-			
-			bm.Clear();
+
+			Assert.Throws<NotSupportedException>(() =>
+				bm.Clear()
+			);
 		}
 
-		[TestMethod]
+		[Test]
 		public void SetData_DefaultDataProvider_List_to_Array() {
 			var dm1 = new List<TestItemDM>(new []{new TestItemDM(100)});
 			var dm2 = new []{new TestItemDM(102),new TestItemDM(103)};

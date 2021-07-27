@@ -6,8 +6,8 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Data;
 
-namespace KsWare.Presentation.ViewFramework
-{
+namespace KsWare.Presentation.ViewFramework {
+	// REPLACED by SingleValueThicknessConverter (KsWare.Presentation.Converters)
 
 	/// <summary> Provides a thickness converter 
 	/// </summary>
@@ -15,11 +15,7 @@ namespace KsWare.Presentation.ViewFramework
 	/// Converts a double value to negative top thickness (Parameter: "-Top")
 	/// equivalent to <c>new Thickness(0, -value, 0, 0)</c>
 	/// <code>
-	/// xmlns:vf="clr-namespace:KsWare.Presentation.ViewFramework;assembly=OSIS.UI"
-	/// ...
-	/// &gt;vf:SpecialThicknessConverter x:Key="ThicknessConverter"/>	
-	/// ...
-	/// &gt;Control Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Distance, Converter={StaticResource ThicknessConverter}, ConverterParameter=-Top}"/>
+	/// &gt;Control Margin="{Binding Distance, Converter={StaticResource ThicknessConverter}, ConverterParameter=-Top}"/>
 	/// </code>
 	/// </example>
 	/// <remarks>

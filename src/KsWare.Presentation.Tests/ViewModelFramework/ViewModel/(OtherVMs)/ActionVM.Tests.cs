@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.ViewModelFramework;
 using Assert=NUnit.Framework.Assert;
 
@@ -8,22 +8,22 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	/// <summary> Test the <see cref="ActionVM"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class ActionVMTests {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() { }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() { }
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Common() {
 			var c = 0;
 			var vm=new ActionVM {

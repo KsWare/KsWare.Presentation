@@ -1,6 +1,13 @@
-# 0.18
+# 0.19
+- convert to SDK format
+- TargetFrameworks: net5.0-windows, netcoreapp3.1, net45
+- because this big changes, v0.19 is declared as pre-release.
 
-# 0.18.39 (2019-09-03)
+# 0.18
+- split KsWare.Presentation.Behavior
+- split KsWare.Presentation.Behavior.Common
+
+# 0.18.40 (2019-09-04)
  - Use nuget Microsoft.Xaml.Behaviors.Wpf instead the System.Windows.Interactivity
    - Read more: https://devblogs.microsoft.com/dotnet/open-sourcing-xaml-behaviors-for-wpf/
 - remove nuget System.Windows.Interactivity.WPF-2.0.20525

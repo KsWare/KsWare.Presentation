@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.Core {
 
-	[TestClass]
+	[TestFixture]
 	public class GCTests {
 
 		private const long maxGarbage = 1000;
 
-		[TestMethod]
+		[Test]
 		public void Collect() {
             // Put some objects in memory.
             new MyGCCollectClass().MakeSomeGarbage();
@@ -19,7 +19,7 @@ namespace KsWare.Presentation.Tests.Core {
             Console.WriteLine("Memory used after full collection: {0}", GC.GetTotalMemory(true));
         }
 
-		[TestMethod]
+		[Test]
 		public void GetGeneration() {
 			// Create a strong reference to an object.
 			MyGCCollectClass myGCCol = new MyGCCollectClass();
@@ -60,7 +60,7 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		
-		[TestMethod]
+		[Test]
         public void CollectX() {
             MyGCCollectClass myGCCol = new MyGCCollectClass();
 

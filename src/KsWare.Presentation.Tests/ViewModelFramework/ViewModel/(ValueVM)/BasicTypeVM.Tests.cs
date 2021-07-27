@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using KsWare.Presentation.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.ViewModelFramework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
@@ -11,12 +11,12 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 	/// <summary> Test the <see cref="BasicTypeVM"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class BasicTypeVMTests: ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {
 			base.TestInitialize();
 			//...do anything here...
@@ -24,7 +24,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {
 			//...do anything here...
 			base.TestCleanup();
@@ -32,7 +32,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Common() {
 			var types = new Type[] {typeof (ByteVM), typeof (Int16VM), typeof (Int32VM), typeof (Int64VM), typeof (SingleVM), typeof (DoubleVM), typeof (BoolVM), typeof (DateTimeVM), typeof (TimeSpanVM), typeof (GuidVM)};
 			foreach (var type in types) {
@@ -47,7 +47,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ByteVM() {
 			var vm=new ByteVM();
 			vm.EditValueProvider.String = "-1";
@@ -64,12 +64,12 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(255,vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Int16VM() {
 			var vm = new Int16VM();
 		}
 
-		[TestMethod]
+		[Test]
 		public void Int32VM() {
 			var vm = new Int32VM();
 			Assert.AreEqual(0,vm.Value);
@@ -81,18 +81,18 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(2,vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Int32VM_InitValueMustBe_0() {
 			var vm = new Int32VM();
 			Assert.AreEqual((int)0,vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void Int64VM() {
 			var vm = new Int64VM();
 		}
 
-		[TestMethod]
+		[Test]
 		public void SingleVM() {
 			var vm = new SingleVM();
 			vm.EditValueProvider.String = "2";
@@ -107,7 +107,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual((float)2.4,vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void DoubleVM() {
 			var vm = new DoubleVM();
 			vm.EditValueProvider.String = "2";
@@ -122,7 +122,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(2.4,vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BoolVM() {
 			var vm = new BoolVM();
 			vm.EditValueProvider.String = "True";
@@ -149,13 +149,13 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(false, vm.Value);
 		}
 
-		[TestMethod]
+		[Test]
 		public void BoolVM_InitValueMustBe_False() {
 			var vm = new BoolVM();
 			Assert.AreEqual(false,vm.Value);
 		}
 
-		[TestMethod][Ignore] //TODO rewrite the test
+		[Test,Ignore("TODO")] //TODO rewrite the test
 		public void DateTimeVM() {
 			Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("de-DE");
 			var vm = new DateTimeVM();
@@ -171,7 +171,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 		}
 
 
-		[TestMethod]
+		[Test]
 		public void GuidVM() {
 			var vm = new GuidVM();
 			vm.EditValueProvider.String = "{C24A250D-54A6-4FBC-BF63-2798DDAC7930}";

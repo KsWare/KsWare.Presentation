@@ -5,9 +5,14 @@ using System.Windows.Media.Imaging;
 
 namespace KsWare.Presentation.ViewFramework.Controls {
 
+	//TODO rename. name is misleading. => HitTestTransparentImage?
+	//TODO extracted to its own package
 	public class TransparentImage : Image {
 
-		private const byte Threshold = 3;
+		public static readonly DependencyProperty AlphaThresholdProperty = DependencyProperty.Register(
+			"AlphaThreshold", typeof(byte), typeof(TransparentImage), new PropertyMetadata(default(byte)));
+
+		public byte AlphaThreshold { get => (byte) GetValue(AlphaThresholdProperty); set => SetValue(AlphaThresholdProperty, value); }
 
 		protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters) {
 			var source = (BitmapSource) Source;
@@ -21,7 +26,7 @@ namespace KsWare.Presentation.ViewFramework.Controls {
 			source.CopyPixels(new Int32Rect(x, y, 1, 1), pixels, 4, 0);
 			// Check alpha channel
 //			Debug.WriteLine(pixels[3]);
-			if (pixels[3] < Threshold ) return null;
+			if (pixels[3] <= AlphaThreshold ) return null; //HitTest transparent
 			return new PointHitTestResult(this, hitTestParameters.HitPoint); 
 		}
 

@@ -1,44 +1,50 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
+using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Testing.Tests {
 
-	[TestClass]
+	[TestFixture]
 	public class ApplicationVMTestBaseTests:ApplicationVMTestBase {
 
 
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() { base.TestInitialize(); }
 
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() { base.TestCleanup(); }
 
-		private volatile int InvokeCount;
-
-		[TestMethod]
+		[Test]
 		public void Dispatcher_Invoke() {
-			System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(() => InvokeCount++));
-			Assert.AreEqual(1,InvokeCount);
+			var invokeCount = 0;
+			System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(() => invokeCount++));
+			Assert.AreEqual(1,invokeCount);
 		}
 
-		[TestMethod]
+		[Test]
+		[SuppressMessage("ReSharper", "AsyncConverter.AsyncWait")]
 		public void Dispatcher_BeginInvoke() {
-			var dispatcherOperation = System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() => InvokeCount++));
+			var invokeCount = 0;
+			var dispatcherOperation = System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() => invokeCount++));
 			var dispatcherOperationStatus = dispatcherOperation.Wait(TimeSpan.FromSeconds(1));
-			Assert.AreEqual(1,InvokeCount);
+			Assert.AreEqual(1,invokeCount);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ApplicationDispatcher_Invoke() {
-			ApplicationDispatcher.CurrentDispatcher.Invoke(new Action(() => InvokeCount++));
-			Assert.AreEqual(1,InvokeCount);
+			var invokeCount = 0;
+			ApplicationDispatcher.CurrentDispatcher.Invoke(new Action(() => invokeCount++));
+			Assert.AreEqual(1,invokeCount);
 		}
-		[TestMethod]
+
+		[Test]
+		[SuppressMessage("ReSharper", "AsyncConverter.AsyncWait")]
 		public void ApplicationDispatcher_BeginInvoke() {
-			var dispatcherOperation = ApplicationDispatcher.CurrentDispatcher.BeginInvoke(new Action(() => InvokeCount++));
+			var invokeCount = 0;
+			var dispatcherOperation = ApplicationDispatcher.CurrentDispatcher.BeginInvoke(new Action(() => invokeCount++));
 			var dispatcherOperationStatus = dispatcherOperation.Wait(TimeSpan.FromSeconds(1));
-			Assert.AreEqual(1,InvokeCount);
+			Assert.AreEqual(1,invokeCount);
 		}
 
 	}

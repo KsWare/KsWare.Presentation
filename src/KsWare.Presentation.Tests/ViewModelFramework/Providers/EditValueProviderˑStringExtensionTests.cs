@@ -1,12 +1,12 @@
 ﻿using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {
 
-	[TestClass]
+	[TestFixture]
 	public class EditValueProviderˑStringExtensionTests {
 
-		[TestMethod]
+		[Test]
 		public void Int32VM_EditValueProvider_String() {
 			var vm = new Int32VM();
 			vm.Value = 1;

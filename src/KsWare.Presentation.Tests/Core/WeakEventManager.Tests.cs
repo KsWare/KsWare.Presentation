@@ -1,20 +1,20 @@
-﻿using System;
+﻿#if false
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 using Is=NUnit.Framework.Is;
-using IgnoreAttribute=Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 namespace KsWare.Presentation.Tests.Core {
 
-	[TestClass,Ignore]
+	[TestFixture,NUnit.Framework.Ignore("TODO")]
 	public class WeakEventManagerTests {
 
-		[TestInitialize]
+		[SetUp]
 		public void Initialize() {
 			EventManager.Reset();
 		}
@@ -27,7 +27,7 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 
-		[TestMethod]
+		[Test]
 		public void Reset() {
 			var testSubject = new PrivateType(typeof (EventManager));
 			// done in Initialize():> WeakEventManager.Reset();
@@ -37,7 +37,7 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 
-		[TestMethod]
+		[Test]
 		public void GCCollectTest() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();
@@ -53,7 +53,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(EventManager.Count, Is.EqualTo(0),"WeakEventManager.Count");
 		}
 
-		[TestMethod,Ignore /* does not work in unit test runner */]
+		[Test,Ignore("TODO") /* does not work in unit test runner */]
 		public void GCTest() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();
@@ -79,7 +79,7 @@ namespace KsWare.Presentation.Tests.Core {
 			//Assert.That(WeakEventManager.Count, Is.EqualTo(0),"WeakEventManager.Count");
 		}
 
-		[TestMethod,Ignore /* does not work in unit test runner */]
+		[Test,Ignore("TODO") /* does not work in unit test runner */]
 		public void MassiveGCTest() {
 			var provider = new MyEventProvider();
 			var r = new System.Random();
@@ -108,7 +108,7 @@ namespace KsWare.Presentation.Tests.Core {
 			//Assert.Fail("Nothing collected!");
 		}
 
-		[TestMethod]
+		[Test]
 		public void EventHandler() {
 			var provider = new MyEventProvider ();
 			var listener = new MyEventListener();
@@ -117,7 +117,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void EventHandlerNewEventArgs() {
 			var provider = new MyEventProvider1EventHandler<MyEventArgs> ();
 			var listener = new MyEventListener1EventHandler<MyEventArgs>();
@@ -125,7 +125,7 @@ namespace KsWare.Presentation.Tests.Core {
 			provider.Raise();
 			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
 		}
-		[TestMethod]
+		[Test]
 		public void EventHandlerNewEventArgsˑPerformanceTest() {
 			var provider = new MyEventProvider1EventHandler<MyEventArgs> ();
 			var listener = new MyEventListener1EventHandler<MyEventArgs>();
@@ -134,7 +134,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void EventHandlerCommonEventArgs() {
 			var provider = new MyEventProvider1EventHandler<TreeChangedEventArgs> ();
 			var listener = new MyEventListener1EventHandler<TreeChangedEventArgs>();
@@ -143,7 +143,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
 		}
 
-		[TestMethod]
+		[Test]
 		public void AnyEventHandler() {
 			var provider = new MyEventProvider2 ();
 			var listener = new MyEventListener2();
@@ -152,7 +152,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.That(listener.Count,Is.EqualTo(listener.Count),"listener.Count");
 		}
 
-		[TestMethod,Ignore]
+		[Test,Ignore("TODO")]
 		public void PerformanceTest1() {
 			var provider = new MyEventProvider();
 			var listener = new MyEventListener();
@@ -168,7 +168,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Trace.WriteLine(string.Format("Time: {0}",new TimeSpan(stopwatch.ElapsedTicks*1)));
 		}
 
-		[TestMethod,Ignore]
+		[Test,Ignore("TODO")]
 		public void PerformanceTest2() {
 			var provider = new MyEventProvider1EventHandler<TreeChangedEventArgs>();
 			var listener = new MyEventListener1EventHandler<TreeChangedEventArgs>();
@@ -299,3 +299,4 @@ namespace KsWare.Presentation.Tests.Core {
 
 	}
 }
+#endif

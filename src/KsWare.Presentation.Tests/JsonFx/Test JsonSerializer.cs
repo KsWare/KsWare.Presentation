@@ -1,43 +1,43 @@
 ﻿using System;
 using System.Diagnostics;
 using KsWare.Presentation.JsonFx;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Test.JsonFx.Test {
 
-	[TestClass]
+	[TestFixture]
 	public class Test_JsonSerializer_Deserialize {
 
 		private JsonSerializer Json { get; set; }
 //		private JavaScriptSerializer Json { get; set; }
 		private JsonSerializer.Undefined undefined = JsonSerializer.Undefined.Value;
 
-		[TestInitialize]
+		[SetUp]
 		public void SetUp() {
 			Trace.WriteLine("SetUp");
 			Json=new JsonSerializer();
 //			Json=new JavaScriptSerializer();
 		}
 
-		[TestCleanup]
+		[TearDown]
 		public void TearDown() {
 			Trace.WriteLine("TearDown");
 			Json = null;
 		}
 
-		[TestMethod] public void NumericInteger   () {Assert.AreEqual(5                      , Json.DeserializeObject("5"));}
-		[TestMethod] public void NumericIntegerExp() {Assert.AreEqual(5e10                   , Json.DeserializeObject("5e10"));}
-		[TestMethod] public void NumericDouble    () {Assert.AreEqual(5.1                    , Json.DeserializeObject("5.1"));}
-		[TestMethod] public void NumericDoubleExp () {Assert.AreEqual(5.1e10                 , Json.DeserializeObject("5.1e10"));}
-		[TestMethod] public void BoolTrue         () {Assert.AreEqual(true                   , Json.DeserializeObject("true"));}
-		[TestMethod] public void BoolFalse        () {Assert.AreEqual(false                  , Json.DeserializeObject("false"));}
-		[TestMethod] public void String           () {Assert.AreEqual("s"                    , Json.DeserializeObject("\"s\""));}
-		[TestMethod] public void Null             () {Assert.AreEqual(null                   , Json.DeserializeObject("null"));}
-		[TestMethod] public void NaN              () {Assert.AreEqual(Double.NaN             , Json.DeserializeObject("NaN"));}
-		[TestMethod] public void Infinity         () {Assert.AreEqual(Double.PositiveInfinity, Json.DeserializeObject("Infinity"));}
-		[TestMethod] public void Undefined        () {Assert.AreEqual(undefined              , Json.DeserializeObject("undefined"));} //??
+		[Test] public void NumericInteger   () {Assert.AreEqual(5                      , Json.DeserializeObject("5"));}
+		[Test] public void NumericIntegerExp() {Assert.AreEqual(5e10                   , Json.DeserializeObject("5e10"));}
+		[Test] public void NumericDouble    () {Assert.AreEqual(5.1                    , Json.DeserializeObject("5.1"));}
+		[Test] public void NumericDoubleExp () {Assert.AreEqual(5.1e10                 , Json.DeserializeObject("5.1e10"));}
+		[Test] public void BoolTrue         () {Assert.AreEqual(true                   , Json.DeserializeObject("true"));}
+		[Test] public void BoolFalse        () {Assert.AreEqual(false                  , Json.DeserializeObject("false"));}
+		[Test] public void String           () {Assert.AreEqual("s"                    , Json.DeserializeObject("\"s\""));}
+		[Test] public void Null             () {Assert.AreEqual(null                   , Json.DeserializeObject("null"));}
+		[Test] public void NaN              () {Assert.AreEqual(Double.NaN             , Json.DeserializeObject("NaN"));}
+		[Test] public void Infinity         () {Assert.AreEqual(Double.PositiveInfinity, Json.DeserializeObject("Infinity"));}
+		[Test] public void Undefined        () {Assert.AreEqual(undefined              , Json.DeserializeObject("undefined"));} //??
 
-		[TestMethod] 
+		[Test] 
 		public void Array () {
 			var array=(object[])Json.DeserializeObject("[1,1.1,\"A\",true]");
 			Assert.AreEqual(1 ,array[0]);
@@ -46,7 +46,7 @@ namespace KsWare.Test.JsonFx.Test {
 			Assert.AreEqual(true ,array[3]);
 		}
 
-		[TestMethod] 
+		[Test] 
 		public void NameValueCollection() {
 			var dic=Json.Deserialize<NameValueCollection>("{\"int\":1,\"float\":1.1,\"string\":\"A\",\"bool\":true}");
 			Assert.AreEqual(1 ,dic["int"]);
@@ -54,7 +54,7 @@ namespace KsWare.Test.JsonFx.Test {
 			Assert.AreEqual("A" ,dic["string"]);
 			Assert.AreEqual(true ,dic["bool"]);
 		}
-		[TestMethod] 
+		[Test] 
 		public void NameValueCollectionIndex() {
 			var dic=Json.Deserialize<NameValueCollection>("{\"int\":1,\"float\":1.1,\"string\":\"A\",\"bool\":true}");
 			Assert.AreEqual(1 ,dic[0]);
@@ -62,13 +62,13 @@ namespace KsWare.Test.JsonFx.Test {
 			Assert.AreEqual("A" ,dic[2]);
 			Assert.AreEqual(true ,dic[3]);
 		}
-		[TestMethod] 
+		[Test] 
 		public void ArrayArray() {
 			var o=Json.DeserializeObject("[[[1]]]");
 			Assert.AreEqual(1 ,((object[])((object[])((object[])o)[0])[0])[0]);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ObjectA() {
 			var o=Json.Deserialize<ClassA>("{\"l\":2,\"B\":true,\"D\":1.1,\"S\":\"s\"}");
 //			Assert.AreEqual(2    ,o.l);
@@ -79,43 +79,43 @@ namespace KsWare.Test.JsonFx.Test {
 		}
 	}
 
-	[TestClass]
+	[TestFixture]
 	public class Test_JsonSerializer_Serialize {
 
 		private JsonSerializer Json { get; set; }
 //		private JavaScriptSerializer Json { get; set; }
 		private JsonSerializer.Undefined undefined = JsonSerializer.Undefined.Value;
 
-		[TestInitialize]
+		[SetUp]
 		public void SetUp() {
 			Trace.WriteLine("SetUp");
 			Json = new JsonSerializer();
 //			Json=new JavaScriptSerializer();
 		}
 
-		[TestCleanup]
+		[TearDown]
 		public void TearDown() {
 			Trace.WriteLine("TearDown");
 			Json = null;
 		}
 
-		[TestMethod] public void NumericInteger   () {Assert.AreEqual("5"        , Json.Serialize(5                      ));}
-		[TestMethod] public void NumericIntegerExp() {Assert.AreEqual("5E+123"   , Json.Serialize(5e123                  ));}
-		[TestMethod] public void NumericDouble    () {Assert.AreEqual("5.1"      , Json.Serialize(5.1                    ));}
-		[TestMethod] public void NumericDoubleExp () {Assert.AreEqual("5.1E+123" , Json.Serialize(5.1e123                ));}
-		[TestMethod] public void BoolTrue         () {Assert.AreEqual("true"     , Json.Serialize(true                   ));}
-		[TestMethod] public void BoolFalse        () {Assert.AreEqual("false"    , Json.Serialize(false                  ));}
-		[TestMethod] public void String           () {Assert.AreEqual("\"s\""    , Json.Serialize("s"                    ));}
-		[TestMethod] public void Null             () {Assert.AreEqual("null"     , Json.Serialize(null                   ));}
-		[TestMethod] public void NaN              () {Assert.AreEqual("NaN"      , Json.Serialize(Double.NaN             ));}
-		[TestMethod] public void Infinity         () {Assert.AreEqual("Infinity" , Json.Serialize(Double.PositiveInfinity));}
-//		[TestMethod] public void Undefined        () {Assert.AreEqual("undefined", Json.Serialize(undefined              ));} //??
+		[Test] public void NumericInteger   () {Assert.AreEqual("5"        , Json.Serialize(5                      ));}
+		[Test] public void NumericIntegerExp() {Assert.AreEqual("5E+123"   , Json.Serialize(5e123                  ));}
+		[Test] public void NumericDouble    () {Assert.AreEqual("5.1"      , Json.Serialize(5.1                    ));}
+		[Test] public void NumericDoubleExp () {Assert.AreEqual("5.1E+123" , Json.Serialize(5.1e123                ));}
+		[Test] public void BoolTrue         () {Assert.AreEqual("true"     , Json.Serialize(true                   ));}
+		[Test] public void BoolFalse        () {Assert.AreEqual("false"    , Json.Serialize(false                  ));}
+		[Test] public void String           () {Assert.AreEqual("\"s\""    , Json.Serialize("s"                    ));}
+		[Test] public void Null             () {Assert.AreEqual("null"     , Json.Serialize(null                   ));}
+		[Test] public void NaN              () {Assert.AreEqual("NaN"      , Json.Serialize(Double.NaN             ));}
+		[Test] public void Infinity         () {Assert.AreEqual("Infinity" , Json.Serialize(Double.PositiveInfinity));}
+//		[Test] public void Undefined        () {Assert.AreEqual("undefined", Json.Serialize(undefined              ));} //??
 
-		[TestMethod] public void EnumString       () {Assert.AreEqual("\"0\""    , Json.Serialize(TestStringEnum.D0));}
-		[TestMethod] public void EnumNumeric      () {Assert.AreEqual("1"        , Json.Serialize(TestNumericEnum.D1));}
+		[Test] public void EnumString       () {Assert.AreEqual("\"0\""    , Json.Serialize(TestStringEnum.D0));}
+		[Test] public void EnumNumeric      () {Assert.AreEqual("1"        , Json.Serialize(TestNumericEnum.D1));}
 
 		
-		[TestMethod]
+		[Test]
 		public void ObjectA() {
 			var s=Json.Serialize(new ClassA{B=true,S="s",Ignore = 1});
 			Assert.AreEqual("{\"B\":true, \"S\":\"s\"}",s);

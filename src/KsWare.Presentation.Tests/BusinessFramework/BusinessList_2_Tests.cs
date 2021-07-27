@@ -1,34 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 
     /// <summary>
     /// Test Class
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BusinessList_2_Tests {
-        /// <summary> Setup this instance.
-        /// </summary>
-        [TestInitialize]
-        public void Setup()
-        {
 
-        }
-
-        /// <summary> Teardowns this instance.
-        /// </summary>
-        [TestCleanup]
-        public void Teardown()
-        {
-
-        }
         /// <summary>
         /// Test the function
         /// </summary>
-        [TestMethod]
+        [Test]
         public void BusinessList_Value_LocalDataProvider()
         {
         	var list = new ListBM<StringBM>();
@@ -40,7 +26,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		/// <summary>
         /// Test the function
         /// </summary>
-        [TestMethod]
+        [Test]
         public void BusinessList_Enum_LocalDataProvider()
         {
         	var list = new ListBM<EnumBM<TestEnum>>();
@@ -52,7 +38,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		/// <summary>
         /// Test the function
         /// </summary>
-        [TestMethod]
+        [Test]
         public void BusinessList_Object_LocalDataProvider()
         {
         	var list = new ListBM<TestObject>();

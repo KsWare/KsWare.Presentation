@@ -1,19 +1,19 @@
 ﻿using KsWare.Presentation.BusinessFramework;
 using KsWare.Presentation.Testing;
 using KsWare.Presentation.ViewModelFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.Core.Providers;
 using Assert=NUnit.Framework.Assert;
 using Is=NUnit.Framework.Is;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class RefVMBusinessTests: ApplicationVMTestBase {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public override void TestInitialize() {
 			base.TestInitialize();
 			//...do anything here...
@@ -21,13 +21,13 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public override void TestCleanup() {
 			//...do anything here...
 			base.TestCleanup();
 		}
 
-		[TestMethod][Ignore]//TODO Test RefVM with StringVM->StringBM
+		[Test,Ignore("TODO")]//TODO Test RefVM with StringVM->StringBM
 		public void Test_StringVM() {
 			var bm=new RefBM<StringBM>();
 			var vm=new RefVM<StringVM> {Metadata = new BusinessReferenceViewModelMetadata<StringVM,StringBM>()};
@@ -43,7 +43,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			#endregion
 		}
 
-		[TestMethod,Ignore /*TODO document this test case and make it work*/]
+		[Test][Ignore("TODO") /*TODO document this test case and make it work*/]
 		public void Test_ObjectVM() {
 			TestDM dm = null;
 			var bm=new RefBM<TestBM>{Metadata = new BusinessObjectMetadata {
@@ -85,7 +85,7 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 //			#endregion
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetBusinessType() {
 			Assert.AreEqual(typeof(TestBM), BusinessObjectVM.GetBusinessType(typeof(TestVM)));
 		}

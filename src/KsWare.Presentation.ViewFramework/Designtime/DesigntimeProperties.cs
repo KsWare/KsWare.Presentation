@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-
+//TODO: remove. extracted to KsWare.Presentation.ViewFramework.Common
 namespace KsWare.Presentation.ViewFramework.Designtime {
 
 	public static class Designtime {

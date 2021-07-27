@@ -1,28 +1,18 @@
 ﻿using System;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 	// ReSharper disable InconsistentNaming
 
 	/// <summary> Test the <see cref="ActionBM"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class BusinessActionTests {
-
-		/// <summary> Setup this instance.
-		/// </summary>
-		[TestInitialize]
-		public void Setup() { }
-
-		/// <summary> Teardowns this instance.
-		/// </summary>
-		[TestCleanup]
-		public void Teardown() { }
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void UsageTest() {
 			ExecutedEventArgs executeCallbackArgs = null;
 			int executeCallbackCount = 0;

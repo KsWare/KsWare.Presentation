@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.Core.Providers;
 using Assert=NUnit.Framework.Assert;
 
@@ -8,20 +8,20 @@ namespace KsWare.Presentation.Tests.Core {
 
 	/// <summary> Test Class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class DataProviderTests {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() { }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() { }
 
-		[TestMethod]
+		[Test]
 		public void NoDataProvider() {
 			var provider = new NoDataProvider();
 			

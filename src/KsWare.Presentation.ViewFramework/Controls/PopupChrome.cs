@@ -11,8 +11,8 @@ using M=System.Math; // because OSIS.Math!
 
 namespace KsWare.Presentation.ViewFramework.Controls
 {
-	//TODO: reuseability: HACK in AtLayoutUpdated Dock is allways set to Bottom
-
+	//TODO: reuseability: HACK in AtLayoutUpdated Dock is always set to Bottom
+	//TODO: description for PopupChrome
 	[TemplatePart(Name="PART_Arrow",Type=typeof(FrameworkElement))]
 	public class PopupChrome:HeaderedContentControl
 	{

@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.ViewFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class ApplicationTests {
 
 		private void Log(string s) {
@@ -23,7 +23,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 		
 		public Application TestSubject { get; set; }
 
-		[TestMethod]
+		[Test]
 		public void TestMethod1() {
 			TestDispatcher = Dispatcher.CurrentDispatcher;
 			Log("Test Start");
@@ -39,7 +39,7 @@ namespace KsWare.Presentation.Tests.ViewFramework {
 			Log("Test End");
 		}
 
-		[TestMethod,Ignore /*Application singleton!*/]
+		[Test][Ignore("TODO") /*Application singleton!*/]
 		public void TestMethod2() {
 			// System.InvalidOperationException: Cannot create more than one System.Windows.Application instance in the same AppDomain.
 

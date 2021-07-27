@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.WeakEventsTestApp", "KsWare.Presentation.WeakEventsTestApp\KsWare.Presentation.WeakEventsTestApp.csproj", "{120B455C-7E65-474F-AA2E-3682C749B832}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.WeakEventsTestApp", "KsWare.Presentation.WeakEventsTestApp\KsWare.Presentation.WeakEventsTestApp.csproj", "{120B455C-7E65-474F-AA2E-3682C749B832}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5DE1F59B-26E6-4C82-AA54-E27781BF0088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Testing", "KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj", "{48BD0342-2458-44F5-A3BB-1405A56EFAF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Testing", "KsWare.Presentation.Testing\KsWare.Presentation.Testing.csproj", "{48BD0342-2458-44F5-A3BB-1405A56EFAF4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{F7A61450-8E62-44BF-9E51-148495AF00A9}"
 EndProject
@@ -20,45 +20,51 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Tests.Runner", "KsWare.Presentation.Tests.Runner\KsWare.Presentation.Tests.Runner.csproj", "{32B05328-CC4D-4909-89AA-72DB78FAC651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Tests.Runner", "KsWare.Presentation.Tests.Runner\KsWare.Presentation.Tests.Runner.csproj", "{32B05328-CC4D-4909-89AA-72DB78FAC651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Tests", "KsWare.Presentation.Tests\KsWare.Presentation.Tests.csproj", "{1E3A05FD-0F03-4B1A-AB41-53AA2018D940}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Tests", "KsWare.Presentation.Tests\KsWare.Presentation.Tests.csproj", "{1E3A05FD-0F03-4B1A-AB41-53AA2018D940}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Testing.Tests", "KsWare.Presentation.Testing.Tests\KsWare.Presentation.Testing.Tests.csproj", "{BB62C449-8E39-49BE-BDB2-E170139DDE38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Testing.Tests", "KsWare.Presentation.Testing.Tests\KsWare.Presentation.Testing.Tests.csproj", "{BB62C449-8E39-49BE-BDB2-E170139DDE38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.BusyManager.TestApp", "KsWare.Presentation.BusyManager.Tests\KsWare.Presentation.BusyManager.TestApp.csproj", "{86FCB3CA-E03C-42D1-9B95-714C45604A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.BusyManager.TestApp", "KsWare.Presentation.BusyManager.Tests\KsWare.Presentation.BusyManager.TestApp.csproj", "{86FCB3CA-E03C-42D1-9B95-714C45604A2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.UITestApp", "KsWare.Presentation.UITestApp\KsWare.Presentation.UITestApp.csproj", "{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.UITestApp", "KsWare.Presentation.UITestApp\KsWare.Presentation.UITestApp.csproj", "{F47E6A54-5EFB-47E1-A68D-18C73C79BC06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.ViewFramework", "KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj", "{480179C9-C018-4515-8B83-44E21112887D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.ViewFramework", "KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj", "{480179C9-C018-4515-8B83-44E21112887D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.ViewModelFramework", "KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj", "{E45E9672-0236-47FC-9ADE-5FEF5CDFC7AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.ViewModelFramework", "KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj", "{E45E9672-0236-47FC-9ADE-5FEF5CDFC7AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.BusinessFramework", "KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj", "{816F4A41-A808-460E-8E5A-D048934B6A5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.BusinessFramework", "KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj", "{816F4A41-A808-460E-8E5A-D048934B6A5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Core", "KsWare.Presentation.Core\KsWare.Presentation.Core.csproj", "{4341F602-848B-42FC-AD38-E86F0820E3F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Core", "KsWare.Presentation.Core\KsWare.Presentation.Core.csproj", "{4341F602-848B-42FC-AD38-E86F0820E3F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Labs", "KsWare.Presentation.Labs\KsWare.Presentation.Labs.csproj", "{B2428431-AD89-4221-8B7C-4109AFA93690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Labs", "KsWare.Presentation.Labs\KsWare.Presentation.Labs.csproj", "{B2428431-AD89-4221-8B7C-4109AFA93690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Core.Tests", "KsWare.Presentation.Core.Tests\KsWare.Presentation.Core.Tests.csproj", "{77E7E6B3-BF08-4E83-9BFB-86D221DD54AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Core.Tests", "KsWare.Presentation.Core.Tests\KsWare.Presentation.Core.Tests.csproj", "{77E7E6B3-BF08-4E83-9BFB-86D221DD54AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.BusinessFramework.Tests", "KsWare.Presentation.BusinessFramework.Tests\KsWare.Presentation.BusinessFramework.Tests.csproj", "{15E6BFDC-3D8B-46C2-BB11-5E181EE81920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.BusinessFramework.Tests", "KsWare.Presentation.BusinessFramework.Tests\KsWare.Presentation.BusinessFramework.Tests.csproj", "{15E6BFDC-3D8B-46C2-BB11-5E181EE81920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.ViewFramework.Tests", "KsWare.Presentation.ViewFramework.Tests\KsWare.Presentation.ViewFramework.Tests.csproj", "{35CDE7F2-ECBB-469E-8A4B-9027E626554E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.ViewFramework.Tests", "KsWare.Presentation.ViewFramework.Tests\KsWare.Presentation.ViewFramework.Tests.csproj", "{35CDE7F2-ECBB-469E-8A4B-9027E626554E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.ViewModelFramework.Tests", "KsWare.Presentation.ViewModelFramework.Tests\KsWare.Presentation.ViewModelFramework.Tests.csproj", "{B677786A-A99D-48E5-B247-E0CA3D4B8E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.ViewModelFramework.Tests", "KsWare.Presentation.ViewModelFramework.Tests\KsWare.Presentation.ViewModelFramework.Tests.csproj", "{B677786A-A99D-48E5-B247-E0CA3D4B8E88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Labs.Tests", "KsWare.Presentation.Labs.Tests\KsWare.Presentation.Labs.Tests.csproj", "{F5A1384A-B2A5-49B7-B757-1F3D8F233BC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Labs.Tests", "KsWare.Presentation.Labs.Tests\KsWare.Presentation.Labs.Tests.csproj", "{F5A1384A-B2A5-49B7-B757-1F3D8F233BC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation", "KsWare.Presentation\KsWare.Presentation.csproj", "{133D2383-2F68-41E4-97F5-F822D1280382}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation", "KsWare.Presentation\KsWare.Presentation.csproj", "{133D2383-2F68-41E4-97F5-F822D1280382}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Themes", "Themes", "{E199FA15-4386-47A9-9E10-D49ECAC8392A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Themes", "KsWare.Presentation.Themes\KsWare.Presentation.Themes.csproj", "{1A8F63B3-A873-4E50-9064-48708330D99C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Themes", "KsWare.Presentation.Themes\KsWare.Presentation.Themes.csproj", "{1A8F63B3-A873-4E50-9064-48708330D99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Themes.Aero2Fix", "KsWare.Presentation.Themes.Aero2Fix\KsWare.Presentation.Themes.Aero2Fix.csproj", "{0E361651-6CD2-4809-B6D1-8BBC185B1940}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Themes.Aero2Fix", "KsWare.Presentation.Themes.Aero2Fix\KsWare.Presentation.Themes.Aero2Fix.csproj", "{0E361651-6CD2-4809-B6D1-8BBC185B1940}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.Presentation.Themes.Aero2Fix.TestApp", "KsWare.Presentation.Themes.Aero2Fix.TestApp\KsWare.Presentation.Themes.Aero2Fix.TestApp.csproj", "{BA91CEB8-06B5-4BFE-BC1D-CA750C02EBCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Themes.Aero2Fix.TestApp", "KsWare.Presentation.Themes.Aero2Fix.TestApp\KsWare.Presentation.Themes.Aero2Fix.TestApp.csproj", "{BA91CEB8-06B5-4BFE-BC1D-CA750C02EBCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Behavior.Common", "KsWare.Presentation.Behavior.Common\KsWare.Presentation.Behavior.Common.csproj", "{CB9ED6B5-97D0-4B8F-A35C-3F4ACF8033F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.Behavior", "KsWare.Presentation.Behavior\KsWare.Presentation.Behavior.csproj", "{0199AD71-21F3-4354-8146-97EFC7E5A1C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsWare.Presentation.ViewFramework.AttachedBehavior", "KsWare.Presentation.ViewFramework.AttachedBehavior\KsWare.Presentation.ViewFramework.AttachedBehavior.csproj", "{E21FF939-C340-4E0A-A4E3-923A90ACFA05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,6 +156,18 @@ Global
 		{BA91CEB8-06B5-4BFE-BC1D-CA750C02EBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA91CEB8-06B5-4BFE-BC1D-CA750C02EBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA91CEB8-06B5-4BFE-BC1D-CA750C02EBCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB9ED6B5-97D0-4B8F-A35C-3F4ACF8033F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB9ED6B5-97D0-4B8F-A35C-3F4ACF8033F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB9ED6B5-97D0-4B8F-A35C-3F4ACF8033F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB9ED6B5-97D0-4B8F-A35C-3F4ACF8033F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0199AD71-21F3-4354-8146-97EFC7E5A1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0199AD71-21F3-4354-8146-97EFC7E5A1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0199AD71-21F3-4354-8146-97EFC7E5A1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0199AD71-21F3-4354-8146-97EFC7E5A1C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E21FF939-C340-4E0A-A4E3-923A90ACFA05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

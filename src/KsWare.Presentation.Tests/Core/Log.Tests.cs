@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using KsWare.Presentation.Core.Logging;
 using Assert=NUnit.Framework.Assert;
 
@@ -9,22 +9,22 @@ namespace KsWare.Presentation.Tests.Core
 
 	/// <summary> Test the <see cref="Log"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class LogTests {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() { }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() { }
 
 		/// <summary> 
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Common() {
 			Log.Write(this, Flow.Enter.EventHandler.Name("my").Parameter("P1","test").Parameter("P2","test"));
 			Log.Write(this, Flow.Enter.EventHandler.Current.Parameter("P1", "test"));
@@ -33,7 +33,7 @@ namespace KsWare.Presentation.Tests.Core
 
 		/// <summary> TestDescription
 		/// </summary>
-		[TestMethod][Ignore]
+		[Test,Ignore("TODO")]
 		public void UseUsingThrowsException() {
 			Assert.Throws<InvalidOperationException>(delegate {
 				//LOG: using(this.LogBlock(Flow.Enter)) 
@@ -55,7 +55,7 @@ namespace KsWare.Presentation.Tests.Core
 
 		/// <summary> Filter test
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void FilterTest() {
 			this.Log(Flow.Output("ERROR: You should not see this!"));
 			Log.Include.Clear();

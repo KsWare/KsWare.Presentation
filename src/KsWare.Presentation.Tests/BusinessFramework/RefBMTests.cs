@@ -1,14 +1,14 @@
 ﻿using System;
 using KsWare.Presentation.BusinessFramework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 
-	[TestClass]
+	[TestFixture]
 	public class RefBMTests {
 
-		[TestMethod]
+		[Test]
 		public void IRefBM_TargetChangedEvent_get() {
 			var bm = new RefBM<Int32BM>();
 

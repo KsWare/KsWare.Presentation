@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.Core{
@@ -8,22 +8,22 @@ namespace KsWare.Presentation.Tests.Core{
 
 	/// <summary> Test the <see cref="MultiTargetInvocationException"/>-class
 	/// </summary>
-	[TestClass]
+	[TestFixture]
 	public class MultiTargetInvocationExceptionTests {
 
 		/// <summary> Setup this instance.
 		/// </summary>
-		[TestInitialize]
+		[SetUp]
 		public void Setup() { }
 
 		/// <summary> Teardowns this instance.
 		/// </summary>
-		[TestCleanup]
+		[TearDown]
 		public void Teardown() { }
 
 		/// <summary> ConstructorA
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ConstructorA() {
 			Assert.Throws<MultiTargetInvocationException>(delegate {
 				throw new MultiTargetInvocationException(new[]{new TargetInvocationException(new Exception("Test"))});
@@ -32,7 +32,7 @@ namespace KsWare.Presentation.Tests.Core{
 
 		/// <summary> ConstructorB
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ConstructorB() {
 			Assert.Throws<MultiTargetInvocationException>(delegate {
 				throw new MultiTargetInvocationException("Test Message", new[]{new TargetInvocationException(new Exception("Test"))});
@@ -41,7 +41,7 @@ namespace KsWare.Presentation.Tests.Core{
 
 		/// <summary> ConstructorB
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ReadExceptionsProperty() {
 			try {
 				throw new MultiTargetInvocationException("Test Message", new[]{new TargetInvocationException(new Exception("Test"))});

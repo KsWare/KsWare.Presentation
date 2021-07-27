@@ -5,51 +5,51 @@ using System.ComponentModel;
 using System.Linq;
 using FluentAssertions;
 using KsWare.Presentation.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KsWare.Presentation.Core.Tests.Collections {
 
-	[TestClass()]
+	[TestFixture()]
 	public class ObservableDictionaryTests {
 
-		[TestMethod()]
+		[Test()]
 		public void ObservableDictionaryTest() {
 			var dic = new ObservableDictionary<int,string>();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ObservableDictionaryTest1() {
 			var dic0 = new Dictionary<string, string>() {{"a", "1"}};
 			var dic = new ObservableDictionary<string, string>(dic0);
 			dic.ContainsKey("a").Should().BeTrue();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ObservableDictionaryTest2() {
 			var dic0 = new Dictionary<string, string>() {{"a", "1"}};
 			var dic = new ObservableDictionary<string, string>(dic0, StringComparer.OrdinalIgnoreCase);
 			dic.ContainsKey("A").Should().BeTrue();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ObservableDictionaryTest3() {
 			var dic = new ObservableDictionary<string, string>(StringComparer.OrdinalIgnoreCase) {{"a", "1"}};
 			dic.ContainsKey("A").Should().BeTrue();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ObservableDictionaryTest4() {
 			var dic = new ObservableDictionary<string, string>(1,StringComparer.OrdinalIgnoreCase) {{"a", "1"}};
 			dic.ContainsKey("A").Should().BeTrue();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ObservableDictionaryTest5() {
 			var dic = new ObservableDictionary<int, string>(1);
 			dic.Count.Should().Be(0);
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void AddTest() {
 			var dic = new ObservableDictionary<int, string>();
 			List<NotifyCollectionChangedEventArgs> collectionsEvents = new List<NotifyCollectionChangedEventArgs>();
@@ -63,7 +63,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			dic.Count.Should().Be(1);
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void AddTest1() {
 			var                                    dic               = new ObservableDictionary<int, string>();
 			List<NotifyCollectionChangedEventArgs> collectionsEvents = new List<NotifyCollectionChangedEventArgs>();
@@ -78,14 +78,14 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			dic.Count.Should().Be(1);
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ContainsKeyTest() {
 			var dic = new ObservableDictionary<int, string>();
 			dic.Add(1,"1");
 			dic.ContainsKey(1).Should().BeTrue();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void RemoveTest() {
 			var                                    dic               = new ObservableDictionary<int, string>();
 			List<NotifyCollectionChangedEventArgs> collectionsEvents = new List<NotifyCollectionChangedEventArgs>();
@@ -100,7 +100,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			dic.Count.Should().Be(0);
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void RemoveTest1() {
 			var                                    dic               = new ObservableDictionary<int, string>();
 			List<NotifyCollectionChangedEventArgs> collectionsEvents = new List<NotifyCollectionChangedEventArgs>();
@@ -116,7 +116,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			dic.Count.Should().Be(0);
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void TryGetValueTest() {
 			var dic = new ObservableDictionary<int, string>();
 			string value;
@@ -127,7 +127,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			value.Should().Be("1");
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ClearTest() {
 			var                                    dic               = new ObservableDictionary<int, string>();
 			List<NotifyCollectionChangedEventArgs> collectionsEvents = new List<NotifyCollectionChangedEventArgs>();
@@ -142,7 +142,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			dic.Count.Should().Be(0);
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void ContainsTest() {
 			var    dic = new ObservableDictionary<int, string>();
 			dic.Contains(new KeyValuePair<int, string>(1, null)).Should().BeFalse();
@@ -150,7 +150,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			dic.Contains(new KeyValuePair<int, string>(1, "1")).Should().BeTrue();
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void CopyToTest() {
 			var dic = new ObservableDictionary<int, string>();
 			dic.Add(1, "1");
@@ -160,7 +160,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 			array[0].Value.Should().Be("1");
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void GetEnumeratorTest() {
 			var dic = new ObservableDictionary<int, string>();
 			dic.Add(1, "1"); 
@@ -174,7 +174,7 @@ namespace KsWare.Presentation.Core.Tests.Collections {
 
 		}
 
-		[TestMethod()]
+		[Test()]
 		public void AddRangeTest() {
 			var                                    dic               = new ObservableDictionary<int, string>();
 			List<NotifyCollectionChangedEventArgs> collectionsEvents = new List<NotifyCollectionChangedEventArgs>();

@@ -14,7 +14,7 @@ namespace KsWare.Presentation1.Tests.Runner {
 //			Trace.WriteLine(typeof(PropertyChangedEventHandler).FullName);
 //			Trace.WriteLine(typeof(NotifyCollectionChangedEventHandler).FullName);
 
-			new  TypeComparePerformanceTest().Run();
+			new TypeComparePerformanceTest().Run();
 			new LoopComparePerformanceTest().Run();
 			new EnumeratePerformanceTest().Run();
 		}
