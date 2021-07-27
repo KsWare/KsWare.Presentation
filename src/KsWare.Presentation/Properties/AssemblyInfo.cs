@@ -16,6 +16,6 @@ using System.Windows;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None,ResourceDictionaryLocation.SourceAssembly )]
 
-[assembly: AssemblyVersion("0.18.39")]
-[assembly: AssemblyFileVersion("0.18.39")]
-[assembly: AssemblyInformationalVersion("0.18.39")]
+[assembly: AssemblyVersion("0.19.0")]
+[assembly: AssemblyFileVersion("0.19.0")]
+[assembly: AssemblyInformationalVersion("0.19.0")]

@@ -1,16 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
-
     <IsPackable>false</IsPackable>
-
     <SignAssembly>true</SignAssembly>
-
     <DelaySign>false</DelaySign>
-
     <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -23,5 +19,4 @@
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
   </ItemGroup>
-
 </Project>

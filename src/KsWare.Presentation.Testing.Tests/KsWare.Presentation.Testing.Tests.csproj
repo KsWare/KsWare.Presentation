@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
     <IsPackable>false</IsPackable>
@@ -8,7 +9,6 @@
     <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="NUnitWpf\Assert.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -29,5 +29,4 @@
     <None Include="NUnitWpf\#Docu\Docu.txt" />
     <None Include="NUnitWpf\Assert.cs" />
   </ItemGroup>
-
 </Project>
