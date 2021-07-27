@@ -15,10 +15,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Properties\key.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj" />
     <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj" />
@@ -26,9 +24,10 @@
     <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnitTestAdapter.WithFramework" Version="2.0.0" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.236301">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
   </ItemGroup>
 </Project>
