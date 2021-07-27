@@ -1,23 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
-
     <IsPackable>false</IsPackable>
-
     <SignAssembly>true</SignAssembly>
-
     <AssemblyOriginatorKeyFile>Properties\key.snk</AssemblyOriginatorKeyFile>
-
     <DelaySign>false</DelaySign>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="JsonFx\**" />
     <EmbeddedResource Remove="JsonFx\**" />
     <None Remove="JsonFx\**" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="Core\DEACTIVATED\MappedDataProvider.Tests.cs" />
     <Compile Remove="Program.cs" />
@@ -41,5 +35,4 @@
     <Folder Include="Core\DEACTIVATED\" />
     <Folder Include="Properties\" />
   </ItemGroup>
-
 </Project>
