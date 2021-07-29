@@ -31,6 +31,12 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/KsWare/KsWare.Presentation</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KsWare/KsWare.Presentation.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MVVM framework</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj" />
@@ -55,4 +61,17 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\KsWare.Presentation.xml</DocumentationFile>
+  </PropertyGroup>
+  <Target DependsOnTargets="BuildOnlySettings;ResolveReferences" Name="CopyProjectReferencesToPackage">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
 </Project>
