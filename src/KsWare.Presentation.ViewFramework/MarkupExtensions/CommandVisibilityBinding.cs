@@ -36,7 +36,7 @@ namespace KsWare.Presentation.ViewFramework {
 		/// </summary>
 		[Obsolete("Not yet implemented",true)]
 		public CommandVisibilityBinding() {
-			Mode=BindingMode.OneWay;
+			Mode = BindingMode.OneWay;
 		}
 
 		/// <summary>

@@ -12,11 +12,30 @@
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\KsWare.Presentation.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Copyright © 2002-2021 by KsWare. All rights reserved.</Copyright>
+    <Product>Presentation Framework</Product>
+    <Company>KsWare</Company>
+    <Authors>SchreinerK</Authors>
+    <Description>A MVVM framework.</Description>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <Version>0.0.0</Version>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/KsWare/KsWare.Presentation</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KsWare/KsWare.Presentation.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MVVM framework</PackageTags>
+    <PackageReleaseNotes>-</PackageReleaseNotes>
+    <PackageIcon>PackageIcon.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
   <ItemGroup>
     <None Include="Behaviors.DragDrop\Bea\DragDropHelper.cs" />
@@ -61,5 +80,11 @@
     <Compile Remove="Behaviors.DragDrop\Bea\InsertionAdorner.cs" />
     <Compile Remove="Behaviors.DragDrop\Bea\Utilities.cs" />
     <Page Remove="Behaviors\Busy\BusyAdornerVisual.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PackageIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>

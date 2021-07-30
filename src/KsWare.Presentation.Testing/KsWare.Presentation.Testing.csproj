@@ -3,20 +3,32 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>Properties\key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Copyright © 2002-2021 by KsWare. All rights reserved.</Copyright>
+    <Product>Presentation Framework</Product>
+    <Company>KsWare</Company>
+    <Authors>SchreinerK</Authors>
+    <Description>A MVVM framework.</Description>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <Version>0.0.0</Version>
+    <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/KsWare/KsWare.Presentation</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KsWare/KsWare.Presentation.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>MVVM framework</PackageTags>
+    <PackageReleaseNotes>-</PackageReleaseNotes>
+    <PackageIcon>PackageIcon.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj" />
@@ -30,5 +42,8 @@
     </PackageReference>
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PackageIcon.png" />
   </ItemGroup>
 </Project>
