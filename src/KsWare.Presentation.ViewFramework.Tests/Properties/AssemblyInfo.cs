@@ -1,21 +1,11 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Runtime.InteropServices;
-
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("KsWare.Presentation.ViewFramework.Tests")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KsWare.Presentation.ViewFramework.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 [assembly: Guid("35cde7f2-ecbb-469e-8a4b-9027e626554e")]
 
-[assembly: AssemblyVersion("0.19.2")]
-[assembly: AssemblyFileVersion("0.19.2")]
-[assembly: AssemblyInformationalVersion("0.19.2")]
+#if NET5_0_OR_GREATER
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("Windows7.0")]
+#endif
+[assembly: SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "SupportedOSPlatform seems not to work", Scope = "member", Target = "~M:KsWare.Presentation.ViewFramework.Behaviors.WindowChromeBehavior.OnAttached")]

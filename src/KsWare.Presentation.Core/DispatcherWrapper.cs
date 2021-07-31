@@ -83,7 +83,7 @@ namespace KsWare.Presentation {
 
 		/// <summary> Processes all Dispatcher messages currently in the dispatcher queue.
 		/// </summary>
-		[SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+		// [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		void DoEvents();
 
 		DispatcherOperation BeginInvoke(Action action);
@@ -369,7 +369,7 @@ namespace KsWare.Presentation {
 
 		/// <summary> Processes all Dispatcher messages currently in the dispatcher queue.
 		/// </summary>
-		[SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+		// [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		public void DoEvents() {
 			var frame = new DispatcherFrame();	
 			BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(o => {frame.Continue = false;return null;}), frame);
@@ -484,7 +484,7 @@ namespace KsWare.Presentation {
 		/// <summary> [COMPATIBILITY] Gets the <see cref="IDispatcher"/> for the application thread and creates a new <see cref="IDispatcher"/> if one is not already associated with the thread.
 		/// </summary>
 		/// <returns>The dispatcher associated with the application thread.</returns>
-		[Obsolete("Directly use static ApplicationDispatcher methods",false)]
+		[Obsolete("Use static ApplicationDispatcher.Instance",false)]
 		public static IDispatcher CurrentDispatcher {get => Instance; set => Instance = value; }
 
 		/// <summary> [DEPRECATED] Gets direct access to the wrapped <see cref="Dispatcher" /> for the application thread.

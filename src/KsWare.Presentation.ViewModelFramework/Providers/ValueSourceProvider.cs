@@ -155,7 +155,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			// <- OnBusinessValueSettingsChanged()
 			// <- businessValueSettings.ExcludeValues.CollectionChanged-event
 
-			ApplicationDispatcher.CurrentDispatcher.InvokeIfRequired(new Action(FillValueList));
+			ApplicationDispatcher.Instance.InvokeIfRequired(new Action(FillValueList));
 		}
 
 		private void FillValueList() {

@@ -15,7 +15,7 @@ namespace KsWare.Presentation.ViewFramework {
 		public IDispatcher Dispatcher { get; set; }
 
 		public void Start() {
-			if (Dispatcher == null) Dispatcher = ApplicationDispatcher.CurrentDispatcher;
+			if (Dispatcher == null) Dispatcher = ApplicationDispatcher.Instance;
 			_thread=new Thread(Proc) {
 				Name = "UIWorker",
 				IsBackground = true

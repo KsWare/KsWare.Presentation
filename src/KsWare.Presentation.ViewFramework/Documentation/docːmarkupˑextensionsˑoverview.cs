@@ -5,6 +5,7 @@ namespace KsWare.Presentation.Documentation {
 
 	/// <summary> Markup extensions overview </summary>
 	[Category("View Framework")]
+	// ReSharper disable once InconsistentNaming
 	public abstract class docːmarkupˑextensionsˑoverview {
 
 		#region hidden members

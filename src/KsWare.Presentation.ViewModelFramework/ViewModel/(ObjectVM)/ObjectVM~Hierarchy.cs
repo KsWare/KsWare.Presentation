@@ -158,7 +158,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <param name="propertyName"></param>
 		/// <param name="child">The child view model to register</param>
-		/// <seealso cref="RegisterChildren"/>
+		// <seealso cref="RegisterChildren"/>
 		[SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		protected TChild RegisterChild<TChild>([Localizable(false)] string propertyName, [JetBrains.Annotations.NotNull] TChild child) where TChild:class,IObjectVM {
 			return RegisterChildInternal(propertyName, child);
@@ -170,8 +170,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="propertyExpression"><c>()=>MyProperty</c></param>
 		/// <param name="child">The child view model to register</param>
 		/// <example><code>MyProperty = RegisterChild(_=>MyProperty, new MyPropertyVM{/*...*/});</code></example>
-		/// <seealso cref="RegisterChildren"/>
+		// <seealso cref="RegisterChildren"/>
 		protected TChild RegisterChild<TChild>([JetBrains.Annotations.NotNull] Expression<Func<object, TChild>> propertyExpression, [JetBrains.Annotations.NotNull] TChild child) where TChild : class, IObjectVM {
+
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
 			return RegisterChildInternal(memberName, child);
 		}
@@ -182,7 +183,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="propertyExpression"><c>()=>MyProperty</c></param>
 		/// <param name="child">The child view model to register</param>
 		/// <example><code>MyProperty = RegisterChild(_=>MyProperty, new MyPropertyVM{/*...*/});</code></example>
-		/// <seealso cref="RegisterChildren"/>
+		// <seealso cref="RegisterChildren"/>
 		protected TChild RegisterChild<TChild>([JetBrains.Annotations.NotNull] Expression<Func<TChild>> propertyExpression, [JetBrains.Annotations.NotNull] TChild child) where TChild : class, IObjectVM {
 			var memberName = MemberNameUtil.GetPropertyName(propertyExpression);
 			return RegisterChildInternal(memberName, child);

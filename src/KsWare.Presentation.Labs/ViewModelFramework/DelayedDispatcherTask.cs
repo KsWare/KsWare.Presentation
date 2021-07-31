@@ -65,14 +65,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 		void IDisposable.Dispose() {
 			if (!IsCompleted) {
 				IsCanceled = true;
-				_thread.Abort("DisposeRequest");
+				_thread.Abort("DisposeRequest"); //TODO Thread.Abort is obsolete
 			}
 		}
 
 		public void Cancel() {
 			if (!IsCompleted) {
 				IsCanceled = true;
-				_thread.Abort("CancelRequest");
+				_thread.Abort("CancelRequest"); //TODO Thread.Abort is obsolete
 			}
 		}
 

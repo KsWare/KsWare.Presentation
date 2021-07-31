@@ -5,6 +5,10 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 [assembly: Guid("b2428431-ad89-4221-8b7c-4109afa93690")]
 
+#if NET5_0_OR_GREATER
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
+
 [assembly: XmlnsPrefix(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "kslab")]
 [assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewFramework")]
 [assembly: XmlnsDefinition(KsWare.Presentation.Labs.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewModelFramework")]

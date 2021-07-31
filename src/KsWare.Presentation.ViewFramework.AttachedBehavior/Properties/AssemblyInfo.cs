@@ -8,6 +8,10 @@ using System.Windows.Markup;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
+#if NET5_0_OR_GREATER
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
+
 [assembly: XmlnsDefinition(KsWare.Presentation.ViewFramework.AttachedBehavior.AssemblyInfo.XmlNamespace, "KsWare.Presentation.ViewFramework.AttachedBehavior")]
 [assembly: XmlnsPrefix(KsWare.Presentation.ViewFramework.AttachedBehavior.AssemblyInfo.XmlNamespace,"ksv")]
 
