@@ -18,5 +18,15 @@ dotnet test "src\KsWare.Presentation.Tests\KsWare.Presentation.Tests.csproj" --c
 ::dotnet pack "C:\projects\ksware-presentation\src\KsWare.Presentation\KsWare.Presentation.csproj" --configuration Release --include-symbols --output "C:\Users\appveyor\AppData\Local\Temp\1\dto7ifl5jd" --no-build
 
 dotnet pack "src\KsWare.Presentation\KsWare.Presentation.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
- Die Eigenschaft "NoBuild" wurde auf TRUE festgelegt, aber das Ziel "Build" wurde aufgerufen.
+dotnet pack "src\KsWare.Presentation.BehaviorKsWare.Presentation.Behavior.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.Behavior.Common\KsWare.Presentation.Behavior.Common.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.Labs\KsWare.Presentation.Labs.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.Labs\KsWare.Presentation.Labs.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.ViewFramework.AttachedBehavior\KsWare.Presentation.ViewFramework.AttachedBehavior.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+dotnet pack "src\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj" --configuration Release --include-symbols --output "ci\temp" --no-build
+
+:EXIT
 pause

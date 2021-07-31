@@ -12,9 +12,9 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Copyright>Copyright © 2002-2021 by KsWare. All rights reserved.</Copyright>
-    <Product>Presentation Framework</Product>
+    <Product>Presentation Framework - Testing</Product>
     <Company>KsWare</Company>
     <Authors>SchreinerK</Authors>
     <Description>A MVVM framework.</Description>
