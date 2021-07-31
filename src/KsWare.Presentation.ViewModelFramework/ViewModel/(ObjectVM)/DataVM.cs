@@ -8,7 +8,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// 
 	/// </summary>
 	/// <typeparam name="TData">The type of the data.</typeparam>
-	/// <remarks>When <paramref name="TData"/> is a business object you should use <see cref="BusinessObjectVM{TBusinessObject}"/> or <see cref="BusinessDataVM{TBusinessObject,TData}"/></remarks>
+	/// <remarks>When <cref name="TData"/> is a business object you should use <see cref="BusinessObjectVM{TBusinessObject}"/> or <see cref="BusinessDataVM{TBusinessObject,TData}"/></remarks>
 	public class DataVM<TData>:ObjectVM,IDataVM<TData>,IDataVM where TData: class {
 
 		protected const string NoDataToken = "No data";

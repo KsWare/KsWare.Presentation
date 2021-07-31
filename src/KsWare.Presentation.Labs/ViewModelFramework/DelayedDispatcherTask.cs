@@ -14,7 +14,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 		private readonly Action _action;
 		private static long s_BeginInvokeDelayCount;
 
-		private object _asyncState;
 		private WeakReference _vmRef;
 		private Thread _thread;
 		private WaitHandle _asyncWaitHandle;
@@ -92,7 +91,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			} 
 		}
 
-		object IAsyncResult.AsyncState => _asyncState;
+		object IAsyncResult.AsyncState { get; } = new object();
 
 		bool IAsyncResult.CompletedSynchronously => false;
 
