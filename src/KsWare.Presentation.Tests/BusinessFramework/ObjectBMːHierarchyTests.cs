@@ -86,7 +86,7 @@ namespace KsWare.Presentation.Tests.BusinessFramework {
 		public class TestClass3BM : DataBM<Object> {
 
 			public TestClass3BM() {
-				MyObject=RegisterChild<ObjectBM,object>("MyObject",() => null, b => b=b);
+				MyObject=RegisterChild<ObjectBM,object>("MyObject",() => null, b => { var x = b;});
 			}
 
 			public ObjectBM MyObject { get; private set; }

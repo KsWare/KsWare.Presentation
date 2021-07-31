@@ -490,6 +490,7 @@ namespace KsWare.Presentation {
 		/// <summary> [DEPRECATED] Gets direct access to the wrapped <see cref="Dispatcher" /> for the application thread.
 		/// </summary>
 		/// <value>The <see cref="Dispatcher"/></value>
+		[Obsolete("Deprecated")]
 		public static Dispatcher ThreadDispatcher => InternalWrapper.ThreadDispatcher;
 
 		public static Thread Thread => InternalWrapper.Thread;
@@ -530,6 +531,7 @@ namespace KsWare.Presentation {
 		#endregion
 
 		#region Singleton
+		[Obsolete("Deprecated")]
 		Dispatcher IDispatcher.ThreadDispatcher => InternalWrapper.ThreadDispatcher;
 		Thread IDispatcher.Thread => InternalWrapper.Thread;
 		bool IDispatcher.IsInvokeRequired => InternalWrapper.IsInvokeRequired;

@@ -416,7 +416,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
-		/// <seealso cref="m_CachedDataList"/>
+		/// <seealso cref="_cachedDataList"/>
 		/// <seealso cref="INotifyCollectionChanged"/>
 		/// <seealso cref="INotifyCollectionChanged.CollectionChanged"/>
 		private void AtDataCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {

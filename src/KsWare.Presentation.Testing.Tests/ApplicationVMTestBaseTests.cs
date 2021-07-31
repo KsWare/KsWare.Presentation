@@ -34,7 +34,7 @@ namespace KsWare.Presentation.Testing.Tests {
 		[Test]
 		public void ApplicationDispatcher_Invoke() {
 			var invokeCount = 0;
-			ApplicationDispatcher.CurrentDispatcher.Invoke(new Action(() => invokeCount++));
+			ApplicationDispatcher.Instance.Invoke(new Action(() => invokeCount++));
 			Assert.AreEqual(1,invokeCount);
 		}
 

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using KsWare.Presentation.ViewModelFramework;
 using NUnit.Framework;
-using NUnit.Framework;
 using Assert=NUnit.Framework.Assert;
 
 namespace KsWare.Presentation.Tests.ViewModelFramework.Providers {

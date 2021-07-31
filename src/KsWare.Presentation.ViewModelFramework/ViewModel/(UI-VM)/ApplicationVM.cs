@@ -80,7 +80,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="method">The method to execute</param>
 		/// <param name="args">The method arguments</param>
 		/// <returns></returns>
-		public static new object InvokeIfRequired(Delegate method, params object[] args) {
+		public static object InvokeIfRequired(Delegate method, params object[] args) {
 			if(s_Current==null) return method.DynamicInvoke(args);
 			return ApplicationDispatcher.InvokeIfRequired(method, args);
 		}

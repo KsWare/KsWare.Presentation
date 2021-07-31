@@ -24,10 +24,10 @@ namespace KsWare.Presentation.ViewFramework {
 		}
 
 		private void Proc() { 
-			Dispatcher.Invoke(new Action(delegate {try{OnInit   ();}catch(Exception ex){try{OnError(ex);}catch(Exception ex2){/*TODO*/}}}));
-			try{OnAction();}catch(Exception ex){Dispatcher.Invoke(new Action(delegate  {try{OnError(ex);}catch(Exception ex2){/*TODO*/}}));}
-			Dispatcher.Invoke(new Action(delegate {try{OnSuccess();}catch(Exception ex){try{OnError(ex);}catch(Exception ex2){/*TODO*/}}}));
-			Dispatcher.Invoke(new Action(delegate {try{OnFinally();}catch(Exception ex){try{OnError(ex);}catch(Exception ex2){/*TODO*/}}}));
+			Dispatcher.Invoke(new Action(delegate {try{OnInit   ();}catch(Exception ex){try{OnError(ex);}catch(Exception){/*TODO*/}}}));
+			try{OnAction();}catch(Exception ex){Dispatcher.Invoke(new Action(delegate  {try{OnError(ex);}catch(Exception){/*TODO*/}}));}
+			Dispatcher.Invoke(new Action(delegate {try{OnSuccess();}catch(Exception ex){try{OnError(ex);}catch(Exception){/*TODO*/}}}));
+			Dispatcher.Invoke(new Action(delegate {try{OnFinally();}catch(Exception ex){try{OnError(ex);}catch(Exception){/*TODO*/}}}));
 		}
 	}
 }

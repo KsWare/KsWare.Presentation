@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using KsWare.Presentation.BusinessFramework;
 using NUnit.Framework;
-using NUnit.Framework;
 
 namespace KsWare.Presentation.Tests.BusinessFramework {
 	// ReSharper disable InconsistentNaming

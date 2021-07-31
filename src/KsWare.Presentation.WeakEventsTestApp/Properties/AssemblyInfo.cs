@@ -2,21 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("KsWare.Presentation.WeakEventsTestApp")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KsWare.Presentation.WeakEventsTestApp")]
-[assembly: AssemblyCopyright("Copyright © 2002- 2018 by KsWare.")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("0.19.2")]
-[assembly: AssemblyFileVersion("0.19.2")]
-[assembly: AssemblyInformationalVersion("0.19.2")]
+#if NET5_0_OR_GREATER
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
