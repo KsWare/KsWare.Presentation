@@ -311,10 +311,9 @@ namespace KsWare.Presentation {
 		/// <param name="exceptions">The list to collect exceptions or <c>null</c> to throw exceptions</param>
 		private static void InvokeDynamic(dynamic eventHandler, object sender, dynamic e, List<Exception> exceptions) {
 			try { eventHandler(sender, e); }
-			catch (RuntimeBinderException ex) {
+			catch (RuntimeBinderException) {
 				// "Cannot invoke a non-delegate type"
-				var d = eventHandler as Delegate;
-				if (d != null) { 
+				if (eventHandler is Delegate d) { 
 					// BUG in DLR! occurs on nested delegates
 					// eg. FullName: MyNameSpace.MyClass+MyNestedClass+MyDelegate
 					// fallback to default invoke

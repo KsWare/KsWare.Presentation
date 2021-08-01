@@ -77,7 +77,7 @@ namespace KsWare.Presentation.ViewFramework.AttachedBehavior {
 			if(e.NewSize.Width>groupData.MinWidth) {
 				if (Equals(groupData.MinWidth, e.NewSize.Width)) return;
 				groupData.MinWidth = e.NewSize.Width;
-				ApplicationDispatcher.CurrentDispatcher.BeginInvoke(new Action(delegate {
+				ApplicationDispatcher.Instance.BeginInvoke(new Action(delegate {
 					foreach (var fe in groupData.FrameworkElements) {
 					fe.MinWidth = groupData.MinWidth;
 				}

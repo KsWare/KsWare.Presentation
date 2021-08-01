@@ -20,7 +20,7 @@
 		<StackPanel DataContext="{x:Static local:CommandVisibilityBindingTests.MockCommand}">
 			<Button Content="Test Subject" 
 				Command="{x:Static local:CommandVisibilityBindingTests.MockCommand}"
-				Visibility="{ksv:CommandVisibilityBinding TrueVisibleElseHidden}">
+				Visibility="{ksvxxx:CommandVisibilityBinding TrueVisibleElseHidden}">
 			</Button>
 			<Button Content="Compare Subject"
 				Command="{x:Static local:CommandVisibilityBindingTests.MockCommand}"

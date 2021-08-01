@@ -1,21 +1,11 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
-
-[assembly: AssemblyTitle("KsWare.Presentation")]
-[assembly: AssemblyDescription("A MVVM framework.")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("KsWare")]
-[assembly: AssemblyProduct("Presentation Framework")]
-[assembly: AssemblyCopyright("Copyright © 2002-2021 by KsWare. All rights reserved.")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 [assembly: Guid("98CC263C-658E-4CE0-9627-3F869ED905C7")]
 
-[assembly: ThemeInfo(ResourceDictionaryLocation.None,ResourceDictionaryLocation.SourceAssembly )]
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("0.19.2")]
-[assembly: AssemblyFileVersion("0.19.2")]
-[assembly: AssemblyInformationalVersion("0.19.2")]
+#if NET5_0_OR_GREATER
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif

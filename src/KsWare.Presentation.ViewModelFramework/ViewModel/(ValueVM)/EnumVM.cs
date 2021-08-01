@@ -162,7 +162,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				} else {
 					var defaultValue = (T)Enum.ToObject(typeof(T), 0);
 					_isUpdatingValues = true;
-					var dispatcher = ApplicationDispatcher.CurrentDispatcher;
+					var dispatcher = ApplicationDispatcher.Instance;
 					if(_values.Any(vm => Equals(vm.Value,defaultValue))){
 						dispatcher.BeginInvoke(() => { em.IsChecked = true; _isUpdatingValues = false; });
 					} else 	if(Equals(em.Value,defaultValue)) dispatcher.Invoke(new Action(delegate {

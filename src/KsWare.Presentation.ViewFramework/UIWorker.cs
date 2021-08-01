@@ -15,7 +15,7 @@ namespace KsWare.Presentation.ViewFramework {
 		public IDispatcher Dispatcher { get; set; }
 
 		public void Start() {
-			if (Dispatcher == null) Dispatcher = ApplicationDispatcher.CurrentDispatcher;
+			if (Dispatcher == null) Dispatcher = ApplicationDispatcher.Instance;
 			_thread=new Thread(Proc) {
 				Name = "UIWorker",
 				IsBackground = true
@@ -24,10 +24,10 @@ namespace KsWare.Presentation.ViewFramework {
 		}
 
 		private void Proc() { 
-			Dispatcher.Invoke(new Action(delegate {try{OnInit   ();}catch(Exception ex){try{OnError(ex);}catch(Exception ex2){/*TODO*/}}}));
-			try{OnAction();}catch(Exception ex){Dispatcher.Invoke(new Action(delegate  {try{OnError(ex);}catch(Exception ex2){/*TODO*/}}));}
-			Dispatcher.Invoke(new Action(delegate {try{OnSuccess();}catch(Exception ex){try{OnError(ex);}catch(Exception ex2){/*TODO*/}}}));
-			Dispatcher.Invoke(new Action(delegate {try{OnFinally();}catch(Exception ex){try{OnError(ex);}catch(Exception ex2){/*TODO*/}}}));
+			Dispatcher.Invoke(new Action(delegate {try{OnInit   ();}catch(Exception ex){try{OnError(ex);}catch(Exception){/*TODO*/}}}));
+			try{OnAction();}catch(Exception ex){Dispatcher.Invoke(new Action(delegate  {try{OnError(ex);}catch(Exception){/*TODO*/}}));}
+			Dispatcher.Invoke(new Action(delegate {try{OnSuccess();}catch(Exception ex){try{OnError(ex);}catch(Exception){/*TODO*/}}}));
+			Dispatcher.Invoke(new Action(delegate {try{OnFinally();}catch(Exception ex){try{OnError(ex);}catch(Exception){/*TODO*/}}}));
 		}
 	}
 }

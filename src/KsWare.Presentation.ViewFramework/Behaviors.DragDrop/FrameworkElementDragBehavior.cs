@@ -91,13 +91,11 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 			if (AssociatedObject.DataContext == null) {
 				//Trace.WriteLine("WARNING: DataContext is null! UID:{2FE3886C-7CC6-4BA7-8996-1A6CA59B298F}"); 
 				throw new InvalidOperationException("DataContext is null! UID:{2FE3886C-7CC6-4BA7-8996-1A6CA59B298F}");
-				return;
 			}
 			var dragObject = AssociatedObject.DataContext as IDragable;
 			if (dragObject == null) {
 				//Trace.WriteLine("WARNING: DataContext not implements IDragable! UID:{27F3E817-9746-4785-9E8D-A1DE9F1DE7CE}");
 				throw new InvalidOperationException("DataContext not implements IDragable! UID:{27F3E817-9746-4785-9E8D-A1DE9F1DE7CE}");
-				return;
 			}
 			if (!dragObject.CanDrag) {
 				if(EnableTrace) Trace.WriteLine("TRACE: CanDrag is false. UID:{28C396ED-CF95-402F-B41E-F8CAED9297E5}");

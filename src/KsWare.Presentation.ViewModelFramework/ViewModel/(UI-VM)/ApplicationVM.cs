@@ -68,7 +68,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Gets a value indicating whether the caller must call an invoke method when making method calls to a control because the caller is on a different thread than the one the control was created on.
 		/// </summary>
-		public static new bool IsInvokeRequired{
+		public static bool IsInvokeRequired{
 			get {
 				if(s_Current==null) return false;
 				return ApplicationDispatcher.Thread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId;
@@ -80,7 +80,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <param name="method">The method to execute</param>
 		/// <param name="args">The method arguments</param>
 		/// <returns></returns>
-		public static new object InvokeIfRequired(Delegate method, params object[] args) {
+		public static object InvokeIfRequired(Delegate method, params object[] args) {
 			if(s_Current==null) return method.DynamicInvoke(args);
 			return ApplicationDispatcher.InvokeIfRequired(method, args);
 		}
@@ -125,16 +125,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 				_application.Exit        += AtExit;                                // => Occurs just before an application shuts down, and cannot be canceled.
 				//m_Application.SessionEnding	=> Occurs when the user ends the Windows session by logging off or shutting down the operating system.
 				//Navigation: FragmentNavigation, LoadCompleted, Navigated, Navigating, NavigationProgress, NavigationStopped, NavigationFailed, SetCookie, GetCookie.
-				Dispatcher = ApplicationDispatcher.CurrentDispatcher;
-			} else {
-				//for unit test
-				if (System.Windows.Threading.Dispatcher.FromThread(Thread.CurrentThread) == null) {
-					Trace.WriteLine("WARNING: The current thread does not have a dispatcher! Creating a new one.");
-					Dispatcher = new ApplicationDispatcher(System.Windows.Threading.Dispatcher.CurrentDispatcher);
-				} else {
-					Dispatcher = ApplicationDispatcher.CurrentDispatcher;
-				}
-				
 			}
 			//this.Dispatcher.UnhandledException+=
 			//this.Dispatcher.UnhandledExceptionFilter+=
@@ -221,10 +211,10 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value><c>true</c> if the application is in foreground; otherwise, <c>false</c>.</value>
 		public bool IsActive { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 
-		/// <summary> Gets the <see cref="Dispatcher"/> this object is associated with. 
-		/// </summary>
-		/// <value>The dispatcher.</value>
-		public IDispatcher Dispatcher { get; private set; }
+		// /// <summary> Gets the <see cref="Dispatcher"/> this object is associated with. 
+		// /// </summary>
+		// /// <value>The dispatcher.</value>
+		// public IDispatcher Dispatcher { get; private set; }
 
 		protected virtual void OnStartup(StartupEventArgs e) {}
 		protected virtual void OnApplicationActivated() { IsActive = true; }
@@ -382,7 +372,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if (m.Length == 1) return m[0];
 
 			throw new TypeLoadException("View not found! Name: "+vn+"|"+bn +" ViewModel: "+viewModelType.FullName);
-			return null;
+			// return null;
 		}
 	}
 }

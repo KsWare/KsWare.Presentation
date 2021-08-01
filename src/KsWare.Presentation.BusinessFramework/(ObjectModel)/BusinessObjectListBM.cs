@@ -82,7 +82,7 @@ namespace KsWare.Presentation.BusinessFramework {
 
 		#region InnerList
 
-		/// <summary> Provides access to the <see cref="m_InnerList"/> and forces that the list is initalized.
+		/// <summary> Provides access to the <see cref="_innerList"/> and forces that the list is initialized.
 		/// </summary>
 		private IList<TItem> InnerList {
 			get {

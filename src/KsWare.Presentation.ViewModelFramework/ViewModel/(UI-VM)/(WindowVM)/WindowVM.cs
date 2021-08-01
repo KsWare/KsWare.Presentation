@@ -177,7 +177,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if(IsInDesignMode) return;
 //			this.BypassLayoutPolicies = true;
 //			if (!this.IsInsideApp) return;
-			if (ApplicationVM.Current.Dispatcher.Thread == ApplicationDispatcher.CurrentDispatcher.Thread) {
+			if (ApplicationVM.Current.Dispatcher.Thread == ApplicationDispatcher.Instance.Thread) {
 				App.WindowsInternal.Add(this);
 				if (App.MainWindow != null) return;
 				App.MainWindow = this;

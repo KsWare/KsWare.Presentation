@@ -34,7 +34,7 @@ namespace KsWare.Presentation.Testing.Tests {
 		[Test]
 		public void ApplicationDispatcher_Invoke() {
 			var invokeCount = 0;
-			ApplicationDispatcher.CurrentDispatcher.Invoke(new Action(() => invokeCount++));
+			ApplicationDispatcher.Instance.Invoke(new Action(() => invokeCount++));
 			Assert.AreEqual(1,invokeCount);
 		}
 
@@ -42,7 +42,7 @@ namespace KsWare.Presentation.Testing.Tests {
 		[SuppressMessage("ReSharper", "AsyncConverter.AsyncWait")]
 		public void ApplicationDispatcher_BeginInvoke() {
 			var invokeCount = 0;
-			var dispatcherOperation = ApplicationDispatcher.CurrentDispatcher.BeginInvoke(new Action(() => invokeCount++));
+			var dispatcherOperation = ApplicationDispatcher.Instance.BeginInvoke(new Action(() => invokeCount++));
 			var dispatcherOperationStatus = dispatcherOperation.Wait(TimeSpan.FromSeconds(1));
 			Assert.AreEqual(1,invokeCount);
 		}
