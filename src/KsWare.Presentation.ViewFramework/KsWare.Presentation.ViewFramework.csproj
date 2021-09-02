@@ -38,14 +38,22 @@
     <PackageIconUrl />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="%28Obsolete%29\Behaviors\**" />
+    <Compile Remove="XmlDocMarkup\**" />
+    <EmbeddedResource Remove="%28Obsolete%29\Behaviors\**" />
+    <EmbeddedResource Remove="XmlDocMarkup\**" />
+    <None Remove="%28Obsolete%29\Behaviors\**" />
+    <None Remove="XmlDocMarkup\**" />
+    <Page Remove="%28Obsolete%29\Behaviors\**" />
+    <Page Remove="XmlDocMarkup\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Behaviors.DragDrop\Bea\DragDropHelper.cs" />
     <None Include="Behaviors.DragDrop\Bea\InsertionAdorner.cs" />
     <None Include="Behaviors.DragDrop\Bea\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="%28Obsolete%29\Behaviors\" />
     <Folder Include="AttachedBehavior\%28Base%29\" />
-    <Folder Include="XmlDocMarkup\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj" />
@@ -62,7 +70,7 @@
     <None Include="%28Converters%29\convertes moved to KsWare.Presentation.Converters.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.241603">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
@@ -79,6 +87,7 @@
     <Compile Remove="Behaviors.DragDrop\Bea\DragDropHelper.cs" />
     <Compile Remove="Behaviors.DragDrop\Bea\InsertionAdorner.cs" />
     <Compile Remove="Behaviors.DragDrop\Bea\Utilities.cs" />
+    <None Remove="KsWare.Presentation.ViewFramework.csproj.DotSettings" />
     <Page Remove="Behaviors\Busy\BusyAdornerVisual.xaml" />
   </ItemGroup>
   <ItemGroup>

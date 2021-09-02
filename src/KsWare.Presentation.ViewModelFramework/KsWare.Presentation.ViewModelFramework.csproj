@@ -57,7 +57,7 @@
     <PackageReference Include="KsWare.Presentation.Converters" Version="0.2.0" />
     <PackageReference Include="KsWare.Presentation.Interfaces" Version="0.2.1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.241603">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>

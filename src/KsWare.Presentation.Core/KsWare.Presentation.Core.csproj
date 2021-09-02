@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.241603">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
