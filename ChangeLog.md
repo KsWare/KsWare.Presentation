@@ -1,7 +1,7 @@
 # 0.19
 - convert to SDK format
 - TargetFrameworks: net5.0-windows, netcoreapp3.1, net45
-- because this big changes, v0.19 is declared as pre-release.
+- add WindowVM.Owner
 
 # 0.18
 - split KsWare.Presentation.Behavior

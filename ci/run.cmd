@@ -13,7 +13,7 @@ echo on
 
 nuget restore src
 @echo --- build ---
-dotnet build "C:\projects\ksware-presentation\src\KsWare.Presentation.sln" -c Release
+dotnet build "C:\projects\ksware-presentation\src\KsWare.Presentation.sln" -c Release --version-suffix test
 
 goto PACK
 @echo --- test ---
@@ -27,7 +27,7 @@ dotnet test "src\KsWare.Presentation.Tests\KsWare.Presentation.Tests.csproj" --c
 @echo --- pack ---
 ::dotnet pack "src\KsWare.Presentation\KsWare.Presentation.csproj" --configuration Release --include-symbols --output "C:\Users\appveyor\AppData\Local\Temp\1\dto7ifl5jd" --no-build
 :: /p:Version=%APPVEYOR_BUILD_VERSION%
-dotnet pack "src\KsWare.Presentation.sln" -c Release --no-build -o ci\temp
+dotnet pack "src\KsWare.Presentation.sln" -c Release --no-build -o ci\temp --version-suffix test
 
 :EXIT
 @pause

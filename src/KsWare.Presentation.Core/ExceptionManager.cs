@@ -29,14 +29,16 @@ namespace KsWare.Presentation {
 		/// <seealso cref="Dispatcher.UnhandledException">Dispatcher.UnhandledException</seealso>
 		/// </remarks>
 		public static void RegisterDispatcher(Dispatcher dispatcher) {
-			if(dispatcher==null) return;
-			if(_dispatchers.Contains(dispatcher)) return;
+			if (dispatcher == null) return;
+			if (_dispatchers.Contains(dispatcher)) return;
 			_dispatchers.Add(dispatcher);
 			if (_catchUnhandledExceptions) {
-				if (Debugger.IsAttached && _catchUnhandledExceptionsDebug==false) { /*don't catch exceptions*/} 
-				else dispatcher.UnhandledException+=AtDispatcherOnUnhandledException;
+				if (Debugger.IsAttached && _catchUnhandledExceptionsDebug == false) {
+					/*don't catch exceptions*/
+				}
+				else dispatcher.UnhandledException += AtDispatcherOnUnhandledException;
 			}
-			dispatcher.ShutdownFinished+=AtDispatcherOnShutdownFinished;
+			dispatcher.ShutdownFinished += AtDispatcherOnShutdownFinished;
 		}
 
 		private static void AtDispatcherOnShutdownFinished(object sender, EventArgs eventArgs) {
