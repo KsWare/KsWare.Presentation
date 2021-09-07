@@ -6,7 +6,8 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:KsWare.Presentation.UITestApp"
 	mc:Ignorable="d"
-	Title="{Binding Title.Value}" Height="127.211" Width="193.878"
+	Title="{Binding Title.Value}" Height="127.211" Width="193.878" 
+	WindowStartupLocation="CenterOwner"
 >
 	<d:DesignProperties.DataContext>
 		<local:SampleDialogWindowVM />

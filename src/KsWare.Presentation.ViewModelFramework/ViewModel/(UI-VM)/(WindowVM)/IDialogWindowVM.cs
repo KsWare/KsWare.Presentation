@@ -2,10 +2,8 @@
 
 	/// <summary> [DRAFT] IDialogWindowVM
 	/// </summary>
-	/// <see cref="System.Windows.DialogWindow"/>
-	public interface IDialogWindowVM {
-
-		ActionVM CloseAction { get; }
+	/// <seealso cref="System.Windows.Window"/>
+	public interface IDialogWindowVM:IWindowVM {
 
 //		ActionVM HelpAction { get; } //???
 
@@ -14,6 +12,7 @@
 		/// </summary>
 		/// <value>A System.Nullable value of type System.Boolean. The default is false. </value>
 		bool? DialogResult { get; set; }
+
 	}
 
 }
