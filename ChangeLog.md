@@ -2,6 +2,7 @@
 - convert to SDK format
 - TargetFrameworks: net5.0-windows, netcoreapp3.1, net45
 - add WindowVM.Owner
+- add MenuItemVM.Command
 
 # 0.18
 - split KsWare.Presentation.Behavior
