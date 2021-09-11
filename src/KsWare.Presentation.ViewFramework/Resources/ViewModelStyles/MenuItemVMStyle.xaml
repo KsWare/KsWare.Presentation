@@ -12,7 +12,7 @@
 		<d:Style.DataContext><x:Type Type="ksvm:MenuItemVM"></x:Type></d:Style.DataContext>
 		<Setter Property="ItemsSource" Value="{Binding Items}" />
 		<Setter Property="Header" Value="{Binding Caption}" />
-		<Setter Property="Command" Value="{Binding CommandAction}" />
+		<Setter Property="Command" Value="{Binding Command}" />
 		<Setter Property="IsChecked" Value="{Binding IsChecked}" />
 		<Setter Property="IsCheckable" Value="{Binding IsCheckable}" />
 		<Style.Triggers>
