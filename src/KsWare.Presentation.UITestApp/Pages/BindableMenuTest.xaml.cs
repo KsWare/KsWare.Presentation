@@ -38,13 +38,26 @@ namespace KsWare.Presentation.UITestApp.Pages {
 			test.Items.Add(new MenuItemVM { Caption = "-" });
 			test.Items.Add(more = new MenuItemVM { Caption = "More" });
 			more.Items.Add(check = new MenuItemVM { Caption = "Checker", IsCheckable = true });
-			more.Items.Add(new MenuItemVM { Caption = "Dummy" });
-
+			test.Items.Add(new MenuItemVM(CustomAction) { Caption = "Custom Action", CommandParameter = "Parameter"});
 			// #1 synchronize 2 bool values (functional, not optimized for reuse)
 			// Fields[nameof(IsChecked)].ValueChangedEvent.add = (s, e) => check.IsChecked = (bool)e.NewValue;
 			// check.Fields[nameof(MenuItemVM.IsChecked)].ValueChangedEvent.add = (s, e) => IsChecked = (bool)e.NewValue;
 			// #2 synchronize 2 bool values (experimental)
 			FieldBindingOperations.SetBinding(Fields[nameof(IsChecked)], new FieldBinding(check.Fields[nameof(MenuItemVM.IsChecked)]));
+		}
+
+		/// <summary>
+		/// Gets the <see cref="ActionVM"/> to Custom
+		/// </summary>
+		/// <seealso cref="DoCustom"/>
+		public ActionVM CustomAction { get; [UsedImplicitly] private set; }
+
+		/// <summary>
+		/// Method for <see cref="CustomAction"/>
+		/// </summary>
+		[UsedImplicitly]
+		private void DoCustom(object parameter) {
+			MessageBox.Show($"Custom Action - {parameter}");
 		}
 
 		private void DoCommand(object? sender, ExecutedEventArgs e) {
