@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 using JetBrains.Annotations;
 
 namespace KsWare.Presentation.ViewModelFramework {
@@ -6,10 +7,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <summary>
 	/// A view model for a <see cref="MenuItem"/>
 	/// </summary>
+	/// <example>
+	/// Add merged resource dictionary
+	/// <code> &lt;ResourceDictionary Source="/KsWare.Presentation.ViewFramework;component/Resources/ViewModelStyles/MenuItemVMStyle.xaml"/></code>
+	/// Add style
+	/// <code>&lt;Menu ItemContainerStyle="{DynamicResource MenuItemVMStyle}"/>
+	/// </code>
+	/// </example>
 	public class MenuItemVM : UIElementVM<MenuItem> {
 
 		public MenuItemVM() {
 			RegisterChildren(() => this);
+			Command = CommandAction;
 			//Data.Command
 			//Data.Icon;
 			//Data.Header;
@@ -22,10 +31,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <inheritdoc cref="MenuItem.Command"/>
 		/// <summary>
-		/// Gets the <see cref="ActionVM"/> to command
+		/// Gets the <see cref="ActionVM"/>.
 		/// </summary>
 		/// <seealso cref="DoCommand"/>
 		public ActionVM CommandAction { get; [UsedImplicitly] private set; }
+
+		/// <inheritdoc cref="MenuItem.Command"/>
+		/// <summary>
+		///	Gets or sets the <see cref="ICommand"/> for the MenuItem.
+		/// </summary>
+		/// <remarks>
+		/// Default value is <see cref="CommandAction"/>.
+		/// </remarks>
+		public ICommand Command { get => Fields.GetValue<ICommand>(); set => Fields.SetValue(value); }
 
 		/// <inheritdoc cref="MenuItem.IsChecked"/>
 		public bool IsChecked { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
