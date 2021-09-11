@@ -16,6 +16,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// </example>
 	public class MenuItemVM : UIElementVM<MenuItem> {
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MenuItemVM"/> class.
+		/// </summary>
 		public MenuItemVM() {
 			RegisterChildren(() => this);
 			Command = CommandAction;
@@ -24,6 +27,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 			//Data.Header;
 			//Data.IsCheckable;
 			//Data.IsChecked;
+		}
+
+		/// <summary>Initializes a new instance of the <see cref="MenuItemVM" /> class with a custom <see cref="ActionVM"/>.</summary>
+		/// <param name="commandAction">The command action.</param>
+		public MenuItemVM(ActionVM commandAction) {
+			CommandAction = commandAction;
+			RegisterChildren(() => this);
+			Command = CommandAction;
 		}
 
 		/// <inheritdoc cref="MenuItem.Header"/>
@@ -44,6 +55,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// Default value is <see cref="CommandAction"/>.
 		/// </remarks>
 		public ICommand Command { get => Fields.GetValue<ICommand>(); set => Fields.SetValue(value); }
+
+		/// <summary>
+		/// Gets or sets the command-specific data for a particular command.
+		/// </summary>
+		public object CommandParameter { get => Fields.GetValue<object>(); set => Fields.SetValue(value); }
 
 		/// <inheritdoc cref="MenuItem.IsChecked"/>
 		public bool IsChecked { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
