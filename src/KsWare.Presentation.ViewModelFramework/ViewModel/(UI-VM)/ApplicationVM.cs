@@ -138,7 +138,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if (_application == null) {
 				//Dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(() => {
 					OnStartup(null);
-					DoStartup(null, explicitStartup: true);
 				//}),null);
 			}
 			#endregion
@@ -216,12 +215,16 @@ namespace KsWare.Presentation.ViewModelFramework {
 		// /// <value>The dispatcher.</value>
 		// public IDispatcher Dispatcher { get; private set; }
 
-		protected virtual void OnStartup(StartupEventArgs e) {}
+		protected virtual void OnStartup(StartupEventArgs e) {
+			DoStartup(e);
+		}
 		protected virtual void OnApplicationActivated() { IsActive = true; }
 		protected virtual void OnApplicationDeactivated() { IsActive = false; }
 		protected virtual void OnExit(ExitEventArgs e) {  }
 
-		private void AtStartup(object sender, StartupEventArgs e) { DoStartup(e, explicitStartup: false); OnStartup(e);}
+		private void AtStartup(object sender, StartupEventArgs e) {
+			OnStartup(e);
+		}
 
 		private void AtExit(object sender, ExitEventArgs e) { DoShutdown(e,explicitShutdown:false); /*-->OnExit(e);*/ }
 
@@ -247,7 +250,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		// original: Application → OnStartup;DoStartup
 		// this: Application.Startup ↯ AtStartup → DoStartup
 
-		private void DoStartup(StartupEventArgs e, bool explicitStartup) {
+		private void DoStartup(StartupEventArgs e) {
 			if (StartupUri == null) return;
 			var vm = (WindowVM) Activator.CreateInstance(StartupUri);
 			vm.Show();
