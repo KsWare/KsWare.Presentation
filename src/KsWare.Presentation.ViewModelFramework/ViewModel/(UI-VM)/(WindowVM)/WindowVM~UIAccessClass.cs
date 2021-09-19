@@ -10,13 +10,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		/// <summary> Provides direct access to the UI (<see cref="Window"/>).
 		/// </summary>
-		public sealed class UIAccessClass:INotifyPropertyChanged,IDisposable {
+		public sealed class UIAccessClass : INotifyPropertyChanged, IDisposable {
 
-			private readonly BackingFieldsStore Fields;
+			public readonly BackingFieldsStore Fields;
 
 			public UIAccessClass() {
-				Fields=new BackingFieldsStore(this,OnPropertyChanged);
-				Fields[nameof(Window)].ValueChanged+=(s,e) => EventUtil.Raise(WindowChanged,this, new ValueChangedEventArgs<Window>((Window) e.PreviousValue,(Window) e.NewValue),"{5AC93EA1-BB23-49CE-86F4-7DA533825945}");
+				Fields = new BackingFieldsStore(this, OnPropertyChanged);
+				Fields[nameof(Window)].ValueChanged += (s, e) => EventUtil.Raise(WindowChanged, this, new ValueChangedEventArgs<Window>((Window)e.PreviousValue, (Window)e.NewValue), "{5AC93EA1-BB23-49CE-86F4-7DA533825945}");
 			}
 
 			/// <summary> Gets or sets a value indicating whether direct UI access is enabled.
@@ -40,7 +40,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			public bool HasWindow => Fields.GetValue<Window>(nameof(Window)) != null;
 
 			internal void AssignWindowInternal(Window window) {
-				if(window==null) throw new ArgumentNullException(nameof(window));
+				if (window == null) throw new ArgumentNullException(nameof(window));
 				DemandAssign();
 				Fields.SetValue(window, nameof(Window));
 			}
@@ -55,7 +55,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			/// </summary>
 			/// <param name="view">The type of window to create. </param>
 			public void CreateInstance(Type view) {
-				DemandAccess();DemandAssign();
+				DemandAccess(); DemandAssign();
 				var window = (Window) Activator.CreateInstance(view);
 				AssignWindowInternal(window);
 			}
@@ -73,16 +73,6 @@ namespace KsWare.Presentation.ViewModelFramework {
 			private void DemandAccess() {if(!IsDirectAccessEnabled) throw new InvalidOperationException("Direct UI access is not allowed!");}
 
 			private void DemandAssign() {if(HasWindow) throw new InvalidOperationException("Window already assigned!");}
-
-//			[Obsolete("Use indexer",true)]
-//			public void RegisterPropertyChangedHandler<TProperty>(Expression<Func<object, TProperty>> viewModelProperty, EventHandler propertyChangedEventHandler) {
-//				Fields.RegisterPropertyChangedHandler(viewModelProperty, propertyChangedEventHandler);
-//			}
-
-//			[Obsolete("Use indexer",true)]
-//			public void ReleasePropertyChangedHandler<TProperty>(Expression<Func<object, TProperty>> viewModelProperty, EventHandler propertyChangedEventHandler) {
-//				Fields.ReleasePropertyChangedHandler(viewModelProperty, propertyChangedEventHandler);
-//			}
 
 			#region INotifyPropertyChanged
 			public event PropertyChangedEventHandler PropertyChanged;

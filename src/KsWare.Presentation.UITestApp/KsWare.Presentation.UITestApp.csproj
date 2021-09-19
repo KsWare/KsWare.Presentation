@@ -24,6 +24,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.2.4" />
+    <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.2.6" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 - add WindowVM.Owner
 - add MenuItemVM.Command
 - add MenuItemVM.CommandParameter
+- add WindowVM.ClosingEvent
 
 # 0.18
 - split KsWare.Presentation.Behavior

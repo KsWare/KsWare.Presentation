@@ -227,12 +227,12 @@ namespace KsWare.Presentation {
 		/// <param name="eventName">Name of the event.</param>
 		/// <param name="e">The instance containing the event data.</param>
 		/// <example><code>WeakEventManager.Raise&gt;EventHandler,EventArgs>(LazyWeakEventStore,"MyPropertyChangedEvent", EventArgs.Empty);</code></example>
-		public static void Raise<TEventHandler,TEventArgs>(Lazy<EventSourceStore> lazyEventSourceStore, string eventName, TEventArgs e) where TEventArgs:EventArgs {
-			if(!lazyEventSourceStore.IsValueCreated) return;
+		public static void Raise<TEventHandler, TEventArgs>(Lazy<EventSourceStore> lazyEventSourceStore, string eventName, TEventArgs e) where TEventArgs : EventArgs {
+			if (!lazyEventSourceStore.IsValueCreated) return;
 			var weakEventPropertyStore = lazyEventSourceStore.Value;
-			if(weakEventPropertyStore.Count==0) return;
-			var wes=(EventSource<TEventHandler>)weakEventPropertyStore.TryGet<TEventHandler>(eventName);
-			if(wes==null/*No one has accessed the event propert*/) return;
+			if (weakEventPropertyStore.Count == 0) return;
+			var wes = (EventSource<TEventHandler>)weakEventPropertyStore.TryGet<TEventHandler>(eventName);
+			if (wes == null /*No one has accessed the event property*/) return;
 			wes.Raise<TEventArgs>(e);
 		}
 

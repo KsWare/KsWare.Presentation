@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using JetBrains.Annotations;
 
@@ -11,7 +13,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// This direct access can be enabled using <see cref="UIAccessClass.IsDirectAccessEnabled">UI.IsDirectAccessEnabled</see>.
 	/// This would violates the MVVM pattern and lets act this object as 'Controller' in a MVC pattern.</para>
 	/// </remarks>
-	public partial class WindowVM:DataVM<Window>,IWindowVM {
+	public partial class WindowVM : DataVM<Window>, IWindowVM {
 
 		private bool _disposed;
 		private bool _isClosing;
@@ -75,13 +77,19 @@ namespace KsWare.Presentation.ViewModelFramework {
 			if(UIAccess.HasWindow) UIAccess.Window.Close();
 		}
 
-		private void AtWindowChanged(object sender, EventArgs e) {
-			if (UIAccess.Window != null) {
+		private void AtWindowChanged(object sender, ValueChangedEventArgs<Window> e) {
+			if (e.PreviousValue != null) {
+				UIAccess.Window.Closing     -= AtWindowClosing;
+				UIAccess.Window.Closed      -= AtWindowClosed;
+				UIAccess.Window.Activated   -= AtWindowActivated;
+				UIAccess.Window.Deactivated -= AtWindowDeactivated;
+			}
+			if (e.NewValue !=null) {
+				UIAccess.Window.Closing     += AtWindowClosing;
 				UIAccess.Window.Closed      += AtWindowClosed;
 				UIAccess.Window.Activated   += AtWindowActivated;
 				UIAccess.Window.Deactivated += AtWindowDeactivated;
 				UpdateViewOwner();
-				
 			}
 			OnPropertyChanged(nameof(IsOpen));
 		}
@@ -94,10 +102,35 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value><c>true</c> the window is the foreground window; otherwise, <c>false</c>.</value>
 		public bool IsActivated { get => Fields.GetValue<bool>(); private set => Fields.SetValue(value); }
 
+		private void AtWindowClosing(object sender, CancelEventArgs e) {
+			Closing?.Invoke(this, e);
+			EventManager.Raise<CancelEventHandler, CancelEventArgs>(LazyWeakEventStore, nameof(ClosingEvent), e);
+		}
+
+		public event CancelEventHandler Closing;
+
+		/// <summary> Gets the event source for the event which occurs when window is closing.
+		/// </summary>
+		/// <value>The window closing event source.</value>
+		/// <seealso cref="Window.Closing"/>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		IEventSource<CancelEventHandler> ClosingEvent => EventSources.Get<CancelEventHandler>();
+
 		private void AtWindowClosed(object sender, EventArgs e) {
 			UIAccess.Window.DataContext = null;
 			UIAccess.ReleaseWindowInternal();
+			Closed?.Invoke(this, e);
+			EventManager.Raise<EventHandler, EventArgs>(LazyWeakEventStore, nameof(ClosedEvent), e);
 		}
+
+		public event EventHandler Closed;
+
+		/// <summary> Gets the event source for the event which occurs when window is closed.
+		/// </summary>
+		/// <value>The window closed event source.</value>
+		/// <seealso cref="Window.Closed"/>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		IEventSource<EventHandler> ClosedEvent => EventSources.Get<EventHandler>();
 
 		private void AtCloseActionExecuted(object sender, ExecutedEventArgs e) {
 			//RequestUserFeedback(new CommandUserFeedback{Command=ApplicationCommands.Close});

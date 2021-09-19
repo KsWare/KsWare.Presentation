@@ -141,7 +141,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Releases unmanaged resources and performs other cleanup operations before the
 		/// <see cref="ValueVM{T}"/> is reclaimed by garbage collection.
 		/// </summary>
-		~ValueVM(){Dispose(false);}
+		~ValueVM() { Dispose(false); }
 
 		/// <summary> Occurs when <see cref="Value"/> property has been changed.
 		/// </summary>
