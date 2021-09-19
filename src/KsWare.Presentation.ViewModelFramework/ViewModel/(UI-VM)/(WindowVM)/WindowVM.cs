@@ -78,17 +78,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private void AtWindowChanged(object sender, ValueChangedEventArgs<Window> e) {
-			if (e.PreviousValue != null) {
-				UIAccess.Window.Closing     -= AtWindowClosing;
-				UIAccess.Window.Closed      -= AtWindowClosed;
-				UIAccess.Window.Activated   -= AtWindowActivated;
-				UIAccess.Window.Deactivated -= AtWindowDeactivated;
+			if (e.PreviousValue is Window o) {
+				o.Closing     -= AtWindowClosing;
+				o.Closed      -= AtWindowClosed;
+				o.Activated   -= AtWindowActivated;
+				o.Deactivated -= AtWindowDeactivated;
+				if (Owner is WindowVM vmOwner && vmOwner.UIAccess.Window == o) o.Owner = null;
 			}
-			if (e.NewValue !=null) {
-				UIAccess.Window.Closing     += AtWindowClosing;
-				UIAccess.Window.Closed      += AtWindowClosed;
-				UIAccess.Window.Activated   += AtWindowActivated;
-				UIAccess.Window.Deactivated += AtWindowDeactivated;
+			if (e.NewValue is Window n) {
+				n.Closing     += AtWindowClosing;
+				n.Closed      += AtWindowClosed;
+				n.Activated   += AtWindowActivated;
+				n.Deactivated += AtWindowDeactivated;
 				UpdateViewOwner();
 			}
 			OnPropertyChanged(nameof(IsOpen));
@@ -209,7 +210,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		private void UpdateViewOwner() {
 			// TODO for IWindowVM silently ignored!
-			if (Owner is WindowVM w && UIAccess.HasWindow) UIAccess.Window.Owner = w.UIAccess.Window; 
+			// TODO vmOwner.UIAccess.Window change is not observed
+			if (Owner is WindowVM vmOwner && UIAccess.HasWindow) UIAccess.Window.Owner = vmOwner.UIAccess.Window; 
 		}
 
 		// Type: System.Windows.Window
