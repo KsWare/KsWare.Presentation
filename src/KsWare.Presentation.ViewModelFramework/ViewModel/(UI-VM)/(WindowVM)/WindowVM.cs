@@ -115,7 +115,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The window closing event source.</value>
 		/// <seealso cref="Window.Closing"/>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		IEventSource<CancelEventHandler> ClosingEvent => EventSources.Get<CancelEventHandler>();
+		public IEventSource<CancelEventHandler> ClosingEvent => EventSources.Get<CancelEventHandler>();
 
 		private void AtWindowClosed(object sender, EventArgs e) {
 			UIAccess.Window.DataContext = null;
@@ -131,7 +131,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <value>The window closed event source.</value>
 		/// <seealso cref="Window.Closed"/>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		IEventSource<EventHandler> ClosedEvent => EventSources.Get<EventHandler>();
+		public IEventSource<EventHandler> ClosedEvent => EventSources.Get<EventHandler>();
 
 		private void AtCloseActionExecuted(object sender, ExecutedEventArgs e) {
 			//RequestUserFeedback(new CommandUserFeedback{Command=ApplicationCommands.Close});
