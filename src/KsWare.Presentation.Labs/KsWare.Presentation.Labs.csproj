@@ -39,6 +39,10 @@
     <PackageIcon>PackageIcon.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
+  <PropertyGroup>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="Core\[DEACTIVATED]\RuntimeMethodData.cs" />
     <None Include="Core\[DEACTIVATED]\SaveNullCheck.cs" />

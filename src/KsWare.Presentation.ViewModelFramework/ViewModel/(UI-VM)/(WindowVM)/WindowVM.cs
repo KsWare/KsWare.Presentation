@@ -22,7 +22,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Initializes a new instance of the <see cref="WindowVM"/> class.
 		/// </summary>
 		public WindowVM() {//
-			RegisterChildren(()=>this);
+			RegisterChildren(() => this);
 
 			UIAccess = new UIAccessClass();
 			UIAccess.WindowChanged += AtWindowChanged;

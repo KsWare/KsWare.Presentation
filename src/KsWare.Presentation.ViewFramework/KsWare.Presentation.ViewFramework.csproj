@@ -38,6 +38,10 @@
     <PackageIcon>PackageIcon.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
+  <PropertyGroup>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="%28Obsolete%29\Behaviors\**" />
     <Compile Remove="XmlDocMarkup\**" />

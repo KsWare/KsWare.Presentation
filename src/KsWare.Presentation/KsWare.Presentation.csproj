@@ -30,6 +30,10 @@
     <PackageReleaseNotes>-</PackageReleaseNotes>
     <PackageIcon>PackageIcon.png</PackageIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\KsWare.Presentation.BusinessFramework\KsWare.Presentation.BusinessFramework.csproj" />
     <ProjectReference Include="..\KsWare.Presentation.Core\KsWare.Presentation.Core.csproj" />

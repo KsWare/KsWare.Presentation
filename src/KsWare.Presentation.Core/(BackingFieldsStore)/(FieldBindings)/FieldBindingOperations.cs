@@ -30,7 +30,7 @@ namespace KsWare.Presentation {
 			
 			if (binding.Converter == null) binding.Converter = DataTypeConverter.Default;
 			var existingBinding = GetBindings(binding.Source, target);
-			if (existingBinding != null) throw new InvalidOperationException("Allready binding configured!"); // TODO concept: silent overwrite synchronization?
+			if (existingBinding != null) throw new InvalidOperationException("Binding already configured!"); // TODO concept: silent overwrite synchronization?
 
 			binding.Target = target;
 			switch (binding.Mode) {
