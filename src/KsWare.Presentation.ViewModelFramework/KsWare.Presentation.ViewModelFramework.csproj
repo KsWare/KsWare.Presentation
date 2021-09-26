@@ -39,7 +39,7 @@
     <PackageIconUrl />
   </PropertyGroup>
   <PropertyGroup>
-    <DebugType>full</DebugType>
+    <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>

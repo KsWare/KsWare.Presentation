@@ -6,7 +6,7 @@
 - add MenuItemVM.CommandParameter
 - add WindowVM.ClosingEvent
 - DataTypeConverter.Convert: fix System.InvalidCastException
-- DebugType=full and DebugSymbols=true for each configuration 
+- DebugType=embedded and DebugSymbols=true for each configuration 
 
 # 0.18
 - split KsWare.Presentation.Behavior
