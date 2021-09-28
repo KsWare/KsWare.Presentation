@@ -53,9 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.2.6" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PackageIcon.png">

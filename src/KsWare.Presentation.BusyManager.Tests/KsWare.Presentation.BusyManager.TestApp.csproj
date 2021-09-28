@@ -22,9 +22,4 @@
     <ProjectReference Include="..\KsWare.Presentation.ViewFramework\KsWare.Presentation.ViewFramework.csproj" />
     <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
 </Project>
