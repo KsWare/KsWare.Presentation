@@ -14,8 +14,8 @@ namespace KsWare.Presentation.ViewModelFramework {
 			base.OnBusinessObjectChanged(e);
 			
 			#region ValueType = {Binding ValueType, Source= MːBusinessObject, Mode=TwoWay}
-			if (e.PreviousValue is DynamicBM) {
-				((DynamicBM)e.PreviousValue).Fields["ValueType"].ValueChangedEvent.Release(this,"{16A4A018-0D9A-41B9-95C6-11F754037AA4}");
+			if (e.OldValue is DynamicBM) {
+				((DynamicBM)e.OldValue).Fields["ValueType"].ValueChangedEvent.Release(this,"{16A4A018-0D9A-41B9-95C6-11F754037AA4}");
 				Fields["ValueType"].ValueChangedEvent.Release(this,"{03BBE793-8175-4BAE-BD94-BC4F2B707324}");
 			}
 			if (e.NewValue  is DynamicBM) {

@@ -345,7 +345,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public NullableVM() {
 			TargetChangedEvent.add= (s, e) => {
-				if (e.PreviousValue != null) e.PreviousValue.Parent = null;
+				if (e.OldValue != null) e.OldValue.Parent = null;
 				if (e.NewValue      != null) e.NewValue     .Parent = this;
 			};
 		}

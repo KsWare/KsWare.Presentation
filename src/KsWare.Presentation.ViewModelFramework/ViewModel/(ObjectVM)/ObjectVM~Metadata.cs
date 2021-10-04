@@ -120,7 +120,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void OnMetadataChanged(ValueChangedEventArgs<ViewModelMetadata> e) {
 			if (HasMetadata) {
 				Metadata.DataProviderChanged+= (o1,e1) => OnDataProviderChanged(e1);
-				var oldMetadata = e.PreviousValue;
+				var oldMetadata = e.OldValue;
 				var oldDataProvider=oldMetadata!=null ? (oldMetadata.HasDataProvider?oldMetadata.DataProvider:null):null;
 				var newDataProvider=Metadata.HasDataProvider?Metadata.DataProvider:null;
 				
@@ -137,7 +137,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <remarks>Also called if Metadata changes.</remarks>
 		protected virtual void OnDataProviderChanged(ValueChangedEventArgs<IDataProvider> e) {
-			if (e.PreviousValue != null) e.PreviousValue.DataChanged -= AtDataChanged;
+			if (e.OldValue != null) e.OldValue.DataChanged -= AtDataChanged;
 			if(e.NewValue==null) return;
 
 			var dataProvider = e.NewValue;

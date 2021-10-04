@@ -250,7 +250,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Called when underlying business object changed.
 		/// </summary>
 		/// <param name="e">The arguments for the value changed event.</param>
-		/// <remarks>If the prevoius business object is disposed (not more alive) then <c>null</c> is returned by <see cref="ValueChangedEventArgs{T}.PreviousValue"/></remarks>
+		/// <remarks>If the prevoius business object is disposed (not more alive) then <c>null</c> is returned by <see cref="ValueChangedEventArgs{T}.OldValue"/></remarks>
 		protected virtual void OnBusinessObjectChanged(ValueChangedEventArgs<IObjectBM> e) {
 			
 		}

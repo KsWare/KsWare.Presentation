@@ -78,7 +78,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		}
 
 		private void AtWindowChanged(object sender, ValueChangedEventArgs<Window> e) {
-			if (e.PreviousValue is Window o) {
+			if (e.OldValue is Window o) {
 				o.Closing     -= AtWindowClosing;
 				o.Closed      -= AtWindowClosed;
 				o.Activated   -= AtWindowActivated;
