@@ -118,7 +118,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 				#endregion
 
-				var ea=new ValueChangedEventArgs<TRef>(prevTarget,_target);
+				var ea=new ValueChangedEventArgs<TRef>(_target, prevTarget);
 				EventUtil.Raise(TargetChanged,this,ea,"{0ABD9487-DD5C-45A1-B997-A4E5C3188320}" );
 				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent", ea);
 				OnPropertyChanged("Target");

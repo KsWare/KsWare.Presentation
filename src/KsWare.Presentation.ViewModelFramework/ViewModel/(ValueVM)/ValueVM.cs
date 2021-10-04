@@ -242,7 +242,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				provider.BusinessValueChanged += (s1, e1) => {
 					var lastBusinessObject=_weakLastBusinessObject == null ? null : (!_weakLastBusinessObject.IsAlive ? null : _weakLastBusinessObject.Target);
 					_weakLastBusinessObject = e1.NewData == null ? null : new WeakReference(e1.NewData);
-					OnBusinessObjectChanged(new ValueChangedEventArgs<IObjectBM>((IObjectBM)lastBusinessObject, (IObjectBM) e1.NewData));
+					OnBusinessObjectChanged(new ValueChangedEventArgs<IObjectBM>((IObjectBM) e1.NewData, (IObjectBM)lastBusinessObject));
 				};
 			}
 		}
@@ -432,7 +432,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			OnPropertyChanged("HasValue");
 			OnPropertyChanged("Value");
 
-			var args=new ValueChangedEventArgs(_previousRaisedValue,newValue);
+			var args=new ValueChangedEventArgs(newValue, _previousRaisedValue);
 			EventUtil.Raise(ValueChanged,this,args,"{B86ED179-8BE0-4702-A352-5E77A884195C}");
 			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,"ValueChangedEvent", args);
 			_previousRaisedValue = newValue;

@@ -75,7 +75,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 					if(DebuggerFlags.Breakpoints.MetadataSet)DebuggerːBreak(this,"DebuggerFlags.Breakpoints.MetadataSet");
 					_metadata = CreateMetadata();
 					_metadata.Parent = this;
-					OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(null,_metadata));
+					OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(_metadata, null));
 				}
 				return _metadata;
 			}
@@ -87,7 +87,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				var oldMetadata = _metadata;
 				_metadata = value;
 				_metadata.Parent = this;
-				OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(oldMetadata,_metadata));
+				OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(_metadata, oldMetadata));
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				var oldDataProvider=oldMetadata!=null ? (oldMetadata.HasDataProvider?oldMetadata.DataProvider:null):null;
 				var newDataProvider=Metadata.HasDataProvider?Metadata.DataProvider:null;
 				
-				if(oldDataProvider!=newDataProvider) OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldDataProvider,newDataProvider));
+				if(oldDataProvider!=newDataProvider) OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(newDataProvider, oldDataProvider));
 			}
 
 			//if (SuppressAnyEvents == 0) ...

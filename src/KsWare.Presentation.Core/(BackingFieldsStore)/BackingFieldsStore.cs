@@ -224,7 +224,7 @@ namespace KsWare.Presentation {
 
 			var fieldInfo = _fields[propertyName];
 			var eventHandlerInfos = fieldInfo.EventHandlers;
-			var ea=new ValueChangedEventArgs(oldValue,newValue);
+			var ea=new ValueChangedEventArgs(newValue, oldValue);
 			foreach (var eventHandlerInfo in eventHandlerInfos) { eventHandlerInfo.PropertyChangedEventHandler(_owner, ea); }
 			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(fieldInfo.LazyWeakEventProperties,"ValueChangedEvent",ea);
 		}

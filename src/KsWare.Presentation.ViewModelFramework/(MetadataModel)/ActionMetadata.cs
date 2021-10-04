@@ -49,7 +49,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(_actionProvider==null) {
 					_actionProvider = CreateDefaultActionProvider();
 					_actionProvider.Parent = this;
-					OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(null,_actionProvider));
+					OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(_actionProvider, null));
 					OnPropertyChanged("HasActionProvider");
 				}
 				return _actionProvider;
@@ -61,7 +61,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(_actionProvider!=null) DemandPropertySet();
 				_actionProvider = value;
 				_actionProvider.Parent = this;
-				OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldActionProvider,_actionProvider));
+				OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(_actionProvider, oldActionProvider));
 				if(HasActionProvider!=oldHasActionProvider) OnPropertyChanged("HasActionProvider");
 			}
 		}
@@ -92,7 +92,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			_actionProvider = actionProvider;
 			_actionProvider.Parent = this;
-			OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(oldProvider,actionProvider));
+			OnActionProviderChanged(new ValueChangedEventArgs<IActionProvider>(actionProvider, oldProvider));
 			OnPropertyChanged("HasDataProvider");
 
 			if(oldProvider!=null) oldProvider.Dispose();
