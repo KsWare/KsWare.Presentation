@@ -52,7 +52,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets a value whether the <see cref="OldValue"/>-property is specified.
 		/// </summary>
 		/// <value><c>true</c> the <see cref="OldValue"/> is specified; else <c>false</c>.</value>
-		public bool OldValueSpecified => OldValue != DependencyProperty.UnsetValue;
+		public bool OldValueSpecified => _oldValue != DependencyProperty.UnsetValue;
 
 		/// <summary> Gets the new value or <c>null</c> if new value is unknown.
 		/// </summary>
@@ -62,7 +62,7 @@ namespace KsWare.Presentation {
 		/// <summary> Gets a value whether the <see cref="NewValue"/>-property is specified.
 		/// </summary>
 		/// <value><c>true</c> the <see cref="NewValue"/> is specified; else <c>false</c>.</value>
-		public bool NewValueSpecified => NewValue != DependencyProperty.UnsetValue;
+		public bool NewValueSpecified => _newValue != DependencyProperty.UnsetValue;
 
 		public static ValueChangedEventArgs ConvertFrom<T>(DependencyPropertyChangedEventArgs e) {
 			return new ValueChangedEventArgs(e);

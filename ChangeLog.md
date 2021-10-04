@@ -2,6 +2,7 @@
 - BREAKING CHANGE ValueChangedEventArgs swap arguments and rename PreviousValue to OldValue, so that you get a compiler error on event handlers. If you create ValueChangedEventArgs you have to swap the arguments manually. No Warning in this case!
 - add SimpleCommand.RaiseCanExecuteChanged
 - ValueChangedEventArgs no longer returns DependencyProperty.UnsetValue, so this is consistent to ValueChangedEventArgs<T>
+- ActionVM supports async methods  Task DoAnything(), Task DoAnything(object)
 
 # 0.19
 - convert to SDK format
