@@ -39,7 +39,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 			set {
 				var prev = _source;
 				_source = value;
-				OnSourceChanged(new ValueChangedEventArgs(prev, value));
+				OnSourceChanged(new ValueChangedEventArgs(value, prev));
 				OnPropertyChanged("Source");
 			}
 		}

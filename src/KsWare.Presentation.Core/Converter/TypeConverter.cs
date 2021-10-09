@@ -36,12 +36,29 @@ namespace KsWare.Presentation {
 
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+			// Exception if targetType is not exact the same type as the type of value.
+			//	System.InvalidCastException: 'Object must implement IConvertible.'
+			//		in System.Convert.ChangeType(object, System.Type, System.IFormatProvider)
+			// Workaround: handle derived types
+
+			if (targetType == (Type) null) throw new ArgumentNullException(nameof (targetType));
+
+			if (value == null) {
+				if (targetType.IsValueType) return System.Convert.ChangeType(value, targetType, culture); //throw new InvalidCastException(Environment.GetResourceString("InvalidCast_CannotCastNullToValueType"));
+				return (object) null;
+			}
+
+			if (!(value is IConvertible convertible)) {
+				if (targetType.IsInstanceOfType(value)) return value; 
+				else return System.Convert.ChangeType(value, targetType, culture); // throw new InvalidCastException(Environment.GetResourceString("InvalidCast_IConvertible"));
+			}
+
 			return System.Convert.ChangeType(value, targetType, culture);
 		}
 
 		/// <inheritdoc />
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-			return System.Convert.ChangeType(value, targetType, culture);
+			return Convert(value, targetType, parameter, culture);
 		}
 	}
 

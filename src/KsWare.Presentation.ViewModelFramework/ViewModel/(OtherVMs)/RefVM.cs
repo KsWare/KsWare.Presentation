@@ -118,7 +118,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				}
 				#endregion
 
-				var ea=new ValueChangedEventArgs<TRef>(prevTarget,_target);
+				var ea=new ValueChangedEventArgs<TRef>(_target, prevTarget);
 				EventUtil.Raise(TargetChanged,this,ea,"{0ABD9487-DD5C-45A1-B997-A4E5C3188320}" );
 				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent", ea);
 				OnPropertyChanged("Target");
@@ -345,7 +345,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		public NullableVM() {
 			TargetChangedEvent.add= (s, e) => {
-				if (e.PreviousValue != null) e.PreviousValue.Parent = null;
+				if (e.OldValue != null) e.OldValue.Parent = null;
 				if (e.NewValue      != null) e.NewValue     .Parent = this;
 			};
 		}

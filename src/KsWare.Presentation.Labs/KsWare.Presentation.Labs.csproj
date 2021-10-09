@@ -39,6 +39,10 @@
     <PackageIcon>PackageIcon.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
+  <PropertyGroup>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="Core\[DEACTIVATED]\RuntimeMethodData.cs" />
     <None Include="Core\[DEACTIVATED]\SaveNullCheck.cs" />
@@ -56,11 +60,6 @@
   <ItemGroup>
     <Folder Include="BusinessFramework\" />
     <Folder Include="Core\[OBSOLETE Warning]\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Core\DataVirtualization\MSOriginal\CollectionView.cs" />

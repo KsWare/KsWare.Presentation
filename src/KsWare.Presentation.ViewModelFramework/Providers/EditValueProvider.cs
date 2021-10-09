@@ -145,7 +145,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 				var prevValue = ViewModel.Value;
 				ViewModel.Value = newValue;
 
-				var ea = new ValueChangedEventArgs(prevValue, newValue);
+				var ea = new ValueChangedEventArgs(newValue, prevValue);
 				EventUtil.Raise(SourceUpdated,this,ea,"{F5D63124-F178-4467-AAEF-B43D9A072A07}");
 				EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,"SourceUpdatedEvent",ea);
 

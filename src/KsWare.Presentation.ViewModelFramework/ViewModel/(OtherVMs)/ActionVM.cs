@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using KsWare.Presentation.BusinessFramework;
@@ -110,37 +111,75 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected override void OnParentChanged(ValueChangedEventArgs e) {
 			base.OnParentChanged(e);
-			RegisterActionMethod(e);
+			if(e.NewValue != null) RegisterActionMethod(e.NewValue);
 		}
 
-		private void RegisterActionMethod(ValueChangedEventArgs e) {
-			if (e.NewValue != null) {
-				// MemberName: "EditAction" or "Edit"
-				// MethodName: "DoEdit"
-				var name = MemberName.EndsWith("Action") ? MemberName.Substring(0, MemberName.Length - 6) : MemberName;
-				string methodName= "Do"+name;
-				var methods=e.NewValue.GetType().GetMembers(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic)
-					.Where(m=>m.Name==methodName && m.MemberType==MemberTypes.Method)
-					.OfType<MethodInfo>()
-					.ToArray();
-				if (methods.Length == 0) { /*TODO LOG: No method {methodName} found. */}
-				else if (methods.Length == 1) {
+		private void RegisterActionMethod(object parent) {
+			//TODO support ActionVM<T>, AsyncActionVM
+			// DoEditAsync
+
+			// MemberName: "EditAction" or "Edit"
+			// MethodName: "DoEdit"
+			var name = MemberName.EndsWith("Action") ? MemberName.Substring(0, MemberName.Length - 6) : MemberName;
+			string methodName = "Do" + name;
+			var methods1 = parent.GetType()
+				.GetMembers(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+				.Where(m => m.Name == methodName && m.MemberType == MemberTypes.Method)
+				.OfType<MethodInfo>();
+
+			var methods2 = parent.GetType()
+				.GetMembers(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+				.Where(m => m.Name == methodName+"Async" && m.MemberType == MemberTypes.Method)
+				.OfType<MethodInfo>();
+
+			var methods = methods1.Concat(methods2).ToArray();
+
+			if (methods.Length != 0) {
+				if (methods.Length == 1) {
 					var parameters = methods[0].GetParameters();
-					if (parameters.Length == 0) {
-						var body   = Expression.Call(Expression.Constant(e.NewValue), methods[0]);
-						var lambda = Expression.Lambda<Action>(body);
-						MːDoAction = lambda.Compile();
-					} else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(object)) {
-						var param   = Expression.Parameter(parameters[0].ParameterType);
-						var body    = Expression.Call(Expression.Constant(e.NewValue), methods[0],param);
-						var lambda  = Expression.Lambda<Action<object>>(body, param);
-						MːDoActionP = lambda.Compile();
-					}
-					else {
-						 /*TODO LOG: No method {methodName} with matching signature found. */
-						 // see http://stackoverflow.com/questions/2933221/can-you-get-a-funct-or-similar-from-a-methodinfo-object
+					var returnType = methods[0].ReturnType;
+					if (returnType == typeof(Task)) {
+						if (parameters.Length == 0) {
+							var body = Expression.Call(Expression.Constant(parent), methods[0]);
+							var lambda = Expression.Lambda<Func<Task>>(body);
+							MːDoAsyncAction = lambda.Compile();
+						}
+						else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(object)) {
+							var param = Expression.Parameter(parameters[0].ParameterType);
+							var body = Expression.Call(Expression.Constant(parent), methods[0], param);
+							var lambda = Expression.Lambda<Func<object,Task>>(body, param);
+							MːDoAsyncActionP = lambda.Compile();
+						}
+						else {
+							/*TODO LOG: No method {methodName} with matching signature found. */
+							throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+						}
+					}else{
+						if (parameters.Length == 0) {
+							var body = Expression.Call(Expression.Constant(parent), methods[0]);
+							var lambda = Expression.Lambda<Action>(body);
+							MːDoAction = lambda.Compile();
+						}
+						else if (parameters.Length == 1 && parameters[0].ParameterType == typeof(object)) {
+							var param = Expression.Parameter(parameters[0].ParameterType);
+							var body = Expression.Call(Expression.Constant(parent), methods[0], param);
+							var lambda = Expression.Lambda<Action<object>>(body, param);
+							MːDoActionP = lambda.Compile();
+						}
+						else {
+							/*TODO LOG: No method {methodName} with matching signature found. */
+							throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+							// see http://stackoverflow.com/questions/2933221/can-you-get-a-funct-or-similar-from-a-methodinfo-object
+						}
 					}
 				}
+				else {
+					throw new NotImplementedException($"Ambiguous method found for '{name}' in {parent.GetType().Name}");
+				}
+			}
+			else {
+				/*TODO LOG: No method {methodName} found. */
+				throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
 			}
 		}
 
@@ -209,6 +248,20 @@ namespace KsWare.Presentation.ViewModelFramework {
 			set {
 				Metadata.ActionProvider.CatchExceptionsAndRequestUserFeedback = true;
 				Metadata.ActionProvider.ExecutedCallback = (s, e) => value(e.Parameter);
+			}
+		}
+
+		public Func<Task> MːDoAsyncAction {
+			set {
+				Metadata.ActionProvider.CatchExceptionsAndRequestUserFeedback = true;
+				Metadata.ActionProvider.ExecutedCallback = (s, e) => Task.Run(value).GetAwaiter().GetResult();
+			}
+		}
+
+		public Func<object, Task> MːDoAsyncActionP {
+			set {
+				Metadata.ActionProvider.CatchExceptionsAndRequestUserFeedback = true;
+				Metadata.ActionProvider.ExecutedCallback = (s, e) => Task.Run(() => value(e.Parameter)).GetAwaiter().GetResult();
 			}
 		}
 	

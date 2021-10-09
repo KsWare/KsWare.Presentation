@@ -211,7 +211,7 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 
 		private class EventUtilˑRaiseˑTestClass {
-			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(1,2);
+			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(2, 1);
 			public int EventCount;
 
 			public EventUtilˑRaiseˑTestClass() {
@@ -261,7 +261,7 @@ namespace KsWare.Presentation.Tests.Core {
 		}
 		
 		private class EventUtilˑRaiseDynamicˑTestClass {
-			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(1,2);
+			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(2, 1);
 			public int EventCount;
 
 			public EventUtilˑRaiseDynamicˑTestClass() {

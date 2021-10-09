@@ -39,6 +39,10 @@
     <PackageIcon>PackageIcon.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
+  <PropertyGroup>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="Providers\DEACTIVATED\ReflectionDataProvider.cs" />
     <None Update="Documentation\WeakEvents.dgml">
@@ -50,10 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="(Attributes)\ResharperAnotations.cs" />

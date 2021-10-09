@@ -49,12 +49,6 @@
     <Resource Include="Resources\WPF Toolkit - February 2010\info.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\PackageIcon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

@@ -1626,8 +1626,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <param name="execute">The execute.</param>
 		public RelayCommand(Action execute)
-			: this(p => execute(), null)
-		{
+			: this(p => execute(), null) {
 		}
 
 		/// <summary>
@@ -1635,8 +1634,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <param name="execute">The execute.</param>
 		public RelayCommand(Action<object> execute)
-			: this(execute, null)
-		{
+			: this(execute, null) {
 		}
 
 		/// <summary>
@@ -1645,8 +1643,7 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// <param name="execute">The execute.</param>
 		/// <param name="canExecute">The can execute.</param>
 		public RelayCommand(Action execute, Func<bool> canExecute)
-			: this(p => execute(), p => canExecute())
-		{
+			: this(p => execute(), p => canExecute()) {
 		}
 
 		/// <summary>
@@ -1654,10 +1651,8 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		/// <param name="execute">The execute.</param>
 		/// <param name="canExecute">The can execute.</param>
-		public RelayCommand(Action<object> execute, Predicate<object> canExecute)
-		{
-			if (execute == null)
-			    throw new ArgumentNullException(nameof(execute));
+		public RelayCommand(Action<object> execute, Predicate<object> canExecute) {
+			if (execute == null) throw new ArgumentNullException(nameof(execute));
 
 			_execute = execute;
 			_canExecute = canExecute;
@@ -1710,14 +1705,14 @@ namespace KsWare.Presentation.ViewFramework.Behaviors {
 		/// </summary>
 		public override void OnCanExecuteChanged() {
 			if (Application.Current == null) {
-			    Debug.Assert(Application.Current != null, "Application Dispatcher not initialized. Command call not possible.");
-			    return;
-			    //m1jpa: Crashes fxp when initializing equipment
-			    //throw new Exception("Application Dispatcher not initialized. Command call not possible.");
+				Debug.Assert(Application.Current != null, "Application Dispatcher not initialized. Command call not possible.");
+				return;
+				//m1jpa: Crashes fxp when initializing equipment
+				//throw new Exception("Application Dispatcher not initialized. Command call not possible.");
 			}
 
 			var f = CanExecuteChanged;
-			if(f!=null) ApplicationDispatcher.BeginInvoke(() => f (this, EventArgs.Empty));
+			if (f != null) ApplicationDispatcher.BeginInvoke(() => f(this, EventArgs.Empty));
 		}
 	}
 }

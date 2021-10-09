@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using NotNullAttribute = JetBrains.Annotations.NotNullAttribute; // System.Diagnostics.CodeAnalysis.NotNullAttribute is not available in net4.5 ;
 
 namespace KsWare.Presentation {
 
@@ -70,15 +71,16 @@ namespace KsWare.Presentation {
         /// <typeparam name="TEventHandler">The type of the event handler.</typeparam>
         /// <param name="eventName">The event name.</param>
         /// <returns>The weak event source</returns>
-		 public IEventSource<TEventHandler> Get<TEventHandler>(string eventName) {
-			IEventSource eventSource;
-			if (!_EventSources.TryGetValue(eventName, out eventSource)) {
+		 [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute", Justification = "Required for CallerMemberName")]
+        public IEventSource<TEventHandler> Get<TEventHandler>([CallerMemberName][NotNull] string eventName = null) {
+	        if (eventName == null) throw new ArgumentNullException(nameof(eventName));
+			if (!_EventSources.TryGetValue(eventName, out var eventSource)) {
 				var sourceObject = _WeakSourceObject.Target;
-				eventSource=EventManager.RegisterSource4Store<TEventHandler>(this, sourceObject, eventName);
+				eventSource = EventManager.RegisterSource4Store<TEventHandler>(this, sourceObject, eventName);
 				_EventSources.Add(eventName,eventSource);
 			}
-			return (IEventSource<TEventHandler>) eventSource;
-		}
+			return (IEventSource<TEventHandler>)eventSource;
+        }
 
 //		/// <summary> Determines whether the store contains the property
 //		/// </summary>

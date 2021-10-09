@@ -141,7 +141,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Releases unmanaged resources and performs other cleanup operations before the
 		/// <see cref="ValueVM{T}"/> is reclaimed by garbage collection.
 		/// </summary>
-		~ValueVM(){Dispose(false);}
+		~ValueVM() { Dispose(false); }
 
 		/// <summary> Occurs when <see cref="Value"/> property has been changed.
 		/// </summary>
@@ -242,7 +242,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				provider.BusinessValueChanged += (s1, e1) => {
 					var lastBusinessObject=_weakLastBusinessObject == null ? null : (!_weakLastBusinessObject.IsAlive ? null : _weakLastBusinessObject.Target);
 					_weakLastBusinessObject = e1.NewData == null ? null : new WeakReference(e1.NewData);
-					OnBusinessObjectChanged(new ValueChangedEventArgs<IObjectBM>((IObjectBM)lastBusinessObject, (IObjectBM) e1.NewData));
+					OnBusinessObjectChanged(new ValueChangedEventArgs<IObjectBM>((IObjectBM) e1.NewData, (IObjectBM)lastBusinessObject));
 				};
 			}
 		}
@@ -250,7 +250,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <summary> Called when underlying business object changed.
 		/// </summary>
 		/// <param name="e">The arguments for the value changed event.</param>
-		/// <remarks>If the prevoius business object is disposed (not more alive) then <c>null</c> is returned by <see cref="ValueChangedEventArgs{T}.PreviousValue"/></remarks>
+		/// <remarks>If the prevoius business object is disposed (not more alive) then <c>null</c> is returned by <see cref="ValueChangedEventArgs{T}.OldValue"/></remarks>
 		protected virtual void OnBusinessObjectChanged(ValueChangedEventArgs<IObjectBM> e) {
 			
 		}
@@ -432,7 +432,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 			OnPropertyChanged("HasValue");
 			OnPropertyChanged("Value");
 
-			var args=new ValueChangedEventArgs(_previousRaisedValue,newValue);
+			var args=new ValueChangedEventArgs(newValue, _previousRaisedValue);
 			EventUtil.Raise(ValueChanged,this,args,"{B86ED179-8BE0-4702-A352-5E77A884195C}");
 			EventManager.Raise<EventHandler<ValueChangedEventArgs>,ValueChangedEventArgs>(LazyWeakEventStore,"ValueChangedEvent", args);
 			_previousRaisedValue = newValue;

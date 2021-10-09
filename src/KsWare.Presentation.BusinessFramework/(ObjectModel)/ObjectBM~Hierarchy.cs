@@ -36,7 +36,7 @@ namespace KsWare.Presentation.BusinessFramework {
 				if (Equals(_parent,value)) return;
 				var prev = _parent;
 				SetParentPattern.Execute(ref _parent, value, "Parent");
-				OnParentChanged(new ValueChangedEventArgs(prev,value));
+				OnParentChanged(new ValueChangedEventArgs(value, prev));
 			}
 		}
 

@@ -75,7 +75,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 					if(DebuggerFlags.Breakpoints.MetadataSet)DebuggerːBreak(this,"DebuggerFlags.Breakpoints.MetadataSet");
 					_metadata = CreateMetadata();
 					_metadata.Parent = this;
-					OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(null,_metadata));
+					OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(_metadata, null));
 				}
 				return _metadata;
 			}
@@ -87,7 +87,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				var oldMetadata = _metadata;
 				_metadata = value;
 				_metadata.Parent = this;
-				OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(oldMetadata,_metadata));
+				OnMetadataChanged(new ValueChangedEventArgs<ViewModelMetadata>(_metadata, oldMetadata));
 			}
 		}
 
@@ -120,11 +120,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		protected virtual void OnMetadataChanged(ValueChangedEventArgs<ViewModelMetadata> e) {
 			if (HasMetadata) {
 				Metadata.DataProviderChanged+= (o1,e1) => OnDataProviderChanged(e1);
-				var oldMetadata = e.PreviousValue;
+				var oldMetadata = e.OldValue;
 				var oldDataProvider=oldMetadata!=null ? (oldMetadata.HasDataProvider?oldMetadata.DataProvider:null):null;
 				var newDataProvider=Metadata.HasDataProvider?Metadata.DataProvider:null;
 				
-				if(oldDataProvider!=newDataProvider) OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldDataProvider,newDataProvider));
+				if(oldDataProvider!=newDataProvider) OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(newDataProvider, oldDataProvider));
 			}
 
 			//if (SuppressAnyEvents == 0) ...
@@ -137,7 +137,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// </summary>
 		/// <remarks>Also called if Metadata changes.</remarks>
 		protected virtual void OnDataProviderChanged(ValueChangedEventArgs<IDataProvider> e) {
-			if (e.PreviousValue != null) e.PreviousValue.DataChanged -= AtDataChanged;
+			if (e.OldValue != null) e.OldValue.DataChanged -= AtDataChanged;
 			if(e.NewValue==null) return;
 
 			var dataProvider = e.NewValue;

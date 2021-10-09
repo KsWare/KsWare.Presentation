@@ -149,7 +149,7 @@ namespace KsWare.Presentation.BusinessFramework {
 		}
 
 		private void AtDataProviderDataChanged(object sender, DataChangedEventArgs e) { 
-			OnValueChanged(new ValueChangedEventArgs(e.PreviousData,e.NewData));
+			OnValueChanged(new ValueChangedEventArgs(e.NewData, e.PreviousData));
 		}
 
 		/// <summary> Gets the value settings.

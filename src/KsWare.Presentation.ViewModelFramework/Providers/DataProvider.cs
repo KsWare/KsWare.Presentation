@@ -111,7 +111,7 @@ namespace KsWare.Presentation.ViewModelFramework.Providers {
 		}
 
 		private void AtBusinessValueOnValueChanged(object sender, ValueChangedEventArgs e) {
-			OnDataChanged(e.PreviousValue,e.NewValue);
+			OnDataChanged(e.OldValue,e.NewValue);
 		}
 
 		/// <summary> Gets the parent view model.

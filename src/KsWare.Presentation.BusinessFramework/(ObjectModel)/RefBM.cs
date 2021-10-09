@@ -80,7 +80,7 @@ namespace KsWare.Presentation.BusinessFramework {
 //				}
 				if(Metadata.DataProvider.Data!=null) throw new NotImplementedException("Metadata.DataProvider.Data is not null!");
 
-				var e=new ValueChangedEventArgs<TRef>(old,_target);
+				var e=new ValueChangedEventArgs<TRef>(_target, old);
 				EventUtil.Raise(TargetChanged,this,e,"{0524E629-61C7-4517-BB1F-3B46BE3FD5C8}");
 				EventManager.Raise<EventHandler<ValueChangedEventArgs<TRef>>,ValueChangedEventArgs<TRef>>(LazyWeakEventStore,"TargetChangedEvent",e);
 				OnBusinessPropertyChanged(new BusinessPropertyChangedEventArgs("Target"));

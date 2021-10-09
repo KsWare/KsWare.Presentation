@@ -46,7 +46,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				if(value==_parent) return;
 				var oldParent = _parent;
 				SetParentPattern.Execute(ref _parent, value,nameof(Parent));
-				OnParentChanged(new ValueChangedEventArgs(oldParent, value));
+				OnParentChanged(new ValueChangedEventArgs(value, oldParent));
 				OnPropertyChanged("Parent");
 			}
 		}

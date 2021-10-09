@@ -144,7 +144,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 					_dataProvider = CreateDefaultDataProvider();
 					_dataProvider.IsAutoCreated = true;
 					_dataProvider.Parent = this;
-					OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(null,_dataProvider));
+					OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(_dataProvider, null));
 					OnPropertyChanged("HasDataProvider");
 				}
 				return _dataProvider;
@@ -158,7 +158,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				var oldProvider = _dataProvider;
 				_dataProvider = value;
 				_dataProvider.Parent = this;
-				OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldProvider,_dataProvider));
+				OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(_dataProvider, oldProvider));
 				OnPropertyChanged("HasDataProvider");
 			}
 		}
@@ -172,7 +172,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 			_dataProvider = dataProvider;
 			_dataProvider.Parent = this;
-			OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(oldProvider,dataProvider));
+			OnDataProviderChanged(new ValueChangedEventArgs<IDataProvider>(dataProvider, oldProvider));
 			OnPropertyChanged("HasDataProvider");
 
 			if(oldProvider!=null) oldProvider.Dispose();

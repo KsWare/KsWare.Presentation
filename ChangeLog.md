@@ -1,9 +1,18 @@
+# 0.20
+- BREAKING CHANGE ValueChangedEventArgs swap arguments and rename PreviousValue to OldValue, so that you get a compiler error on event handlers. If you create ValueChangedEventArgs you have to swap the arguments manually. No Warning in this case!
+- add SimpleCommand.RaiseCanExecuteChanged
+- ValueChangedEventArgs no longer returns DependencyProperty.UnsetValue, so this is consistent to ValueChangedEventArgs<T>
+- ActionVM supports async methods  Task DoAnything(), Task DoAnything(object)
+
 # 0.19
 - convert to SDK format
 - TargetFrameworks: net5.0-windows, netcoreapp3.1, net45
 - add WindowVM.Owner
 - add MenuItemVM.Command
 - add MenuItemVM.CommandParameter
+- add WindowVM.ClosingEvent
+- DataTypeConverter.Convert: fix System.InvalidCastException
+- DebugType=embedded and DebugSymbols=true for each configuration 
 
 # 0.18
 - split KsWare.Presentation.Behavior
