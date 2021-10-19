@@ -152,7 +152,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 						}
 						else {
 							/*TODO LOG: No method {methodName} with matching signature found. */
-							throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+							throw new InvalidOperationException($"No matching method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 						}
 					}else{
 						if (parameters.Length == 0) {
@@ -168,18 +168,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 						}
 						else {
 							/*TODO LOG: No method {methodName} with matching signature found. */
-							throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+							throw new InvalidOperationException($"No matching method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 							// see http://stackoverflow.com/questions/2933221/can-you-get-a-funct-or-similar-from-a-methodinfo-object
 						}
 					}
 				}
 				else {
-					throw new NotImplementedException($"Ambiguous method found for '{name}' in {parent.GetType().Name}");
+					throw new NotImplementedException($"Ambiguous method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 				}
 			}
 			else {
 				/*TODO LOG: No method {methodName} found. */
-				throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+				throw new InvalidOperationException($"No matching method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 			}
 		}
 
