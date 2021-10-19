@@ -18,6 +18,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 		private IObjectVM _parent;
 		private string _memberName;
 
+		/// <summary>
+		/// The declaring type. Only valid during constructor initialization. 
+		/// </summary>
+		protected internal Type DeclaringType;
+
 		private void InitPartHierarchy() {
 			
 		}
@@ -299,14 +304,14 @@ namespace KsWare.Presentation.ViewModelFramework {
 		/// <seealso cref="ListMetadataAttribute"/>
 		protected void RegisterChildren(Func<IObjectVM> @this) {
 			var o = this;
-			var t = @this.Method.DeclaringType; if (t == null) throw new InvalidOperationException("ErrorID: {C475AD16-8D34-4B9E-B028-D83187D38287}");
-			RegisterChildren(t, o);
+			DeclaringType = @this.Method.DeclaringType; if (DeclaringType == null) throw new InvalidOperationException("ErrorID: {C475AD16-8D34-4B9E-B028-D83187D38287}");
+			RegisterChildren(DeclaringType, o);
 		}
 
-		private void RegisterChildren(Type t, ObjectVM o) {
+		private void RegisterChildren(Type declaringType, ObjectVM o) {
 			ReflectedPropertyInfo[] propertyInfos;
-			if (!RegisterChildren_PropertyInfos.ContainsKey(t)) {
-				var tempPropertyInfos = t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Select(x=>new ReflectedPropertyInfo(null,x)).ToArray();
+			if (!RegisterChildren_PropertyInfos.ContainsKey(declaringType)) {
+				var tempPropertyInfos = declaringType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Select(x=>new ReflectedPropertyInfo(null,x)).ToArray();
 				var propertyInfosFiltered = new List<ReflectedPropertyInfo>();
 				foreach (var p in tempPropertyInfos) {
 					if (p.PropertyInfo.GetSetMethod(true) == null) continue; //no setter
@@ -317,9 +322,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 					if (p.HierarchyAttributes.Length > 0 && p.HierarchyAttributes.All(x => x.ItemType != HierarchyType.Child)) continue;
 					propertyInfosFiltered.Add(p);
 				}
-				RegisterChildren_PropertyInfos.Add(t, propertyInfosFiltered.ToArray());
+				RegisterChildren_PropertyInfos.Add(declaringType, propertyInfosFiltered.ToArray());
 				propertyInfos = propertyInfosFiltered.ToArray();
-			} else { propertyInfos = RegisterChildren_PropertyInfos[t]; }
+			} else { propertyInfos = RegisterChildren_PropertyInfos[declaringType]; }
 
 			foreach (var p in propertyInfos) {
 				var type = p.PropertyInfo.PropertyType;

@@ -133,6 +133,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 				.OfType<MethodInfo>();
 
 			var methods = methods1.Concat(methods2).ToArray();
+			if (methods.Length == 0) {
+				var methods3 = (parent as ObjectVM)?.DeclaringType
+					.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
+					.Where(m => (m.Name == methodName || m.Name == methodName+"Async" ) && m.MemberType == MemberTypes.Method)
+					.OfType<MethodInfo>();
+				if (methods3 != null) methods = methods.Concat(methods3.Except(methods)).ToArray();
+			}
 
 			if (methods.Length != 0) {
 				if (methods.Length == 1) {
