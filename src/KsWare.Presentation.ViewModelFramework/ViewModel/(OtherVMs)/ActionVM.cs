@@ -12,7 +12,7 @@ using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
-
+	
 	/// <summary> Provides a viewmodel for an action 
 	/// </summary>
 	/// <remarks></remarks>
