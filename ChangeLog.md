@@ -1,6 +1,7 @@
 # 0.21
 - EventManager.Raise add overload with lazy event args
 - FIX ActionVM.RegisterActionMethod
+- FIX do not RegisterActionMethod if Metadata.ActionProvider.ExecutedCallback is already set
 
 # 0.20
 - BREAKING CHANGE ValueChangedEventArgs swap arguments and rename PreviousValue to OldValue, so that you get a compiler error on event handlers. If you create ValueChangedEventArgs you have to swap the arguments manually. No Warning in this case!

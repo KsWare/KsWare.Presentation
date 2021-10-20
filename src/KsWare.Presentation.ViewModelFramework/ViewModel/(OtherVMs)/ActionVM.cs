@@ -111,10 +111,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected override void OnParentChanged(ValueChangedEventArgs e) {
 			base.OnParentChanged(e);
-			if(e.NewValue != null) RegisterActionMethod(e.NewValue);
+			if(e.NewValue != null && Metadata.ActionProvider.ExecutedCallback==null)
+				SearchAndRegisterActionMethod(e.NewValue);
 		}
 
-		private void RegisterActionMethod(object parent) {
+		private void SearchAndRegisterActionMethod(object parent) {
 			//TODO support ActionVM<T>, AsyncActionVM
 			// DoEditAsync
 
