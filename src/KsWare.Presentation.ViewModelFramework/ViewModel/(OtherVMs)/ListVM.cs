@@ -588,8 +588,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 			if(_cachedDataList==null || !(_cachedDataList is INotifyCollectionChanged)) {
 				InnerList.Insert(index, item);
-				if(IsViewModelList && !IsReferenceList) {
-					((IObjectVM)item).Parent = this;
+				if (!IsReferenceList) {
+					if(item is IObjectVM ovm) ovm.Parent = this;
+					else if(item is IHaveParent pvm) pvm.Parent = this;
 				}
 				OnItemInserted(index, item);
 			}
@@ -609,6 +610,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 			this.CheckReentrancy();
 			_tmpMapRem = new ItemMap(InnerList[index], GetItemData(InnerList[index]));
 			OnItemRemoving(index,_tmpMapRem.Item);
+
+			if (!IsReferenceList) {
+				// clear item.Parent
+				if (_tmpMapRem.Item is IObjectVM ovm && ovm.Parent == this) ovm.Parent = null; 
+				else if (_tmpMapRem.Item is IHaveParent vmp && vmp.Parent == this) vmp.Parent = null; 
+			}
+
 			if(_cachedDataList!=null) {
 				_cachedDataList.RemoveAt(index);
 			}

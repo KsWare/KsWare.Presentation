@@ -56,6 +56,9 @@ namespace KsWare.Presentation.ViewModelFramework {
 			}
 		}
 
+		/// <inheritdoc />
+		object IHaveParent.Parent { get => Parent; set => Parent = (IObjectVM)value; }
+
 		/// <summary> Occurs when <see cref="Parent"/> property has been changed.
 		/// </summary>
 		/// <remarks>
