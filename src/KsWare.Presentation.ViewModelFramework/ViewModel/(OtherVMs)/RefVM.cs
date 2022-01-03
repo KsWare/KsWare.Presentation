@@ -340,13 +340,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 	public class NullableVM<T> : RefVM<T> where T : class, IObjectVM{
 
-		//TODO seperate from RefVM
+		//TODO separate from RefVM
 		// replace Target with Value and HasTarget with HasValue
 
 		public NullableVM() {
 			TargetChangedEvent.add= (s, e) => {
 				if (e.OldValue != null) e.OldValue.Parent = null;
-				if (e.NewValue      != null) e.NewValue     .Parent = this;
+				if (e.NewValue != null) e.NewValue.Parent = this;
 			};
 		}
 

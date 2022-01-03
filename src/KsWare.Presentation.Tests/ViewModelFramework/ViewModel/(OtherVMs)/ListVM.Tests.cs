@@ -224,6 +224,27 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 		public class TestItemVM:ObjectVM{
 			public static TestItemVM New() { return new TestItemVM {Metadata = {DataProvider = {Data = new TestItemBM {Metadata = {DataProvider = {Data = new TestItemDM(0)}}}}}}; }
 		}
+
+		[Test]
+		public void ItemParent() {
+			var list = new ListVM<ObjectVM>();
+			var item = new ObjectVM();
+			list.Add(item);
+			Assert.That(item.Parent, Is.EqualTo(list));
+			list.Remove(item);
+			Assert.That(item.Parent, Is.Null);
+		}
+
+		[Test]
+		public void RefList_ItemParent() {
+			var list = new RefListVM<ObjectVM>();
+			var p = new ObjectVM();
+			var item = new ObjectVM{Parent = p};
+			list.Add(item);
+			Assert.That(item.Parent, Is.EqualTo(p));
+			list.Remove(item);
+			Assert.That(item.Parent, Is.EqualTo(p));
+		}
 	}
 
 

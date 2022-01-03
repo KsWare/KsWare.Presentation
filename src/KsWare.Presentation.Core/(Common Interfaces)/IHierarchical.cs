@@ -38,4 +38,8 @@ namespace KsWare.Presentation {
 		/// <value>The member path.</value>
 		string MemberPath{get;}
 	}
+
+	public interface IHaveParent {
+		object Parent { get; set; }
+	}
 }

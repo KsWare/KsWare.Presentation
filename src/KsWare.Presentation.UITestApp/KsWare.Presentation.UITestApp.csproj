@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
@@ -19,6 +19,6 @@
     <ProjectReference Include="..\KsWare.Presentation.ViewModelFramework\KsWare.Presentation.ViewModelFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.2.6" />
+    <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.3.0" />
   </ItemGroup>
 </Project>

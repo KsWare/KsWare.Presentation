@@ -14,7 +14,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// <summary> Interface contract for view model objects
 	/// </summary>
 	/// <remarks></remarks>
-	public partial interface IObjectVM:IModel,INotifyPropertyChanged,IHierarchical<IObjectVM>,ISelectable {
+	public partial interface IObjectVM : IModel, INotifyPropertyChanged, IHierarchical<IObjectVM>, ISelectable {
 
 		/// <summary> Gets the error provider for this instance. (short for: vmo.Metadata.ErrorProvider)
 		/// </summary>
@@ -45,7 +45,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 	/// Members marked with [EXPERIMENTAL] are preliminary. The name or functionality could be changed in future versions or also the complete member could be moved or deleted.
 	/// </remarks>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
-	public partial class ObjectVM:IObjectVM {
+	public partial class ObjectVM : IObjectVM, IHaveParent {
 
 #if(RegisterInstances)
 		private static readonly List<WeakReference> s_Instances=new List<WeakReference>();

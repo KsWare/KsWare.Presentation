@@ -236,6 +236,23 @@ namespace KsWare.Presentation {
 			wes.Raise<TEventArgs>(e);
 		}
 
+		/// <summary> Raises the specified lazy weak event.
+		/// </summary>
+		/// <typeparam name="TEventHandler">The type of the event handler (a delegate type)</typeparam>
+		/// <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
+		/// <param name="lazyEventSourceStore">The store with the lazy weak event sources.</param>
+		/// <param name="eventName">Name of the event.</param>
+		/// <param name="lazyEventArgs">The lazy instance containing the event data.</param>
+		/// <example><code>WeakEventManager.Raise&gt;EventHandler,EventArgs>(LazyWeakEventStore,"MyPropertyChangedEvent", EventArgs.Empty);</code></example>
+		public static void Raise<TEventHandler, TEventArgs>(Lazy<EventSourceStore> lazyEventSourceStore, string eventName, Lazy<TEventArgs> lazyEventArgs) where TEventArgs : EventArgs {
+			if (!lazyEventSourceStore.IsValueCreated) return;	
+			var weakEventPropertyStore = lazyEventSourceStore.Value;
+			if (weakEventPropertyStore.Count == 0) return;
+			var wes = (EventSource<TEventHandler>)weakEventPropertyStore.TryGet<TEventHandler>(eventName);
+			if (wes == null /*No one has accessed the event property*/) return;
+			wes.Raise<TEventArgs>(lazyEventArgs.Value);
+		}
+
 //		private static void RaiseInternal(object source, string eventName, object[] args) {
 //			Interlocked.Increment(ref StatisticsːRaiseːInvocationCount);
 //			var raise = new List<WeakEventHandle>();

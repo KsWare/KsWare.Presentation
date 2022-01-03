@@ -12,7 +12,7 @@ using KsWare.Presentation.Core.Providers;
 using KsWare.Presentation.ViewModelFramework.Providers;
 
 namespace KsWare.Presentation.ViewModelFramework {
-
+	
 	/// <summary> Provides a viewmodel for an action 
 	/// </summary>
 	/// <remarks></remarks>
@@ -111,10 +111,11 @@ namespace KsWare.Presentation.ViewModelFramework {
 
 		protected override void OnParentChanged(ValueChangedEventArgs e) {
 			base.OnParentChanged(e);
-			if(e.NewValue != null) RegisterActionMethod(e.NewValue);
+			if(e.NewValue != null && Metadata.ActionProvider.ExecutedCallback==null)
+				SearchAndRegisterActionMethod(e.NewValue);
 		}
 
-		private void RegisterActionMethod(object parent) {
+		private void SearchAndRegisterActionMethod(object parent) {
 			//TODO support ActionVM<T>, AsyncActionVM
 			// DoEditAsync
 
@@ -133,6 +134,13 @@ namespace KsWare.Presentation.ViewModelFramework {
 				.OfType<MethodInfo>();
 
 			var methods = methods1.Concat(methods2).ToArray();
+			if (methods.Length == 0) {
+				var methods3 = (parent as ObjectVM)?.DeclaringType
+					.GetMembers(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
+					.Where(m => (m.Name == methodName || m.Name == methodName+"Async" ) && m.MemberType == MemberTypes.Method)
+					.OfType<MethodInfo>();
+				if (methods3 != null) methods = methods.Concat(methods3.Except(methods)).ToArray();
+			}
 
 			if (methods.Length != 0) {
 				if (methods.Length == 1) {
@@ -152,7 +160,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 						}
 						else {
 							/*TODO LOG: No method {methodName} with matching signature found. */
-							throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+							throw new InvalidOperationException($"No matching method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 						}
 					}else{
 						if (parameters.Length == 0) {
@@ -168,18 +176,18 @@ namespace KsWare.Presentation.ViewModelFramework {
 						}
 						else {
 							/*TODO LOG: No method {methodName} with matching signature found. */
-							throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+							throw new InvalidOperationException($"No matching method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 							// see http://stackoverflow.com/questions/2933221/can-you-get-a-funct-or-similar-from-a-methodinfo-object
 						}
 					}
 				}
 				else {
-					throw new NotImplementedException($"Ambiguous method found for '{name}' in {parent.GetType().Name}");
+					throw new NotImplementedException($"Ambiguous method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 				}
 			}
 			else {
 				/*TODO LOG: No method {methodName} found. */
-				throw new InvalidOperationException($"No matching method found for '{name} in {parent.GetType().Name}");
+				throw new InvalidOperationException($"No matching method found. '{methodName}' or '{methodName}Async' in {parent.GetType().Name}");
 			}
 		}
 

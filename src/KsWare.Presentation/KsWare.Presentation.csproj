@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net5.0-windows;netcoreapp3.1;net452</TargetFrameworks>
     <OutputType>Library</OutputType>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
@@ -14,7 +14,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>Copyright © 2002-2021 by KsWare. All rights reserved.</Copyright>
+    <Copyright>Copyright © 2002-2022 by KsWare. All rights reserved.</Copyright>
     <Product>Presentation Framework</Product>
     <Company>KsWare</Company>
     <Authors>SchreinerK</Authors>
@@ -53,7 +53,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.2.6" />
+    <PackageReference Include="KsWare.Presentation.ViewFramework.Common" Version="0.3.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PackageIcon.png">

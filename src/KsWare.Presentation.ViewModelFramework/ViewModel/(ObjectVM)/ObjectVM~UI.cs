@@ -70,7 +70,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		}
 	}
 
-	/// <summary> <see cref="UIElement"/>/<see cref="FrameworkElement"/>
+	/// <summary> <see cref="UIElementUIProperties"/>/<see cref="FrameworkElement"/>
 	/// </summary>
 	public sealed class UIPropertiesRoot:UIPropertiesBase {
 		private readonly Lazy<UIEventConnector> _EventConnector;
@@ -81,12 +81,12 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		/// <param name="owner">The owner.</param>
 		public UIPropertiesRoot(IObjectVM owner):base(owner) {
-			Fields.AddLazy("Button"         , new Lazy<Button       >(()=> new Button(owner)));
-			Fields.AddLazy("TreeViewItem"   , new Lazy<TreeViewItem >(()=> new TreeViewItem(owner)));
-			Fields.AddLazy("MenuItem"       , new Lazy<MenuItem     >(()=> new MenuItem(owner)));
-			Fields.AddLazy("Selector"       , new Lazy<Selector     >(()=> new Selector(owner)));
-			Fields.AddLazy("Item"           , new Lazy<ItemContainer>(()=> new ItemContainer(owner)));
-			Fields.AddLazy("ComboBox"       , new Lazy<ComboBox     >(()=> new ComboBox(owner)));
+			Fields.AddLazy("Button"         , new Lazy<ButtonUIProperties       >(()=> new ButtonUIProperties(owner)));
+			Fields.AddLazy("TreeViewItem"   , new Lazy<TreeViewItemUIProperties >(()=> new TreeViewItemUIProperties(owner)));
+			Fields.AddLazy("MenuItem"       , new Lazy<MenuItemUIProperties     >(()=> new MenuItemUIProperties(owner)));
+			Fields.AddLazy("Selector"       , new Lazy<SelectorUIProperties     >(()=> new SelectorUIProperties(owner)));
+			Fields.AddLazy("Item"           , new Lazy<ItemContainerUIProperties>(()=> new ItemContainerUIProperties(owner)));
+			Fields.AddLazy("ComboBox"       , new Lazy<ComboBoxUIProperties     >(()=> new ComboBoxUIProperties(owner)));
 			_EventConnector = new Lazy<UIEventConnector        >(()=> new UIEventConnector(owner));
 			_Events         = new Lazy<UIEvents                >(()=> new UIEvents(owner));
 			_InputGestures  = new Lazy<InputGestureCollection  >(()=> new InputGestureCollection());
@@ -99,7 +99,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// The button properties.
 		/// </value>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public Button Button => Fields.GetLazy<Button>("Button");
+		public ButtonUIProperties Button => Fields.GetLazy<ButtonUIProperties>("Button");
 
 		/// <summary> Gets the TreeViewItem properties.
 		/// </summary>
@@ -107,7 +107,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// The TreeViewItem properties.
 		/// </value>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public TreeViewItem TreeViewItem => Fields.GetLazy<TreeViewItem>("TreeViewItem");
+		public TreeViewItemUIProperties TreeViewItem => Fields.GetLazy<TreeViewItemUIProperties>("TreeViewItem");
 
 		/// <summary> Gets the MenuItem properties.
 		/// </summary>
@@ -115,7 +115,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// The MenuItem properties.
 		/// </value>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public MenuItem MenuItem => Fields.GetLazy<MenuItem>("MenuItem");
+		public MenuItemUIProperties MenuItem => Fields.GetLazy<MenuItemUIProperties>("MenuItem");
 
 		public UIEventConnector EventConnector => _EventConnector.Value;
 
@@ -124,19 +124,19 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// <summary> System.Windows.Controls.Primitives.Selector
 		/// </summary>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public Selector Selector => Fields.GetLazy<Selector>("Selector");
+		public SelectorUIProperties Selector => Fields.GetLazy<SelectorUIProperties>("Selector");
 
 		/// <summary> System.Windows.Controls.Primitives.Selector
 		/// </summary>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public ItemContainer Item => Fields.GetLazy<ItemContainer>("Item");
+		public ItemContainerUIProperties Item => Fields.GetLazy<ItemContainerUIProperties>("Item");
 
 		public InputGestureCollection InputGestures => _InputGestures.Value;
 
 		/// <summary> System.Windows.Controls.ComboBox
 		/// </summary>
 		[BackingFieldsStore.Lazy(typeof(LazyObjectFactory))]
-		public ComboBox ComboBox => Fields.GetLazy<ComboBox>("ComboBox");
+		public ComboBoxUIProperties ComboBox => Fields.GetLazy<ComboBoxUIProperties>("ComboBox");
 
 
 		// ###
@@ -145,7 +145,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		public object ToolTip { get => Fields.GetValue<object>(); set => Fields.SetValue(value); }
 
-		/// <summary> see <see cref="UIElement.Visibility"/>
+		/// <summary> see <see cref="UIElementUIProperties.Visibility"/>
 		/// </summary>
 		public Visibility Visibility { get => Fields.GetValue<Visibility>(); set => Fields.SetValue(value); }
 		
@@ -220,14 +220,79 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 
 namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 
-	/// <summary> Button
-	/// </summary>
-	public sealed class Button:UIPropertiesBase {
+	/// <summary>Provides <see cref="System.Windows.UIElement"/> properties </summary>
+	public class UIElementUIProperties : /*Visual*/ UIPropertiesBase {
 
-		/// <summary> Initializes a new instance of the <see cref="Button" /> class.
+		/// <summary> Initializes a new instance of the <see cref="UIElementUIProperties" /> class.
 		/// </summary>
 		/// <param name="owner">The owner.</param>
-		public Button(IObjectVM owner):base(owner) {}
+		private protected UIElementUIProperties(IObjectVM owner):base(owner) {}
+
+		/// <inheritdoc cref="System.Windows.UIElement.IsEnabled"/>
+		/// <seealso cref="System.Windows.UIElement.IsEnabled"/>
+		public bool IsEnabled { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
+
+		/// <inheritdoc cref="System.Windows.UIElement.Visibility"/>
+		/// <seealso cref="System.Windows.UIElement.Visibility"/>
+		public Visibility Visibility { get => Fields.GetValue<Visibility>(); set => Fields.SetValue(value); }
+
+		// AllowDrop
+		// IsKeyboardFocusedProperty
+		// IsFocused
+
+	}
+
+	/// <summary> Provides <seealso cref="System.Windows.FrameworkElement"/> properties </summary>
+	public class FrameworkElementUIProperties : UIElementUIProperties {
+
+		/// <summary> Initializes a new instance of the <see cref="FrameworkElementUIProperties" /> class.
+		/// </summary>
+		/// <param name="owner">The owner.</param>
+		private protected FrameworkElementUIProperties(IObjectVM owner):base(owner) {}
+
+		/// <inheritdoc cref="System.Windows.FrameworkElement.ToolTip"/>
+		/// <seealso cref="System.Windows.FrameworkElement.ToolTip"/>
+		public object ToolTip { get => Fields.GetValue<object>(); set => Fields.SetValue(value); }
+
+		// ContextMenu
+		// Cursor
+		// Language
+		// Tag
+
+	}
+
+	/// <summary> Provides <seealso cref="System.Windows.Controls.Control"/> properties </summary>
+	public class ControlUIProperties : FrameworkElementUIProperties {
+
+		/// <summary> Initializes a new instance of the <see cref="ControlUIProperties" /> class.
+		/// </summary>
+		/// <param name="owner">The owner.</param>
+		private protected ControlUIProperties(IObjectVM owner):base(owner) {}
+	}
+
+	/// <summary> Provides <see cref="System.Windows.Controls.ContentControl"/> properties </summary>
+	public class ContentControlUIProperties : ControlUIProperties {
+
+		/// <summary> Initializes a new instance of the <see cref="ButtonUIProperties" /> class.
+		/// </summary>
+		/// <param name="owner">The owner.</param>
+		private protected ContentControlUIProperties(IObjectVM owner):base(owner) {}
+
+		/// <inheritdoc cref="System.Windows.Controls.ContentControl.Content"/>
+		/// <seealso cref="System.Windows.Controls.ContentControl.Content"/>
+		/// /// <seealso cref="UIElementUIProperties.IsEnabled"/>
+		public object Content { get => Fields.GetValue<object>(); set => Fields.SetValue(value); }
+
+		// ContentStringFormat 
+	}
+
+	/// <summary> Provides <see cref="Button"/> properties </summary>
+	public sealed class ButtonUIProperties : ContentControlUIProperties {
+
+		/// <summary> Initializes a new instance of the <see cref="ButtonUIProperties" /> class.
+		/// </summary>
+		/// <param name="owner">The owner.</param>
+		public ButtonUIProperties(IObjectVM owner):base(owner) {}
 
 		/// <summary> see <see cref="System.Windows.Controls.Button.IsDefault"/>
 		/// </summary>
@@ -237,7 +302,7 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		/// </summary>
 		public bool IsChecked { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 
-		/// <summary> see <see cref="Button.Command"/>
+		/// <summary> see <see cref="ButtonUIProperties.Command"/>
 		/// </summary>
 		public ICommand Command { get => Fields.GetValue<ICommand>(); set => Fields.SetValue(value); }
 
@@ -247,10 +312,32 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 
 	}
 
-	/// <summary> TreeViewItem </summary>
-	public sealed class TreeViewItem:UIPropertiesBase {
+	/// <summary> Provides <seealso cref="System.Windows.Controls.ItemsControl"/> properties </summary>
+	public class ItemsControlUIProperties : ControlUIProperties {
 
-		//
+		/// <summary> Initializes a new instance of the <see cref="ItemsControlUIProperties" /> class.
+		/// </summary>
+		/// <param name="owner">The owner.</param>
+		private protected ItemsControlUIProperties(IObjectVM owner):base(owner) {}
+	}
+
+	/// <summary> Provides <seealso cref="System.Windows.Controls.HeaderedItemsControl"/> properties </summary>
+	public class HeaderedItemsControlUIProperties : ItemsControlUIProperties {
+
+		/// <summary> Initializes a new instance of the <see cref="HeaderedItemsControlUIProperties" /> class.
+		/// </summary>
+		/// <param name="owner">The owner.</param>
+		private protected HeaderedItemsControlUIProperties(IObjectVM owner):base(owner) {}
+
+		/// <inheritdoc cref="HeaderedItemsControl.Header"/>
+		/// <seealso cref="HeaderedItemsControl.Header"/>
+		public object Header { get => Fields.GetValue<object>(); set => Fields.SetValue(value); }
+	}
+
+
+	/// <summary> Provides <see cref="TreeViewItem"/> properties </summary>
+	public sealed class TreeViewItemUIProperties:HeaderedItemsControlUIProperties {
+		
 		// this implements the TreeViewItem part of ObjectVM
 		// 
 		// IsExpanded 
@@ -258,10 +345,10 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		// 
 		// NOT IMPLEMENTED: IsSelectionActive/SetKeyboardFocus
 
-		/// <summary> Initializes a new instance of the <see cref="TreeViewItem" /> class.
+		/// <summary> Initializes a new instance of the <see cref="TreeViewItemUIProperties" /> class.
 		/// </summary>
 		/// <param name="owner">The owner.</param>
-		internal TreeViewItem(IObjectVM owner) :base(owner) {}
+		internal TreeViewItemUIProperties(IObjectVM owner) :base(owner) {}
 
 		/// <summary> Gets or sets a value indicating whether this object is expanded.
 		/// </summary>
@@ -313,12 +400,13 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 	}
 
 	/// <summary> MenuItem </summary>
-	public sealed class MenuItem:UIPropertiesBase {
+	public sealed class MenuItemUIProperties : ControlUIProperties {
+		// HeaderedItemsControl->ItemsControl->Control->FrameworkElement->UIElement->Visual
 
-		/// <summary> Initializes a new instance of the <see cref="TreeViewItem" /> class.
+		/// <summary> Initializes a new instance of the <see cref="TreeViewItemUIProperties" /> class.
 		/// </summary>
 		/// <param name="owner">The owner.</param>
-		internal MenuItem(IObjectVM owner) :base(owner) {}
+		internal MenuItemUIProperties(IObjectVM owner) :base(owner) {}
 
 		/// <summary>
 		/// <see cref="System.Windows.Controls.MenuItem.Icon"/>
@@ -341,12 +429,11 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		public bool IsChecked { get => Fields.GetValue<bool>(); set => Fields.SetValue(value); }
 	}
 
-	/// <summary>
-	/// System.Windows.Controls.Primitives.Selector
-	/// </summary>
-	public sealed class Selector : UIPropertiesBase {
+	/// <summary> Provides <seealso cref="System.Windows.Controls.Primitives.Selector"/> properties </summary>
+	public class SelectorUIProperties : ControlUIProperties {
+		// Selector->ItemsControl->Control
 
-		internal Selector(IObjectVM owner) :base(owner) {}
+		internal SelectorUIProperties(IObjectVM owner) :base(owner) {}
 
 		/// <summary> Gets or sets the first item in the current selection or returns null if the selection is empty 
 		/// </summary>
@@ -361,12 +448,13 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 		public int SelectedIndex { get => Fields.GetValue<int>(); set => Fields.SetValue(value); }
 	}
 
-	public sealed class ComboBox:UIPropertiesBase {
+	/// <summary> Provides <seealso cref="ComboBox"/> properties </summary>
+	public sealed class ComboBoxUIProperties : SelectorUIProperties {
 
-		/// <summary> Initializes a new instance of the <see cref="ComboBox" /> class.
+		/// <summary> Initializes a new instance of the <see cref="ComboBoxUIProperties" /> class.
 		/// </summary>
 		/// <param name="owner">The owner.</param>
-		internal ComboBox(IObjectVM owner) :base(owner) {}
+		internal ComboBoxUIProperties(IObjectVM owner) :base(owner) {}
 
 		/// <summary> Gets or sets a value that enables or disables editing of the text in text box of the System.Windows.Controls.ComboBox.
 		/// </summary>
@@ -382,9 +470,9 @@ namespace KsWare.Presentation.ViewModelFramework.UIProperties {
 
 	}
 
-	public sealed class ItemContainer : UIPropertiesBase {
+	public sealed class ItemContainerUIProperties : UIPropertiesBase {
 
-		internal ItemContainer(IObjectVM owner) :base(owner) {}
+		internal ItemContainerUIProperties(IObjectVM owner) :base(owner) {}
 
 		/// <summary> Gets or sets a value that indicates whether an item is selected.
 		/// </summary>

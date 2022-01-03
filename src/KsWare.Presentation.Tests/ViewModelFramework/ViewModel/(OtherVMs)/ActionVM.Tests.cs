@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using KsWare.Presentation.ViewModelFramework;
 using Assert=NUnit.Framework.Assert;
@@ -47,6 +48,55 @@ namespace KsWare.Presentation.Tests.ViewModelFramework {
 			Assert.AreEqual(1,c);
 		}
 
+		[Test]
+		public void RegisterActionMethod() {
+			var x = new SampleVM();
+			x.TestAction.Execute(); Assert.That(x.Result, Is.EqualTo("SampleBaseVM.DoTest"));
+			x.TestPAction.Execute("A"); Assert.That(x.Result, Is.EqualTo("SampleBaseVM.DoTestP-A"));
+			x.Test3Action.Execute(); Assert.That(x.Result, Is.EqualTo("SampleVM.DoTest3"));
+			x.Test4Action.Execute(); Assert.That(x.Result, Is.EqualTo("SampleVM.DoTest4"));
+			x.Test5Action.Execute(); Assert.That(x.Result, Is.EqualTo("SampleVM.Test5"));
+		}
+
+		private class SampleVM : SampleBaseVM{
+			/// <inheritdoc />
+			public SampleVM() {
+				Test5Action = new ActionVM { MːDoAction = Test5, Parent = this }; // parent must be set after MːDoAction, because setting Parent triggers SearchAndRegisterActionMethod
+				RegisterChildren(()=>this);
+			}
+
+			public ActionVM Test3Action { get; private set; }
+			public ActionVM Test5Action { get; private set; }
+
+			private void DoTest3(){ Result = "SampleVM.DoTest3";}
+
+			protected override void DoTest4(){ Result = "SampleVM.DoTest4";}
+			private void Test5() { Result = "SampleVM.Test5"; }
+		}
+
+		private class SampleBaseVM : ObjectVM {
+
+			/// <inheritdoc />
+			public SampleBaseVM() {
+				RegisterChildren(()=>this);
+			}
+
+			public string Result { get; set; }
+			
+			public ActionVM TestAction { get; private set; }
+			public ActionVM TestPAction { get; private set; }
+			public ActionVM Test2Action { get; private set; }
+			public ActionVM Test2PAction { get; private set; }
+			public ActionVM Test4Action { get; private set; }
+
+			private void DoTest() { Result = "SampleBaseVM.DoTest";}	
+			private void DoTestP(object parameter){Result=$"SampleBaseVM.DoTestP-{parameter}";}
+
+			private Task DoTest2Async() { throw new Exception();}
+			private Task DoTest2PAsync(object parameter){ throw new Exception();}
+
+			protected virtual void DoTest4() { Result = "SampleBaseVM.DoTest4";}	
+		}
 	}
 
 	// ReSharper restore InconsistentNaming
