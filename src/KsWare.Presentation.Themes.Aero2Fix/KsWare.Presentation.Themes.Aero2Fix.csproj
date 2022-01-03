@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net45</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net5.0-windows;netcoreapp3.1;net452</TargetFrameworks>
     <OutputType>Library</OutputType>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -20,7 +20,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>Copyright © 2002-2021 by KsWare. All rights reserved.</Copyright>
+    <Copyright>Copyright © 2002-20212 by KsWare. All rights reserved.</Copyright>
     <Product>Presentation Framework</Product>
     <Company>KsWare</Company>
     <Authors>SchreinerK</Authors>

@@ -1,0 +1,18 @@
+﻿<Page 
+	x:Class="KsWare.Presentation.UITestApp.Pages.BindTest"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:local="clr-namespace:KsWare.Presentation.UITestApp.Pages"
+	mc:Ignorable="d" 
+	d:DesignHeight="450" d:DesignWidth="800"
+	Title="Bind Test">
+<Page.DataContext>
+	<local:BindTestVM/>
+</Page.DataContext>
+    <StackPanel HorizontalAlignment="Left">
+        <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+		<Label Content="{Bind OneWay, Text}"/>
+    </StackPanel>
+</Page>

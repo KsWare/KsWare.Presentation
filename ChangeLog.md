@@ -1,3 +1,7 @@
+# 0.30
+- add TargetFrameworks: net6.0-windows, net452
+- remove TargetFrameworks: net45
+
 # 0.21
 - EventManager.Raise add overload with lazy event args
 - FIX ActionVM.RegisterActionMethod

@@ -17,6 +17,8 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition(KsWare.Presentation.ViewFramework.AssemblyInfo.XmlNamespace,"KsWare.Presentation.ViewFramework")]
 [assembly: XmlnsPrefix(KsWare.Presentation.ViewFramework.AssemblyInfo.XmlNamespace,"ksv")]
 
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "KsWare.Presentation.ViewFramework.GlobalNamespace")]
+
 // namespace must equal to assembly name
 // ReSharper disable once CheckNamespace
 namespace KsWare.Presentation.ViewFramework {
