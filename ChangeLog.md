@@ -1,3 +1,10 @@
+# 0.32
+- add TargetFramework net48
+
+# 0.31
+- BackingFieldsStore SetValue enhanced with return value and optional changeHandler
+- BackingFieldsStore SetAndRaise is now obsolete, Use the new SetValue.
+
 # 0.30
 - add TargetFrameworks: net6.0-windows, net452
 - remove TargetFrameworks: net45
