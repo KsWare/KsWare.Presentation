@@ -118,17 +118,28 @@ namespace KsWare.Presentation {
 		/// <typeparam name="T">The type of the field</typeparam>
 		/// <param name="value">The value.</param>
 		/// <param name="name">The field name.</param>
-		public void SetValue<T>(T value, [CallerMemberName] string name=null) { SetValueInternal(name,value); }
+		public bool SetValue<T>(T value, [CallerMemberName] string name=null) => SetValueInternal(name,value,null);
 
+		/// <summary>
+		/// Sets the value.
+		/// </summary>
+		/// <typeparam name="T">The type of the field</typeparam>
+		/// <param name="value">The value.</param>
+		/// <param name="changedHandler">The value changed handler.</param>
+		/// <param name="name">The field name.</param>
+		/// <returns><c>true</c> if value has changes, <c>false</c> otherwise.</returns>
+		public bool SetValue<T>(T value, ValueChangedEventHandler<T> changedHandler, [CallerMemberName] string name=null) => SetValueInternal(name,value,changedHandler);
+
+		
 //		Search:		Fields\.Set\((\(\)|_)\s*=>\s*(\w+),
 //		Replace:	Fields.Set("$2",
 
 //		public void Set<T>(Expression<Func<object, T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
 //		public void Set<T>(Expression<Func<T>> memberExpression, T value) { SetInternal(MemberNameUtil.GetPropertyName(memberExpression),value);}
 
+		[Obsolete("Use SetValue")]
 		public void SetAndRaise<T>(string propertyName, T value, Action<T> changedCallback) {
-			if (SetValueInternal(propertyName, value)) 
-				changedCallback(value);
+			if (SetValueInternal(propertyName, value)) changedCallback(value);
 		}
 
 //		public void SetAndRaise<T>(Expression<Func<object, T>> memberExpression, T value, Action<T> changedCallback) {
@@ -141,7 +152,7 @@ namespace KsWare.Presentation {
 //				changedCallback(value);
 //		}
 
-		private bool SetValueInternal<T>(string name, T value) {
+		private bool SetValueInternal<T>(string name, T value, [CanBeNull] ValueChangedEventHandler<T> changedHandler = null) {
 			BackingFieldInfo field;
 			if (!_fields.ContainsKey(name)) {
 				field = new BackingFieldInfo(name, typeof(T), this);
@@ -152,6 +163,7 @@ namespace KsWare.Presentation {
 			}
 			var previousValue = field.Value;
 			if(!field.SetValue(this, value)) return false;
+			changedHandler?.Invoke(this,new ValueChangedEventArgs<T>(value, (T)previousValue));
 			OnPropertyChanged(name, previousValue, value);
 			return true;
 		}
