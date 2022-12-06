@@ -1,3 +1,6 @@
+# 0.32
+- add TargetFramework net48
+
 # 0.31
 - BackingFieldsStore SetValue enhanced with return value and optional changeHandler
 - BackingFieldsStore SetAndRaise is now obsolete, Use the new SetValue.
