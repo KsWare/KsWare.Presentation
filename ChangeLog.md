@@ -1,3 +1,7 @@
+# 0.40 [2023-03-12]
+- drop support for net5.0
+- drop support for net452, replaced with net462
+
 # 0.32
 - add TargetFramework net48
 
@@ -76,4 +80,8 @@
 - moved to GitGub
 - license changed to MIT
 - change nuget package name and owner "KsWare.Presentation" owner KsWare
-
+# [2017-07-18]
+- UPD WindowVM action for Close, Minimize, Maximize
+- ADD WindowVM IsOpenProperty
+- BETA WindowVM IsFullScreen, 
+- UPD SpecialBooleanConverter default instances for compare operations
