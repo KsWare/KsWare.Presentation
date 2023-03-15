@@ -20,7 +20,7 @@ Changes on demand.
 | [License](https://github.com/KsWare/KsWare.Presentation/blob/master/LICENSE)
 | [Changelog](https://raw.githubusercontent.com/KsWare/KsWare.Presentation/master/ChangeLog.md)
 
-© 2002-2021 by KsWare. All rights reserved.
+© 2002-2023 by KsWare. All rights reserved.
 
 | |  |
 |---|---|

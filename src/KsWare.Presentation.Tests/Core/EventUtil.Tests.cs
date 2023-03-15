@@ -171,7 +171,7 @@ namespace KsWare.Presentation.Tests.Core {
 			Assert.Throws<TargetInvocationException>(() => c.RaiseːTargetInvocationExceptionEvent());
 		}
 
-
+#if NET48_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		[Test]
 		public void RaiseDynamicːDoubleNestedEventHandlerˑTest() {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
@@ -209,7 +209,7 @@ namespace KsWare.Presentation.Tests.Core {
 			var c=new EventUtilˑRaiseDynamicˑTestClass();
 			Assert.Throws<Exception>(() => c.RaiseːExceptionEvent(),"TestCase");
 		}
-
+#endif
 		private class EventUtilˑRaiseˑTestClass {
 			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(2, 1);
 			public int EventCount;
@@ -259,7 +259,7 @@ namespace KsWare.Presentation.Tests.Core {
 				EventUtil.Raise(TargetInvocationExceptionEvent,this,EventArgs.Empty,"{9EDDC463-BD20-4436-9168-B317A6D25A84}");
 			}
 		}
-		
+#if NET48_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		private class EventUtilˑRaiseDynamicˑTestClass {
 			public ValueChangedEventArgs DefaultValueChangedEventArgs=new ValueChangedEventArgs(2, 1);
 			public int EventCount;
@@ -318,6 +318,7 @@ namespace KsWare.Presentation.Tests.Core {
 			//this is a event handler which is double nested (=> namespace.class+class+delegate)
 			public delegate void DoubleNestedEventHandler(object sender, EventArgs args);
 		}
+#endif
 
 		//this is a event handler which is not known in Presentation framework
 		public delegate void CustomEventHandler(object sender, EventArgs args);

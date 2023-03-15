@@ -7,7 +7,9 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Windows;
+#if NET48_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 using Microsoft.CSharp.RuntimeBinder;
+#endif
 
 namespace KsWare.Presentation {
 
@@ -207,8 +209,8 @@ namespace KsWare.Presentation {
 //			}
 		}
 
-		#region dynamic
-
+		#region dynamic (only 4.8+)
+#if NET48_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		/// <summary> Helps to safely raise an event.
 		/// </summary>
 		/// <param name="delegate">The event delegate (<see cref="EventHandler"/>, <see cref="EventHandler{T}"/></param>
@@ -297,7 +299,7 @@ namespace KsWare.Presentation {
 				throw ex;
 			}
 		}
-	
+
 
 		private static void InvokeAppDispatcherDynamic(dynamic d, object sender, dynamic e, List<Exception> exceptions) {
 			ApplicationDispatcher.Invoke(() => InvokeDynamic(d,sender,e,exceptions));
@@ -328,7 +330,7 @@ namespace KsWare.Presentation {
 				exceptions.Add(ex);
 			}
 		}
-
+#endif
 		#endregion
 
 		/// <summary> Raises the Disposed-event.
