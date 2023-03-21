@@ -395,7 +395,15 @@ namespace KsWare.Presentation.ViewModelFramework {
 			var vm = new ActionVM {UI = {MenuItem = {Header = header,Icon=icon},Tag = tag},MːExecutedCallback = executeHandler};
 			return vm;
 		}
+		/// <summary>
+		/// Usage: <c>public ActionVM DoAnythingAction { get; [UsedImplicitly] private set; } = ActionVM.Implicit;</c>
+		/// </summary>
+		/// <remarks>
+		/// The Implicit field was introduced to suppress the CS8618 warning.
+		/// </remarks>
+		public static readonly ActionVM Implicit = new ActionVM {ImplicitTag = true};
 
+		internal bool ImplicitTag { get; private set; }
 	}
 
 }
