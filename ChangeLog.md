@@ -1,3 +1,7 @@
+# 0.41 [2023-03-21]
+- ActionVM.Implicit for suppressing the CS8618 warning.
+- FIX usage of HierarchyAttribute.CreateInstance
+
 # 0.40 [2023-03-12]
 - drop support for net5.0
 - drop support for net452, replaced with net462

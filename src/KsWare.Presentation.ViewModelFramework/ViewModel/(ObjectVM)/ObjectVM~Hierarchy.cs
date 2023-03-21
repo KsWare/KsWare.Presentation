@@ -323,6 +323,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 					if (!typeof (IObjectVM).IsAssignableFrom(type)) continue; // no IObjectVM
 					p.HierarchyAttributes = p.PropertyInfo.GetCustomAttributes(typeof (HierarchyAttribute), false).Cast<HierarchyAttribute>().ToArray();
 					if (p.HierarchyAttributes.Length > 0 && p.HierarchyAttributes.All(x => x.ItemType != HierarchyType.Child)) continue;
+					if (p.HierarchyAttributes.Any(a => a.CreateInstance == false)) continue;
 					propertyInfosFiltered.Add(p);
 				}
 				RegisterChildren_PropertyInfos.Add(declaringType, propertyInfosFiltered.ToArray());
@@ -333,6 +334,7 @@ namespace KsWare.Presentation.ViewModelFramework {
 				var type = p.PropertyInfo.PropertyType;
 				var name = p.PropertyInfo.Name;
 				var currentValue = p.PropertyInfo.GetValue(this, null);
+				if (currentValue == ActionVM.Implicit) currentValue = null; 
 				if (currentValue != null) continue; // skip already initialized property
 				if(p.HierarchyAttributes.Any(x=>x.CreateInstance==false)) continue; // skip because CreateInstance=false specified
 				
